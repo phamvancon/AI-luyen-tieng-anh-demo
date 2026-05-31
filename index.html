@@ -3681,10 +3681,12 @@ window.addEventListener('load', () => {
 
 
 
-<script id="smart-focus-vocabulary-sync">
 
-/* SMART START VOCABULARY DATABASE */
-window.smartFocusVocabulary = {
+
+
+<script id="smartstart-focus-vocab-system">
+
+window.smartStartFocusVocabulary = {
 
     ss_1:{
         unit1:["Hello","Goodbye","Nice to meet you"],
@@ -3748,21 +3750,20 @@ window.smartFocusVocabulary = {
     }
 };
 
-/* VOICE */
-function speakFocusWord(word){
-    const speech = new SpeechSynthesisUtterance(word);
-    speech.lang = 'en-US';
-    speech.rate = 0.9;
-    window.speechSynthesis.speak(speech);
+function smartSpeakVocabulary(word){
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
 }
 
-/* RENDER VOCABULARY */
-function renderFocusVocabulary(grade, unit){
+function renderSmartFocusVocabulary(grade='ss_1', unit='unit1'){
 
-    const box = document.getElementById('focusVocabularyWords');
-    if(!box) return;
+    const container = document.getElementById('smartFocusVocabularyWords');
 
-    const data = window.smartFocusVocabulary;
+    if(!container) return;
+
+    const data = window.smartStartFocusVocabulary || {};
 
     let words = [];
 
@@ -3771,87 +3772,73 @@ function renderFocusVocabulary(grade, unit){
     }
 
     if(words.length === 0){
-        words = ["Hello","Book","School"];
+        words = ['Hello','Book','School'];
     }
 
-    box.innerHTML = '';
+    container.innerHTML = '';
 
     words.forEach(word => {
 
-        box.innerHTML += `
-            <button
-                onclick="speakFocusWord('${word}')"
-                class="focus-vocab-btn"
-                style="
+        container.innerHTML += `
+            <div style="
                 display:flex;
                 align-items:center;
                 justify-content:space-between;
                 gap:10px;
-                width:100%;
                 padding:12px 14px;
-                border:none;
                 border-radius:16px;
-                margin-bottom:10px;
                 background:#f8fbff;
                 border:1px solid #dbeafe;
-                cursor:pointer;
-                transition:.2s ease;
-                ">
+                margin-bottom:10px;
+            ">
 
-                <div style="font-weight:800;color:#1e293b;text-align:left;">
+                <div style="font-weight:800;color:#1e293b;">
                     ${word}
                 </div>
 
-                <div style="
+                <button
+                    onclick="smartSpeakVocabulary('${word}')"
+                    style="
+                    border:none;
                     background:#3b82f6;
                     color:white;
-                    padding:6px 10px;
+                    padding:8px 12px;
                     border-radius:10px;
                     font-size:12px;
                     font-weight:700;
+                    cursor:pointer;
                     ">
-                    🔊
-                </div>
 
-            </button>
+                    🔊 Nghe
+
+                </button>
+
+            </div>
         `;
     });
 }
 
-/* AUTO SYNC CURRENT LESSON */
-function syncVocabularyWithCurrentLesson(){
+function detectCurrentSmartStartLesson(){
 
-    let currentGrade = "ss_1";
-    let currentUnit = "unit1";
+    let grade = 'ss_1';
+    let unit = 'unit1';
 
-    const activeElement =
-        document.querySelector('.lesson-card.active') ||
-        document.querySelector('.topic-card.active') ||
-        document.querySelector('[data-unit].active');
+    const text = document.body.innerText.toLowerCase();
 
-    let text = '';
+    if(text.includes('smart start 5')) grade = 'ss_5';
+    else if(text.includes('smart start 4')) grade = 'ss_4';
+    else if(text.includes('smart start 3')) grade = 'ss_3';
+    else if(text.includes('smart start 2')) grade = 'ss_2';
 
-    if(activeElement){
-        text = activeElement.innerText.toLowerCase();
-    }else{
-        text = document.body.innerText.toLowerCase();
+    const match = text.match(/unit\s*(\d+)/i);
+
+    if(match){
+        unit = 'unit' + match[1];
     }
 
-    if(text.includes('smart start 5')) currentGrade = 'ss_5';
-    else if(text.includes('smart start 4')) currentGrade = 'ss_4';
-    else if(text.includes('smart start 3')) currentGrade = 'ss_3';
-    else if(text.includes('smart start 2')) currentGrade = 'ss_2';
-
-    const unitMatch = text.match(/unit\s*(\d+)/i);
-
-    if(unitMatch){
-        currentUnit = 'unit' + unitMatch[1];
-    }
-
-    renderFocusVocabulary(currentGrade, currentUnit);
+    renderSmartFocusVocabulary(grade, unit);
 }
 
-/* CLICK UPDATE */
 document.addEventListener('click', function(e){
 
     const target = e.target.closest('button,.lesson-card,.topic-card,.unit-card');
@@ -3874,21 +3861,18 @@ document.addEventListener('click', function(e){
         unit = 'unit' + match[1];
     }
 
-    renderFocusVocabulary(grade, unit);
+    renderSmartFocusVocabulary(grade, unit);
 });
 
-/* INIT */
 window.addEventListener('load', () => {
 
-    const existing = document.getElementById('focusVocabularyContainer');
+    if(!document.getElementById('smartFocusVocabularyBox')){
 
-    if(!existing){
+        const wrapper = document.createElement('div');
 
-        const box = document.createElement('div');
+        wrapper.id = 'smartFocusVocabularyBox';
 
-        box.id = 'focusVocabularyContainer';
-
-        box.innerHTML = `
+        wrapper.innerHTML = `
             <div style="
                 margin:16px;
                 background:white;
@@ -3903,6 +3887,8 @@ window.addEventListener('load', () => {
                     align-items:center;
                     justify-content:space-between;
                     margin-bottom:14px;
+                    flex-wrap:wrap;
+                    gap:10px;
                 ">
 
                     <h3 style="
@@ -3911,7 +3897,7 @@ window.addEventListener('load', () => {
                         font-weight:900;
                         color:#0f172a;
                     ">
-                        🔊 Luyện Phát Âm Từ
+                        ⭐ Từ Vựng Trọng Tâm
                     </h3>
 
                     <div style="
@@ -3922,20 +3908,26 @@ window.addEventListener('load', () => {
                         border-radius:999px;
                         font-weight:700;
                     ">
-                        Smart Vocabulary
+                        Luyện phát âm từ
                     </div>
 
                 </div>
 
-                <div id="focusVocabularyWords"></div>
+                <div id="smartFocusVocabularyWords"></div>
 
             </div>
         `;
 
-        document.body.prepend(box);
+        const firstSection = document.body.firstElementChild;
+
+        if(firstSection){
+            document.body.insertBefore(wrapper, firstSection.nextSibling);
+        }else{
+            document.body.prepend(wrapper);
+        }
     }
 
-    syncVocabularyWithCurrentLesson();
+    detectCurrentSmartStartLesson();
 });
 
 </script>
