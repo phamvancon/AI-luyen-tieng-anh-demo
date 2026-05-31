@@ -862,7 +862,18 @@ body{
                         <span>Tra Cứu</span>
                     </button>
                 </div>
-            </footer>
+            <div class="flex items-center justify-between">
+            <div>
+                <h3 class="font-black text-sm md:text-base">AI Learning Flow</h3>
+                <p class="text-[11px] opacity-90 mt-1">
+                    Vocabulary → Phonics → Reading → Speaking → AI Feedback
+                </p>
+            </div>
+            <div class="text-3xl">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+        </div>
+</footer>
         </div>
 
         <!-- SLIDE-UP DICTIONARY SHEET & VOCABULARY VOICE CHECKER -->
@@ -3464,17 +3475,7 @@ function renderAILearningFlow(){
     const panel = document.createElement("div");
     panel.className = "bg-gradient-to-r from-indigo-500 to-violet-600 text-white rounded-2xl p-4 shadow-lg mb-4";
     panel.innerHTML = `
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="font-black text-sm md:text-base">AI Learning Flow</h3>
-                <p class="text-[11px] opacity-90 mt-1">
-                    Vocabulary → Phonics → Reading → Speaking → AI Feedback
-                </p>
-            </div>
-            <div class="text-3xl">
-                <i class="fa-solid fa-brain"></i>
-            </div>
-        </div>
+        
 
         <div class="grid grid-cols-5 gap-2 mt-4 text-center">
             <div class="bg-white/15 rounded-xl p-2">
@@ -3592,5 +3593,39 @@ generateAIResponse = function(userQuery){
 };
 
 </script>
+
+<script>
+window.addEventListener('load',()=>{
+
+    // Reorder main sections intelligently
+    const main = document.querySelector('main');
+    if(!main) return;
+
+    const sections = [...main.querySelectorAll('section, .section-card, .card, .rounded-3xl')];
+
+    const reading = sections.find(el => el.innerText?.includes('Reading'));
+    const speaking = sections.find(el => el.innerText?.includes('Speaking'));
+    const bookshelf = sections.find(el =>
+        el.innerText?.includes('Tủ sách') ||
+        el.innerText?.includes('Bookshelf')
+    );
+
+    const aiFlow = [...document.querySelectorAll('div')].find(el =>
+        el.innerText?.includes('AI Learning Flow')
+    );
+
+    // Better learning order
+    if(reading) main.appendChild(reading);
+    if(speaking) main.appendChild(speaking);
+
+    // Bookshelf near end
+    if(bookshelf) main.appendChild(bookshelf);
+
+    // AI flow final section
+    if(aiFlow) main.appendChild(aiFlow);
+
+});
+</script>
+
 </body>
 </html>
