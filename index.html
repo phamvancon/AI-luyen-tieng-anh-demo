@@ -13,12 +13,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -56,12 +56,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -448,11 +448,11 @@ body{
 
 
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <button onclick="loadSmartStartThemes('ss_1')" class="bg-blue-500 text-white rounded-2xl py-3 font-bold">Lớp 1</button>
-        <button onclick="loadSmartStartThemes('ss_2')" class="bg-indigo-500 text-white rounded-2xl py-3 font-bold">Lớp 2</button>
-        <button onclick="loadSmartStartThemes('ss_3')" class="bg-violet-500 text-white rounded-2xl py-3 font-bold">Lớp 3</button>
-        <button onclick="loadSmartStartThemes('ss_4')" class="bg-fuchsia-500 text-white rounded-2xl py-3 font-bold">Lớp 4</button>
-        <button onclick="loadSmartStartThemes('ss_5')" class="bg-emerald-500 text-white rounded-2xl py-3 font-bold">Lớp 5</button>
+        <button onclick="loadSmartStartThemes('')" class="bg-blue-500 text-white rounded-2xl py-3 font-bold">Lớp 1</button>
+        <button onclick="loadSmartStartThemes('')" class="bg-indigo-500 text-white rounded-2xl py-3 font-bold">Lớp 2</button>
+        <button onclick="loadSmartStartThemes('')" class="bg-violet-500 text-white rounded-2xl py-3 font-bold">Lớp 3</button>
+        <button onclick="loadSmartStartThemes('')" class="bg-fuchsia-500 text-white rounded-2xl py-3 font-bold">Lớp 4</button>
+        <button onclick="loadSmartStartThemes('')" class="bg-emerald-500 text-white rounded-2xl py-3 font-bold">Lớp 5</button>
     </div>
 </div>
 
@@ -496,7 +496,7 @@ body{
                             <!-- English  Text -->
                             <div class="mt-4 bg-slate-50/80 rounded-xl p-4 border border-slate-100 relative">
                                 <p class="text-[10px] text-slate-400 absolute top-2 right-3 italic">Nhấp đúp chuột để tra nhanh từ mới</p>
-                                <p id="reading-content" class="text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-3 select-text">
+                                <p id="reading-content" class="text-base md:text-lg text-slate-700 leading-relaxed font- pt-3 select-text">
                                     Đang tải văn bản tiếng Anh...
                                 </p>
                             </div>
@@ -525,7 +525,7 @@ body{
                             </div>
                             <select id="curriculum-selector" onchange="switchCurriculum(this.value)" class="bg-white text-xs font-bold text-brand-700 px-2 py-1 rounded-lg border border-brand-200 focus:outline-none">
                                 <option value="daily">Luyện Đọc Hàng Ngày</option>
-                                <option value="smart_start">i-Learn Smart Start</option>
+                                <option value="smart_start">i-Learn </option>
                             </select>
                         </div>
 
@@ -543,17 +543,17 @@ body{
                             </div>
                         </div>
 
-                        <!-- Smart Start Selector Box -->
+                        <!--  Selector Box -->
                         <div id="smart-start-selector-box" class="bg-slate-50 border border-slate-200 rounded-2xl p-3 shadow-inner hidden space-y-2">
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Chọn Lớp Smart Start</label>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Chọn Lớp </label>
                                     <select id="smart-class-selector" onchange="loadSmartStartThemes(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
-                                        <option value="ss_1">Smart Start Lớp 1</option>
-                                        <option value="ss_2">Smart Start Lớp 2</option>
-                                        <option value="ss_3">Smart Start Lớp 3</option>
-                                        <option value="ss_4" selected>Smart Start Lớp 4</option>
-                                        <option value="ss_5">Smart Start Lớp 5</option>
+                                        <option value=""> Lớp 1</option>
+                                        <option value=""> Lớp 2</option>
+                                        <option value=""> Lớp 3</option>
+                                        <option value="" selected> Lớp 4</option>
+                                        <option value=""> Lớp 5</option>
                                     </select>
                                 </div>
                                 <div>
@@ -565,30 +565,30 @@ body{
                             </div>
                         </div>
 
-                        <!-- TỦ SÁCH GIÁO KHOA ĐIỆN TỬ SMART START -->
+                        <!-- TỦ SÁCH GIÁO KHOA ĐIỆN TỬ  -->
                         <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                             <h4 class="font-bold text-slate-900 text-xs mb-2.5 flex items-center justify-between">
-                                <span class="flex items-center"><i class="fa-solid fa-cubes text-brand-600 mr-2"></i>Tủ Sách Điện Tử i-Learn Smart Start</span>
+                                <span class="flex items-center"><i class="fa-solid fa-cubes text-brand-600 mr-2"></i>Tủ Sách Điện Tử i-Learn </span>
                                 <span class="text-[10px] text-brand-600 font-bold bg-brand-50 px-2 py-0.5 rounded-md">Lớp 1 - 5</span>
                             </h4>
                             <div class="grid grid-cols-5 gap-1.5">
-                                <button onclick="openCustomTextbook('ss_1')" class="bg-gradient-to-b from-blue-50 to-blue-100 border border-blue-200 text-blue-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                <button onclick="openCustomTextbook('')" class="bg-gradient-to-b from-blue-50 to-blue-100 border border-blue-200 text-blue-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
                                     <i class="fa-solid fa-book-open text-base text-blue-600 mb-1"></i>
                                     <span class="text-[10px] font-extrabold">Lớp 1</span>
                                 </button>
-                                <button onclick="openCustomTextbook('ss_2')" class="bg-gradient-to-b from-emerald-50 to-emerald-100 border border-emerald-200 text-emerald-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                <button onclick="openCustomTextbook('')" class="bg-gradient-to-b from-emerald-50 to-emerald-100 border border-emerald-200 text-emerald-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
                                     <i class="fa-solid fa-book-open text-base text-emerald-600 mb-1"></i>
                                     <span class="text-[10px] font-extrabold">Lớp 2</span>
                                 </button>
-                                <button onclick="openCustomTextbook('ss_3')" class="bg-gradient-to-b from-purple-50 to-purple-100 border border-purple-200 text-purple-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                <button onclick="openCustomTextbook('')" class="bg-gradient-to-b from-purple-50 to-purple-100 border border-purple-200 text-purple-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
                                     <i class="fa-solid fa-book-open text-base text-purple-600 mb-1"></i>
                                     <span class="text-[10px] font-extrabold">Lớp 3</span>
                                 </button>
-                                <button onclick="openCustomTextbook('ss_4')" class="bg-gradient-to-b from-amber-50 to-amber-100 border border-amber-200 text-amber-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                <button onclick="openCustomTextbook('')" class="bg-gradient-to-b from-amber-50 to-amber-100 border border-amber-200 text-amber-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
                                     <i class="fa-solid fa-book-open text-base text-amber-600 mb-1"></i>
                                     <span class="text-[10px] font-extrabold">Lớp 4</span>
                                 </button>
-                                <button onclick="openCustomTextbook('ss_5')" class="bg-gradient-to-b from-rose-50 to-rose-100 border border-rose-200 text-rose-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                <button onclick="openCustomTextbook('')" class="bg-gradient-to-b from-rose-50 to-rose-100 border border-rose-200 text-rose-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
                                     <i class="fa-solid fa-book-open text-base text-rose-600 mb-1"></i>
                                     <span class="text-[10px] font-extrabold">Lớp 5</span>
                                 </button>
@@ -597,50 +597,7 @@ body{
 
                         
 <!-- AI SPEED CONTROLS -->
-<div class="mt-4 bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
-    <div class="flex items-center justify-between mb-3">
-        <h4 class="font-black text-xs text-slate-800 flex items-center">
-            <i class="fa-solid fa-gauge-high text-brand-600 mr-2"></i>
-            AI  Speed
-        </h4>
-        <span id="speech-speed-label" class="text-[10px] bg-brand-50 text-brand-700 px-2 py-1 rounded-lg font-black">
-            Normal
-        </span>
-    </div>
 
-    <div class="grid grid-cols-3 gap-2 mb-3">
-        <button onclick="setSpeechRate(0.7,'Slow')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-xl text-[11px] font-black">
-            🐢 Slow
-        </button>
-        <button onclick="setSpeechRate(1,'Normal')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-black">
-            ⚡ Normal
-        </button>
-        <button onclick="setSpeechRate(1.3,'Fast')" class="bg-rose-500 hover:bg-rose-600 text-white py-2 rounded-xl text-[11px] font-black">
-            🚀 Fast
-        </button>
-    </div>
-
-    
-<div class="mt-3 grid grid-cols-2 gap-2">
-    
-
-    <button onclick="speakTextUS(currentActiveTask.content)" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl text-[11px] font-black shadow">
-        🎧 Nghe Toàn Bài
-    </button>
-</div>
-
-<div class="grid grid-cols-3 gap-2">
-        <button onclick="pauseSpeech()" class="bg-amber-100 text-amber-700 py-2 rounded-xl text-[11px] font-black">
-            ⏸ Pause
-        </button>
-        <button onclick="resumeSpeech()" class="bg-emerald-100 text-emerald-700 py-2 rounded-xl text-[11px] font-black">
-            ▶ Resume
-        </button>
-        <button onclick="repeatSpeech()" class="bg-violet-100 text-violet-700 py-2 rounded-xl text-[11px] font-black">
-            🔁 Repeat
-        </button>
-    </div>
-</div>
 
 
                         <!--  List Box -->
@@ -919,26 +876,7 @@ body{
             </div>
         </div>
 
-<div class="bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 rounded-3xl shadow-2xl p-6 mb-6 text-white overflow-hidden relative">
 
-    <div class="absolute -top-6 -right-6 w-32 h-32 bg-white/10 rounded-full"></div>
-    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full"></div>
-
-    <div class="relative z-10">
-        <div class="flex items-center justify-between mb-5">
-            <div>
-                <h2 class="text-2xl md:text-3xl font-black">
-                    🚀 AI Learning Flow
-                </h2>
-                <p class="text-white/80 mt-2 text-sm">
-                    Học tiếng Anh thông minh cùng AI tương tác
-                </p>
-            </div>
-
-            <div class="text-5xl animate-bounce">
-                🤖
-            </div>
-        </div>
 
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
 
@@ -1206,12 +1144,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -1231,12 +1169,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -1256,12 +1194,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -1400,12 +1338,12 @@ window.addEventListener('load', () => {
                     title: "Healthy Eating Habits",
                     tag: "Dinh Dưỡng 🍎",
                     image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format&fit=crop&q=80",
-                    content: "Eating a balanced diet is very important for growing teenagers. We should consume more organic vegetables, fresh fruits, and whole grains while avoiding excessive fast food and sugary drinks that harm our teeth.",
+                    content: "Eating a balanced diet is very important for growing teenagers. We should consume more organic vegetables, fresh fruits, and whole grains while avoiding excessive  food and sugary drinks that harm our teeth.",
                     vocab: [
                         { word: "Balanced", type: "adj", ipa: "/ˈbælənst/", vi: "Cân đối, cân bằng", desc: "Keeping different elements in correct proportions." },
                         { word: "Consume", type: "verb", ipa: "/kənˈsjuːm/", vi: "Tiêu thụ, ăn uống", desc: "Eat, drink, or ingest food." },
                         { word: "Organic", type: "adj", ipa: "/ɔːˈɡænɪk/", vi: "Hữu cơ, sạch", desc: "Produced without chemical fertilizers." },
-                        { word: "Excessive", type: "adj", ipa: "/ɪkˈsesɪv/", vi: "Quá mức, quá nhiều", desc: "More than is necessary or normal." }
+                        { word: "Excessive", type: "adj", ipa: "/ɪkˈsesɪv/", vi: "Quá mức, quá nhiều", desc: "More than is necessary or ." }
                     ]
                 },
                 {
@@ -1454,7 +1392,7 @@ window.addEventListener('load', () => {
                     title: "Prioritizing Mental Health in Youth",
                     tag: "TÂM LÝ 🧠",
                     image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
-                    content: "In our fast-paced modern world, prioritizing mental health is as essential as maintaining physical wellness. High school students often suffer from academic pressure, making mindfulness exercises and open conversations about anxiety absolutely crucial.",
+                    content: "In our -paced modern world, prioritizing mental health is as essential as maintaining physical wellness. High school students often suffer from academic pressure, making mindfulness exercises and open conversations about anxiety absolutely crucial.",
                     vocab: [
                         { word: "Prioritizing", type: "verb", ipa: "/praɪˈɒrətaɪzɪŋ/", vi: "Ưu tiên hàng đầu", desc: "Treating something as more important than other things." },
                         { word: "Wellness", type: "noun", ipa: "/ˈwel nəs/", vi: "Sức khỏe toàn diện", desc: "The state of being in good health." },
@@ -1491,88 +1429,14 @@ window.addEventListener('load', () => {
             ]
         };
 
-        const smartStartDatabase = {
-            ss_1: {
-                theme1: {
-                    title: "Smart Start 1 - Theme 1: Hello!",
-                    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&auto=format&fit=crop&q=80",
-                    content: "Hello! My name is Bill. What is your name? Nice to meet you. Good-bye!",
-                    vocab: [
-                        { word: "Hello", type: "excl", ipa: "/həˈləʊ/", vi: "Xin chào", desc: "Used as a greeting." },
-                        { word: "Name", type: "noun", ipa: "/neɪm/", vi: "Tên", desc: "A word by which a person is known." },
-                        { word: "Meet", type: "verb", ipa: "/miːt/", vi: "Gặp gỡ", desc: "To come into contact with someone." },
-                        { word: "Good-bye", type: "excl", ipa: "/ˌɡʊdˈbaɪ/", vi: "Tạm biệt", desc: "Used to express good wishes when parting." }
-                    ]
-                },
-                theme2: {
-                    title: "Smart Start 1 - Theme 2: School",
-                    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&auto=format&fit=crop&q=80",
-                    content: "This is my school. I have a book, a pencil, and a ruler in my bag. I like my classroom.",
-                    vocab: [
-                        { word: "School", type: "noun", ipa: "/skuːl/", vi: "Trường học", desc: "A place where people go to learn." },
-                        { word: "Pencil", type: "noun", ipa: "/ˈpensl/", vi: "Bút chì", desc: "An instrument for writing or drawing." },
-                        { word: "Book", type: "noun", ipa: "/bʊk/", vi: "Sách", desc: "A written or printed work." },
-                        { word: "Ruler", type: "noun", ipa: "/ˈruːlər/", vi: "Thước kẻ", desc: "A straight strip of plastic or wood." }
-                    ]
-                }
-            },
-            ss_2: {
-                theme1: {
-                    title: "Smart Start 2 - Theme 1: Feelings",
-                    image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&auto=format&fit=crop&q=80",
-                    content: "Today, I feel happy. My friend is sad. Are you hot or cold? We are fine, thank you.",
-                    vocab: [
-                        { word: "Happy", type: "adj", ipa: "/ˈhæpi/", vi: "Vui vẻ, hạnh phúc", desc: "Feeling or showing pleasure." },
-                        { word: "Sad", type: "adj", ipa: "/sæd/", vi: "Buồn bã", desc: "Feeling or showing sorrow." },
-                        { word: "Fine", type: "adj", ipa: "/faɪn/", vi: "Khỏe, tốt", desc: "In a satisfactory state." }
-                    ]
-                }
-            },
-            ss_3: {
-                theme1: {
-                    title: "Smart Start 3 - Theme 1: My Friends",
-                    image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&auto=format&fit=crop&q=80",
-                    content: "Hello! I am from Vietnam. My friend is Alfie. He is from Alpha. We like to paint and dance together.",
-                    vocab: [
-                        { word: "Friend", type: "noun", ipa: "/frend/", vi: "Bạn bè", desc: "A person who you like and trust." },
-                        { word: "Dance", type: "verb", ipa: "/dɑːns/", vi: "Nhảy, múa", desc: "To move the body and feet to music." },
-                        { word: "Paint", type: "verb", ipa: "/peɪnt/", vi: "Vẽ tranh", desc: "To cover a surface with paint." }
-                    ]
-                }
-            },
-            ss_4: {
-                theme1: {
-                    title: "Smart Start 4 - Theme 1: Animals",
-                    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&auto=format&fit=crop&q=80",
-                    content: "Look at the animals in the zoo. The monkeys are swinging on the trees. The giraffes are eating leaves. The lions are roaring loudly under the warm sun.",
-                    vocab: [
-                        { word: "Zoo", type: "noun", ipa: "/zuː/", vi: "Sở thú", desc: "A place where many wild animals are kept." },
-                        { word: "Giraffe", type: "noun", ipa: "/dʒəˈrɑːf/", vi: "Hươu cao cổ", desc: "A large African animal with a very long neck." },
-                        { word: "Swinging", type: "verb", ipa: "/ˈswɪŋɪŋ/", vi: "Đu đưa, đánh đu", desc: "Moving back and forth while suspended." },
-                        { word: "Roaring", type: "verb/noun", ipa: "/ˈrɔːrɪŋ/", vi: "Tiếng gầm", desc: "Making a loud, deep sound, especially a lion." }
-                    ]
-                }
-            },
-            ss_5: {
-                theme1: {
-                    title: "Smart Start 5 - Theme 1: School",
-                    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=80",
-                    content: "Welcome back to school! Our school has a large playground, a modern computer room, and a big library.",
-                    vocab: [
-                        { word: "Playground", type: "noun", ipa: "/ˈpleɪɡraʊnd/", vi: "Sân chơi", desc: "An outdoor area provided for children to play on." },
-                        { word: "Library", type: "noun", ipa: "/ˈlaɪbrəri/", vi: "Thư viện", desc: "A building containing collections of books." },
-                        { word: "Subject", type: "noun", ipa: "/ˈsʌbdʒɪkt/", vi: "Môn học", desc: "An area of knowledge studied." }
-                    ]
-                }
-            }
-        };
+        const 
 
         const textbookLinks = {
-            ss_1: "https://online.flipbuilder.com/sdtta/vugc/",
-            ss_2: "https://online.flipbuilder.com/sdtta/mcbr/",
-            ss_3: "https://online.flipbuilder.com/sdtta/skiv/",
-            ss_4: "https://online.flipbuilder.com/sdtta/nhks/",
-            ss_5: "https://online.flipbuilder.com/sdtta/uehz/"
+            : "https://online.flipbuilder.com/sdtta/vugc/",
+            : "https://online.flipbuilder.com/sdtta/mcbr/",
+            : "https://online.flipbuilder.com/sdtta/skiv/",
+            : "https://online.flipbuilder.com/sdtta/nhks/",
+            : "https://online.flipbuilder.com/sdtta/uehz/"
         };
 
         const DEFAULT_ADMIN_PASS = "215151365";
@@ -1953,7 +1817,7 @@ window.addEventListener('load', () => {
             const url = textbookLinks[classKey];
             if (url) {
                 window.open(url, '_blank');
-                showToast(`Đang mở Sách giáo khoa Smart Start ${classKey.replace('ss_', 'Lớp ')} online...`, "fa-solid fa-book");
+                showToast(`Đang mở Sách giáo khoa  ${classKey.replace('ss_', 'Lớp ')} online...`, "fa-solid fa-book");
             } else {
                 showToast("Liên kết chưa khả dụng.");
             }
@@ -1966,7 +1830,7 @@ window.addEventListener('load', () => {
             if (mode === "smart_start") {
                 smartBox.classList.remove("hidden");
                 dailyBox.classList.add("hidden");
-                loadSmartStartThemes(document.getElementById("smart-class-selector").value);
+                
             } else {
                 smartBox.classList.add("hidden");
                 dailyBox.classList.remove("hidden");
@@ -1977,244 +1841,7 @@ window.addEventListener('load', () => {
         function loadSmartStartThemes(classKey) {
             const themeSelector = document.getElementById("smart-theme-selector");
             themeSelector.innerHTML = "";
-            const themes = smartStartDatabase[classKey];
-            if (themes) {
-                Object.keys(themes).forEach(key => {
-                    const option = document.createElement("option");
-                    option.value = `${classKey}_${key}`;
-                    option.innerText = themes[key].title.split(" - ")[1] || key;
-                    themeSelector.appendChild(option);
-                });
-                loadSmartThemeContent(themeSelector.value);
-            }
-        }
-
-        function loadSmartThemeContent(combinedKey) {
-            if (!combinedKey) return;
-            const parts = combinedKey.split("_");
-            const classKey = parts[0] + "_" + parts[1];
-            const themeKey = parts[2];
-            
-            const targetTask = smartStartDatabase[classKey]?.[themeKey];
-            if (targetTask) {
-                currentActiveTask = targetTask;
-                renderTaskUI();
-            }
-        }
-
-        function loadDailyTaskBasedOnGrade(grade) {
-            activeDailySuggestionId = null; 
-            renderDailySuggestions(grade);
-        }
-
-        function renderTaskUI() {
-            if (!currentActiveTask) return;
-            document.getElementById("reading-title").innerText = currentActiveTask.title;
-            document.getElementById("reading-content").innerText = currentActiveTask.content;
-            document.getElementById("reading-illustration").src = currentActiveTask.image;
-
-            const container = document.getElementById("vocabulary-container");
-            container.innerHTML = "";
-            currentActiveTask.vocab.forEach(item => {
-                const vocabCard = document.createElement("div");
-                vocabCard.className = "bg-slate-50 hover:bg-slate-100 p-3 rounded-xl border border-slate-100 flex justify-between items-center transition cursor-pointer";
-                vocabCard.onclick = () => showDetail(item);
-                vocabCard.innerHTML = `
-                    <div>
-                        <div class="flex items-center space-x-2">
-                            <span class="font-extrabold text-sm text-slate-900">${item.word}</span>
-                            <span class="text-[10px] font-bold text-slate-400">(${item.type})</span>
-                        </div>
-                        <p class="text-xs text-slate-500 mt-0.5">${item.ipa}</p>
-                    </div>
-                    <div class="text-right flex items-center space-x-2">
-                        <div>
-                            <p class="text-xs font-bold text-brand-600">${item.vi}</p>
-                            <span class="text-[9px] text-slate-400">Luyện nói AI <i class="fa-solid fa-microphone text-[8px] text-rose-500 animate-pulse ml-0.5"></i></span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(vocabCard);
-            });
-        }
-
-        function renderStudentInfo(state) {
-            document.getElementById("display-student-name").innerText = state.name;
-            document.getElementById("display-streak-count").innerText = state.streak;
-            document.getElementById("display-points-count").innerText = state.points || 0;
-            document.getElementById("grade-selector").value = state.grade;
-            document.getElementById("game-time-left").innerText = state.playTime || 0;
-        }
-
-        async function changeGrade(newGrade) {
-            if (!activeStudentId) return;
-
-            activeStudentData.grade = newGrade;
-            await syncStudentProfileToStorage();
-
-            renderStudentInfo(activeStudentData);
-            if (currentCurriculumMode === "daily") {
-                loadDailyTaskBasedOnGrade(newGrade);
-            }
-            showToast(`Đã chuyển sang cấp: ${newGrade === 'cap_1' ? 'Cấp 1' : newGrade === 'cap_2' ? 'Cấp 2' : 'Cấp 3'}`);
-        }
-
-        async function checkDailyStreakValidation() {
-            if (!activeStudentData || !activeStudentData.lastActive) return;
-
-            const today = new Date().toDateString();
-            const lastActiveDate = new Date(activeStudentData.lastActive);
-            const todayDate = new Date(today);
-
-            const differenceInTime = todayDate.getTime() - lastActiveDate.getTime();
-            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-
-            if (differenceInDays > 1) {
-                activeStudentData.streak = 0;
-                await syncStudentProfileToStorage();
-                renderStudentInfo(activeStudentData);
-                showToast("Chuỗi ngày luyện đọc của bạn đã bị reset!", "fa-solid fa-triangle-exclamation text-rose-400");
-            }
-        }
-
-        async function triggerStreakSuccess() {
-            const today = new Date().toDateString();
-            if (activeStudentData.lastActive === today) {
-                const extraPoints = 10;
-                activeStudentData.points = (activeStudentData.points || 0) + extraPoints;
-                await syncStudentProfileToStorage();
-                renderStudentInfo(activeStudentData);
-                showToast(`+10 Điểm 💎 cho việc kiên trì luyện tập!`);
-                return;
-            }
-
-            const nextStreak = (activeStudentData.streak || 0) + 1;
-            const pointsGained = 40; 
-            activeStudentData.streak = nextStreak;
-            activeStudentData.points = (activeStudentData.points || 0) + pointsGained;
-            activeStudentData.lastActive = today;
-
-            await syncStudentProfileToStorage();
-            renderStudentInfo(activeStudentData);
-            showToast(`🔥 Chuỗi ${nextStreak} ngày học liên tục! Bạn được +40 Điểm 💎!`, "fa-solid fa-circle-check");
-        }
-
-        async function syncStudentProfileToStorage() {
-            if (!activeStudentId) return;
-            localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
-            if (cloudConnected && db) {
-                try {
-                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(activeStudentId).set(activeStudentData);
-                } catch (e) {
-                    console.error("Cloud update error", e);
-                }
-            }
-        }
-
-        let dictionaryAudioUrl = "";
-        let activeTargetWord = "";
-        let isListening = false;
-
-        function lookupWordDirectly() {
-            const wordInput = document.getElementById("dict-quick-input");
-            const word = wordInput.value.trim();
-            if (word === "") {
-                showToast("Hãy điền từ vựng muốn tra cứu!");
-                return;
-            }
-            triggerDictionarySearch(word);
-        }
-
-        async function triggerDictionarySearch(word) {
-            document.getElementById("dict-result-word").innerText = word;
-            document.getElementById("dict-result-phonetic").innerText = "🔄 Đang tìm...";
-            document.getElementById("dict-result-vi").innerText = "Đang tra nghĩa Việt...";
-            document.getElementById("dict-result-en").innerText = "Đang tìm định nghĩa...";
-            document.getElementById("vocab-speech-feedback-card").classList.add("hidden");
-            
-            activeTargetWord = word;
-            dictionaryAudioUrl = "";
-            openDictSheet();
-
-            try {
-                const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-                if (!res.ok) throw new Error("Word not found");
-                
-                const data = await res.json();
-                const dictEntry = data[0];
-
-                const phoneticText = dictEntry.phonetic || (dictEntry.phonetics && dictEntry.phonetics.find(p => p.text)?.text) || "/.../";
-                document.getElementById("dict-result-phonetic").innerText = phoneticText;
-
-                const mainDefinition = dictEntry.meanings[0].definitions[0].definition;
-                document.getElementById("dict-result-en").innerText = mainDefinition;
-
-                const firstAudioObj = dictEntry.phonetics.find(p => p.audio && p.audio !== "");
-                dictionaryAudioUrl = firstAudioObj ? firstAudioObj.audio : "";
-
-                const translateRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|vi`);
-                if (translateRes.ok) {
-                    const transData = await translateRes.json();
-                    document.getElementById("dict-result-vi").innerText = transData.responseData.translatedText;
-                } else {
-                    document.getElementById("dict-result-vi").innerText = "Không thể tải bản dịch tiếng Việt.";
-                }
-
-            } catch (err) {
-                document.getElementById("dict-result-phonetic").innerText = "/Not Found/";
-                document.getElementById("dict-result-vi").innerText = "Không tìm thấy từ này trong cơ sở từ điển.";
-                document.getElementById("dict-result-en").innerText = "Vui lòng kiểm tra lại chính tả.";
-                dictionaryAudioUrl = "";
-            }
-        }
-
-        function playDictAudio() {
-            if (dictionaryAudioUrl) {
-                const aud = new Audio(dictionaryAudioUrl);
-                aud.play().catch(() => playFallbackSpeechSynthesis());
-            } else {
-                playFallbackSpeechSynthesis();
-            }
-        }
-
-        function playFallbackSpeechSynthesis() {
-            const word = document.getElementById("dict-result-word").innerText;
-            speakTextUS(word);
-        }
-
-        function showDetail(item) {
-            document.getElementById("dict-result-word").innerText = item.word;
-            document.getElementById("dict-result-phonetic").innerText = item.ipa;
-            document.getElementById("dict-result-vi").innerText = item.vi;
-            document.getElementById("dict-result-en").innerText = item.desc;
-            
-            document.getElementById("vocab-speech-feedback-card").classList.add("hidden");
-            
-            activeTargetWord = item.word;
-            dictionaryAudioUrl = "";
-            openDictSheet();
-        }
-
-        function startOralChallenge() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                showToast("Trình duyệt không hỗ trợ micro thu âm.");
-                return;
-            }
-
-            if (isListening) return;
-
-            const rec = new SpeechRecognition();
-            rec.lang = "en-US";
-            rec.interimResults = false;
-            rec.maxAlternatives = 1;
-
-            rec.onstart = () => {
-                isListening = true;
-                const btn = document.getElementById("btn-vocab-speech-mic");
-                btn.className = "w-full py-3.5 bg-yellow-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
-                document.getElementById("vocab-mic-btn-text").innerText = "🎙 *ĐANG NGHE*... Con phát âm to từ vựng!";
-            };
+            const themes = 
 
             rec.onend = () => {
                 isListening = false;
@@ -2396,7 +2023,7 @@ window.addEventListener('load', () => {
         
 let currentSpeechRate = 1;
 
-function setSpeechRate(rate, label) {
+function (rate, label) {
     currentSpeechRate = rate;
     localStorage.setItem("eco_speech_rate", rate);
 
@@ -2408,7 +2035,7 @@ function setSpeechRate(rate, label) {
     showToast(`Đã đổi tốc độ đọc: ${label}`);
 }
 
-function speakTextUS(text) {
+function (text) {
     if ('speechSynthesis' in window) {
 
         window.speechSynthesis.cancel();
@@ -2434,23 +2061,23 @@ function speakTextUS(text) {
     }
 }
 
-function pauseSpeech() {
-    window.speechSynthesis.pause();
+function Speech() {
+    window.speechSynthesis.();
 }
 
-function resumeSpeech() {
-    window.speechSynthesis.resume();
+function Speech() {
+    window.speechSynthesis.();
 }
 
-function repeatSpeech() {
+function Speech() {
     if (currentActiveTask) {
-        speakTextUS(currentActiveTask.content);
+        (currentActiveTask.content);
     }
 }
 
 
         function readAloudTaskText() {
-            speakTextUS(currentActiveTask.content);
+            (currentActiveTask.content);
         }
 
         function handleOralResult(spokenText) {
@@ -2609,14 +2236,14 @@ function repeatSpeech() {
                 const currentLoader = document.getElementById("chat-loading-placeholder");
                 if (currentLoader) currentLoader.remove();
 
-                const normalized = userQuery.toLowerCase();
+                const ized = userQuery.toLowerCase();
                 let aiEnglishResponse = "";
                 let aiVietnameseHint = "";
 
-                if (normalized.includes("hello") || normalized.includes("hi")) {
+                if (ized.includes("hello") || ized.includes("hi")) {
                     aiEnglishResponse = "Hello there! It is wonderful to hear from you. How was your reading lesson today?";
                     aiVietnameseHint = "Chào con! Rất vui được trò chuyện cùng con. Buổi học đọc hôm nay thế nào rồi?";
-                } else if (normalized.includes("beautiful") || normalized.includes("weather") || normalized.includes("picnic")) {
+                } else if (ized.includes("beautiful") || ized.includes("weather") || ized.includes("picnic")) {
                     aiEnglishResponse = "Yes! Having a family picnic in such beautiful weather is super fun. Do you like picnics?";
                     aiVietnameseHint = "Đúng rồi! Đi dã ngoại cùng gia đình trong thời tiết đẹp thế này thì cực kỳ vui luôn. Con có thích đi dã ngoại không?";
                 } else {
@@ -2625,7 +2252,7 @@ function repeatSpeech() {
                 }
 
                 addChatMessage("ai", aiEnglishResponse, aiVietnameseHint);
-                speakTextUS(aiEnglishResponse);
+                (aiEnglishResponse);
 
             }, 1300);
         }
@@ -3504,12 +3131,12 @@ window.addEventListener('load', () => {
     if (savedRate) {
         currentSpeechRate = parseFloat(savedRate);
 
-        let label = "Normal";
+        let label = "";
 
         if (currentSpeechRate < 1) {
-            label = "Slow";
+            label = "";
         } else if (currentSpeechRate > 1) {
-            label = "Fast";
+            label = "";
         }
 
         const speedLabel = document.getElementById("speech-speed-label");
@@ -3521,7 +3148,7 @@ window.addEventListener('load', () => {
 });
 
 
-/* ===== PRODUCTION SMART START EXPANSION PACK ===== */
+/* ===== PRODUCTION  EXPANSION PACK ===== */
 
 function generateMegaCurriculum() {
     const phonicsSets = [
@@ -3541,33 +3168,13 @@ function generateMegaCurriculum() {
 
     for(let grade=1; grade<=5; grade++){
         const key = `ss_${grade}`;
-        if(!smartStartDatabase[key]) smartStartDatabase[key] = {};
+        if(!
 
         for(let i=1; i<=25; i++){
             const topic = topicPool[(i + grade) % topicPool.length];
             const phonic = phonicsSets[i % phonicsSets.length];
 
-            smartStartDatabase[key][`theme${i}`] = {
-                title: `Smart Start ${grade} - Theme ${i}: ${topic}`,
-                image: `https://picsum.photos/seed/${grade}_${i}/900/500`,
-                content: `Today we learn about ${topic}. Students practice speaking, vocabulary, and phonics together. We read simple English sentences and answer questions with confidence.`,
-                speaking: [
-                    `What do you like about ${topic}?`,
-                    `Can you describe ${topic} in English?`,
-                    `Do you practice English every day?`
-                ],
-                phonics: {
-                    sound: phonic.sound,
-                    word: phonic.word,
-                    sentence: phonic.sentence
-                },
-                vocab: [
-                    { word: topic, type: "noun", ipa: "/ˈtɒpɪk/", vi: `Chủ đề ${topic}`, desc: `Learning topic about ${topic}` },
-                    { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "To do something many times to improve." },
-                    { word: "Confidence", type: "noun", ipa: "/ˈkɒnfɪdəns/", vi: "Sự tự tin", desc: "Belief in yourself." },
-                    { word: phonic.word, type: "phonics", ipa: "/fəˈnɪks/", vi: `Từ luyện âm ${phonic.sound}`, desc: phonic.sentence }
-                ]
-            };
+            
         }
     }
 }
@@ -3616,7 +3223,7 @@ window.addEventListener("load", () => {
     // Auto load curriculum
     const smartSelector = document.getElementById("smart-class-selector");
     if(smartSelector){
-        loadSmartStartThemes(smartSelector.value || "ss_1");
+        
     }
 
     // Responsive optimization
@@ -3678,10 +3285,10 @@ window.addEventListener('load',()=>{
     const aiVoiceSections = [...document.querySelectorAll('div,section')].filter(el =>
         el.innerText &&
         (
-            el.innerText.includes('AI Reading Speed') ||
-            el.innerText.includes('Nghe Mẫu AI') ||
-            el.innerText.includes('Pause') ||
-            el.innerText.includes('Resume')
+            el.innerText.includes('') ||
+            el.innerText.includes('') ||
+            el.innerText.includes('') ||
+            el.innerText.includes('')
         )
     );
 
@@ -3694,907 +3301,7 @@ window.addEventListener('load',()=>{
 
 
 <script>
-/* ===== FULL SMART START DATABASE ===== */
 
-const smartStartDatabase = {
-  "ss_1": {
-    "theme_1": {
-      "title": "Smart Start 1 - Travel",
-      "content": "This lesson helps students learn about Travel through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_2": {
-      "title": "Smart Start 1 - Farm",
-      "content": "This lesson helps students learn about Farm through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_3": {
-      "title": "Smart Start 1 - Ocean",
-      "content": "This lesson helps students learn about Ocean through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_4": {
-      "title": "Smart Start 1 - Space",
-      "content": "This lesson helps students learn about Space through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_5": {
-      "title": "Smart Start 1 - Robots",
-      "content": "This lesson helps students learn about Robots through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_6": {
-      "title": "Smart Start 1 - Birthday",
-      "content": "This lesson helps students learn about Birthday through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_7": {
-      "title": "Smart Start 1 - Healthy Habits",
-      "content": "This lesson helps students learn about Healthy Habits through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_8": {
-      "title": "Smart Start 1 - My House",
-      "content": "This lesson helps students learn about My House through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_9": {
-      "title": "Smart Start 1 - My City",
-      "content": "This lesson helps students learn about My City through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_10": {
-      "title": "Smart Start 1 - Transportation",
-      "content": "This lesson helps students learn about Transportation through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_11": {
-      "title": "Smart Start 1 - Jobs",
-      "content": "This lesson helps students learn about Jobs through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_12": {
-      "title": "Smart Start 1 - Daily Routine",
-      "content": "This lesson helps students learn about Daily Routine through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_13": {
-      "title": "Smart Start 1 - Hobbies",
-      "content": "This lesson helps students learn about Hobbies through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_14": {
-      "title": "Smart Start 1 - Seasons",
-      "content": "This lesson helps students learn about Seasons through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_15": {
-      "title": "Smart Start 1 - Vegetables",
-      "content": "This lesson helps students learn about Vegetables through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_16": {
-      "title": "Smart Start 1 - Fruits",
-      "content": "This lesson helps students learn about Fruits through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_17": {
-      "title": "Smart Start 1 - Pets",
-      "content": "This lesson helps students learn about Pets through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_18": {
-      "title": "Smart Start 1 - Wild Animals",
-      "content": "This lesson helps students learn about Wild Animals through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_19": {
-      "title": "Smart Start 1 - Classroom",
-      "content": "This lesson helps students learn about Classroom through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_20": {
-      "title": "Smart Start 1 - Computer",
-      "content": "This lesson helps students learn about Computer through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_21": {
-      "title": "Smart Start 1 - Internet",
-      "content": "This lesson helps students learn about Internet through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_22": {
-      "title": "Smart Start 1 - Environment",
-      "content": "This lesson helps students learn about Environment through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_23": {
-      "title": "Smart Start 1 - Saving Energy",
-      "content": "This lesson helps students learn about Saving Energy through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_24": {
-      "title": "Smart Start 1 - The Zoo",
-      "content": "This lesson helps students learn about The Zoo through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_25": {
-      "title": "Smart Start 1 - The Park",
-      "content": "This lesson helps students learn about The Park through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    }
-  },
-  "ss_2": {
-    "theme_1": {
-      "title": "Smart Start 2 - Wild Animals",
-      "content": "This lesson helps students learn about Wild Animals through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_2": {
-      "title": "Smart Start 2 - Classroom",
-      "content": "This lesson helps students learn about Classroom through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_3": {
-      "title": "Smart Start 2 - Computer",
-      "content": "This lesson helps students learn about Computer through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_4": {
-      "title": "Smart Start 2 - Internet",
-      "content": "This lesson helps students learn about Internet through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_5": {
-      "title": "Smart Start 2 - Environment",
-      "content": "This lesson helps students learn about Environment through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_6": {
-      "title": "Smart Start 2 - Saving Energy",
-      "content": "This lesson helps students learn about Saving Energy through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_7": {
-      "title": "Smart Start 2 - The Zoo",
-      "content": "This lesson helps students learn about The Zoo through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_8": {
-      "title": "Smart Start 2 - The Park",
-      "content": "This lesson helps students learn about The Park through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_9": {
-      "title": "Smart Start 2 - Shopping",
-      "content": "This lesson helps students learn about Shopping through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_10": {
-      "title": "Smart Start 2 - Movies",
-      "content": "This lesson helps students learn about Movies through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_11": {
-      "title": "Smart Start 2 - Books",
-      "content": "This lesson helps students learn about Books through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_12": {
-      "title": "Smart Start 2 - Story Time",
-      "content": "This lesson helps students learn about Story Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_13": {
-      "title": "Smart Start 2 - Magic",
-      "content": "This lesson helps students learn about Magic through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_14": {
-      "title": "Smart Start 2 - Adventure",
-      "content": "This lesson helps students learn about Adventure through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_15": {
-      "title": "Smart Start 2 - Dreams",
-      "content": "This lesson helps students learn about Dreams through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_16": {
-      "title": "Smart Start 2 - Culture",
-      "content": "This lesson helps students learn about Culture through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_17": {
-      "title": "Smart Start 2 - Festivals",
-      "content": "This lesson helps students learn about Festivals through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_18": {
-      "title": "Smart Start 2 - Cooking",
-      "content": "This lesson helps students learn about Cooking through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_19": {
-      "title": "Smart Start 2 - Exercise",
-      "content": "This lesson helps students learn about Exercise through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_20": {
-      "title": "Smart Start 2 - Safety",
-      "content": "This lesson helps students learn about Safety through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_21": {
-      "title": "Smart Start 2 - Body Parts",
-      "content": "This lesson helps students learn about Body Parts through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_22": {
-      "title": "Smart Start 2 - Emotions",
-      "content": "This lesson helps students learn about Emotions through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_23": {
-      "title": "Smart Start 2 - Games",
-      "content": "This lesson helps students learn about Games through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_24": {
-      "title": "Smart Start 2 - Beach",
-      "content": "This lesson helps students learn about Beach through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_25": {
-      "title": "Smart Start 2 - Mountains",
-      "content": "This lesson helps students learn about Mountains through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    }
-  },
-  "ss_3": {
-    "theme_1": {
-      "title": "Smart Start 3 - Cooking",
-      "content": "This lesson helps students learn about Cooking through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_2": {
-      "title": "Smart Start 3 - Exercise",
-      "content": "This lesson helps students learn about Exercise through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_3": {
-      "title": "Smart Start 3 - Safety",
-      "content": "This lesson helps students learn about Safety through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_4": {
-      "title": "Smart Start 3 - Body Parts",
-      "content": "This lesson helps students learn about Body Parts through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_5": {
-      "title": "Smart Start 3 - Emotions",
-      "content": "This lesson helps students learn about Emotions through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_6": {
-      "title": "Smart Start 3 - Games",
-      "content": "This lesson helps students learn about Games through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_7": {
-      "title": "Smart Start 3 - Beach",
-      "content": "This lesson helps students learn about Beach through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_8": {
-      "title": "Smart Start 3 - Mountains",
-      "content": "This lesson helps students learn about Mountains through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_9": {
-      "title": "Smart Start 3 - Forest",
-      "content": "This lesson helps students learn about Forest through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_10": {
-      "title": "Smart Start 3 - Rainy Day",
-      "content": "This lesson helps students learn about Rainy Day through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_11": {
-      "title": "Smart Start 3 - Sunny Day",
-      "content": "This lesson helps students learn about Sunny Day through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_12": {
-      "title": "Smart Start 3 - Holiday",
-      "content": "This lesson helps students learn about Holiday through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_13": {
-      "title": "Smart Start 3 - Christmas",
-      "content": "This lesson helps students learn about Christmas through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_14": {
-      "title": "Smart Start 3 - Tet Holiday",
-      "content": "This lesson helps students learn about Tet Holiday through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_15": {
-      "title": "Smart Start 3 - Friendship",
-      "content": "This lesson helps students learn about Friendship through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_16": {
-      "title": "Smart Start 3 - Kindness",
-      "content": "This lesson helps students learn about Kindness through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_17": {
-      "title": "Smart Start 3 - Sharing",
-      "content": "This lesson helps students learn about Sharing through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_18": {
-      "title": "Smart Start 3 - Helping Others",
-      "content": "This lesson helps students learn about Helping Others through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_19": {
-      "title": "Smart Start 3 - Teamwork",
-      "content": "This lesson helps students learn about Teamwork through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_20": {
-      "title": "Smart Start 3 - English Time",
-      "content": "This lesson helps students learn about English Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_21": {
-      "title": "Smart Start 3 - Reading Fun",
-      "content": "This lesson helps students learn about Reading Fun through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_22": {
-      "title": "Smart Start 3 - Phonics Practice",
-      "content": "This lesson helps students learn about Phonics Practice through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_23": {
-      "title": "Smart Start 3 - Listening Time",
-      "content": "This lesson helps students learn about Listening Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_24": {
-      "title": "Smart Start 3 - Speaking Club",
-      "content": "This lesson helps students learn about Speaking Club through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_25": {
-      "title": "Smart Start 3 - Smart Kids",
-      "content": "This lesson helps students learn about Smart Kids through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    }
-  },
-  "ss_4": {
-    "theme_1": {
-      "title": "Smart Start 4 - Helping Others",
-      "content": "This lesson helps students learn about Helping Others through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_2": {
-      "title": "Smart Start 4 - Teamwork",
-      "content": "This lesson helps students learn about Teamwork through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_3": {
-      "title": "Smart Start 4 - English Time",
-      "content": "This lesson helps students learn about English Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_4": {
-      "title": "Smart Start 4 - Reading Fun",
-      "content": "This lesson helps students learn about Reading Fun through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_5": {
-      "title": "Smart Start 4 - Phonics Practice",
-      "content": "This lesson helps students learn about Phonics Practice through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_6": {
-      "title": "Smart Start 4 - Listening Time",
-      "content": "This lesson helps students learn about Listening Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_7": {
-      "title": "Smart Start 4 - Speaking Club",
-      "content": "This lesson helps students learn about Speaking Club through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_8": {
-      "title": "Smart Start 4 - Smart Kids",
-      "content": "This lesson helps students learn about Smart Kids through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_9": {
-      "title": "Smart Start 4 - Creative Thinking",
-      "content": "This lesson helps students learn about Creative Thinking through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_10": {
-      "title": "Smart Start 4 - AI Learning",
-      "content": "This lesson helps students learn about AI Learning through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_11": {
-      "title": "Smart Start 4 - Future World",
-      "content": "This lesson helps students learn about Future World through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_12": {
-      "title": "Smart Start 4 - Dinosaurs",
-      "content": "This lesson helps students learn about Dinosaurs through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_13": {
-      "title": "Smart Start 4 - Space Travel",
-      "content": "This lesson helps students learn about Space Travel through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_14": {
-      "title": "Smart Start 4 - Flying Cars",
-      "content": "This lesson helps students learn about Flying Cars through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_15": {
-      "title": "Smart Start 4 - Underwater World",
-      "content": "This lesson helps students learn about Underwater World through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_16": {
-      "title": "Smart Start 4 - Jungle",
-      "content": "This lesson helps students learn about Jungle through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_17": {
-      "title": "Smart Start 4 - Garden",
-      "content": "This lesson helps students learn about Garden through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_18": {
-      "title": "Smart Start 4 - Birds",
-      "content": "This lesson helps students learn about Birds through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_19": {
-      "title": "Smart Start 4 - Insects",
-      "content": "This lesson helps students learn about Insects through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_20": {
-      "title": "Smart Start 4 - Flowers",
-      "content": "This lesson helps students learn about Flowers through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_21": {
-      "title": "Smart Start 4 - Healthy Food",
-      "content": "This lesson helps students learn about Healthy Food through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_22": {
-      "title": "Smart Start 4 - Fast Food",
-      "content": "This lesson helps students learn about Fast Food through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_23": {
-      "title": "Smart Start 4 - Breakfast",
-      "content": "This lesson helps students learn about Breakfast through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_24": {
-      "title": "Smart Start 4 - Lunch",
-      "content": "This lesson helps students learn about Lunch through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_25": {
-      "title": "Smart Start 4 - Dinner",
-      "content": "This lesson helps students learn about Dinner through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    }
-  },
-  "ss_5": {
-    "theme_1": {
-      "title": "Smart Start 5 - Birds",
-      "content": "This lesson helps students learn about Birds through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_2": {
-      "title": "Smart Start 5 - Insects",
-      "content": "This lesson helps students learn about Insects through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_3": {
-      "title": "Smart Start 5 - Flowers",
-      "content": "This lesson helps students learn about Flowers through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_4": {
-      "title": "Smart Start 5 - Healthy Food",
-      "content": "This lesson helps students learn about Healthy Food through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_5": {
-      "title": "Smart Start 5 - Fast Food",
-      "content": "This lesson helps students learn about Fast Food through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_6": {
-      "title": "Smart Start 5 - Breakfast",
-      "content": "This lesson helps students learn about Breakfast through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_7": {
-      "title": "Smart Start 5 - Lunch",
-      "content": "This lesson helps students learn about Lunch through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_8": {
-      "title": "Smart Start 5 - Dinner",
-      "content": "This lesson helps students learn about Dinner through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_9": {
-      "title": "Smart Start 5 - Time",
-      "content": "This lesson helps students learn about Time through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_10": {
-      "title": "Smart Start 5 - Calendar",
-      "content": "This lesson helps students learn about Calendar through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_11": {
-      "title": "Smart Start 5 - Directions",
-      "content": "This lesson helps students learn about Directions through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_12": {
-      "title": "Smart Start 5 - Shapes",
-      "content": "This lesson helps students learn about Shapes through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_13": {
-      "title": "Smart Start 5 - Measurement",
-      "content": "This lesson helps students learn about Measurement through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_14": {
-      "title": "Smart Start 5 - Machines",
-      "content": "This lesson helps students learn about Machines through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_15": {
-      "title": "Smart Start 5 - Energy",
-      "content": "This lesson helps students learn about Energy through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_16": {
-      "title": "Smart Start 5 - Recycling",
-      "content": "This lesson helps students learn about Recycling through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_17": {
-      "title": "Smart Start 5 - Dream School",
-      "content": "This lesson helps students learn about Dream School through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_18": {
-      "title": "Smart Start 5 - Superheroes",
-      "content": "This lesson helps students learn about Superheroes through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_19": {
-      "title": "Smart Start 5 - Fairy Tales",
-      "content": "This lesson helps students learn about Fairy Tales through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_20": {
-      "title": "Smart Start 5 - Family",
-      "content": "This lesson helps students learn about Family through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_21": {
-      "title": "Smart Start 5 - Friends",
-      "content": "This lesson helps students learn about Friends through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_22": {
-      "title": "Smart Start 5 - School",
-      "content": "This lesson helps students learn about School through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_23": {
-      "title": "Smart Start 5 - Animals",
-      "content": "This lesson helps students learn about Animals through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_24": {
-      "title": "Smart Start 5 - Food",
-      "content": "This lesson helps students learn about Food through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    },
-    "theme_25": {
-      "title": "Smart Start 5 - Drinks",
-      "content": "This lesson helps students learn about Drinks through reading, listening, speaking, and phonics practice.",
-      
-      
-      
-    }
-  }
-};
-
-window.addEventListener('load',()=>{
-
-    console.log("FULL Smart Start Database Loaded:", smartStartDatabase);
-
-    // AUTO LOAD
-    if(typeof loadSmartStartThemes === 'function'){
-        loadSmartStartThemes('ss_1');
-    }
-
-});
-</script>
 
 </body>
 </html>
