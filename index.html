@@ -446,7 +446,7 @@ body{
                                 </div>
                             </div>
 
-                            <!-- English Reading Text -->
+                            <!-- English  Text -->
                             <div class="mt-4 bg-slate-50/80 rounded-xl p-4 border border-slate-100 relative">
                                 <p class="text-[10px] text-slate-400 absolute top-2 right-3 italic">Nhấp đúp chuột để tra nhanh từ mới</p>
                                 <p id="reading-content" class="text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-3 select-text">
@@ -460,7 +460,7 @@ body{
                                     <i class="fa-solid fa-volume-high text-brand-500"></i>
                                     <span>Nghe máy mẫu</span>
                                 </button>
-                                <button onclick="startOralReadingChallenge()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-bold text-sm transition active:scale-95 shadow-md shadow-brand-500/20 flex items-center justify-center space-x-1">
+                                <button onclick="startOralChallenge()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-bold text-sm transition active:scale-95 shadow-md shadow-brand-500/20 flex items-center justify-center space-x-1">
                                     <i class="fa-solid fa-microphone"></i>
                                     <span>Bắt đầu đọc âm</span>
                                 </button>
@@ -554,7 +554,7 @@ body{
     <div class="flex items-center justify-between mb-3">
         <h4 class="font-black text-xs text-slate-800 flex items-center">
             <i class="fa-solid fa-gauge-high text-brand-600 mr-2"></i>
-            AI Reading Speed
+            AI  Speed
         </h4>
         <span id="speech-speed-label" class="text-[10px] bg-brand-50 text-brand-700 px-2 py-1 rounded-lg font-black">
             Normal
@@ -585,20 +585,20 @@ body{
 </div>
 
 <div class="grid grid-cols-3 gap-2">
-        <button onclick="pauseSpeechReading()" class="bg-amber-100 text-amber-700 py-2 rounded-xl text-[11px] font-black">
+        <button onclick="pauseSpeech()" class="bg-amber-100 text-amber-700 py-2 rounded-xl text-[11px] font-black">
             ⏸ Pause
         </button>
-        <button onclick="resumeSpeechReading()" class="bg-emerald-100 text-emerald-700 py-2 rounded-xl text-[11px] font-black">
+        <button onclick="resumeSpeech()" class="bg-emerald-100 text-emerald-700 py-2 rounded-xl text-[11px] font-black">
             ▶ Resume
         </button>
-        <button onclick="repeatSpeechReading()" class="bg-violet-100 text-violet-700 py-2 rounded-xl text-[11px] font-black">
+        <button onclick="repeatSpeech()" class="bg-violet-100 text-violet-700 py-2 rounded-xl text-[11px] font-black">
             🔁 Repeat
         </button>
     </div>
 </div>
 
 
-                        <!-- Vocabulary List Box -->
+                        <!--  List Box -->
                         <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                             <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
                                 <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm (Luyện Phát Âm Từ)
@@ -864,9 +864,9 @@ body{
                 </div>
             <div class="flex items-center justify-between">
             <div>
-                <h3 class="font-black text-sm md:text-base">AI Learning Flow</h3>
+                <h3 class="font-black text-sm md:text-base"></h3>
                 <p class="text-[11px] opacity-90 mt-1">
-                    Vocabulary → Phonics → Reading → Speaking → AI Feedback
+                     →  →  →  → AI Feedback
                 </p>
             </div>
             <div class="text-3xl">
@@ -921,7 +921,7 @@ body{
 
                 <!-- Actions: Luyện nói trực tiếp từ vựng & Sao chép -->
                 <div class="mt-4 space-y-2">
-                    <button id="btn-vocab-speech-mic" onclick="startVocabularyOralChallenge()" class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition active:scale-95 shadow-md shadow-rose-500/20 flex items-center justify-center space-x-2">
+                    <button id="btn-vocab-speech-mic" onclick="startOralChallenge()" class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition active:scale-95 shadow-md shadow-rose-500/20 flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-microphone text-sm"></i>
                         <span id="vocab-mic-btn-text">Bắt đầu luyện phát âm 🎙️</span>
                     </button>
@@ -1255,13 +1255,13 @@ window.addEventListener('load', () => {
             cap_2: [
                 {
                     id: "c2_reading",
-                    title: "The Magic of Reading Books",
+                    title: "The Magic of  Books",
                     tag: "Đọc Sách 📚",
                     image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
-                    content: "Reading books is an excellent way to gain knowledge and improve your English vocabulary. When you open a book daily, your imagination grows and you discover incredible things about science and human history.",
+                    content: " books is an excellent way to gain knowledge and improve your English vocabulary. When you open a book daily, your imagination grows and you discover incredible things about science and human history.",
                     vocab: [
                         { word: "Excellent", type: "adj", ipa: "/ˈeksələnt/", vi: "Xuất sắc, tuyệt vời", desc: "Extremely good or outstanding." },
-                        { word: "Vocabulary", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person." },
+                        { word: "", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person." },
                         { word: "Imagination", type: "noun", ipa: "/ɪˌmædʒɪˈneɪʃn/", vi: "Trí tưởng tượng", desc: "The ability to form mental pictures." },
                         { word: "Discover", type: "verb", ipa: "/dɪˈskʌvə(r)/", vi: "Khám phá, phát hiện", desc: "To find something for the first time." }
                     ]
@@ -1801,7 +1801,7 @@ window.addEventListener('load', () => {
                 if (isSelected && !activeDailySuggestionId) {
                     activeDailySuggestionId = item.id;
                     currentActiveTask = item;
-                    renderReadingTaskUI();
+                    renderTaskUI();
                 }
                 
                 const chip = document.createElement("button");
@@ -1832,7 +1832,7 @@ window.addEventListener('load', () => {
             
             if (target) {
                 currentActiveTask = target;
-                renderReadingTaskUI();
+                renderTaskUI();
             }
             
             const chips = document.querySelectorAll("[id^='chip-daily-']");
@@ -1895,7 +1895,7 @@ window.addEventListener('load', () => {
             const targetTask = smartStartDatabase[classKey]?.[themeKey];
             if (targetTask) {
                 currentActiveTask = targetTask;
-                renderReadingTaskUI();
+                renderTaskUI();
             }
         }
 
@@ -1904,7 +1904,7 @@ window.addEventListener('load', () => {
             renderDailySuggestions(grade);
         }
 
-        function renderReadingTaskUI() {
+        function renderTaskUI() {
             if (!currentActiveTask) return;
             document.getElementById("reading-title").innerText = currentActiveTask.title;
             document.getElementById("reading-content").innerText = currentActiveTask.content;
@@ -1915,7 +1915,7 @@ window.addEventListener('load', () => {
             currentActiveTask.vocab.forEach(item => {
                 const vocabCard = document.createElement("div");
                 vocabCard.className = "bg-slate-50 hover:bg-slate-100 p-3 rounded-xl border border-slate-100 flex justify-between items-center transition cursor-pointer";
-                vocabCard.onclick = () => showVocabularyDetail(item);
+                vocabCard.onclick = () => showDetail(item);
                 vocabCard.innerHTML = `
                     <div>
                         <div class="flex items-center space-x-2">
@@ -2009,8 +2009,8 @@ window.addEventListener('load', () => {
         }
 
         let dictionaryAudioUrl = "";
-        let activeVocabTargetWord = "";
-        let isVocabListening = false;
+        let activeTargetWord = "";
+        let isListening = false;
 
         function lookupWordDirectly() {
             const wordInput = document.getElementById("dict-quick-input");
@@ -2029,7 +2029,7 @@ window.addEventListener('load', () => {
             document.getElementById("dict-result-en").innerText = "Đang tìm định nghĩa...";
             document.getElementById("vocab-speech-feedback-card").classList.add("hidden");
             
-            activeVocabTargetWord = word;
+            activeTargetWord = word;
             dictionaryAudioUrl = "";
             openDictSheet();
 
@@ -2079,7 +2079,7 @@ window.addEventListener('load', () => {
             speakTextUS(word);
         }
 
-        function showVocabularyDetail(item) {
+        function showDetail(item) {
             document.getElementById("dict-result-word").innerText = item.word;
             document.getElementById("dict-result-phonetic").innerText = item.ipa;
             document.getElementById("dict-result-vi").innerText = item.vi;
@@ -2087,19 +2087,19 @@ window.addEventListener('load', () => {
             
             document.getElementById("vocab-speech-feedback-card").classList.add("hidden");
             
-            activeVocabTargetWord = item.word;
+            activeTargetWord = item.word;
             dictionaryAudioUrl = "";
             openDictSheet();
         }
 
-        function startVocabularyOralChallenge() {
+        function startOralChallenge() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
                 showToast("Trình duyệt không hỗ trợ micro thu âm.");
                 return;
             }
 
-            if (isVocabListening) return;
+            if (isListening) return;
 
             const rec = new SpeechRecognition();
             rec.lang = "en-US";
@@ -2107,14 +2107,14 @@ window.addEventListener('load', () => {
             rec.maxAlternatives = 1;
 
             rec.onstart = () => {
-                isVocabListening = true;
+                isListening = true;
                 const btn = document.getElementById("btn-vocab-speech-mic");
                 btn.className = "w-full py-3.5 bg-yellow-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
                 document.getElementById("vocab-mic-btn-text").innerText = "🎙 *ĐANG NGHE*... Con phát âm to từ vựng!";
             };
 
             rec.onend = () => {
-                isVocabListening = false;
+                isListening = false;
                 const btn = document.getElementById("btn-vocab-speech-mic");
                 btn.className = "w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
                 document.getElementById("vocab-mic-btn-text").innerText = "Bắt đầu luyện phát âm 🎙";
@@ -2122,7 +2122,7 @@ window.addEventListener('load', () => {
 
             rec.onresult = (e) => {
                 const spoken = e.results[0][0].transcript;
-                evaluateVocabularyPronunciation(activeVocabTargetWord, spoken);
+                evaluatePronunciation(activeTargetWord, spoken);
             };
 
             rec.onerror = (e) => {
@@ -2132,7 +2132,7 @@ window.addEventListener('load', () => {
             rec.start();
         }
 
-        function evaluateVocabularyPronunciation(target, spoken) {
+        function evaluatePronunciation(target, spoken) {
             const cleanTarget = target.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
             const cleanSpoken = spoken.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
 
@@ -2216,7 +2216,7 @@ window.addEventListener('load', () => {
         let isOralListening = false;
         let currentTargetSpeechSection = "reading";
 
-        function startOralReadingChallenge() {
+        function startOralChallenge() {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
             }
@@ -2269,7 +2269,7 @@ window.addEventListener('load', () => {
 
                 activeRecognizer.onresult = (e) => {
                     const resultText = e.results[0][0].transcript;
-                    handleOralReadingResult(resultText);
+                    handleOralResult(resultText);
                 };
 
                 activeRecognizer.onerror = (e) => {
@@ -2331,15 +2331,15 @@ function speakTextUS(text) {
     }
 }
 
-function pauseSpeechReading() {
+function pauseSpeech() {
     window.speechSynthesis.pause();
 }
 
-function resumeSpeechReading() {
+function resumeSpeech() {
     window.speechSynthesis.resume();
 }
 
-function repeatSpeechReading() {
+function repeatSpeech() {
     if (currentActiveTask) {
         speakTextUS(currentActiveTask.content);
     }
@@ -2350,7 +2350,7 @@ function repeatSpeechReading() {
             speakTextUS(currentActiveTask.content);
         }
 
-        function handleOralReadingResult(spokenText) {
+        function handleOralResult(spokenText) {
             const originalWords = currentActiveTask.content.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
             const spokenWords = spokenText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
             
@@ -3266,29 +3266,29 @@ function repeatSpeechReading() {
         }
 
         function switchTab(tabId) {
-            const btnReading = document.getElementById("tab-btn-reading");
+            const btn = document.getElementById("tab-btn-reading");
             const btnChat = document.getElementById("tab-btn-chat");
             const btnGame = document.getElementById("tab-btn-game");
             
-            const secReading = document.getElementById("section-reading");
+            const sec = document.getElementById("section-reading");
             const secChat = document.getElementById("section-chat");
             const secGame = document.getElementById("section-game");
 
-            btnReading.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+            btn.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
             btnChat.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
             btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1";
 
-            secReading.classList.add("hidden");
+            sec.classList.add("hidden");
             // Flex classes for dual-column grids should be adapted
-            secReading.classList.remove("grid");
+            sec.classList.remove("grid");
             secChat.classList.add("hidden");
             secGame.classList.add("hidden");
             secGame.classList.remove("grid");
 
             if (tabId === "reading") {
-                btnReading.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
-                secReading.classList.remove("hidden");
-                secReading.classList.add("grid");
+                btn.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
+                sec.classList.remove("hidden");
+                sec.classList.add("grid");
             } else if (tabId === "chat") {
                 btnChat.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
                 secChat.classList.remove("hidden");
@@ -3480,23 +3480,23 @@ function renderAILearningFlow(){
         <div class="grid grid-cols-5 gap-2 mt-4 text-center">
             <div class="bg-white/15 rounded-xl p-2">
                 <i class="fa-solid fa-language"></i>
-                <p class="text-[9px] mt-1 font-bold">Vocab</p>
+                <p class="text-[9px] mt-1 font-bold"></p>
             </div>
             <div class="bg-white/15 rounded-xl p-2">
                 <i class="fa-solid fa-volume-high"></i>
-                <p class="text-[9px] mt-1 font-bold">Phonics</p>
+                <p class="text-[9px] mt-1 font-bold"></p>
             </div>
             <div class="bg-white/15 rounded-xl p-2">
                 <i class="fa-solid fa-book-open"></i>
-                <p class="text-[9px] mt-1 font-bold">Reading</p>
+                <p class="text-[9px] mt-1 font-bold"></p>
             </div>
             <div class="bg-white/15 rounded-xl p-2">
                 <i class="fa-solid fa-microphone"></i>
-                <p class="text-[9px] mt-1 font-bold">Speaking</p>
+                <p class="text-[9px] mt-1 font-bold"></p>
             </div>
             <div class="bg-white/15 rounded-xl p-2">
                 <i class="fa-solid fa-robot"></i>
-                <p class="text-[9px] mt-1 font-bold">AI Coach</p>
+                <p class="text-[9px] mt-1 font-bold"></p>
             </div>
         </div>
     `;
@@ -3603,15 +3603,15 @@ window.addEventListener('load',()=>{
 
     const sections = [...main.querySelectorAll('section, .section-card, .card, .rounded-3xl')];
 
-    const reading = sections.find(el => el.innerText?.includes('Reading'));
-    const speaking = sections.find(el => el.innerText?.includes('Speaking'));
+    const reading = sections.find(el => el.innerText?.includes(''));
+    const speaking = sections.find(el => el.innerText?.includes(''));
     const bookshelf = sections.find(el =>
         el.innerText?.includes('Tủ sách') ||
         el.innerText?.includes('Bookshelf')
     );
 
     const aiFlow = [...document.querySelectorAll('div')].find(el =>
-        el.innerText?.includes('AI Learning Flow')
+        el.innerText?.includes('')
     );
 
     // Better learning order
