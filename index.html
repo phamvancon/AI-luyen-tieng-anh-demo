@@ -3684,250 +3684,169 @@ window.addEventListener('load', () => {
 
 
 
-<script id="smartstart-focus-vocab-system">
+<script id="ilearn-smart-vocab-system">
 
-window.smartStartFocusVocabulary = {
+window.iLearnSmartVocabulary = {
 
-    ss_1:{
-        unit1:["Hello","Goodbye","Nice to meet you"],
-        unit2:["Stand up","Sit down","Listen"],
-        unit3:["Mother","Father","Brother","Sister"],
-        unit4:["Pencil","Book","Bag"],
-        unit5:["Red","Yellow","Blue"],
-        unit6:["Head","Leg","Arm"],
-        unit7:["Cat","Dog","Bird","Monkey"],
-        unit8:["Swim","Sing","Run"],
-        unit9:["One","Two","Three","Four"],
-        unit10:["Banana","Cookie","Sandwich"],
-        unit11:["Car","Ball","Teddy bear"],
-        unit12:["Living room","Kitchen","Bedroom"]
-    },
-
-    ss_2:{
-        unit1:["Happy","Sad","Hungry"],
-        unit2:["Circle","Square","Triangle"],
-        unit3:["Eleven","Twelve","Thirteen"],
-        unit4:["Elephant","Giraffe","Zebra"],
-        unit5:["Dance","Skip","Play soccer"],
-        unit6:["Hospital","Bank","School"],
-        unit7:["Dress","Hat","Shirt"],
-        unit8:["Bus","Bike","Train"],
-        unit9:["Read","Write","Listen"],
-        unit10:["Monday","Tuesday","Wednesday"]
-    },
-
-    ss_3:{
-        unit1:["USA","Japan","Italy","India"],
-        unit2:["Grandfather","Uncle","Cousin"],
-        unit3:["Eraser","Ruler","Backpack"],
-        unit4:["Kitchen","Bathroom","Yard"],
-        unit5:["Basketball","Soccer","Tennis"],
-        unit6:["Jacket","Jeans","T-shirt"],
-        unit7:["Robot","Doll","Blocks"],
-        unit8:["Pizza","Cake","Fish"]
-    },
-
-    ss_4:{
-        unit1:["Snake","Monkey","Camel","Panda"],
-        unit2:["Dance","Sing","Paint"],
-        unit3:["Sunny","Rainy","Snowy"],
-        unit4:["Puzzle","Comic book","Swimming"],
-        unit5:["Turn left","Turn right","Go straight"],
-        unit6:["Tall","Short","Curly hair"],
-        unit7:["Doctor","Cook","Farmer"],
-        unit8:["Museum","Playground","Park"]
-    },
-
-    ss_5:{
-        unit1:["Science","History","I.T.","Geography"],
-        unit2:["Halloween","Christmas","Tet"],
-        unit3:["Friendly","Funny","Play games"],
-        unit4:["Plane","Vacation","Hotel"],
-        unit5:["Medicine","Exercise","Healthy"],
-        unit6:["Pizza","Juice","Restaurant"],
-        unit7:["Engineer","Teacher","Doctor"],
-        unit8:["Weather","Season","Climate"]
-    }
+    greetings:["Hello","Goodbye","Nice to meet you"],
+    family:["Mother","Father","Brother","Sister"],
+    school:["Book","Pencil","Bag","Notebook"],
+    animals:["Monkey","Tiger","Elephant","Penguin"],
+    food:["Banana","Pizza","Cake","Milk"],
+    colors:["Red","Blue","Yellow","Green"],
+    weather:["Sunny","Rainy","Cloudy","Windy"],
+    sports:["Soccer","Basketball","Tennis","Swimming"],
+    jobs:["Doctor","Teacher","Farmer","Cook"]
 };
 
-function smartSpeakVocabulary(word){
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+function speakIlearnWord(word){
+    const speech = new SpeechSynthesisUtterance(word);
+    speech.lang = 'en-US';
+    speech.rate = 0.9;
+    window.speechSynthesis.speak(speech);
 }
 
-function renderSmartFocusVocabulary(grade='ss_1', unit='unit1'){
+function renderIlearnVocabulary(topic){
 
-    const container = document.getElementById('smartFocusVocabularyWords');
+    const box = document.getElementById('ilearnVocabularyWords');
 
-    if(!container) return;
+    if(!box) return;
 
-    const data = window.smartStartFocusVocabulary || {};
+    let words = window.iLearnSmartVocabulary[topic];
 
-    let words = [];
-
-    if(data[grade] && data[grade][unit]){
-        words = data[grade][unit];
+    if(!words){
+        words = ["Hello","Book","School"];
     }
 
-    if(words.length === 0){
-        words = ['Hello','Book','School'];
-    }
-
-    container.innerHTML = '';
+    box.innerHTML = "";
 
     words.forEach(word => {
 
-        container.innerHTML += `
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:space-between;
-                gap:10px;
-                padding:12px 14px;
-                border-radius:16px;
-                background:#f8fbff;
-                border:1px solid #dbeafe;
-                margin-bottom:10px;
+        box.innerHTML += `
+            <button onclick="speakIlearnWord('${word}')"
+            style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            width:100%;
+            margin-bottom:10px;
+            padding:12px 14px;
+            border:none;
+            border-radius:16px;
+            background:#f8fbff;
+            border:1px solid #dbeafe;
+            cursor:pointer;
             ">
 
-                <div style="font-weight:800;color:#1e293b;">
+                <div style="
+                font-weight:800;
+                color:#0f172a;
+                text-align:left;
+                ">
                     ${word}
                 </div>
 
-                <button
-                    onclick="smartSpeakVocabulary('${word}')"
-                    style="
-                    border:none;
-                    background:#3b82f6;
-                    color:white;
-                    padding:8px 12px;
-                    border-radius:10px;
-                    font-size:12px;
-                    font-weight:700;
-                    cursor:pointer;
-                    ">
+                <div style="
+                background:#3b82f6;
+                color:white;
+                padding:6px 10px;
+                border-radius:10px;
+                font-size:12px;
+                font-weight:700;
+                ">
+                    🔊
+                </div>
 
-                    🔊 Nghe
-
-                </button>
-
-            </div>
+            </button>
         `;
     });
 }
 
-function detectCurrentSmartStartLesson(){
+function detectIlearnTopic(text){
 
-    let grade = 'ss_1';
-    let unit = 'unit1';
+    text = (text || "").toLowerCase();
 
-    const text = document.body.innerText.toLowerCase();
+    if(text.includes("family")) return "family";
+    if(text.includes("animal")) return "animals";
+    if(text.includes("food")) return "food";
+    if(text.includes("school")) return "school";
+    if(text.includes("weather")) return "weather";
+    if(text.includes("sport")) return "sports";
+    if(text.includes("job")) return "jobs";
+    if(text.includes("color")) return "colors";
 
-    if(text.includes('smart start 5')) grade = 'ss_5';
-    else if(text.includes('smart start 4')) grade = 'ss_4';
-    else if(text.includes('smart start 3')) grade = 'ss_3';
-    else if(text.includes('smart start 2')) grade = 'ss_2';
-
-    const match = text.match(/unit\s*(\d+)/i);
-
-    if(match){
-        unit = 'unit' + match[1];
-    }
-
-    renderSmartFocusVocabulary(grade, unit);
+    return "greetings";
 }
 
 document.addEventListener('click', function(e){
 
-    const target = e.target.closest('button,.lesson-card,.topic-card,.unit-card');
+    const target = e.target.closest('.lesson-card,.topic-card,.unit-card,button');
 
     if(!target) return;
 
-    const text = target.innerText.toLowerCase();
+    const topic = detectIlearnTopic(target.innerText);
 
-    let grade = 'ss_1';
-    let unit = 'unit1';
-
-    if(text.includes('smart start 5')) grade = 'ss_5';
-    else if(text.includes('smart start 4')) grade = 'ss_4';
-    else if(text.includes('smart start 3')) grade = 'ss_3';
-    else if(text.includes('smart start 2')) grade = 'ss_2';
-
-    const match = text.match(/unit\s*(\d+)/i);
-
-    if(match){
-        unit = 'unit' + match[1];
-    }
-
-    renderSmartFocusVocabulary(grade, unit);
+    renderIlearnVocabulary(topic);
 });
 
 window.addEventListener('load', () => {
 
-    if(!document.getElementById('smartFocusVocabularyBox')){
+    if(!document.getElementById('ilearnVocabularyBox')){
 
         const wrapper = document.createElement('div');
 
-        wrapper.id = 'smartFocusVocabularyBox';
+        wrapper.id = 'ilearnVocabularyBox';
 
         wrapper.innerHTML = `
+
+        <div style="
+            margin:16px;
+            background:white;
+            border-radius:22px;
+            padding:18px;
+            border:1px solid #e2e8f0;
+            box-shadow:0 6px 20px rgba(15,23,42,.05);
+        ">
+
             <div style="
-                margin:16px;
-                background:white;
-                border-radius:22px;
-                padding:18px;
-                border:1px solid #e2e8f0;
-                box-shadow:0 6px 20px rgba(15,23,42,.05);
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                margin-bottom:14px;
             ">
 
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    margin-bottom:14px;
-                    flex-wrap:wrap;
-                    gap:10px;
+                <h3 style="
+                    margin:0;
+                    font-size:16px;
+                    font-weight:900;
+                    color:#0f172a;
                 ">
+                    ⭐ Từ Vựng Trọng Tâm
+                </h3>
 
-                    <h3 style="
-                        margin:0;
-                        font-size:16px;
-                        font-weight:900;
-                        color:#0f172a;
-                    ">
-                        ⭐ Từ Vựng Trọng Tâm
-                    </h3>
-
-                    <div style="
-                        font-size:11px;
-                        background:#dbeafe;
-                        color:#1d4ed8;
-                        padding:6px 10px;
-                        border-radius:999px;
-                        font-weight:700;
-                    ">
-                        Luyện phát âm từ
-                    </div>
-
+                <div style="
+                    font-size:11px;
+                    background:#dbeafe;
+                    color:#1d4ed8;
+                    padding:6px 10px;
+                    border-radius:999px;
+                    font-weight:700;
+                ">
+                    Luyện phát âm từ
                 </div>
 
-                <div id="smartFocusVocabularyWords"></div>
-
             </div>
+
+            <div id="ilearnVocabularyWords"></div>
+
+        </div>
         `;
 
-        const firstSection = document.body.firstElementChild;
-
-        if(firstSection){
-            document.body.insertBefore(wrapper, firstSection.nextSibling);
-        }else{
-            document.body.prepend(wrapper);
-        }
+        document.body.prepend(wrapper);
     }
 
-    detectCurrentSmartStartLesson();
+    renderIlearnVocabulary('greetings');
 });
 
 </script>
