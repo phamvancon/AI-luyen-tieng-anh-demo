@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Daily - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
+    <title>English Daily - Luyện Đọc &  Học Sinh Các Cấp</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com">
 window.addEventListener('load', () => {
@@ -312,9 +312,7 @@ body{
     <span style="left:88%; width:70px; height:70px; background:#10b981; animation-duration:20s;"></span>
 </div>
 
-<div class="eco-mascot" onclick="showToast('Xin chào 👋 ECO AI luôn sẵn sàng học cùng con!')">
-    🤖
-</div>
+
 
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
 
@@ -454,7 +452,7 @@ body{
                         <i class="fa-solid fa-book-open mr-1"></i> Luyện Đọc
                     </button>
                     <button onclick="switchTab('chat')" id="tab-btn-chat" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
-                        <i class="fa-solid fa-robot mr-1"></i> Đàm Thoại AI
+                        <i class="fa-solid fa-robot mr-1"></i> 
                     </button>
                     <button onclick="switchTab('game')" id="tab-btn-game" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1">
                         <i class="fa-solid fa-gamepad text-emerald-500 mr-1 animate-bounce"></i>
@@ -612,9 +610,7 @@ body{
 
     
 <div class="mt-3 grid grid-cols-2 gap-2">
-    <button onclick="readAloudTaskText()" class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl text-[11px] font-black shadow">
-        🔊 Nghe Mẫu AI
-    </button>
+    
 
     <button onclick="speakTextUS(currentActiveTask.content)" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl text-[11px] font-black shadow">
         🎧 Nghe Toàn Bài
@@ -1360,7 +1356,7 @@ window.addEventListener('load', () => {
                 {
                     id: "c3_ai",
                     title: "Artificial Intelligence in Modern Society",
-                    tag: "CÔNG NGHỆ 🤖",
+                    tag: "CÔNG NGHỆ ",
                     image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600&auto=format&fit=crop&q=80",
                     content: "Artificial Intelligence is transforming our modern society in profound ways. From healthcare diagnostics to autonomous vehicles, complex algorithms analyze vast amounts of data to assist human activities, raising ethical questions about future employment.",
                     vocab: [
@@ -3565,69 +3561,7 @@ window.addEventListener("load", () => {
 
 
 
-/* ===== VIETNAMESE AI UNDERSTANDING ENGINE ===== */
 
-function detectVietnameseIntent(message){
-
-    const text = message.toLowerCase();
-
-    if(text.includes("xin chào") || text.includes("chào")){
-        return {
-            en:"Hello! I can understand Vietnamese and English now. Let's practice together!",
-            vi:"Xin chào! AI hiện đã hiểu cả tiếng Việt và tiếng Anh rồi nhé."
-        };
-    }
-
-    if(text.includes("con vật") || text.includes("animal")){
-        return {
-            en:"Animals are wonderful friends. What animal do you like the most?",
-            vi:"Động vật là những người bạn tuyệt vời. Con thích con vật nào nhất?"
-        };
-    }
-
-    if(text.includes("thời tiết") || text.includes("weather")){
-        return {
-            en:"The weather is beautiful today. Do you like sunny or rainy days?",
-            vi:"Hôm nay thời tiết rất đẹp. Con thích trời nắng hay trời mưa hơn?"
-        };
-    }
-
-    if(text.includes("mệt") || text.includes("buồn")){
-        return {
-            en:"Don't worry. Take a deep breath and keep learning step by step.",
-            vi:"Đừng lo nhé. Hãy thư giãn một chút và tiếp tục học từng bước."
-        };
-    }
-
-    return {
-        en:"Great job! I understand your Vietnamese message. Please continue speaking English with me.",
-        vi:"AI đã hiểu tiếng Việt của con rồi. Hãy tiếp tục luyện nói tiếng Anh nhé."
-    };
-}
-
-const oldGenerateAIResponse = generateAIResponse;
-
-generateAIResponse = function(userQuery){
-
-    const normalized = userQuery.toLowerCase();
-
-    const hasVietnamese = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(normalized)
-        || normalized.includes("xin")
-        || normalized.includes("chào")
-        || normalized.includes("con");
-
-    if(hasVietnamese){
-
-        const response = detectVietnameseIntent(userQuery);
-
-        addChatMessage("ai", response.en, response.vi);
-        speakTextUS(response.en);
-
-        return;
-    }
-
-    oldGenerateAIResponse(userQuery);
-};
 
 </script>
 
