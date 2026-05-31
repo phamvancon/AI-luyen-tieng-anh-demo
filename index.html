@@ -120,35 +120,26 @@ window.addEventListener('load', () => {
             animation: bubble-float 6s linear infinite;
         }
     
-@media (max-width:768px){
-    .mobile-optimized .grid{
-        grid-template-columns:1fr !important;
-    }
-    .mobile-optimized #section-chat{
+
+    . #section-chat{
         height:auto !important;
         min-height:70vh;
     }
-    .mobile-optimized .rounded-3xl{
+    . .rounded-3xl{
         border-radius:1.2rem !important;
     }
-    .mobile-optimized h1,
-    .mobile-optimized h2,
-    .mobile-optimized h3{
+    . h1,
+    . h2,
+    . h3{
         line-height:1.3 !important;
     }
 }
 
-@media (min-width:769px){
-    .desktop-optimized main{
-        padding:24px;
-    }
+
 }
 
 
-@media (max-width:768px){
-    #speech-speed-label{
-        font-size:10px !important;
-    }
+
 }
 
 
@@ -166,12 +157,7 @@ body{
     overflow-x:hidden;
 }
 
-@media (max-width:640px){
 
-    .max-w-md,
-    .max-w-5xl{
-        max-width:100% !important;
-    }
 
     .grid{
         grid-template-columns:1fr !important;
@@ -202,11 +188,7 @@ body{
     }
 }
 
-@media (min-width:641px){
 
-    .w-full.max-w-md.md\:max-w-5xl{
-        width:min(96vw,1600px)!important;
-    }
 }
 
 /* Floating mascot */
@@ -263,6 +245,61 @@ body{
 }
 
 </style>
+
+
+
+
+<style>
+/* RESTORE RESPONSIVE LAYOUT */
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+@media (max-width:768px){
+
+    .max-w-md,
+    .max-w-5xl{
+        max-width:100% !important;
+    }
+
+    .grid{
+        grid-template-columns:1fr !important;
+    }
+
+    .rounded-3xl{
+        border-radius:18px !important;
+    }
+
+    main{
+        padding:12px !important;
+    }
+
+    .text-2xl{
+        font-size:1.4rem !important;
+    }
+
+    .text-xl{
+        font-size:1.2rem !important;
+    }
+
+    footer{
+        padding-bottom:calc(env(safe-area-inset-bottom) + 14px);
+    }
+}
+
+@media (min-width:769px){
+    main{
+        width:min(96vw,1600px)!important;
+        margin:auto!important;
+    }
+}
+</style>
+
 </head>
 
 <!-- SMART AI VISUAL EFFECTS -->
@@ -3520,9 +3557,9 @@ window.addEventListener("load", () => {
     document.body.style.overflowX = "hidden";
 
     if(window.innerWidth < 768){
-        document.body.classList.add("mobile-optimized");
+        document.body.classList.add("");
     } else {
-        document.body.classList.add("desktop-optimized");
+        document.body.classList.add("");
     }
 });
 
@@ -3623,6 +3660,30 @@ window.addEventListener('load',()=>{
 
     // AI flow final section
     if(aiFlow) main.appendChild(aiFlow);
+
+});
+</script>
+
+
+<script>
+window.addEventListener('load',()=>{
+
+    const main = document.querySelector('main');
+    if(!main) return;
+
+    const aiVoiceSections = [...document.querySelectorAll('div,section')].filter(el =>
+        el.innerText &&
+        (
+            el.innerText.includes('AI Reading Speed') ||
+            el.innerText.includes('Nghe Mẫu AI') ||
+            el.innerText.includes('Pause') ||
+            el.innerText.includes('Resume')
+        )
+    );
+
+    aiVoiceSections.forEach(sec=>{
+        main.appendChild(sec);
+    });
 
 });
 </script>
