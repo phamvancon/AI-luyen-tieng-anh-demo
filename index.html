@@ -3678,195 +3678,266 @@ window.addEventListener('load', () => {
 
 
 
-<script id="smartstart-ai-vocabulary-system">
-window.smartVocabularySystem = {
-    ss_1: {
-        unit1:["hello","goodbye","nice to meet you"],
-        unit2:["stand up","sit down","listen"],
-        unit3:["mother","father","brother","sister"],
-        unit4:["pencil","book","bag"],
-        unit5:["red","yellow","blue"],
-        unit6:["head","leg","arm"],
-        unit7:["cat","dog","bird","monkey"],
-        unit8:["swim","sing","run"],
-        unit9:["one","two","three","four","five","six"],
-        unit10:["banana","cookie","sandwich"],
-        unit11:["car","teddy bear","ball"],
-        unit12:["living room","kitchen","bedroom"]
+
+
+
+<script id="smart-focus-vocabulary-sync">
+
+/* SMART START VOCABULARY DATABASE */
+window.smartFocusVocabulary = {
+
+    ss_1:{
+        unit1:["Hello","Goodbye","Nice to meet you"],
+        unit2:["Stand up","Sit down","Listen"],
+        unit3:["Mother","Father","Brother","Sister"],
+        unit4:["Pencil","Book","Bag"],
+        unit5:["Red","Yellow","Blue"],
+        unit6:["Head","Leg","Arm"],
+        unit7:["Cat","Dog","Bird","Monkey"],
+        unit8:["Swim","Sing","Run"],
+        unit9:["One","Two","Three","Four"],
+        unit10:["Banana","Cookie","Sandwich"],
+        unit11:["Car","Ball","Teddy bear"],
+        unit12:["Living room","Kitchen","Bedroom"]
     },
 
-    ss_2: {
-        unit1:["happy","sad","angry","hungry"],
-        unit2:["circle","square","triangle"],
-        unit3:["eleven","twelve","thirteen"],
-        unit4:["elephant","giraffe","zebra"],
-        unit5:["skip","dance","play soccer"],
-        unit6:["bank","hospital","school"],
-        unit7:["shirt","dress","hat"],
-        unit8:["bus","train","bike"],
-        unit9:["write","read","listen"],
+    ss_2:{
+        unit1:["Happy","Sad","Hungry"],
+        unit2:["Circle","Square","Triangle"],
+        unit3:["Eleven","Twelve","Thirteen"],
+        unit4:["Elephant","Giraffe","Zebra"],
+        unit5:["Dance","Skip","Play soccer"],
+        unit6:["Hospital","Bank","School"],
+        unit7:["Dress","Hat","Shirt"],
+        unit8:["Bus","Bike","Train"],
+        unit9:["Read","Write","Listen"],
         unit10:["Monday","Tuesday","Wednesday"]
     },
 
-    ss_3: {
+    ss_3:{
         unit1:["USA","Japan","Italy","India"],
-        unit2:["grandfather","uncle","cousin"],
-        unit3:["eraser","ruler","backpack"],
-        unit4:["kitchen","yard","bathroom"],
-        unit5:["basketball","soccer","tennis"],
-        unit6:["dress","shirt","jacket"],
-        unit7:["robot","doll","blocks"],
-        unit8:["pizza","cake","fish"]
+        unit2:["Grandfather","Uncle","Cousin"],
+        unit3:["Eraser","Ruler","Backpack"],
+        unit4:["Kitchen","Bathroom","Yard"],
+        unit5:["Basketball","Soccer","Tennis"],
+        unit6:["Jacket","Jeans","T-shirt"],
+        unit7:["Robot","Doll","Blocks"],
+        unit8:["Pizza","Cake","Fish"]
     },
 
-    ss_4: {
-        unit1:["snake","monkey","camel","panda"],
-        unit2:["dance","sing","paint","draw"],
-        unit3:["sunny","rainy","snowy"],
-        unit4:["comic book","puzzle","swimming"],
-        unit5:["turn left","turn right","go straight"],
-        unit6:["tall","short","curly hair"],
-        unit7:["doctor","farmer","cook"],
-        unit8:["museum","playground","park"]
+    ss_4:{
+        unit1:["Snake","Monkey","Camel","Panda"],
+        unit2:["Dance","Sing","Paint"],
+        unit3:["Sunny","Rainy","Snowy"],
+        unit4:["Puzzle","Comic book","Swimming"],
+        unit5:["Turn left","Turn right","Go straight"],
+        unit6:["Tall","Short","Curly hair"],
+        unit7:["Doctor","Cook","Farmer"],
+        unit8:["Museum","Playground","Park"]
     },
 
-    ss_5: {
-        unit1:["science","history","I.T.","geography"],
-        unit2:["Halloween","Tet","Christmas"],
-        unit3:["friendly","funny","play games"],
-        unit4:["plane","hotel","vacation"],
-        unit5:["medicine","healthy","exercise"],
-        unit6:["pizza","restaurant","juice"],
-        unit7:["engineer","teacher","doctor"],
-        unit8:["weather","season","climate"]
+    ss_5:{
+        unit1:["Science","History","I.T.","Geography"],
+        unit2:["Halloween","Christmas","Tet"],
+        unit3:["Friendly","Funny","Play games"],
+        unit4:["Plane","Vacation","Hotel"],
+        unit5:["Medicine","Exercise","Healthy"],
+        unit6:["Pizza","Juice","Restaurant"],
+        unit7:["Engineer","Teacher","Doctor"],
+        unit8:["Weather","Season","Climate"]
     }
 };
 
-function renderFocusVocabulary(words){
-    const target = document.getElementById('focus-vocabulary-list');
-    if(!target) return;
+/* VOICE */
+function speakFocusWord(word){
+    const speech = new SpeechSynthesisUtterance(word);
+    speech.lang = 'en-US';
+    speech.rate = 0.9;
+    window.speechSynthesis.speak(speech);
+}
 
-    target.innerHTML = "";
+/* RENDER VOCABULARY */
+function renderFocusVocabulary(grade, unit){
+
+    const box = document.getElementById('focusVocabularyWords');
+    if(!box) return;
+
+    const data = window.smartFocusVocabulary;
+
+    let words = [];
+
+    if(data[grade] && data[grade][unit]){
+        words = data[grade][unit];
+    }
+
+    if(words.length === 0){
+        words = ["Hello","Book","School"];
+    }
+
+    box.innerHTML = '';
 
     words.forEach(word => {
-        target.innerHTML += `
-            <div class="focus-word-item"
-            style="display:flex;align-items:center;justify-content:space-between;
-            gap:10px;padding:10px 12px;background:#f8fbff;
-            border:1px solid #dbeafe;border-radius:14px;margin-bottom:8px;">
 
-                <div style="font-weight:700;color:#1e293b;">
+        box.innerHTML += `
+            <button
+                onclick="speakFocusWord('${word}')"
+                class="focus-vocab-btn"
+                style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                width:100%;
+                padding:12px 14px;
+                border:none;
+                border-radius:16px;
+                margin-bottom:10px;
+                background:#f8fbff;
+                border:1px solid #dbeafe;
+                cursor:pointer;
+                transition:.2s ease;
+                ">
+
+                <div style="font-weight:800;color:#1e293b;text-align:left;">
                     ${word}
                 </div>
 
-                <button onclick="speakVocabulary('${word}')"
-                style="background:#3b82f6;color:white;border:none;
-                border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer;">
-                    🔊 Nghe
-                </button>
-            </div>
+                <div style="
+                    background:#3b82f6;
+                    color:white;
+                    padding:6px 10px;
+                    border-radius:10px;
+                    font-size:12px;
+                    font-weight:700;
+                    ">
+                    🔊
+                </div>
+
+            </button>
         `;
     });
 }
 
-function speakVocabulary(word){
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
-}
+/* AUTO SYNC CURRENT LESSON */
+function syncVocabularyWithCurrentLesson(){
 
-function updateVocabularyFromSelection(gradeKey, unitKey){
-    const db = window.smartVocabularySystem || {};
+    let currentGrade = "ss_1";
+    let currentUnit = "unit1";
 
-    if(!db[gradeKey]) return;
+    const activeElement =
+        document.querySelector('.lesson-card.active') ||
+        document.querySelector('.topic-card.active') ||
+        document.querySelector('[data-unit].active');
 
-    const words = db[gradeKey][unitKey];
+    let text = '';
 
-    if(words){
-        renderFocusVocabulary(words);
+    if(activeElement){
+        text = activeElement.innerText.toLowerCase();
+    }else{
+        text = document.body.innerText.toLowerCase();
     }
-}
 
-function smartDetectCurrentLesson(){
-    let detectedGrade = "ss_1";
-    let detectedUnit = "unit1";
+    if(text.includes('smart start 5')) currentGrade = 'ss_5';
+    else if(text.includes('smart start 4')) currentGrade = 'ss_4';
+    else if(text.includes('smart start 3')) currentGrade = 'ss_3';
+    else if(text.includes('smart start 2')) currentGrade = 'ss_2';
 
-    const activeText = document.body.innerText.toLowerCase();
-
-    if(activeText.includes("smart start 5")) detectedGrade = "ss_5";
-    else if(activeText.includes("smart start 4")) detectedGrade = "ss_4";
-    else if(activeText.includes("smart start 3")) detectedGrade = "ss_3";
-    else if(activeText.includes("smart start 2")) detectedGrade = "ss_2";
-
-    const unitMatch = activeText.match(/unit\s*(\d+)/i);
+    const unitMatch = text.match(/unit\s*(\d+)/i);
 
     if(unitMatch){
-        detectedUnit = "unit" + unitMatch[1];
+        currentUnit = 'unit' + unitMatch[1];
     }
 
-    updateVocabularyFromSelection(detectedGrade, detectedUnit);
+    renderFocusVocabulary(currentGrade, currentUnit);
 }
 
+/* CLICK UPDATE */
 document.addEventListener('click', function(e){
 
-    const btn = e.target.closest('button,.lesson-card,.unit-card,.topic-card');
+    const target = e.target.closest('button,.lesson-card,.topic-card,.unit-card');
 
-    if(!btn) return;
+    if(!target) return;
 
-    const text = btn.innerText.toLowerCase();
+    const text = target.innerText.toLowerCase();
 
-    let grade = "ss_1";
-    let unit = "unit1";
+    let grade = 'ss_1';
+    let unit = 'unit1';
 
-    if(text.includes("smart start 5")) grade = "ss_5";
-    else if(text.includes("smart start 4")) grade = "ss_4";
-    else if(text.includes("smart start 3")) grade = "ss_3";
-    else if(text.includes("smart start 2")) grade = "ss_2";
+    if(text.includes('smart start 5')) grade = 'ss_5';
+    else if(text.includes('smart start 4')) grade = 'ss_4';
+    else if(text.includes('smart start 3')) grade = 'ss_3';
+    else if(text.includes('smart start 2')) grade = 'ss_2';
 
-    const found = text.match(/unit\s*(\d+)/i);
+    const match = text.match(/unit\s*(\d+)/i);
 
-    if(found){
-        unit = "unit" + found[1];
+    if(match){
+        unit = 'unit' + match[1];
     }
 
-    updateVocabularyFromSelection(grade, unit);
+    renderFocusVocabulary(grade, unit);
 });
 
+/* INIT */
 window.addEventListener('load', () => {
 
-    if(!document.getElementById('focus-vocabulary-box')){
+    const existing = document.getElementById('focusVocabularyContainer');
 
-        const wrapper = document.createElement('div');
+    if(!existing){
 
-        wrapper.id = 'focus-vocabulary-box';
+        const box = document.createElement('div');
 
-        wrapper.innerHTML = `
-            <div style="margin:16px;padding:18px;background:white;
-            border-radius:20px;border:1px solid #e2e8f0;
-            box-shadow:0 4px 14px rgba(0,0,0,.06);">
+        box.id = 'focusVocabularyContainer';
 
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                    <h3 style="margin:0;font-size:16px;font-weight:900;">
-                        ⭐ Từ Vựng Trọng Tâm
+        box.innerHTML = `
+            <div style="
+                margin:16px;
+                background:white;
+                border-radius:22px;
+                padding:18px;
+                border:1px solid #e2e8f0;
+                box-shadow:0 6px 20px rgba(15,23,42,.05);
+            ">
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    margin-bottom:14px;
+                ">
+
+                    <h3 style="
+                        margin:0;
+                        font-size:16px;
+                        font-weight:900;
+                        color:#0f172a;
+                    ">
+                        🔊 Luyện Phát Âm Từ
                     </h3>
 
-                    <span style="font-size:11px;background:#dbeafe;
-                    color:#1d4ed8;padding:6px 10px;border-radius:999px;font-weight:700;">
-                        AI Smart Vocabulary
-                    </span>
+                    <div style="
+                        font-size:11px;
+                        background:#dbeafe;
+                        color:#1d4ed8;
+                        padding:6px 10px;
+                        border-radius:999px;
+                        font-weight:700;
+                    ">
+                        Smart Vocabulary
+                    </div>
+
                 </div>
 
-                <div id="focus-vocabulary-list"></div>
+                <div id="focusVocabularyWords"></div>
 
             </div>
         `;
 
-        document.body.prepend(wrapper);
+        document.body.prepend(box);
     }
 
-    smartDetectCurrentLesson();
+    syncVocabularyWithCurrentLesson();
 });
+
 </script>
 
 </body>
