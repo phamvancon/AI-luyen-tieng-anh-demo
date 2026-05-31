@@ -342,24 +342,6 @@
                             </div>
                         </div>
 
-
-                        <!-- AI UNIT SPEAKING TRAINER -->
-                        <div class="bg-gradient-to-br from-indigo-50 to-sky-50 border border-indigo-100 rounded-2xl p-4 shadow-sm">
-                            <div class="flex items-center justify-between mb-3">
-                                <h4 class="font-bold text-slate-900 text-sm flex items-center">
-                                    <i class="fa-solid fa-comments text-indigo-600 mr-2"></i>AI Luyện Nói Theo Unit
-                                </h4>
-                                <span class="text-[10px] font-black bg-indigo-600 text-white px-2 py-1 rounded-lg">SMART SPEAKING</span>
-                            </div>
-
-                            <div id="unit-speaking-container" class="space-y-2">
-                                <div class="bg-white border border-indigo-100 rounded-xl p-3 text-xs text-slate-500">
-                                    Chọn bài học để hiển thị các mẫu hội thoại AI chi tiết theo từng Unit.
-                                </div>
-                            </div>
-                        </div>
-
-
                         <!-- Vocabulary List Box -->
                         <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                             <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
@@ -2216,106 +2198,7 @@ ss_5: {
                 `;
                 container.appendChild(vocabCard);
             });
-
-            renderUnitSpeakingTopics();
         }
-
-
-        function renderUnitSpeakingTopics() {
-            const container = document.getElementById("unit-speaking-container");
-            if (!container || !currentActiveTask) return;
-
-            const vocabWords = (currentActiveTask.vocab || []).slice(0, 4).map(v => v.word).join(", ");
-
-            const speakingTopics = [
-                {
-                    icon: "fa-user-group",
-                    title: "Giới thiệu chủ đề Unit",
-                    en: `Today I want to talk about ${currentActiveTask.title}.`,
-                    vi: "Hôm nay em muốn nói về chủ đề của bài học."
-                },
-                {
-                    icon: "fa-book-open",
-                    title: "Luyện nói từ vựng trọng tâm",
-                    en: `Key vocabulary words are ${vocabWords}.`,
-                    vi: "Đọc và luyện phát âm các từ vựng trọng tâm của bài."
-                },
-                {
-                    icon: "fa-microphone-lines",
-                    title: "Đặt câu theo bài học",
-                    en: currentActiveTask.content.split(".")[0] + ".",
-                    vi: "Luyện đọc câu mẫu quan trọng của bài học."
-                },
-                {
-                    icon: "fa-robot",
-                    title: "Hội thoại AI theo Unit",
-                    en: `Can we talk more about ${currentActiveTask.title}?`,
-                    vi: "Bắt đầu hội thoại AI mở rộng theo đúng chủ đề Unit."
-                }
-            ];
-
-            container.innerHTML = "";
-
-            speakingTopics.forEach((topic, index) => {
-                const card = document.createElement("div");
-                card.className = "bg-white border border-indigo-100 rounded-2xl p-3 hover:shadow-md transition";
-                card.innerHTML = `
-                    <div class="flex items-start justify-between gap-2">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                                    <i class="fa-solid ${topic.icon}"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-black text-xs text-slate-900">${index + 1}. ${topic.title}</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">${topic.vi}</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-2 bg-slate-50 rounded-xl p-2 border border-slate-100">
-                                <p class="text-xs font-semibold text-slate-700">${topic.en}</p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                            <button onclick="speakSentenceForPractice('${topic.en.replace(/'/g,"\\'")}')" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">
-                                <i class="fa-solid fa-volume-high text-xs"></i>
-                            </button>
-
-                            <button onclick="startUnitSpeakingPractice('${topic.en.replace(/'/g,"\\'")}')" class="w-9 h-9 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow">
-                                <i class="fa-solid fa-microphone text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function speakSentenceForPractice(sentence) {
-            if (!('speechSynthesis' in window)) {
-                showToast("Thiết bị không hỗ trợ đọc giọng nói.");
-                return;
-            }
-
-            const utterance = new SpeechSynthesisUtterance(sentence);
-            utterance.lang = "en-US";
-            utterance.rate = 0.9;
-            speechSynthesis.cancel();
-            speechSynthesis.speak(utterance);
-        }
-
-        function startUnitSpeakingPractice(sentence) {
-            switchTab('chat');
-
-            setTimeout(() => {
-                appendChatMessage("ai", `Practice this sentence: "${sentence}"`);
-                speakSentenceForPractice(sentence);
-            }, 300);
-
-            showToast("Đã mở AI luyện nói theo Unit.");
-        }
-
 
         function renderStudentInfo(state) {
             document.getElementById("display-student-name").innerText = state.name;
@@ -3742,15 +3625,274 @@ window.addEventListener('load', () => {
     }
 });
 
+</script>
 
-        if (!window.SpeechRecognition && window.webkitSpeechRecognition) {
-            window.SpeechRecognition = window.webkitSpeechRecognition;
+<script>
+/* SMART START FULL CURRICULUM DATABASE AUTO SYNC */
+const smartStartCurriculum = {
+  ss_1: {
+    title: "Smart Start 1",
+    units: [
+      { id:"u1", title:"My Family", vocabulary:["brother","sister","mother","father"], speaking:["This is my brother.","Nice to meet you."]},
+      { id:"u2", title:"Colors", vocabulary:["red","yellow","blue","pink","white"], speaking:["It is red.","Thank you."]},
+      { id:"u3", title:"My Body", vocabulary:["head","arm","leg"], speaking:["Touch your head."]},
+      { id:"u4", title:"Animals", vocabulary:["cat","dog","bird","monkey"], speaking:["I like cats."]},
+      { id:"u5", title:"Activities", vocabulary:["swim","sing","run"], speaking:["I can swim."]},
+      { id:"u6", title:"Numbers", vocabulary:["one","two","three","four"], speaking:["How old are you?"]},
+      { id:"u7", title:"Food", vocabulary:["banana","cookie","sandwich"], speaking:["I want a banana."]},
+      { id:"u8", title:"Toys", vocabulary:["car","ball","teddy bear"], speaking:["I have a ball."]}
+    ]
+  },
+  ss_2: {
+    title: "Smart Start 2",
+    units: [
+      { id:"u1", title:"Feelings", vocabulary:["happy","sad","hungry","thirsty"], speaking:["How are you?"]},
+      { id:"u2", title:"Shapes", vocabulary:["circle","square","triangle"], speaking:["What shape is it?"]},
+      { id:"u3", title:"Numbers", vocabulary:["eleven","twelve","twenty"], speaking:["How many circles are there?"]},
+      { id:"u4", title:"Animals", vocabulary:["duck","goat","pig","cow"], speaking:["What's that?"]},
+      { id:"u5", title:"Free Time", vocabulary:["soccer","tag","hopscotch"], speaking:["Let's play soccer."]},
+      { id:"u6", title:"Around Town", vocabulary:["zoo","beach","park"], speaking:["I want to go to the zoo."]},
+      { id:"u7", title:"Clothes", vocabulary:["shirt","pants","shoes"], speaking:["These are my pants."]},
+      { id:"u8", title:"Transportation", vocabulary:["bus","plane","boat"], speaking:["Can you see the bus?"]}
+    ]
+  },
+  ss_3: {
+    title: "Smart Start 3",
+    units: [
+      { id:"u1", title:"My Friends", vocabulary:["dancing","singing","drawing"], speaking:["Where are you from?"]},
+      { id:"u2", title:"Family", vocabulary:["grandfather","uncle","cousin"], speaking:["Who's he?"]},
+      { id:"u3", title:"School", vocabulary:["math","English","music"], speaking:["Do you like math?"]},
+      { id:"u4", title:"Home", vocabulary:["living room","bedroom","kitchen"], speaking:["Where's Dad?"]},
+      { id:"u5", title:"Sports and Hobbies", vocabulary:["soccer","swimming","cooking"], speaking:["Can you play soccer?"]},
+      { id:"u6", title:"Clothes", vocabulary:["dress","jacket","boots"], speaking:["What are you wearing?"]},
+      { id:"u7", title:"Toys", vocabulary:["robot","doll","kite"], speaking:["How many marbles do you have?"]},
+      { id:"u8", title:"Food", vocabulary:["pizza","cake","ice cream"], speaking:["Would you like some fries?"]}
+    ]
+  },
+  ss_4: {
+    title: "Smart Start 4",
+    units: [
+      { id:"u1", title:"Animals", vocabulary:["snake","monkey","horse"], speaking:["What's this?"]},
+      { id:"u2", title:"What I Can Do", vocabulary:["dance","sing","paint"], speaking:["I can dance."]},
+      { id:"u3", title:"Weather", vocabulary:["sunny","rainy","windy"], speaking:["What's the weather like today?"]},
+      { id:"u4", title:"Activities", vocabulary:["play chess","take photos"], speaking:["What are you doing?"]},
+      { id:"u5", title:"Getting Around", vocabulary:["bus","train","taxi"], speaking:["How do you go to school?"]},
+      { id:"u6", title:"Describing People", vocabulary:["curly hair","tall","thin"], speaking:["What does he look like?"]},
+      { id:"u7", title:"My Family", vocabulary:["doctor","farmer","cook"], speaking:["What does your father do?"]},
+      { id:"u8", title:"My Friends and I", vocabulary:["excited","tired","worried"], speaking:["Where were you yesterday?"]}
+    ]
+  },
+  ss_5: {
+    title: "Smart Start 5",
+    units: [
+      { id:"u1", title:"School", vocabulary:["science","history","I.T."], speaking:["Which subject do you like?"]},
+      { id:"u2", title:"Holidays", vocabulary:["Christmas","Halloween"], speaking:["What's your favorite holiday?"]},
+      { id:"u3", title:"My Friends and I", vocabulary:["slowly","well","hard"], speaking:["Tom sings well."]},
+      { id:"u4", title:"Travel", vocabulary:["mountain","beach","forest"], speaking:["How did you get there?"]},
+      { id:"u5", title:"Health", vocabulary:["headache","toothache","weak"], speaking:["What's wrong?"]},
+      { id:"u6", title:"Food and Drinks", vocabulary:["butter","milk","smoothie"], speaking:["Let's make smoothies."]},
+      { id:"u7", title:"Jobs", vocabulary:["scientist","pilot","dentist"], speaking:["What do you want to be?"]},
+      { id:"u8", title:"Weather", vocabulary:["cloudy","stormy","rainy"], speaking:["What's the weather like?"]}
+    ]
+  }
+};
+
+function loadSmartStartThemes(classId){
+    const selector = document.getElementById('smart-theme-selector');
+    if(!selector || !smartStartCurriculum[classId]) return;
+    selector.innerHTML = '';
+    smartStartCurriculum[classId].units.forEach(unit=>{
+        const option = document.createElement('option');
+        option.value = unit.id;
+        option.textContent = unit.title;
+        selector.appendChild(option);
+    });
+    loadSmartThemeContent(smartStartCurriculum[classId].units[0].id);
+}
+
+function loadSmartThemeContent(themeId){
+    let currentUnit = null;
+    Object.values(smartStartCurriculum).forEach(level=>{
+        level.units.forEach(unit=>{
+            if(unit.id === themeId){ currentUnit = unit; }
+        });
+    });
+
+    if(!currentUnit) return;
+
+    const readingTitle = document.getElementById('reading-title');
+    const readingContent = document.getElementById('reading-content');
+    const vocabContainer = document.getElementById('vocabulary-container');
+
+    if(readingTitle){
+        readingTitle.innerHTML = '📘 ' + currentUnit.title;
+    }
+
+    if(readingContent){
+        readingContent.innerHTML = `
+            <div class="space-y-3">
+                <div>
+                    <h3 class="font-bold text-brand-600">🎯 Vocabulary</h3>
+                    <p>${currentUnit.vocabulary.join(', ')}</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-emerald-600">🗣 AI Speaking</h3>
+                    <p>${currentUnit.speaking.join('<br>')}</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-rose-600">🤖 AI Conversation</h3>
+                    <p>AI: ${currentUnit.speaking[0]}<br>Student: ...</p>
+                </div>
+            </div>
+        `;
+    }
+
+    if(vocabContainer){
+        vocabContainer.innerHTML = '';
+        currentUnit.vocabulary.forEach(word=>{
+            const item = document.createElement('div');
+            item.className = 'bg-slate-50 border border-slate-100 rounded-xl p-3 text-sm font-bold text-slate-700';
+            item.innerHTML = '🔊 ' + word;
+            vocabContainer.appendChild(item);
+        });
+    }
+}
+
+window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+        loadSmartStartThemes('ss_1');
+    }, 1000);
+});
+</script>
+
+
+<script>
+/* AI VOCABULARY PRONUNCIATION TRAINER */
+let vocabRecognition = null;
+let currentPracticeWord = '';
+
+function speakVocabularyWord(word){
+    const utter = new SpeechSynthesisUtterance(word);
+    utter.lang = 'en-US';
+    utter.rate = 0.85;
+    speechSynthesis.speak(utter);
+}
+
+function startVocabularyPractice(word){
+    currentPracticeWord = word;
+    speakVocabularyWord(word);
+
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        alert('Trình duyệt chưa hỗ trợ AI luyện phát âm.');
+        return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    vocabRecognition = new SpeechRecognition();
+    vocabRecognition.lang = 'en-US';
+    vocabRecognition.interimResults = false;
+    vocabRecognition.maxAlternatives = 1;
+
+    showToast('🎙️ Hãy đọc từ: ' + word, 'success');
+
+    vocabRecognition.start();
+
+    vocabRecognition.onresult = function(event){
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        const target = word.toLowerCase().trim();
+
+        let score = 0;
+
+        if(transcript === target){
+            score = 100;
+        }else if(transcript.includes(target) || target.includes(transcript)){
+            score = 80;
+        }else{
+            score = 40;
         }
 
-        window.addEventListener("error", (event) => {
-            console.warn("Runtime warning:", event.message);
-        });
+        const feedback = document.createElement('div');
+        feedback.className = 'bg-white border border-emerald-200 rounded-2xl p-3 shadow-sm mt-2';
 
+        feedback.innerHTML = `
+            <div class="flex justify-between items-center mb-1">
+                <span class="font-black text-sm text-emerald-700">AI Pronunciation Check</span>
+                <span class="text-xs font-black text-brand-600">${score}%</span>
+            </div>
+            <p class="text-xs text-slate-600"><strong>Con đọc:</strong> ${transcript}</p>
+            <p class="text-xs text-slate-600"><strong>Từ đúng:</strong> ${target}</p>
+            <p class="text-xs font-bold mt-1 ${score >= 80 ? 'text-emerald-600':'text-rose-600'}">
+                ${score >= 80 ? '✅ Phát âm rất tốt!' : '⚠️ Hãy nghe và đọc lại chậm hơn.'}
+            </p>
+        `;
+
+        const vocabContainer = document.getElementById('vocabulary-container');
+        vocabContainer.prepend(feedback);
+
+        speakVocabularyWord(word);
+    };
+
+    vocabRecognition.onerror = function(){
+        showToast('❌ Không nghe rõ giọng nói. Thử lại nhé!', 'error');
+    };
+}
+
+function renderEnhancedVocabulary(words){
+    const vocabContainer = document.getElementById('vocabulary-container');
+    if(!vocabContainer) return;
+
+    vocabContainer.innerHTML = '';
+
+    words.forEach(word=>{
+        const item = document.createElement('div');
+        item.className = 'bg-white border border-slate-200 rounded-2xl p-3 shadow-sm';
+
+        item.innerHTML = `
+            <div class="flex items-center justify-between gap-2">
+                <div>
+                    <h4 class="font-black text-slate-800 text-sm">${word}</h4>
+                    <p class="text-[10px] text-slate-400">AI luyện phát âm từ vựng</p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="speakVocabularyWord('${word}')" 
+                        class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 hover:bg-brand-100 transition">
+                        🔊
+                    </button>
+
+                    <button onclick="startVocabularyPractice('${word}')" 
+                        class="px-3 h-10 rounded-xl bg-emerald-500 text-white text-xs font-black hover:bg-emerald-600 transition">
+                        🎙️ Luyện đọc
+                    </button>
+                </div>
+            </div>
+        `;
+
+        vocabContainer.appendChild(item);
+    });
+}
+
+const originalLoadSmartThemeContent = loadSmartThemeContent;
+
+loadSmartThemeContent = function(themeId){
+    originalLoadSmartThemeContent(themeId);
+
+    let currentUnit = null;
+
+    Object.values(smartStartCurriculum).forEach(level=>{
+        level.units.forEach(unit=>{
+            if(unit.id === themeId){
+                currentUnit = unit;
+            }
+        });
+    });
+
+    if(currentUnit){
+        renderEnhancedVocabulary(currentUnit.vocabulary);
+    }
+}
 </script>
+
 </body>
 </html>
