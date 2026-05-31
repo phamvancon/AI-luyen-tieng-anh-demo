@@ -3684,146 +3684,271 @@ window.addEventListener('load', () => {
 
 
 
+
+
+
 <script id="ilearn-smart-vocab-system">
 
-window.iLearnSmartVocabulary = {
+/* ===============================
+   I-LEARN SMART START AI VOCABULARY
+================================== */
 
-    greetings:["Hello","Goodbye","Nice to meet you"],
-    family:["Mother","Father","Brother","Sister"],
-    school:["Book","Pencil","Bag","Notebook"],
-    animals:["Monkey","Tiger","Elephant","Penguin"],
-    food:["Banana","Pizza","Cake","Milk"],
-    colors:["Red","Blue","Yellow","Green"],
-    weather:["Sunny","Rainy","Cloudy","Windy"],
-    sports:["Soccer","Basketball","Tennis","Swimming"],
-    jobs:["Doctor","Teacher","Farmer","Cook"]
+window.iLearnSmartStartVocabulary = {
+
+    greetings:{
+        title:"Greetings",
+        words:[
+            {word:"Hello", ipa:"/həˈləʊ/", vi:"Xin chào"},
+            {word:"Goodbye", ipa:"/ˌɡʊdˈbaɪ/", vi:"Tạm biệt"},
+            {word:"Nice to meet you", ipa:"/naɪs tə miːt juː/", vi:"Rất vui được gặp bạn"}
+        ]
+    },
+
+    family:{
+        title:"Family",
+        words:[
+            {word:"Mother", ipa:"/ˈmʌðə(r)/", vi:"Mẹ"},
+            {word:"Father", ipa:"/ˈfɑːðə(r)/", vi:"Cha"},
+            {word:"Brother", ipa:"/ˈbrʌðə(r)/", vi:"Anh/em trai"},
+            {word:"Sister", ipa:"/ˈsɪstə(r)/", vi:"Chị/em gái"}
+        ]
+    },
+
+    school:{
+        title:"School",
+        words:[
+            {word:"Book", ipa:"/bʊk/", vi:"Quyển sách"},
+            {word:"Pencil", ipa:"/ˈpensl/", vi:"Bút chì"},
+            {word:"Notebook", ipa:"/ˈnəʊtbʊk/", vi:"Tập vở"},
+            {word:"Backpack", ipa:"/ˈbækpæk/", vi:"Ba lô"}
+        ]
+    },
+
+    animals:{
+        title:"Animals",
+        words:[
+            {word:"Monkey", ipa:"/ˈmʌŋki/", vi:"Con khỉ"},
+            {word:"Tiger", ipa:"/ˈtaɪɡə(r)/", vi:"Con hổ"},
+            {word:"Elephant", ipa:"/ˈelɪfənt/", vi:"Con voi"},
+            {word:"Penguin", ipa:"/ˈpeŋɡwɪn/", vi:"Chim cánh cụt"}
+        ]
+    },
+
+    food:{
+        title:"Food",
+        words:[
+            {word:"Banana", ipa:"/bəˈnɑːnə/", vi:"Chuối"},
+            {word:"Pizza", ipa:"/ˈpiːtsə/", vi:"Pizza"},
+            {word:"Cake", ipa:"/keɪk/", vi:"Bánh"},
+            {word:"Milk", ipa:"/mɪlk/", vi:"Sữa"}
+        ]
+    },
+
+    weather:{
+        title:"Weather",
+        words:[
+            {word:"Sunny", ipa:"/ˈsʌni/", vi:"Nắng"},
+            {word:"Rainy", ipa:"/ˈreɪni/", vi:"Mưa"},
+            {word:"Cloudy", ipa:"/ˈklaʊdi/", vi:"Nhiều mây"},
+            {word:"Windy", ipa:"/ˈwɪndi/", vi:"Có gió"}
+        ]
+    },
+
+    sports:{
+        title:"Sports",
+        words:[
+            {word:"Soccer", ipa:"/ˈsɒkə(r)/", vi:"Bóng đá"},
+            {word:"Basketball", ipa:"/ˈbɑːskɪtbɔːl/", vi:"Bóng rổ"},
+            {word:"Tennis", ipa:"/ˈtenɪs/", vi:"Quần vợt"},
+            {word:"Swimming", ipa:"/ˈswɪmɪŋ/", vi:"Bơi lội"}
+        ]
+    }
 };
 
-function speakIlearnWord(word){
+/* AI SPEAK */
+function speakIlearnVocabulary(word){
+
+    speechSynthesis.cancel();
+
     const speech = new SpeechSynthesisUtterance(word);
+
     speech.lang = 'en-US';
-    speech.rate = 0.9;
+    speech.rate = 0.88;
+    speech.pitch = 1;
+
     window.speechSynthesis.speak(speech);
 }
 
-function renderIlearnVocabulary(topic){
-
-    const box = document.getElementById('ilearnVocabularyWords');
-
-    if(!box) return;
-
-    let words = window.iLearnSmartVocabulary[topic];
-
-    if(!words){
-        words = ["Hello","Book","School"];
-    }
-
-    box.innerHTML = "";
-
-    words.forEach(word => {
-
-        box.innerHTML += `
-            <button onclick="speakIlearnWord('${word}')"
-            style="
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:10px;
-            width:100%;
-            margin-bottom:10px;
-            padding:12px 14px;
-            border:none;
-            border-radius:16px;
-            background:#f8fbff;
-            border:1px solid #dbeafe;
-            cursor:pointer;
-            ">
-
-                <div style="
-                font-weight:800;
-                color:#0f172a;
-                text-align:left;
-                ">
-                    ${word}
-                </div>
-
-                <div style="
-                background:#3b82f6;
-                color:white;
-                padding:6px 10px;
-                border-radius:10px;
-                font-size:12px;
-                font-weight:700;
-                ">
-                    🔊
-                </div>
-
-            </button>
-        `;
-    });
-}
-
-function detectIlearnTopic(text){
+/* DETECT CURRENT TOPIC */
+function detectCurrentIlearnTopic(text){
 
     text = (text || "").toLowerCase();
 
     if(text.includes("family")) return "family";
     if(text.includes("animal")) return "animals";
     if(text.includes("food")) return "food";
-    if(text.includes("school")) return "school";
     if(text.includes("weather")) return "weather";
     if(text.includes("sport")) return "sports";
-    if(text.includes("job")) return "jobs";
-    if(text.includes("color")) return "colors";
+    if(text.includes("school")) return "school";
 
     return "greetings";
 }
 
-document.addEventListener('click', function(e){
+/* RENDER VOCABULARY */
+function renderIlearnFocusVocabulary(topic){
 
-    const target = e.target.closest('.lesson-card,.topic-card,.unit-card,button');
+    const target = document.getElementById('ilearnFocusVocabularyWords');
 
     if(!target) return;
 
-    const topic = detectIlearnTopic(target.innerText);
+    const data = window.iLearnSmartStartVocabulary[topic];
 
-    renderIlearnVocabulary(topic);
+    if(!data) return;
+
+    target.innerHTML = "";
+
+    data.words.forEach(item => {
+
+        target.innerHTML += `
+
+            <div class="ilearn-focus-word"
+            style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            padding:12px 14px;
+            background:#f8fbff;
+            border:1px solid #dbeafe;
+            border-radius:16px;
+            margin-bottom:10px;
+            transition:.2s ease;
+            ">
+
+                <div>
+
+                    <div style="
+                    font-weight:900;
+                    color:#0f172a;
+                    font-size:14px;
+                    ">
+                        ${item.word}
+                    </div>
+
+                    <div style="
+                    font-size:11px;
+                    color:#64748b;
+                    margin-top:2px;
+                    ">
+                        ${item.ipa} • ${item.vi}
+                    </div>
+
+                </div>
+
+                <button onclick="speakIlearnVocabulary('${item.word}')"
+                style="
+                border:none;
+                background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+                color:white;
+                padding:9px 12px;
+                border-radius:12px;
+                font-size:12px;
+                font-weight:800;
+                cursor:pointer;
+                min-width:54px;
+                ">
+                    🔊
+                </button>
+
+            </div>
+        `;
+    });
+}
+
+/* AUTO SYNC */
+function syncIlearnVocabulary(){
+
+    let lessonText = "";
+
+    const active =
+        document.querySelector('.lesson-card.active') ||
+        document.querySelector('.topic-card.active') ||
+        document.querySelector('.unit-card.active');
+
+    if(active){
+        lessonText = active.innerText;
+    }else{
+        lessonText = document.body.innerText;
+    }
+
+    const topic = detectCurrentIlearnTopic(lessonText);
+
+    renderIlearnFocusVocabulary(topic);
+}
+
+/* CLICK LISTENER */
+document.addEventListener('click', function(e){
+
+    const item = e.target.closest(
+        '.lesson-card,.topic-card,.unit-card,button'
+    );
+
+    if(!item) return;
+
+    const topic = detectCurrentIlearnTopic(item.innerText);
+
+    renderIlearnFocusVocabulary(topic);
 });
 
+/* INIT */
 window.addEventListener('load', () => {
 
-    if(!document.getElementById('ilearnVocabularyBox')){
+    if(!document.getElementById('ilearnFocusVocabularyBox')){
 
         const wrapper = document.createElement('div');
 
-        wrapper.id = 'ilearnVocabularyBox';
+        wrapper.id = 'ilearnFocusVocabularyBox';
 
         wrapper.innerHTML = `
 
         <div style="
             margin:16px;
             background:white;
-            border-radius:22px;
+            border-radius:24px;
             padding:18px;
             border:1px solid #e2e8f0;
-            box-shadow:0 6px 20px rgba(15,23,42,.05);
+            box-shadow:0 8px 24px rgba(15,23,42,.05);
         ">
 
             <div style="
                 display:flex;
                 align-items:center;
                 justify-content:space-between;
-                margin-bottom:14px;
+                margin-bottom:16px;
+                gap:10px;
+                flex-wrap:wrap;
             ">
 
-                <h3 style="
-                    margin:0;
-                    font-size:16px;
-                    font-weight:900;
-                    color:#0f172a;
-                ">
-                    ⭐ Từ Vựng Trọng Tâm
-                </h3>
+                <div>
+
+                    <h3 style="
+                        margin:0;
+                        font-size:16px;
+                        font-weight:900;
+                        color:#0f172a;
+                    ">
+                        ⭐ Từ Vựng Trọng Tâm
+                    </h3>
+
+                    <div style="
+                        font-size:11px;
+                        color:#64748b;
+                        margin-top:4px;
+                    ">
+                        Đồng bộ theo chủ đề học i-Learn Smart Start
+                    </div>
+
+                </div>
 
                 <div style="
                     font-size:11px;
@@ -3831,14 +3956,14 @@ window.addEventListener('load', () => {
                     color:#1d4ed8;
                     padding:6px 10px;
                     border-radius:999px;
-                    font-weight:700;
+                    font-weight:800;
                 ">
-                    Luyện phát âm từ
+                    🔊 Luyện phát âm từ
                 </div>
 
             </div>
 
-            <div id="ilearnVocabularyWords"></div>
+            <div id="ilearnFocusVocabularyWords"></div>
 
         </div>
         `;
@@ -3846,7 +3971,7 @@ window.addEventListener('load', () => {
         document.body.prepend(wrapper);
     }
 
-    renderIlearnVocabulary('greetings');
+    syncIlearnVocabulary();
 });
 
 </script>
