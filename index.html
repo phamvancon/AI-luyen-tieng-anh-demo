@@ -151,8 +151,134 @@ window.addEventListener('load', () => {
     }
 }
 
+
+/* ===== SMART RESPONSIVE AI UI ===== */
+
+:root{
+    --eco-radius:22px;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+@media (max-width:640px){
+
+    .max-w-md,
+    .max-w-5xl{
+        max-width:100% !important;
+    }
+
+    .grid{
+        grid-template-columns:1fr !important;
+    }
+
+    .rounded-3xl{
+        border-radius:18px !important;
+    }
+
+    .text-2xl{
+        font-size:1.4rem !important;
+    }
+
+    .text-xl{
+        font-size:1.2rem !important;
+    }
+
+    .shadow-2xl{
+        box-shadow:0 10px 30px rgba(0,0,0,.12)!important;
+    }
+
+    main{
+        padding:12px !important;
+    }
+
+    footer{
+        padding-bottom:calc(env(safe-area-inset-bottom) + 12px);
+    }
+}
+
+@media (min-width:641px){
+
+    .w-full.max-w-md.md\:max-w-5xl{
+        width:min(96vw,1600px)!important;
+    }
+}
+
+/* Floating mascot */
+
+@keyframes eco-float{
+    0%{transform:translateY(0px) rotate(0deg);}
+    50%{transform:translateY(-12px) rotate(4deg);}
+    100%{transform:translateY(0px) rotate(0deg);}
+}
+
+.eco-mascot{
+    position:fixed;
+    right:18px;
+    bottom:95px;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4f46e5,#06b6d4);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    box-shadow:0 15px 35px rgba(79,70,229,.35);
+    z-index:60;
+    animation:eco-float 3s infinite ease-in-out;
+}
+
+/* Background bubbles */
+
+.ai-bubbles{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.ai-bubbles span{
+    position:absolute;
+    display:block;
+    border-radius:50%;
+    opacity:.12;
+    animation:floatBubble linear infinite;
+}
+
+@keyframes floatBubble{
+    0%{
+        transform:translateY(100vh) scale(0.2);
+    }
+    100%{
+        transform:translateY(-120vh) scale(1);
+    }
+}
+
 </style>
 </head>
+
+<!-- SMART AI VISUAL EFFECTS -->
+<div class="ai-bubbles">
+    <span style="left:5%; width:80px; height:80px; background:#3b82f6; animation-duration:18s;"></span>
+    <span style="left:18%; width:35px; height:35px; background:#14b8a6; animation-duration:13s;"></span>
+    <span style="left:32%; width:60px; height:60px; background:#8b5cf6; animation-duration:22s;"></span>
+    <span style="left:55%; width:90px; height:90px; background:#f59e0b; animation-duration:19s;"></span>
+    <span style="left:76%; width:40px; height:40px; background:#ef4444; animation-duration:14s;"></span>
+    <span style="left:88%; width:70px; height:70px; background:#10b981; animation-duration:20s;"></span>
+</div>
+
+<div class="eco-mascot" onclick="showToast('Xin chào 👋 ECO AI luôn sẵn sàng học cùng con!')">
+    🤖
+</div>
+
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
 
     <!-- APP WRAPPER (Tự động co giãn thông minh: Mobile dọc gọn gàng, Desktop dạng Dashboard góc rộng) -->
@@ -3398,6 +3524,72 @@ window.addEventListener("load", () => {
         document.body.classList.add("desktop-optimized");
     }
 });
+
+
+
+/* ===== VIETNAMESE AI UNDERSTANDING ENGINE ===== */
+
+function detectVietnameseIntent(message){
+
+    const text = message.toLowerCase();
+
+    if(text.includes("xin chào") || text.includes("chào")){
+        return {
+            en:"Hello! I can understand Vietnamese and English now. Let's practice together!",
+            vi:"Xin chào! AI hiện đã hiểu cả tiếng Việt và tiếng Anh rồi nhé."
+        };
+    }
+
+    if(text.includes("con vật") || text.includes("animal")){
+        return {
+            en:"Animals are wonderful friends. What animal do you like the most?",
+            vi:"Động vật là những người bạn tuyệt vời. Con thích con vật nào nhất?"
+        };
+    }
+
+    if(text.includes("thời tiết") || text.includes("weather")){
+        return {
+            en:"The weather is beautiful today. Do you like sunny or rainy days?",
+            vi:"Hôm nay thời tiết rất đẹp. Con thích trời nắng hay trời mưa hơn?"
+        };
+    }
+
+    if(text.includes("mệt") || text.includes("buồn")){
+        return {
+            en:"Don't worry. Take a deep breath and keep learning step by step.",
+            vi:"Đừng lo nhé. Hãy thư giãn một chút và tiếp tục học từng bước."
+        };
+    }
+
+    return {
+        en:"Great job! I understand your Vietnamese message. Please continue speaking English with me.",
+        vi:"AI đã hiểu tiếng Việt của con rồi. Hãy tiếp tục luyện nói tiếng Anh nhé."
+    };
+}
+
+const oldGenerateAIResponse = generateAIResponse;
+
+generateAIResponse = function(userQuery){
+
+    const normalized = userQuery.toLowerCase();
+
+    const hasVietnamese = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(normalized)
+        || normalized.includes("xin")
+        || normalized.includes("chào")
+        || normalized.includes("con");
+
+    if(hasVietnamese){
+
+        const response = detectVietnameseIntent(userQuery);
+
+        addChatMessage("ai", response.en, response.vi);
+        speakTextUS(response.en);
+
+        return;
+    }
+
+    oldGenerateAIResponse(userQuery);
+};
 
 </script>
 </body>
