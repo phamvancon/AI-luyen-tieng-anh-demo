@@ -33,7 +33,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 50%, #e0effe 100%);
-            user-select: none;
         }
         /* Custom scrollbar for chat and lists */
         .custom-scrollbar::-webkit-scrollbar {
@@ -61,52 +60,17 @@
         .animate-slide-up {
             animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        /* Floating Bubbles Game Animation */
+        /* Sửa lỗi cú pháp animation 0 thành 0% và chỉnh lặp hợp lý */
         @keyframes bubble-float {
-            0 { transform: translateY(100%) scale(0.9); opacity: 0; }
+            0% { transform: translateY(100%) scale(0.9); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(-120%) scale(1.1); opacity: 0; }
         }
         .bubble-item {
-            animation: bubble-float 6s linear infinite;
+            animation: bubble-float 6s linear forwards;
         }
     </style>
-
-<style id="smartstart-responsive-upgrade">
-@media (max-width: 768px){
-    .container, .main-container, .content-wrapper{
-        width:100% !important;
-        max-width:100% !important;
-        padding:12px !important;
-        margin:0 auto !important;
-        box-sizing:border-box !important;
-    }
-    .card, .lesson-card, .topic-card{
-        width:100% !important;
-        margin-bottom:12px !important;
-    }
-    iframe, video, canvas, img{
-        max-width:100% !important;
-        height:auto !important;
-    }
-    .grid{
-        grid-template-columns:1fr !important;
-    }
-    button{
-        min-height:44px;
-    }
-}
-@media (min-width: 769px){
-    .lesson-card, .topic-card{
-        transition:all .25s ease;
-    }
-    .lesson-card:hover, .topic-card:hover{
-        transform:translateY(-2px);
-    }
-}
-</style>
-
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
 
@@ -254,7 +218,7 @@
                     </button>
                 </div>
 
-                <!-- SECTION 1: READING PRACTICE (Co giãn Dashboard 2 cột thông minh) -->
+                <!-- SECTION 1: READING PRACTICE -->
                 <section id="section-reading" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                     
                     <!-- Cột Trái (7/12 cột): Thử Thách Đọc To & Minh họa bài học -->
@@ -347,7 +311,7 @@
                             </div>
                         </div>
 
-                        <!-- TỦ SÁCH GIÁO KHOA ĐIỆN TỬ SMART START -->
+                        <!-- TỦ SÁCH GIÁO KHOA SMART START -->
                         <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                             <h4 class="font-bold text-slate-900 text-xs mb-2.5 flex items-center justify-between">
                                 <span class="flex items-center"><i class="fa-solid fa-cubes text-brand-600 mr-2"></i>Tủ Sách Điện Tử i-Learn Smart Start</span>
@@ -380,7 +344,7 @@
                         <!-- Vocabulary List Box -->
                         <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                             <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
-                                <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm (Luyện Phát Âm Từ)
+                                <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm (Luyện Phát Âm)
                             </h4>
                             <div id="vocabulary-container" class="space-y-2.5 max-h-64 overflow-y-auto custom-scrollbar pr-1">
                                 <!-- Dynamic vocabulary loaded here -->
@@ -389,7 +353,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 2: AI DIALOGUE CHAT (Responsive Frame trung tâm) -->
+                <!-- SECTION 2: AI DIALOGUE CHAT -->
                 <section id="section-chat" class="hidden flex flex-col h-[calc(100vh-210px)] max-h-[500px] md:max-h-[600px] md:max-w-2xl md:mx-auto w-full">
                     <div id="chat-conversation-container" class="flex-1 overflow-y-auto custom-scrollbar p-1 space-y-3 mb-4 select-text">
                         <div class="flex items-start space-x-2.5">
@@ -413,7 +377,7 @@
 
                     <!-- Input Controls -->
                     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-2xl p-2 shadow-inner">
-                        <input type="text" id="chat-text-input" placeholder="Gõ câu trả lời hoặc nói chuyện..." class="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none">
+                        <input type="text" id="chat-text-input" placeholder="Gõ câu trả lời hoặc nói chuyện..." class="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none" onkeydown="if(event.key === 'Enter') handleSendTextChat()">
                         <button onclick="handleSendTextChat()" class="w-9 h-9 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center transition active:scale-90" title="Gửi văn bản">
                             <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
@@ -423,7 +387,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 3: MINI GAME ZONE & LEADERBOARD (Co giãn 2 cột Dashboard) -->
+                <!-- SECTION 3: MINI GAME ZONE & LEADERBOARD -->
                 <section id="section-game" class="hidden grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                     
                     <!-- Cột Trái (7/12 cột): Khu Vực Chơi Game -->
@@ -525,7 +489,7 @@
                                 </div>
 
                                 <div class="flex-1 w-full p-3 flex flex-col justify-between space-y-2">
-                                    <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-3 flex-1 flex flex-wrap gap-1.5 content-start items-center">
+                                    <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-3 flex-1 flex flex-wrap gap-1.5 content-start items-center overflow-y-auto">
                                         <div id="game-scramble-answer-container" class="w-full flex flex-wrap gap-1.5 min-h-[40px]">
                                             <p class="text-[10px] text-slate-600 italic font-bold">Nhấn vào các từ bên dưới để ghép câu...</p>
                                         </div>
@@ -849,931 +813,335 @@
                         <option value="cap_2">Cấp 2 (Lớp 6 - Lớp 9)</option>
                         <option value="cap_3">Cấp 3 (Lớp 10 - Lớp 12)</option>
                     </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Số Điện Thoại Phụ Huynh</label>
-                    <input type="tel" id="edit-student-phone" placeholder="Nhập số điện thoại" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
-                </div>
-                <button onclick="adminSaveEditedStudent()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-3.5 rounded-2xl shadow-lg transition active:scale-95 flex items-center justify-center space-x-1.5">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Lưu thông tin cập nhật</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase Core v8 CDN imports -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-    <!-- CORE LOGIC & CONTROLLER SCRIPT -->
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzJnDO3_rHxye6ft2PeClK-y4XdWJH57w",
-            authDomain: "english-reading-mobi.firebaseapp.com",
-            projectId: "english-reading-mobi",
-            storageBucket: "english-reading-mobi.firebasestorage.app",
-            messagingSenderId: "651412302789",
-            appId: "1:651412302789:web:380973879830d38f9bb9ac",
-            measurementId: "G-2S7XL4SF9P"
-        };
-
-        // Hệ thống cơ sở dữ liệu mở rộng với danh sách nhiều chủ đề trên một lớp (Học sinh tùy chọn bài học)
-        const readingDatabase = {
-            cap_1: [
-                {
-                    id: "c1_picnic",
-                    title: "A Picnic in the Park",
-                    tag: "Dã Ngoại 🌿",
-                    image: "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=600&auto=format&fit=crop&q=80",
-                    content: "Today, the weather is very beautiful. My family goes to the park for a picnic. We bring apples, bread, and milk. My dog Max is running happily on the green grass.",
-                    vocab: [
-                        { word: "Beautiful", type: "adj", ipa: "/ˈbjuːtɪfl/", vi: "Đẹp, rực rỡ", desc: "Very pleasing to see or hear." },
-                        { word: "Picnic", type: "noun", ipa: "/ˈpɪknɪk/", vi: "Dã ngoại", desc: "A meal eaten outdoors." },
-                        { word: "Happily", type: "adv", ipa: "/ˈhæpɪli/", vi: "Một cách vui vẻ", desc: "In a happy and joyful way." },
-                        { word: "Grass", type: "noun", ipa: "/ɡrɑːs/", vi: "Bãi cỏ", desc: "Green plants with narrow leaves." }
-                    ]
-                },
-                {
-                    id: "c1_family",
-                    title: "My Happy Family",
-                    tag: "Gia Đình 🏠",
-                    image: "https://images.unsplash.com/photo-1609234656388-0ff363383899?w=600&auto=format&fit=crop&q=80",
-                    content: "I have a wonderful family. There are four people in my family: my father, my mother, my big sister, and me. We love talking and laughing together every evening.",
-                    vocab: [
-                        { word: "Wonderful", type: "adj", ipa: "/ˈwʌndəfl/", vi: "Tuyệt vời", desc: "Extremely good or pleasing." },
-                        { word: "Four", type: "number", ipa: "/fɔːr/", vi: "Bốn", desc: "The number 4." },
-                        { word: "Together", type: "adv", ipa: "/təˈɡeðər/", vi: "Cùng nhau", desc: "With each other." },
-                        { word: "Evening", type: "noun", ipa: "/ˈiːvnɪŋ/", vi: "Buổi tối", desc: "The period of time at the end of the day." }
-                    ]
-                },
-                {
-                    id: "c1_kitten",
-                    title: "My Playful Kitten",
-                    tag: "Thú Cưng 🐱",
-                    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format&fit=crop&q=80",
-                    content: "I have a small cat. Her name is Mimi. She has soft white fur and beautiful green eyes. Mimi loves playing with a red ball of yarn and sleeping on my lap.",
-                    vocab: [
-                        { word: "Kitten", type: "noun", ipa: "/ˈkɪtn/", vi: "Mèo con", desc: "A young cat." },
-                        { word: "Playful", type: "adj", ipa: "/ˈpleɪfl/", vi: "Tinh nghịch", desc: "Full of play and fun." },
-                        { word: "Soft", type: "adj", ipa: "/sɒft/", vi: "Mềm mại", desc: "Easy to press or bend." },
-                        { word: "Lap", type: "noun", ipa: "/læp/", vi: "Lòng đùi", desc: "The flat area when sitting down." }
-                    ]
-                },
-                {
-                    id: "c1_school",
-                    title: "First Day at School",
-                    tag: "Trường Học 🏫",
-                    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&auto=format&fit=crop&q=80",
-                    content: "Today is my first day at school. I wear my new blue uniform and carry a big schoolbag. I meet my friendly teacher and many cute new classmates.",
-                    vocab: [
-                        { word: "Uniform", type: "noun", ipa: "/ˈjuːnɪfɔːm/", vi: "Đồng phục", desc: "Special clothes worn by school pupils." },
-                        { word: "Schoolbag", type: "noun", ipa: "/ˈskuːlbæɡ/", vi: "Cặp sách", desc: "A bag used by kids to carry books." },
-                        { word: "Friendly", type: "adj", ipa: "/ˈfrendli/", vi: "Thân thiện", desc: "Kind and pleasant." },
-                        { word: "Classmates", type: "noun", ipa: "/ˈklɑːsmeɪts/", vi: "Bạn cùng lớp", desc: "People who are in the same class at school." }
-                    ]
-                },
-                {
-                    id: "c1_garden",
-                    title: "The Beautiful Garden",
-                    tag: "Khu Vườn 🌸",
-                    image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600&auto=format&fit=crop&q=80",
-                    content: "My grandmother has a lovely garden behind her house. There are yellow sunflowers, red roses, and green trees. Butterflies and busy bees fly around the colorful flowers.",
-                    vocab: [
-                        { word: "Garden", type: "noun", ipa: "/ˈɡɑːdn/", vi: "Khu vườn", desc: "A piece of ground for growing flowers or vegetables." },
-                        { word: "Sunflower", type: "noun", ipa: "/ˈsʌnflaʊər/", vi: "Hoa hướng dương", desc: "A tall plant with giant yellow flowers." },
-                        { word: "Butterflies", type: "noun", ipa: "/ˈbʌtəflaɪz/", vi: "Bươm bướm", desc: "Insects with broad colorful wings." },
-                        { word: "Busy", type: "adj", ipa: "/ˈbɪzi/", vi: "Bận rộn", desc: "Having a lot of work to do." }
-                    ]
-                }
-            ],
-            cap_2: [
-                {
-                    id: "c2_reading",
-                    title: "The Magic of Reading Books",
-                    tag: "Đọc Sách 📚",
-                    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
-                    content: "Reading books is an excellent way to gain knowledge and improve your English vocabulary. When you open a book daily, your imagination grows and you discover incredible things about science and human history.",
-                    vocab: [
-                        { word: "Excellent", type: "adj", ipa: "/ˈeksələnt/", vi: "Xuất sắc, tuyệt vời", desc: "Extremely good or outstanding." },
-                        { word: "Vocabulary", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person." },
-                        { word: "Imagination", type: "noun", ipa: "/ɪˌmædʒɪˈneɪʃn/", vi: "Trí tưởng tượng", desc: "The ability to form mental pictures." },
-                        { word: "Discover", type: "verb", ipa: "/dɪˈskʌvə(r)/", vi: "Khám phá, phát hiện", desc: "To find something for the first time." }
-                    ]
-                },
-                {
-                    id: "c2_planet",
-                    title: "Protecting Our Planet",
-                    tag: "Trái Đất 🌍",
-                    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&auto=format&fit=crop&q=80",
-                    content: "We only have one Earth, and we must protect it. People can save water, plant more green trees, and recycle plastic bottles. Small actions can make a huge difference in keeping our environment clean and safe.",
-                    vocab: [
-                        { word: "Protect", type: "verb", ipa: "/prəˈtekt/", vi: "Bảo vệ", desc: "Keep safe from harm or injury." },
-                        { word: "Recycle", type: "verb", ipa: "/ˌriːˈsaɪkl/", vi: "Tái chế", desc: "Convert waste into reusable material." },
-                        { word: "Actions", type: "noun", ipa: "/ˈækʃnz/", vi: "Hành động", desc: "Things done or performed." },
-                        { word: "Environment", type: "noun", ipa: "/ɪnˈvaɪrənmənt/", vi: "Môi trường", desc: "The surroundings or conditions in which we live." }
-                    ]
-                },
-                {
-                    id: "c2_sports",
-                    title: "The Benefits of Regular Sports",
-                    tag: "Thể Thao ⚽",
-                    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&auto=format&fit=crop&q=80",
-                    content: "Playing sports keeps our bodies healthy, active, and strong. Whether you enjoy swimming, running, or playing badminton, exercising regularly boosts your mood and teaches you valuable teamwork skills.",
-                    vocab: [
-                        { word: "Healthy", type: "adj", ipa: "/ˈhelθi/", vi: "Khỏe mạnh", desc: "In a good physical or mental state." },
-                        { word: "Exercising", type: "verb/noun", ipa: "/ˈeksəsaɪzɪŋ/", vi: "Tập luyện thể thao", desc: "Doing physical activity to stay fit." },
-                        { word: "Boosts", type: "verb", ipa: "/buːsts/", vi: "Thúc đẩy, tăng cường", desc: "Help or encourage something to increase." },
-                        { word: "Teamwork", type: "noun", ipa: "/ˈtiːmwɜːk/", vi: "Làm việc nhóm", desc: "Collaborative efforts of a group of people." }
-                    ]
-                },
-                {
-                    id: "c2_nutrition",
-                    title: "Healthy Eating Habits",
-                    tag: "Dinh Dưỡng 🍎",
-                    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format&fit=crop&q=80",
-                    content: "Eating a balanced diet is very important for growing teenagers. We should consume more organic vegetables, fresh fruits, and whole grains while avoiding excessive fast food and sugary drinks that harm our teeth.",
-                    vocab: [
-                        { word: "Balanced", type: "adj", ipa: "/ˈbælənst/", vi: "Cân đối, cân bằng", desc: "Keeping different elements in correct proportions." },
-                        { word: "Consume", type: "verb", ipa: "/kənˈsjuːm/", vi: "Tiêu thụ, ăn uống", desc: "Eat, drink, or ingest food." },
-                        { word: "Organic", type: "adj", ipa: "/ɔːˈɡænɪk/", vi: "Hữu cơ, sạch", desc: "Produced without chemical fertilizers." },
-                        { word: "Excessive", type: "adj", ipa: "/ɪkˈsesɪv/", vi: "Quá mức, quá nhiều", desc: "More than is necessary or normal." }
-                    ]
-                },
-                {
-                    id: "c2_hobbies",
-                    title: "Finding Creative Hobbies",
-                    tag: "Sáng Tạo 🎨",
-                    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80",
-                    content: "Hobbies are activities that we do for fun in our leisure time. Some teenagers love playing acoustic guitars, while others prefer painting landscape scenes or coding simple computer games.",
-                    vocab: [
-                        { word: "Leisure", type: "noun", ipa: "/ˈleʒə(r)/", vi: "Thời gian rảnh rỗi", desc: "Time spent away from work or school." },
-                        { word: "Creative", type: "adj", ipa: "/kriˈeɪtɪv/", vi: "Sáng tạo", desc: "Relating to or involving the imagination." },
-                        { word: "Landscape", type: "noun", ipa: "/ˈlændskeɪp/", vi: "Phong cảnh", desc: "All the visible features of an area of countryside." },
-                        { word: "Coding", type: "noun/verb", ipa: "/ˈkəʊdɪŋ/", vi: "Lập trình", desc: "The process of writing computer programs." }
-                    ]
-                }
-            ],
-            cap_3: [
-                {
-                    id: "c3_ai",
-                    title: "Artificial Intelligence in Modern Society",
-                    tag: "CÔNG NGHỆ 🤖",
-                    image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600&auto=format&fit=crop&q=80",
-                    content: "Artificial Intelligence is transforming our modern society in profound ways. From healthcare diagnostics to autonomous vehicles, complex algorithms analyze vast amounts of data to assist human activities, raising ethical questions about future employment.",
-                    vocab: [
-                        { word: "Transforming", type: "verb/adj", ipa: "/trænsˈfɔːmɪŋ/", vi: "Biến đổi sâu sắc", desc: "Changing completely in form or look." },
-                        { word: "Diagnostics", type: "noun", ipa: "/ˌdaɪəɡˈnɒstɪks/", vi: "Chẩn đoán bệnh học", desc: "Methods used to identify diseases." },
-                        { word: "Autonomous", type: "adj", ipa: "/ɔːˈtɒnəməs/", vi: "Tự chủ, tự động lái", desc: "Independent and having self-government." },
-                        { word: "Algorithms", type: "noun", ipa: "/ˈælɡərɪðəmz/", vi: "Thuật toán", desc: "Step-by-step rules for calculations." }
-                    ]
-                },
-                {
-                    id: "c3_climate",
-                    title: "The Urgency of Global Climate Action",
-                    tag: "KHÍ HẬU 🌡️",
-                    image: "https://images.unsplash.com/photo-1461696114087-397271a7aedc?w=600&auto=format&fit=crop&q=80",
-                    content: "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures, extreme weather events, and melting glaciers require immediate collaboration from governments to transition towards sustainable, clean energy sources.",
-                    vocab: [
-                        { word: "Pressing", type: "adj", ipa: "/ˈpresɪŋ/", vi: "Cấp bách, khẩn thiết", desc: "Requiring urgent attention." },
-                        { word: "Melting", type: "verb/adj", ipa: "/ˈmeltɪŋ/", vi: "Đang tan chảy", desc: "Becoming liquid due to heat." },
-                        { word: "Collaboration", type: "noun", ipa: "/kəˌlæbəˈreɪʃn/", vi: "Sự hợp tác", desc: "The action of working with someone to produce something." },
-                        { word: "Sustainable", type: "adj", ipa: "/səˈsteɪnəbl/", vi: "Bền vững", desc: "Able to be maintained at a certain rate or level." }
-                    ]
-                },
-                {
-                    id: "c3_mental",
-                    title: "Prioritizing Mental Health in Youth",
-                    tag: "TÂM LÝ 🧠",
-                    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
-                    content: "In our fast-paced modern world, prioritizing mental health is as essential as maintaining physical wellness. High school students often suffer from academic pressure, making mindfulness exercises and open conversations about anxiety absolutely crucial.",
-                    vocab: [
-                        { word: "Prioritizing", type: "verb", ipa: "/praɪˈɒrətaɪzɪŋ/", vi: "Ưu tiên hàng đầu", desc: "Treating something as more important than other things." },
-                        { word: "Wellness", type: "noun", ipa: "/ˈwel nəs/", vi: "Sức khỏe toàn diện", desc: "The state of being in good health." },
-                        { word: "Mindfulness", type: "noun", ipa: "/ˈmaɪndflnəs/", vi: "Sự chánh niệm", desc: "A mental state achieved by focusing on the present moment." },
-                        { word: "Anxiety", type: "noun", ipa: "/æŋˈzaɪəti/", vi: "Nỗi lo âu", desc: "A feeling of worry, nervousness, or unease." }
-                    ]
-                },
-                {
-                    id: "c3_careers",
-                    title: "Exploring 21st Century Career Paths",
-                    tag: "NGHỀ NGHIỆP 💼",
-                    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
-                    content: "The modern job market is evolving rapidly with technology. Today's professionals must cultivate soft skills like critical thinking, creative problem-solving, and cross-cultural communication to excel in fields like biotechnology and data science.",
-                    vocab: [
-                        { word: "Evolving", type: "verb/adj", ipa: "/ɪˈvɒlvɪŋ/", vi: "Đang tiến hóa, phát triển", desc: "Developing gradually over time." },
-                        { word: "Cultivate", type: "verb", ipa: "/ˈkʌltɪveɪt/", vi: "Trau dồi, nuôi dưỡng", desc: "Try to acquire or develop a quality or skill." },
-                        { word: "Biotechnology", type: "noun", ipa: "/ˌdaɪəɡˈnɒstɪks/", vi: "Công nghệ sinh học", desc: "Exploitation of biological processes for industrial purposes." },
-                        { word: "Communication", type: "noun", ipa: "/kəˌmjuːnɪˈkeɪʃn/", vi: "Sự giao tiếp", desc: "The imparting or exchanging of information." }
-                    ]
-                },
-                {
-                    id: "c3_space",
-                    title: "The Future of Deep Space Exploration",
-                    tag: "VŨ TRỤ 🚀",
-                    image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=600&auto=format&fit=crop&q=80",
-                    content: "Space exploration has entered an exciting new era. Space agencies and private companies are actively preparing manned missions to Mars, hoping to discover clues of alien life and establish sustainable human colonies beyond Earth.",
-                    vocab: [
-                        { word: "Agencies", type: "noun", ipa: "/ˈeɪdʒənsiz/", vi: "Các cơ quan, tổ chức", desc: "Organizations established to provide a service." },
-                        { word: "Manned", type: "adj", ipa: "/mænd/", vi: "Có người lái", desc: "Carrying or operated by a crew." },
-                        { word: "Establish", type: "verb", ipa: "/ɪˈstæblɪʃ/", vi: "Thiết lập, thành lập", desc: "Set up an organization or system." },
-                        { word: "Colonies", type: "noun", ipa: "/ˈkɒləniz/", vi: "Khu định cư", desc: "Areas under control of another nation or group." }
-                    ]
-                }
-            ]
-        };
-
-        
-const smartStartDatabase = {
-ss_1: {
-
-        theme1: {
-            title: "Smart Start 1 - Unit 1",
-            image: "https://picsum.photos/seed/11/800/500",
-            content: "This is Smart Start 1 Unit 1. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme2: {
-            title: "Smart Start 1 - Unit 2",
-            image: "https://picsum.photos/seed/12/800/500",
-            content: "This is Smart Start 1 Unit 2. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme3: {
-            title: "Smart Start 1 - Unit 3",
-            image: "https://picsum.photos/seed/13/800/500",
-            content: "This is Smart Start 1 Unit 3. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme4: {
-            title: "Smart Start 1 - Unit 4",
-            image: "https://picsum.photos/seed/14/800/500",
-            content: "This is Smart Start 1 Unit 4. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme5: {
-            title: "Smart Start 1 - Unit 5",
-            image: "https://picsum.photos/seed/15/800/500",
-            content: "This is Smart Start 1 Unit 5. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme6: {
-            title: "Smart Start 1 - Unit 6",
-            image: "https://picsum.photos/seed/16/800/500",
-            content: "This is Smart Start 1 Unit 6. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme7: {
-            title: "Smart Start 1 - Unit 7",
-            image: "https://picsum.photos/seed/17/800/500",
-            content: "This is Smart Start 1 Unit 7. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme8: {
-            title: "Smart Start 1 - Unit 8",
-            image: "https://picsum.photos/seed/18/800/500",
-            content: "This is Smart Start 1 Unit 8. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme9: {
-            title: "Smart Start 1 - Unit 9",
-            image: "https://picsum.photos/seed/19/800/500",
-            content: "This is Smart Start 1 Unit 9. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme10: {
-            title: "Smart Start 1 - Unit 10",
-            image: "https://picsum.photos/seed/110/800/500",
-            content: "This is Smart Start 1 Unit 10. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme11: {
-            title: "Smart Start 1 - Unit 11",
-            image: "https://picsum.photos/seed/111/800/500",
-            content: "This is Smart Start 1 Unit 11. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme12: {
-            title: "Smart Start 1 - Unit 12",
-            image: "https://picsum.photos/seed/112/800/500",
-            content: "This is Smart Start 1 Unit 12. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
+                { word: "Establish", type: "verb", ipa: "/ɪkˈstæblɪʃ/", vi: "Thiết lập, thành lập", desc: "Set up an organization or system." },
+                { word: "Colonies", type: "noun", ipa: "/ˈkɒləniz/", vi: "Khu định cư", desc: "Areas under control of another nation or group." }
             ]
         }
-},
-ss_2: {
-
-        theme1: {
-            title: "Smart Start 2 - Unit 1",
-            image: "https://picsum.photos/seed/21/800/500",
-            content: "This is Smart Start 2 Unit 1. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme2: {
-            title: "Smart Start 2 - Unit 2",
-            image: "https://picsum.photos/seed/22/800/500",
-            content: "This is Smart Start 2 Unit 2. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme3: {
-            title: "Smart Start 2 - Unit 3",
-            image: "https://picsum.photos/seed/23/800/500",
-            content: "This is Smart Start 2 Unit 3. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme4: {
-            title: "Smart Start 2 - Unit 4",
-            image: "https://picsum.photos/seed/24/800/500",
-            content: "This is Smart Start 2 Unit 4. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme5: {
-            title: "Smart Start 2 - Unit 5",
-            image: "https://picsum.photos/seed/25/800/500",
-            content: "This is Smart Start 2 Unit 5. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme6: {
-            title: "Smart Start 2 - Unit 6",
-            image: "https://picsum.photos/seed/26/800/500",
-            content: "This is Smart Start 2 Unit 6. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme7: {
-            title: "Smart Start 2 - Unit 7",
-            image: "https://picsum.photos/seed/27/800/500",
-            content: "This is Smart Start 2 Unit 7. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme8: {
-            title: "Smart Start 2 - Unit 8",
-            image: "https://picsum.photos/seed/28/800/500",
-            content: "This is Smart Start 2 Unit 8. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme9: {
-            title: "Smart Start 2 - Unit 9",
-            image: "https://picsum.photos/seed/29/800/500",
-            content: "This is Smart Start 2 Unit 9. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme10: {
-            title: "Smart Start 2 - Unit 10",
-            image: "https://picsum.photos/seed/210/800/500",
-            content: "This is Smart Start 2 Unit 10. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme11: {
-            title: "Smart Start 2 - Unit 11",
-            image: "https://picsum.photos/seed/211/800/500",
-            content: "This is Smart Start 2 Unit 11. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme12: {
-            title: "Smart Start 2 - Unit 12",
-            image: "https://picsum.photos/seed/212/800/500",
-            content: "This is Smart Start 2 Unit 12. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        }
-},
-ss_3: {
-
-        theme1: {
-            title: "Smart Start 3 - Unit 1",
-            image: "https://picsum.photos/seed/31/800/500",
-            content: "This is Smart Start 3 Unit 1. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme2: {
-            title: "Smart Start 3 - Unit 2",
-            image: "https://picsum.photos/seed/32/800/500",
-            content: "This is Smart Start 3 Unit 2. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme3: {
-            title: "Smart Start 3 - Unit 3",
-            image: "https://picsum.photos/seed/33/800/500",
-            content: "This is Smart Start 3 Unit 3. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme4: {
-            title: "Smart Start 3 - Unit 4",
-            image: "https://picsum.photos/seed/34/800/500",
-            content: "This is Smart Start 3 Unit 4. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme5: {
-            title: "Smart Start 3 - Unit 5",
-            image: "https://picsum.photos/seed/35/800/500",
-            content: "This is Smart Start 3 Unit 5. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme6: {
-            title: "Smart Start 3 - Unit 6",
-            image: "https://picsum.photos/seed/36/800/500",
-            content: "This is Smart Start 3 Unit 6. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme7: {
-            title: "Smart Start 3 - Unit 7",
-            image: "https://picsum.photos/seed/37/800/500",
-            content: "This is Smart Start 3 Unit 7. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme8: {
-            title: "Smart Start 3 - Unit 8",
-            image: "https://picsum.photos/seed/38/800/500",
-            content: "This is Smart Start 3 Unit 8. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme9: {
-            title: "Smart Start 3 - Unit 9",
-            image: "https://picsum.photos/seed/39/800/500",
-            content: "This is Smart Start 3 Unit 9. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme10: {
-            title: "Smart Start 3 - Unit 10",
-            image: "https://picsum.photos/seed/310/800/500",
-            content: "This is Smart Start 3 Unit 10. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme11: {
-            title: "Smart Start 3 - Unit 11",
-            image: "https://picsum.photos/seed/311/800/500",
-            content: "This is Smart Start 3 Unit 11. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme12: {
-            title: "Smart Start 3 - Unit 12",
-            image: "https://picsum.photos/seed/312/800/500",
-            content: "This is Smart Start 3 Unit 12. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        }
-},
-ss_4: {
-
-        theme1: {
-            title: "Smart Start 4 - Unit 1",
-            image: "https://picsum.photos/seed/41/800/500",
-            content: "This is Smart Start 4 Unit 1. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme2: {
-            title: "Smart Start 4 - Unit 2",
-            image: "https://picsum.photos/seed/42/800/500",
-            content: "This is Smart Start 4 Unit 2. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme3: {
-            title: "Smart Start 4 - Unit 3",
-            image: "https://picsum.photos/seed/43/800/500",
-            content: "This is Smart Start 4 Unit 3. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme4: {
-            title: "Smart Start 4 - Unit 4",
-            image: "https://picsum.photos/seed/44/800/500",
-            content: "This is Smart Start 4 Unit 4. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme5: {
-            title: "Smart Start 4 - Unit 5",
-            image: "https://picsum.photos/seed/45/800/500",
-            content: "This is Smart Start 4 Unit 5. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme6: {
-            title: "Smart Start 4 - Unit 6",
-            image: "https://picsum.photos/seed/46/800/500",
-            content: "This is Smart Start 4 Unit 6. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme7: {
-            title: "Smart Start 4 - Unit 7",
-            image: "https://picsum.photos/seed/47/800/500",
-            content: "This is Smart Start 4 Unit 7. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme8: {
-            title: "Smart Start 4 - Unit 8",
-            image: "https://picsum.photos/seed/48/800/500",
-            content: "This is Smart Start 4 Unit 8. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme9: {
-            title: "Smart Start 4 - Unit 9",
-            image: "https://picsum.photos/seed/49/800/500",
-            content: "This is Smart Start 4 Unit 9. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme10: {
-            title: "Smart Start 4 - Unit 10",
-            image: "https://picsum.photos/seed/410/800/500",
-            content: "This is Smart Start 4 Unit 10. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme11: {
-            title: "Smart Start 4 - Unit 11",
-            image: "https://picsum.photos/seed/411/800/500",
-            content: "This is Smart Start 4 Unit 11. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme12: {
-            title: "Smart Start 4 - Unit 12",
-            image: "https://picsum.photos/seed/412/800/500",
-            content: "This is Smart Start 4 Unit 12. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        }
-},
-ss_5: {
-
-        theme1: {
-            title: "Smart Start 5 - Unit 1",
-            image: "https://picsum.photos/seed/51/800/500",
-            content: "This is Smart Start 5 Unit 1. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme2: {
-            title: "Smart Start 5 - Unit 2",
-            image: "https://picsum.photos/seed/52/800/500",
-            content: "This is Smart Start 5 Unit 2. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme3: {
-            title: "Smart Start 5 - Unit 3",
-            image: "https://picsum.photos/seed/53/800/500",
-            content: "This is Smart Start 5 Unit 3. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme4: {
-            title: "Smart Start 5 - Unit 4",
-            image: "https://picsum.photos/seed/54/800/500",
-            content: "This is Smart Start 5 Unit 4. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme5: {
-            title: "Smart Start 5 - Unit 5",
-            image: "https://picsum.photos/seed/55/800/500",
-            content: "This is Smart Start 5 Unit 5. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme6: {
-            title: "Smart Start 5 - Unit 6",
-            image: "https://picsum.photos/seed/56/800/500",
-            content: "This is Smart Start 5 Unit 6. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme7: {
-            title: "Smart Start 5 - Unit 7",
-            image: "https://picsum.photos/seed/57/800/500",
-            content: "This is Smart Start 5 Unit 7. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme8: {
-            title: "Smart Start 5 - Unit 8",
-            image: "https://picsum.photos/seed/58/800/500",
-            content: "This is Smart Start 5 Unit 8. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme9: {
-            title: "Smart Start 5 - Unit 9",
-            image: "https://picsum.photos/seed/59/800/500",
-            content: "This is Smart Start 5 Unit 9. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme10: {
-            title: "Smart Start 5 - Unit 10",
-            image: "https://picsum.photos/seed/510/800/500",
-            content: "This is Smart Start 5 Unit 10. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme11: {
-            title: "Smart Start 5 - Unit 11",
-            image: "https://picsum.photos/seed/511/800/500",
-            content: "This is Smart Start 5 Unit 11. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        },
-        theme12: {
-            title: "Smart Start 5 - Unit 12",
-            image: "https://picsum.photos/seed/512/800/500",
-            content: "This is Smart Start 5 Unit 12. Students learn English vocabulary, speaking, listening, and reading skills through fun activities.",
-            vocab: [
-                { word: "Student", type: "noun", ipa: "/ˈstjuːdnt/", vi: "Học sinh", desc: "Người học." },
-                { word: "Learn", type: "verb", ipa: "/lɜːn/", vi: "Học", desc: "Tiếp thu kiến thức." },
-                { word: "English", type: "noun", ipa: "/ˈɪŋɡlɪʃ/", vi: "Tiếng Anh", desc: "Ngôn ngữ quốc tế." },
-                { word: "Practice", type: "verb", ipa: "/ˈpræktɪs/", vi: "Luyện tập", desc: "Thực hành thường xuyên." }
-            ]
-        }
-}
+    ]
 };
 
+const smartStartDatabase = {
+    ss_1: {
+        getting_started: {
+            title: "Smart Start 1 - Getting Started",
+            image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&auto=format&fit=crop&q=80",
+            content: "Hello! Goodbye! Stand up, sit down, and listen carefully to your teacher in school.",
+            vocab: [
+                { word: "Hello", type: "excl", ipa: "/həˈləʊ/", vi: "Xin chào", desc: "A greeting word." },
+                { word: "Goodbye", type: "excl", ipa: "/ˌɡʊdˈbaɪ/", vi: "Tạm biệt", desc: "Used when leaving." },
+                { word: "Stand up", type: "verb", ipa: "/stænd ʌp/", vi: "Đứng dậy", desc: "Rise to a standing position." },
+                { word: "Sit down", type: "verb", ipa: "/sɪt daʊn/", vi: "Ngồi xuống", desc: "Sit on a chair." },
+                { word: "Listen", type: "verb", ipa: "/ˈlɪsn/", vi: "Lắng nghe", desc: "Give attention to sound." }
+            ]
+        },
+        theme1: {
+            title: "Smart Start 1 - Unit 1: Family",
+            image: "https://images.unsplash.com/photo-1609234656388-0ff363383899?w=600&auto=format&fit=crop&q=80",
+            content: "This is my family. This is my mother, my father, my brother, and my sister.",
+            vocab: [
+                { word: "Mother", type: "noun", ipa: "/ˈmʌðər/", vi: "Mẹ", desc: "A female parent." },
+                { word: "Father", type: "noun", ipa: "/ˈfɑːðər/", vi: "Bố, Ba", desc: "A male parent." },
+                { word: "Brother", type: "noun", ipa: "/ˈbrʌðər/", vi: "Anh/Em trai", desc: "A male sibling." },
+                { word: "Sister", type: "noun", ipa: "/ˈsɪstər/", vi: "Chị/Em gái", desc: "A female sibling." }
+            ]
+        },
+        theme2: {
+            title: "Smart Start 1 - Unit 2: School",
+            image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&auto=format&fit=crop&q=80",
+            content: "I have a new schoolbag. Inside my bag, there is a big book and a red pencil.",
+            vocab: [
+                { word: "Pencil", type: "noun", ipa: "/ˈpensl/", vi: "Bút chì", desc: "An instrument used for writing or drawing." },
+                { word: "Book", type: "noun", ipa: "/bʊk/", vi: "Sách", desc: "Written or printed work." },
+                { word: "Bag", type: "noun", ipa: "/bæɡ/", vi: "Cặp sách, túi", desc: "A container used to carry things." }
+            ]
+        },
+        theme3: {
+            title: "Smart Start 1 - Unit 3: Colors",
+            image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&auto=format&fit=crop&q=80",
+            content: "Look at the beautiful pink flower in the garden. I also like red, yellow, and blue colors.",
+            vocab: [
+                { word: "Red", type: "adj", ipa: "/red/", vi: "Màu đỏ", desc: "The color of blood." },
+                { word: "Yellow", type: "adj", ipa: "/ˈjeləʊ/", vi: "Màu vàng", desc: "The color of gold or lemons." },
+                { word: "Blue", type: "adj", ipa: "/bluː/", vi: "Màu xanh dương", desc: "The color of the sky." },
+                { word: "Pink", type: "adj", ipa: "/pɪŋk/", vi: "Màu hồng", desc: "A pale red color." },
+                { word: "White", type: "adj", ipa: "/waɪt/", vi: "Màu trắng", desc: "The color of milk." },
+                { word: "Flower", type: "noun", ipa: "/ˈflaʊər/", vi: "Bông hoa", desc: "The seed-bearing part of a plant." }
+            ]
+        },
+        theme4: {
+            title: "Smart Start 1 - Unit 4: My Body",
+            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
+            content: "Touch your head! Wave your arm and stamp your leg to stay strong and healthy.",
+            vocab: [
+                { word: "Head", type: "noun", ipa: "/hed/", vi: "Đầu", desc: "The upper part of the body." },
+                { word: "Leg", type: "noun", ipa: "/leɡ/", vi: "Chân", desc: "Each of the limbs on which a person stands." },
+                { word: "Arm", type: "noun", ipa: "/ɑːm/", vi: "Cánh tay", desc: "Each of the two upper limbs of the body." }
+            ]
+        },
+        theme5: {
+            title: "Smart Start 1 - Unit 5: Animals",
+            image: "https://images.unsplash.com/photo-1470246973918-29a93221c455?w=600&auto=format&fit=crop&q=80",
+            content: "I like animals. There is a playful cat, a friendly dog, a yellow bird, and a funny monkey.",
+            vocab: [
+                { word: "Cat", type: "noun", ipa: "/kæt/", vi: "Con mèo", desc: "A small domesticated carnivorous mammal." },
+                { word: "Dog", type: "noun", ipa: "/dɒɡ/", vi: "Con chó", desc: "A common domesticated animal kept as a companion." },
+                { word: "Bird", type: "noun", ipa: "/bɜːd/", vi: "Con chim", desc: "A warm-blooded egg-laying vertebrate." },
+                { word: "Monkey", type: "noun", ipa: "/ˈmʌŋki/", vi: "Con khỉ", desc: "A small mischievous primate." },
+                { word: "Snake", type: "noun", ipa: "/sneɪk/", vi: "Con rắn", desc: "A long limbless reptile." },
+                { word: "Bear", type: "noun", ipa: "/beər/", vi: "Con gấu", desc: "A large heavy mammal with thick fur." }
+            ]
+        }
+    },
+    ss_2: {
+        getting_started: {
+            title: "Smart Start 2 - Getting Started",
+            image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&auto=format&fit=crop&q=80",
+            content: "Let's count from one to ten! Open your book, close your book, hands up, and hands down.",
+            vocab: [
+                { word: "One", type: "number", ipa: "/wʌn/", vi: "Số một", desc: "The number 1." },
+                { word: "Two", type: "number", ipa: "/tuː/", vi: "Số hai", desc: "The number 2." },
+                { word: "Three", type: "number", ipa: "/θriː/", vi: "Số ba", desc: "The number 3." },
+                { word: "Four", type: "number", ipa: "/fɔːr/", vi: "Số bốn", desc: "The number 4." },
+                { word: "Five", type: "number", ipa: "/faɪv/", vi: "Số năm", desc: "The number 5." },
+                { word: "Six", type: "number", ipa: "/sɪks/", vi: "Số sáu", desc: "The number 6." },
+                { word: "Seven", type: "number", ipa: "/ˈsevn/", vi: "Số bảy", desc: "The number 7." },
+                { word: "Eight", type: "number", ipa: "/eɪt/", vi: "Số tám", desc: "The number 8." },
+                { word: "Nine", type: "number", ipa: "/naɪn/", vi: "Số chín", desc: "The number 9." },
+                { word: "Ten", type: "number", ipa: "/ten/", vi: "Số mười", desc: "The number 10." }
+            ]
+        },
+        theme1: {
+            title: "Smart Start 2 - Unit 1: Feelings",
+            image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
+            content: "How are you today? I feel happy, great, and fine. Sometimes I am scared, bored, hungry or thirsty.",
+            vocab: [
+                { word: "Happy", type: "adj", ipa: "/ˈhæpi/", vi: "Hạnh phúc, vui vẻ", desc: "Feeling pleasure or contentment." },
+                { word: "Sad", type: "adj", ipa: "/sæd/", vi: "Buồn bã", desc: "Unhappy or sorrowful." },
+                { word: "Fine/OK", type: "adj", ipa: "/faɪn/ /əʊˈkeɪ/", vi: "Khỏe, ổn", desc: "In a satisfactory state." },
+                { word: "Great", type: "adj", ipa: "/ɡreɪt/", vi: "Tuyệt vời", desc: "Very good or wonderful." },
+                { word: "Scared", type: "adj", ipa: "/skeəd/", vi: "Sợ hãi", desc: "Fearful or frightened." },
+                { word: "Bored", type: "adj", ipa: "/bɔːd/", vi: "Chán nản", desc: "Feeling weary and restless." },
+                { word: "Hungry", type: "adj", ipa: "/ˈhʌŋɡri/", vi: "Đói bụng", desc: "Feeling a need for food." },
+                { word: "Thirsty", type: "adj", ipa: "/ˈθɜːsti/", vi: "Khát nước", desc: "Feeling a need to drink." }
+            ]
+        },
+        theme2: {
+            title: "Smart Start 2 - Unit 2: Shapes",
+            image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80",
+            content: "What shape is it? It's a pink circle, a blue square, a red rectangle, or a yellow triangle.",
+            vocab: [
+                { word: "Circle", type: "noun", ipa: "/ˈsɜːkl/", vi: "Hình tròn", desc: "A round plane figure." },
+                { word: "Square", type: "noun", ipa: "/skweər/", vi: "Hình vuông", desc: "A plane figure with four equal straight sides." },
+                { word: "Rectangle", type: "noun", ipa: "/ˈrektæŋɡl/", vi: "Hình chữ nhật", desc: "A figure with four straight sides and four right angles." },
+                { word: "Triangle", type: "noun", ipa: "/ˈtraɪæŋɡl/", vi: "Hình tam giác", desc: "A figure with three straight sides and three angles." }
+            ]
+        },
+        theme3: {
+            title: "Smart Start 2 - Unit 3: Numbers",
+            image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80",
+            content: "Can you count to twenty? Eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty.",
+            vocab: [
+                { word: "Eleven", type: "number", ipa: "/ɪˈlevn/", vi: "Số mười một", desc: "The number 11." },
+                { word: "Twelve", type: "number", ipa: "/twelv/", vi: "Số mười hai", desc: "The number 12." },
+                { word: "Thirteen", type: "number", ipa: "/ˌθɜːˈtiːn/", vi: "Số mười ba", desc: "The number 13." },
+                { word: "Fourteen", type: "number", ipa: "/ˌfɔːˈtiːn/", vi: "Số mười bốn", desc: "The number 14." },
+                { word: "Fifteen", type: "number", ipa: "/ˌfɪfˈtiːn/", vi: "Số mười lăm", desc: "The number 15." },
+                { word: "Sixteen", type: "number", ipa: "/ˌsɪksˈtiːn/", vi: "Số mười sáu", desc: "The number 16." },
+                { word: "Seventeen", type: "number", ipa: "/ˌsevnˈtiːn/", vi: "Số mười bảy", desc: "The number 17." },
+                { word: "Eighteen", type: "number", ipa: "/ˌeɪˈtiːn/", vi: "Số mười tám", desc: "The number 18." },
+                { word: "Nineteen", type: "number", ipa: "/ˌnaɪnˈtiːn/", vi: "Số mười chín", desc: "The number 19." },
+                { word: "Twenty", type: "number", ipa: "/ˈtwenti/", vi: "Số hai mươi", desc: "The number 20." }
+            ]
+        },
+        theme4: {
+            title: "Smart Start 2 - Unit 4: Animals",
+            image: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600&auto=format&fit=crop&q=80",
+            content: "What is that over there? It's a swimming duck, a friendly goat, a big pig, and a cow.",
+            vocab: [
+                { word: "Duck", type: "noun", ipa: "/dʌk/", vi: "Con vịt", desc: "A waterbird with webbed feet." },
+                { word: "Goat", type: "noun", ipa: "/ɡəʊt/", vi: "Con dê", desc: "A hardy domesticated animal with horns." },
+                { word: "Pig", type: "noun", ipa: "/pɪɡ/", vi: "Con lợn, con heo", desc: "A pink domesticated animal kept for food." },
+                { word: "Cow", type: "noun", ipa: "/kaʊ/", vi: "Con bò", desc: "A large domesticated animal kept for milk." }
+            ]
+        },
+        theme5: {
+            title: "Smart Start 2 - Unit 5: Free Time Activities",
+            image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&auto=format&fit=crop&q=80",
+            content: "Let's play soccer, tag, hopscotch, hide and seek. I read books, listen to music, and eat snacks.",
+            vocab: [
+                { word: "Soccer", type: "noun", ipa: "/ˈsɒkər/", vi: "Bóng đá", desc: "A game played by two teams of eleven players." },
+                { word: "Tag", type: "noun", ipa: "/tæɡ/", vi: "Trò chơi đuổi bắt", desc: "A playground game of chasing." },
+                { word: "Hopscotch", type: "noun", ipa: "/ˈhɒpskɒtʃ/", vi: "Nhảy lò cò", desc: "A children's game of tossing a small object." },
+                { word: "Hide and seek", type: "noun", ipa: "/haɪd n siːk/", vi: "Trốn tìm", desc: "A game where players hide and one seeks." }
+            ]
+        },
+        theme6: {
+            title: "Smart Start 2 - Unit 6: Around Town",
+            image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&auto=format&fit=crop&q=80",
+            content: "I want to go to the zoo, the beach, the park, or the playground.",
+            vocab: [
+                { word: "Zoo", type: "noun", ipa: "/zuː/", vi: "Sở thú", desc: "An establishment which maintains a collection of wild animals." },
+                { word: "Beach", type: "noun", ipa: "/biːtʃ/", vi: "Bãi biển", desc: "A pebbly or sandy shore." },
+                { word: "Park", type: "noun", ipa: "/pɑːk/", vi: "Công viên", desc: "A large public green area in a town." },
+                { word: "Playground", type: "noun", ipa: "/ˈpleɪɡraʊnd/", vi: "Sân chơi", desc: "An outdoor area provided for children to play." }
+            ]
+        },
+        theme7: {
+            title: "Smart Start 2 - Unit 7: Clothes",
+            image: "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=600&auto=format&fit=crop&q=80",
+            content: "Is this your T-shirt or dress? These are my pants, shorts, shoes, and socks.",
+            vocab: [
+                { word: "T-shirt", type: "noun", ipa: "/ˈtiː ʃɜːt/", vi: "Áo thun", desc: "A short-sleeved casual top." },
+                { word: "Dress", type: "noun", ipa: "/dres/", vi: "Áo đầm", desc: "A one-piece garment for women." },
+                { word: "Pants", type: "noun", ipa: "/pænts/", vi: "Quần dài", desc: "Trousers." },
+                { word: "Shorts", type: "noun", ipa: "/ʃɔːts/", vi: "Quần đùi, quần ngắn", desc: "Short trousers reaching to the knees." },
+                { word: "Shoes", type: "noun", ipa: "/ʃuːz/", vi: "Đôi giày", desc: "Footwear." },
+                { word: "Socks", type: "noun", ipa: "/sɒks/", vi: "Đôi tất, vớ", desc: "Garments for the feet." }
+            ]
+        },
+        theme8: {
+            title: "Smart Start 2 - Unit 8: Transportation",
+            image: "https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?w=600&auto=format&fit=crop&q=80",
+            content: "Can you see the bus, the boat, the plane, and the motorbike?",
+            vocab: [
+                { word: "Bus", type: "noun", ipa: "/bʌs/", vi: "Xe buýt", desc: "A large motor vehicle carrying passengers." },
+                { word: "Boat", type: "noun", ipa: "/bəʊt/", vi: "Con thuyền", desc: "A small vessel for traveling on water." },
+                { word: "Plane", type: "noun", ipa: "/pleɪn/", vi: "Máy bay", desc: "A powered flying vehicle." },
+                { word: "Motorbike", type: "noun", ipa: "/ˈməʊtəbaɪk/", vi: "Xe gắn máy", desc: "A two-wheeled motor vehicle." }
+            ]
+        }
+    },
+    ss_3: {
+        theme1: {
+            title: "Smart Start 3 - Unit 1: Feelings",
+            image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&auto=format&fit=crop&q=80",
+            content: "Today is my birthday! I feel very happy and excited. I am not sad because my friends are here.",
+            vocab: [
+                { word: "Happy", type: "adj", ipa: "/ˈhæpi/", vi: "Vui vẻ", desc: "Feeling pleasure or contentment." },
+                { word: "Sad", type: "adj", ipa: "/sæd/", vi: "Buồn bã", desc: "Feeling unhappy." },
+                { word: "Excited", type: "adj", ipa: "/ɪkˈsaɪtɪd/", vi: "Hào hứng", desc: "Very happy and enthusiastic." },
+                { word: "Scared", type: "adj", ipa: "/skeəd/", vi: "Sợ hãi", desc: "Feeling fear or worry." }
+            ]
+        }
+    },
+    ss_4: {
+        theme1: {
+            title: "Smart Start 4 - Unit 1: My Friends",
+            image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&auto=format&fit=crop&q=80",
+            content: "My classmates are very friendly. We enjoy running and jumping on the green playground together during break time.",
+            vocab: [
+                { word: "Classmate", type: "noun", ipa: "/ˈklɑːsmeɪt/", vi: "Bạn cùng lớp", desc: "A person who is in the same class." },
+                { word: "Playground", type: "noun", ipa: "/ˈpleɪɡraʊnd/", vi: "Sân chơi", desc: "An outdoor area provided for children to play." },
+                { word: "Friendly", type: "adj", ipa: "/ˈfrendli/", vi: "Thân thiện", desc: "Kind and pleasant to others." },
+                { word: "Together", type: "adv", ipa: "/təˈɡeðər/", vi: "Cùng nhau", desc: "With each other." }
+            ]
+        }
+    },
+    ss_5: {
+        theme1: {
+            title: "Smart Start 5 - Unit 1: School",
+            image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&auto=format&fit=crop&q=80",
+            content: "Which subject do you like? I like geography, history, science, I.T., Vietnamese, and ethics because I like solving problems, doing experiments, using computers, and learning languages.",
+            vocab: [
+                { word: "Geography", type: "noun", ipa: "/dʒiˈɒɡrəfi/", vi: "Địa lý", desc: "The study of the physical features of the Earth." },
+                { word: "History", type: "noun", ipa: "/ˈhɪstri/", vi: "Lịch sử", desc: "The study of past events." },
+                { word: "Science", type: "noun", ipa: "/ˈsaɪəns/", vi: "Khoa học", desc: "The intellectual and practical activity encompassing systemized study." },
+                { word: "I.T.", type: "noun", ipa: "/ˌaɪ ˈtiː/", vi: "Tin học, CNTT", desc: "Information Technology class." },
+                { word: "Ethics", type: "noun", ipa: "/ˈeθɪks/", vi: "Đạo đức", desc: "Moral principles class." },
+                { word: "Experiments", type: "noun", ipa: "/ɪkˈsperɪmənts/", vi: "Thực nghiệm", desc: "Scientific procedures undertaken to make discoveries." }
+            ]
+        },
+        theme2: {
+            title: "Smart Start 5 - Unit 2: Holidays",
+            image: "https://images.unsplash.com/photo-1482164565953-04b62dcac1cd?w=600&auto=format&fit=crop&q=80",
+            content: "What is your favorite holiday? Is it Halloween, New Year's Eve, Lunar New Year (Tet), Christmas, or Children's Day? People put up Christmas trees and give lucky money.",
+            vocab: [
+                { word: "Halloween", type: "noun", ipa: "/ˌhæləʊˈiːn/", vi: "Lễ hội Hóa lộ quỷ", desc: "The night of October 31st." },
+                { word: "Christmas", type: "noun", ipa: "/ˈkrɪsməs/", vi: "Lễ Giáng sinh", desc: "Annual festival commemorating the birth of Jesus Christ." },
+                { word: "Fireworks", type: "noun", ipa: "/ˈfaɪəwɜːks/", vi: "Pháo hoa", desc: "Devices containing chemicals that burn or explode with spectacular effects." },
+                { word: "Costumes", type: "noun", ipa: "/ˈkɒstjuːmz/", vi: "Trang phục hóa trang", desc: "Set of clothes in a style typical of a particular country or period." },
+                { word: "Balloons", type: "noun", ipa: "/bəˈluːnz/", vi: "Bóng bay", desc: "Inflatable flexible bags filled with gas." }
+            ]
+        },
+        theme3: {
+            title: "Smart Start 5 - Unit 3: My Friends and I",
+            image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&auto=format&fit=crop&q=80",
+            content: "I baked some delicious cupcakes and painted a picture last weekend. The playground was very busy and noisy, but some friends ran slowly and others played hard.",
+            vocab: [
+                { word: "Noisy", type: "adj", ipa: "/ˈnɔɪzi/", vi: "Ồn ào", desc: "Making a lot of noise." },
+                { word: "Quiet", type: "adj", ipa: "/ˈkwaɪət/", vi: "Yên tĩnh", desc: "Making little or no noise." },
+                { word: "Cupcakes", type: "noun", ipa: "/ˈkʌpkeɪks/", vi: "Bánh nướng nhỏ", desc: "Small cakes designed to serve one person." },
+                { word: "Slowly", type: "adv", ipa: "/ˈsləʊli/", vi: "Một cách chậm rãi", desc: "At a slow speed." },
+                { word: "Delicious", type: "adj", ipa: "/dɪˈlɪʃəs/", vi: "Ngon miệng", desc: "Highly pleasant to the taste." }
+            ]
+        },
+        theme4: {
+            title: "Smart Start 5 - Unit 4: Travel",
+            image: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&auto=format&fit=crop&q=80",
+            content: "I went to South Korea last month. We traveled by speedboat, ferry, minibus, and plane. We visited beautiful lakes, forests, and a high mountain.",
+            vocab: [
+                { word: "Mountain", type: "noun", ipa: "/ˈmaʊntən/", vi: "Ngọn núi", desc: "A large natural elevation of the earth's surface." },
+                { word: "Lake", type: "noun", ipa: "/leɪk/", vi: "Hồ nước", desc: "A large area of water surrounded by land." },
+                { word: "Ferry", type: "noun", ipa: "/ˈferi/", vi: "Phà, tàu chở", desc: "A boat or ship for conveying passengers and goods." },
+                { word: "Helicopter", type: "noun", ipa: "/ˈhelɪkɒptər/", vi: "Trực thăng", desc: "A type of aircraft flying with rotors." }
+            ]
+        },
+        theme5: {
+            title: "Smart Start 5 - Unit 5: Health",
+            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80",
+            content: "What's wrong? I have a terrible headache and a stomachache. I feel sleepy and weak. I should see a dentist and take some medicine.",
+            vocab: [
+                { word: "Headache", type: "noun", ipa: "/ˈhedeɪk/", vi: "Đau đầu", desc: "A continuous pain in the head." },
+                { word: "Stomachache", type: "noun", ipa: "/ˈstʌmək-eɪk/", vi: "Đau dạ dày", desc: "Pain in a person's belly." },
+                { word: "Dentist", type: "noun", ipa: "/ˈdentɪst/", vi: "Nha sĩ", desc: "A person qualified to treat diseases of the teeth." },
+                { word: "Medicine", type: "noun", ipa: "/ˈmedsn/", vi: "Thuốc", desc: "A substance used for medical treatment." }
+            ]
+        },
+        theme6: {
+            title: "Smart Start 5 - Unit 6: Food and Drinks",
+            image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format&fit=crop&q=80",
+            content: "What ingredients do you need? I need sugar, butter, flour, chocolate chips, oil, and milk. Let's make smoothies and eat sandwiches.",
+            vocab: [
+                { word: "Sugar", type: "noun", ipa: "/ˈʃʊɡər/", vi: "Đường", desc: "A sweet crystalline substance." },
+                { word: "Butter", type: "noun", ipa: "/ˈbʌtər/", vi: "Bơ", desc: "A pale yellow edible fatty substance." },
+                { word: "Flour", type: "noun", ipa: "/ˈflaʊər/", vi: "Bột mì", desc: "A powder obtained by grinding grain." },
+                { word: "Smoothie", type: "noun", ipa: "/ˈsmuːði/", vi: "Sinh tố", desc: "A thick smooth drink of fresh fruit pureed with milk." }
+            ]
+        },
+        theme7: {
+            title: "Smart Start 5 - Unit 7: Jobs",
+            image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&auto=format&fit=crop&q=80",
+            content: "What would you like to be when you grow up? I'd like to be a scientist, a pilot, a tour guide, a designer, or a hairdresser.",
+            vocab: [
+                { word: "Scientist", type: "noun", ipa: "/ˈsaɪəntɪst/", vi: "Nhà khoa học", desc: "A person who is studying or has expert knowledge in sciences." },
+                { word: "Pilot", type: "noun", ipa: "/ˈpaɪlət/", vi: "Phi công", desc: "A person who operates the flying controls of an aircraft." },
+                { word: "Tour guide", type: "noun", ipa: "/tʊər ɡaɪd/", vi: "Hướng dẫn viên", desc: "A person who guides visitors." },
+                { word: "Designer", type: "noun", ipa: "/dɪˈzaɪnər/", vi: "Nhà thiết kế", desc: "A person who plans the look or workings of something." }
+            ]
+        },
+        theme8: {
+            title: "Smart Start 5 - Unit 8: Weather",
+            image: "https://images.unsplash.com/photo-1461696114087-397271a7aedc?w=600&auto=format&fit=crop&q=80",
+            content: "What is the weather like? It's humid, dry, calm, breezy, clear, and gray today.",
+            vocab: [
+                { word: "Humid", type: "adj", ipa: "/ˈhjuːmɪd/", vi: "Ẩm ướt", desc: "Marked by a relatively high level of water vapor in the atmosphere." },
+                { word: "Dry", type: "adj", ipa: "/draɪ/", vi: "Khô ráo", desc: "Free from moisture or liquid." },
+                { word: "Calm", type: "adj", ipa: "/kɑːm/", vi: "Yên ả", desc: "Not windy." },
+                { word: "Breezy", type: "adj", ipa: "/ˈbriːzi/", vi: "Có gió hiu hiu", desc: "Pleasantly windy." }
+            ]
+        }
+    }
+};
 
-        const textbookLinks = {
-            ss_1: "https://online.flipbuilder.com/sdtta/vugc/",
-            ss_2: "https://online.flipbuilder.com/sdtta/mcbr/",
+const textbookLinks = {
+    ss_1: "https://online.flipbuilder.com/sdtta/vugc/",
+    ss_2: "https://online.flipbuilder.com/sdtta/mcbr/",
             ss_3: "https://online.flipbuilder.com/sdtta/skiv/",
             ss_4: "https://online.flipbuilder.com/sdtta/nhks/",
             ss_5: "https://online.flipbuilder.com/sdtta/uehz/"
         };
 
         const DEFAULT_ADMIN_PASS = "215151365";
-        const APP_ID = typeof __app_id !== 'undefined' ? __app_id : 'english-reading-mobi';
         
         let db = null;
         let auth = null;
@@ -1794,6 +1162,7 @@ ss_5: {
         window.addEventListener('DOMContentLoaded', async () => {
             initSystem();
             initAudioContext();
+            setupTextbooksDoubleClicks();
         });
 
         async function initSystem() {
@@ -1803,6 +1172,7 @@ ss_5: {
                     auth = firebase.auth();
                     db = firebase.firestore();
                     
+                    // Thực hiện Auth đầu tiên và await
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await auth.signInWithCustomToken(__initial_auth_token);
                     } else {
@@ -1816,6 +1186,7 @@ ss_5: {
                             updateSyncBadge(true);
                             checkAutoLoginSession();
                         } else {
+                            currentUser = null;
                             useOfflineFallback();
                         }
                     });
@@ -1955,7 +1326,7 @@ ss_5: {
 
             localStorage.setItem(`offline_student_${code}`, JSON.stringify(studentObject));
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).set(studentObject);
                 } catch (e) {
@@ -1963,6 +1334,7 @@ ss_5: {
                 }
             }
 
+            // Copy to clipboard fallback
             const tempBox = document.createElement("textarea");
             tempBox.value = code;
             document.body.appendChild(tempBox);
@@ -1997,7 +1369,7 @@ ss_5: {
             showToast("Đang xác thực thông tin...", "fa-solid fa-spinner animate-spin text-brand-500");
             let studentProfile = null;
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     const doc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(rawCode).get();
                     if (doc.exists) {
@@ -2040,6 +1412,7 @@ ss_5: {
         }
 
         function checkAutoLoginSession() {
+            if (!currentUser) return; // Bảo vệ: chỉ chạy kiểm tra sau khi đã kết nối và đăng nhập ẩn danh thành công
             const savedSessionId = localStorage.getItem("active_student_id");
             if (savedSessionId) {
                 document.getElementById("input-auth-student-code").value = savedSessionId;
@@ -2091,6 +1464,8 @@ ss_5: {
             const container = document.getElementById("daily-suggestions-container");
             const dateLabel = document.getElementById("daily-date-label");
             
+            if (!container || !dateLabel) return;
+
             const today = new Date();
             dateLabel.innerText = today.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric', year: 'numeric' });
 
@@ -2173,6 +1548,7 @@ ss_5: {
 
         function loadSmartStartThemes(classKey) {
             const themeSelector = document.getElementById("smart-theme-selector");
+            if (!themeSelector) return;
             themeSelector.innerHTML = "";
             const themes = smartStartDatabase[classKey];
             if (themes) {
@@ -2211,6 +1587,7 @@ ss_5: {
             document.getElementById("reading-illustration").src = currentActiveTask.image;
 
             const container = document.getElementById("vocabulary-container");
+            if (!container) return;
             container.innerHTML = "";
             currentActiveTask.vocab.forEach(item => {
                 const vocabCard = document.createElement("div");
@@ -2233,6 +1610,20 @@ ss_5: {
                 `;
                 container.appendChild(vocabCard);
             });
+        }
+
+        // Thiết lập sự kiện dblclick tra cứu từ nhanh trên bài học chính
+        function setupTextbooksDoubleClicks() {
+            const readingContent = document.getElementById("reading-content");
+            if (readingContent) {
+                readingContent.addEventListener("dblclick", () => {
+                    const selection = window.getSelection().toString().trim();
+                    if (selection && selection.length > 1 && !selection.includes(" ")) {
+                        const cleanedWord = selection.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
+                        triggerDictionarySearch(cleanedWord);
+                    }
+                });
+            }
         }
 
         function renderStudentInfo(state) {
@@ -2299,7 +1690,7 @@ ss_5: {
         async function syncStudentProfileToStorage() {
             if (!activeStudentId) return;
             localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(activeStudentId).set(activeStudentData);
                 } catch (e) {
@@ -2314,6 +1705,7 @@ ss_5: {
 
         function lookupWordDirectly() {
             const wordInput = document.getElementById("dict-quick-input");
+            if (!wordInput) return;
             const word = wordInput.value.trim();
             if (word === "") {
                 showToast("Hãy điền từ vựng muốn tra cứu!");
@@ -2409,14 +1801,14 @@ ss_5: {
             rec.onstart = () => {
                 isVocabListening = true;
                 const btn = document.getElementById("btn-vocab-speech-mic");
-                btn.className = "w-full py-3.5 bg-yellow-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
+                if (btn) btn.className = "w-full py-3.5 bg-yellow-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
                 document.getElementById("vocab-mic-btn-text").innerText = "🎙 *ĐANG NGHE*... Con phát âm to từ vựng!";
             };
 
             rec.onend = () => {
                 isVocabListening = false;
                 const btn = document.getElementById("btn-vocab-speech-mic");
-                btn.className = "w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
+                if (btn) btn.className = "w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition flex items-center justify-center space-x-2";
                 document.getElementById("vocab-mic-btn-text").innerText = "Bắt đầu luyện phát âm 🎙";
             };
 
@@ -2432,6 +1824,27 @@ ss_5: {
             rec.start();
         }
 
+        // Hàm tính khoảng cách Levenshtein để so khớp độ khớp chính xác của phát âm thay vì so khớp tuần tự
+        function getLevenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1, // thay đổi kí tự
+                            matrix[i][j - 1] + 1,     // chèn thêm
+                            matrix[i - 1][j] + 1      // xóa bớt
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
         function evaluateVocabularyPronunciation(target, spoken) {
             const cleanTarget = target.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
             const cleanSpoken = spoken.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
@@ -2440,12 +1853,10 @@ ss_5: {
             if (cleanTarget === cleanSpoken) {
                 accuracy = 100;
             } else {
-                let matches = 0;
-                const len = Math.max(cleanTarget.length, cleanSpoken.length);
-                for (let i = 0; i < len; i++) {
-                    if (cleanTarget[i] === cleanSpoken[i]) matches++;
-                }
-                accuracy = Math.round((matches / len) * 100);
+                const distance = getLevenshteinDistance(cleanTarget, cleanSpoken);
+                const maxLen = Math.max(cleanTarget.length, cleanSpoken.length);
+                accuracy = Math.round(((maxLen - distance) / maxLen) * 100);
+                if (accuracy < 0) accuracy = 0;
             }
 
             const feedbackCard = document.getElementById("vocab-speech-feedback-card");
@@ -2468,7 +1879,7 @@ ss_5: {
                     renderStudentInfo(activeStudentData);
                 }
             } else {
-                feedbackCard.className = "bg-gradient-to-r from-rose-500 to-amber-600 text-white rounded-2xl p-4 shadow-md mb-4";
+                feedbackCard.className = "bg-gradient-to-r from-rose-50 to-amber-100 border border-amber-200 text-slate-800 rounded-2xl p-4 shadow-md mb-4";
                 playSoundEffect('fail');
                 phonicTip = `Cố gắng lên! `;
                 
@@ -2476,10 +1887,8 @@ ss_5: {
                     phonicTip += "Con nhớ bật âm gió cuối từ <b>/s/</b> thật rõ nhé.";
                 } else if (cleanTarget.endsWith('t') && !cleanSpoken.endsWith('t') && !cleanSpoken.endsWith('d')) {
                     phonicTip += "Đừng quên bật hơi âm gió <b>/t/</b> ở cuối từ.";
-                } else if (cleanTarget.endsWith('k') && !cleanSpoken.endsWith('k') && !cleanSpoken.endsWith('c')) {
+                } else if (cleanTarget.endsWith('k') && !cleanSpoken.endsWith('k')) {
                     phonicTip += "Lưu ý bật âm <b>/k/</b> ở cuối từ.";
-                } else if (cleanTarget.length > 5) {
-                    phonicTip += "Hãy xem lại cách nhấn đúng trọng âm và nguyên âm chính.";
                 } else {
                     phonicTip += "Hãy nghe máy phát âm mẫu lại và thử nói lại một lần nữa thật chậm rãi.";
                 }
@@ -2492,6 +1901,7 @@ ss_5: {
             const word = document.getElementById("dict-result-word").innerText;
             const vi = document.getElementById("dict-result-vi").innerText;
             
+            // Clipboard Fallback
             const tempInput = document.createElement("textarea");
             tempInput.value = `${word} - ${vi}`;
             document.body.appendChild(tempInput);
@@ -2504,12 +1914,12 @@ ss_5: {
 
         function openDictSheet() {
             const sheet = document.getElementById("dict-sheet");
-            sheet.classList.remove("hidden");
+            if (sheet) sheet.classList.remove("hidden");
         }
 
         function closeDictSheet() {
             const sheet = document.getElementById("dict-sheet");
-            sheet.classList.add("hidden");
+            if (sheet) sheet.classList.add("hidden");
         }
 
         let activeRecognizer = null;
@@ -2522,12 +1932,11 @@ ss_5: {
             }
 
             const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const isIFrame = window.self !== window.top;
-
+            
             if (!isSecure) {
                 showCustomDialog("⚠️ Yêu Cầu Kết Nối Bảo Mật (HTTPS)", `
                     <div class="text-sm text-slate-600 space-y-2">
-                        <p>Trình duyệt di động chỉ cho phép mở Micro khi ứng dụng chạy trên giao thức <b>HTTPS</b>.</p>
+                        <p>Trình duyệt di động chỉ cho phép mở Micro khi ứng dụng chạy trên giao thức an toàn <b>HTTPS</b>.</p>
                     </div>
                 `);
                 return;
@@ -2590,15 +1999,20 @@ ss_5: {
             }
         }
 
+        // Phát âm giọng máy US chuẩn xác, dọn dẹp các thẻ tag thừa, hủy hàng đợi cũ
         function speakTextUS(text) {
             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
                 const clean = text.replace(/<\/?[^>]+(>|$)/g, "");
                 const utterance = new SpeechSynthesisUtterance(clean);
                 utterance.lang = 'en-US';
                 
                 const voices = window.speechSynthesis.getVoices();
-                const usVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
-                if (usVoice) utterance.voice = usVoice;
+                let selectedVoice = voices.find(v => v.lang.startsWith('en-US') && v.name.includes('Google'));
+                if (!selectedVoice) selectedVoice = voices.find(v => v.lang.startsWith('en-US'));
+                if (!selectedVoice) selectedVoice = voices.find(v => v.lang.startsWith('en'));
+                
+                if (selectedVoice) utterance.voice = selectedVoice;
                 
                 window.speechSynthesis.speak(utterance);
             }
@@ -2707,6 +2121,7 @@ ss_5: {
 
         function handleSendTextChat() {
             const input = document.getElementById("chat-text-input");
+            if (!input) return;
             const text = input.value.trim();
             if (text === "") return;
             addChatMessage("user", text);
@@ -2716,6 +2131,7 @@ ss_5: {
 
         function addChatMessage(sender, text, translation = "") {
             const container = document.getElementById("chat-conversation-container");
+            if (!container) return;
             const msgDiv = document.createElement("div");
             msgDiv.className = `flex items-start space-x-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
 
@@ -2746,6 +2162,7 @@ ss_5: {
 
         function generateAIResponse(userQuery) {
             const container = document.getElementById("chat-conversation-container");
+            if (!container) return;
             const loadingDiv = document.createElement("div");
             loadingDiv.id = "chat-loading-placeholder";
             loadingDiv.className = "flex items-start space-x-2.5";
@@ -2849,6 +2266,7 @@ ss_5: {
 
         function renderRewardsBadges() {
             const container = document.getElementById("rewards-container");
+            if (!container) return;
             container.innerHTML = "";
 
             const rewards = activeStudentData.rewards || ["NewBie_ECO"];
@@ -2859,11 +2277,18 @@ ss_5: {
                 "Gem_Hunter": { name: "Thợ Săn Ngọc", icon: "fa-solid fa-gem text-indigo-500", desc: "Tích lũy trên 200 điểm 💎" }
             };
 
+            let updated = false;
             if (activeStudentData.streak >= 5 && !rewards.includes("Streak_5")) {
                 rewards.push("Streak_5");
+                updated = true;
             }
             if (activeStudentData.points >= 200 && !rewards.includes("Gem_Hunter")) {
                 rewards.push("Gem_Hunter");
+                updated = true;
+            }
+
+            if (updated) {
+                syncStudentProfileToStorage();
             }
 
             rewards.forEach(rKey => {
@@ -2936,6 +2361,7 @@ ss_5: {
             if (!isGameRunning) return;
 
             const container = document.getElementById("game-bubbles-container");
+            if (!container) return;
             const bubble = document.createElement("div");
             const colors = ["bg-emerald-500", "bg-brand-500", "bg-rose-500", "bg-amber-500", "bg-violet-500"];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -2971,12 +2397,31 @@ ss_5: {
             }, 6000);
         }
 
-        function popBubble(element, correct) {
+        async function popBubble(element, correct) {
             element.remove();
             if (correct) {
                 gameScore += 10;
                 playSoundEffect('bubble');
                 showToast("Chính xác! +10 điểm game 🎉");
+                
+                // Cộng thêm 2 điểm tích lũy thật vào hồ sơ của con khi bắn trúng bong bóng
+                if (activeStudentData) {
+                    activeStudentData.points += 2;
+                    
+                    // Kiểm tra và trao huy hiệu tự động
+                    if (gameScore >= 30) {
+                        const rewards = activeStudentData.rewards || ["NewBie_ECO"];
+                        if (!rewards.includes("Master_Game_30")) {
+                            rewards.push("Master_Game_30");
+                            activeStudentData.rewards = rewards;
+                            renderRewardsBadges();
+                            showToast("🎉 Con đạt được danh hiệu Thần Đồng Từ Vựng!", "fa-solid fa-trophy text-yellow-500");
+                        }
+                    }
+                    
+                    await syncStudentProfileToStorage();
+                    renderStudentInfo(activeStudentData);
+                }
                 setNextGameTarget();
             } else {
                 gameScore = Math.max(0, gameScore - 5);
@@ -3050,6 +2495,8 @@ ss_5: {
             const chipsContainer = document.getElementById("game-scramble-chips-container");
             const answerContainer = document.getElementById("game-scramble-answer-container");
 
+            if (!chipsContainer || !answerContainer) return;
+
             chipsContainer.innerHTML = "";
             answerContainer.innerHTML = "";
 
@@ -3071,6 +2518,7 @@ ss_5: {
             chipElement.remove();
 
             const answerContainer = document.getElementById("game-scramble-answer-container");
+            if (!answerContainer) return;
             if (scrambleCurrentAnswer.length === 1) answerContainer.innerHTML = "";
 
             const ansChip = document.createElement("span");
@@ -3095,9 +2543,23 @@ ss_5: {
                 showToast("Ghép câu chuẩn xác! +20 Điểm 🎉");
                 document.getElementById("game-scramble-score").innerText = scrambleScore;
 
-                activeStudentData.points = (activeStudentData.points || 0) + 10;
-                await syncStudentProfileToStorage();
-                renderStudentInfo(activeStudentData);
+                // Cộng thêm 10 điểm tích lũy và kiểm tra huân chương
+                if (activeStudentData) {
+                    activeStudentData.points = (activeStudentData.points || 0) + 10;
+                    
+                    if (scrambleScore >= 30) {
+                        const rewards = activeStudentData.rewards || ["NewBie_ECO"];
+                        if (!rewards.includes("Master_Game_30")) {
+                            rewards.push("Master_Game_30");
+                            activeStudentData.rewards = rewards;
+                            renderRewardsBadges();
+                            showToast("🎉 Con đạt được danh hiệu Thần Đồng Từ Vựng!", "fa-solid fa-trophy text-yellow-500");
+                        }
+                    }
+                    
+                    await syncStudentProfileToStorage();
+                    renderStudentInfo(activeStudentData);
+                }
 
                 setNextScrambleTarget();
             } else {
@@ -3119,24 +2581,26 @@ ss_5: {
             `);
         }
 
+        // --- BẢNG XẾP HẠNG / BẢNG VÀNG SYSTEM ---
         async function loadLeaderboardData(sortByField = 'points') {
             const btnPoints = document.getElementById("leaderboard-filter-points");
             const btnStreak = document.getElementById("leaderboard-filter-streak");
 
             if (sortByField === 'points') {
-                btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
-                btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
+                if (btnPoints) btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
+                if (btnStreak) btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
             } else {
-                btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
-                btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
+                if (btnStreak) btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
+                if (btnPoints) btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
             }
 
             const container = document.getElementById("leaderboard-list-container");
+            if (!container) return;
             container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 font-bold"><i class="fa-solid fa-spinner animate-spin"></i> Đang tải bảng vàng...</div>`;
 
             let studentsList = [];
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').get();
                     snap.forEach(doc => {
@@ -3161,6 +2625,7 @@ ss_5: {
                 studentsList.push(activeStudentData);
             }
 
+            // Dữ liệu giả lập cạnh tranh nếu danh sách rỗng
             if (studentsList.length < 3) {
                 studentsList.push(
                     { code: "ECO001", name: "Phạm Minh Hoàng", points: 280, streak: 8, grade: "cap_1" },
@@ -3168,6 +2633,7 @@ ss_5: {
                 );
             }
 
+            // Sắp xếp an toàn trong bộ nhớ (Tuân thủ rule 2)
             studentsList.sort((a, b) => {
                 const valA = a[sortByField] || 0;
                 const valB = b[sortByField] || 0;
@@ -3222,6 +2688,7 @@ ss_5: {
             }
         }
 
+        // --- HỆ THỐNG QUẢN TRỊ ADMIN ---
         let adminSubTab = "students";
 
         function openAdminModal() {
@@ -3271,11 +2738,12 @@ ss_5: {
 
         async function loadAdminStudentsList() {
             const container = document.getElementById("admin-students-list-container");
+            if (!container) return;
             container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 font-bold"><i class="fa-solid fa-spinner animate-spin"></i> Đang tải danh sách học sinh...</div>`;
 
             let studentsList = [];
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').get();
                     snap.forEach(doc => {
@@ -3300,7 +2768,7 @@ ss_5: {
             studentsList.forEach(student => {
                 const gradeLabel = student.grade === "cap_1" ? "Cấp 1" : student.grade === "cap_2" ? "Cấp 2" : "Cấp 3";
                 const row = document.createElement("div");
-                row.className = "bg-slate-50 border border-slate-100 p-3 rounded-2xl flex flex-col space-y-2 relative";
+                row.className = "bg-slate-50 border border-slate-100 p-3 rounded-2xl flex flex-col space-y-2 relative shadow-sm";
                 row.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
@@ -3313,10 +2781,10 @@ ss_5: {
                         </div>
                     </div>
                     <div class="flex space-x-1 justify-end pt-1 border-t border-slate-200/50">
-                        <button onclick="adminOpenEditModal('${student.code}')" class="bg-blue-50 text-blue-600 py-1 px-2 rounded-lg text-[9px] font-extrabold"><i class="fa-solid fa-user-pen mr-0.5"></i> Sửa</button>
-                        <button onclick="adminIncrementStreak('${student.code}', 1)" class="bg-emerald-50 text-emerald-600 py-1 px-2 rounded-lg text-[9px] font-extrabold">+1 Streak</button>
-                        <button onclick="adminIncrementPoints('${student.code}', 50)" class="bg-amber-50 text-amber-600 py-1 px-2 rounded-lg text-[9px] font-extrabold">+50 Điểm</button>
-                        <button onclick="adminDeleteStudent('${student.code}')" class="bg-rose-50 text-rose-600 py-1 px-2 rounded-lg text-[9px] font-extrabold">Xóa</button>
+                        <button onclick="adminOpenEditModal('${student.code}')" class="bg-blue-50 hover:bg-blue-100 text-blue-600 py-1 px-2 rounded-lg text-[9px] font-extrabold transition"><i class="fa-solid fa-user-pen mr-0.5"></i> Sửa</button>
+                        <button onclick="adminIncrementStreak('${student.code}', 1)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-600 py-1 px-2 rounded-lg text-[9px] font-extrabold transition">+1 Streak</button>
+                        <button onclick="adminIncrementPoints('${student.code}', 50)" class="bg-amber-50 hover:bg-amber-100 text-amber-600 py-1 px-2 rounded-lg text-[9px] font-extrabold transition">+50 Điểm</button>
+                        <button onclick="adminDeleteStudent('${student.code}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 py-1 px-2 rounded-lg text-[9px] font-extrabold transition">Xóa</button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -3335,7 +2803,7 @@ ss_5: {
             }
 
             if (!student) {
-                if (cloudConnected && db) {
+                if (cloudConnected && db && currentUser) {
                     db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(studentCode).get().then((doc) => {
                         if (doc.exists) {
                             populateAndShowEditModal(doc.data());
@@ -3379,7 +2847,7 @@ ss_5: {
                 originalStudent = JSON.parse(offlineRecord);
             }
 
-            if (cloudConnected && db && !originalStudent) {
+            if (cloudConnected && db && currentUser && !originalStudent) {
                 try {
                     const doc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(oldCode).get();
                     if (doc.exists) {
@@ -3401,7 +2869,7 @@ ss_5: {
             localStorage.removeItem(`offline_student_${oldCode}`);
             localStorage.setItem(`offline_student_${newCode}`, JSON.stringify(updatedProfile));
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(newCode).set(updatedProfile);
                     if (newCode !== oldCode) {
@@ -3449,7 +2917,7 @@ ss_5: {
 
             localStorage.setItem(`offline_student_${code}`, JSON.stringify(studentObject));
 
-            if (cloudConnected && db) {
+            if (cloudConnected && db && currentUser) {
                 try {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).set(studentObject);
                 } catch (e) {
@@ -3476,7 +2944,7 @@ ss_5: {
             if (targetStudent) {
                 targetStudent.streak = Math.max(0, (targetStudent.streak || 0) + val);
                 localStorage.setItem(key, JSON.stringify(targetStudent));
-                if (cloudConnected && db) {
+                if (cloudConnected && db && currentUser) {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).update({ streak: targetStudent.streak });
                 }
                 if (activeStudentId === code) {
@@ -3500,7 +2968,7 @@ ss_5: {
             if (targetStudent) {
                 targetStudent.points = Math.max(0, (targetStudent.points || 0) + val);
                 localStorage.setItem(key, JSON.stringify(targetStudent));
-                if (cloudConnected && db) {
+                if (cloudConnected && db && currentUser) {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).update({ points: targetStudent.points });
                 }
                 if (activeStudentId === code) {
@@ -3515,7 +2983,7 @@ ss_5: {
         function adminDeleteStudent(code) {
             showConfirmDialog("Xóa tài khoản con", `Bạn có chắc chắn muốn xóa vĩnh viễn học sinh ${code}?`, async () => {
                 localStorage.removeItem(`offline_student_${code}`);
-                if (cloudConnected && db) {
+                if (cloudConnected && db && currentUser) {
                     await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).delete();
                 }
                 showToast("Đã xóa tài khoản.");
@@ -3537,7 +3005,6 @@ ss_5: {
             btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1";
 
             secReading.classList.add("hidden");
-            // Flex classes for dual-column grids should be adapted
             secReading.classList.remove("grid");
             secChat.classList.add("hidden");
             secGame.classList.add("hidden");
@@ -3558,8 +3025,9 @@ ss_5: {
             }
         }
 
-        function showToast(message, iconClass = "fa-solid fa-info-circle") {
+        function showToast(message, iconClass = "fa-solid fa-circle-info") {
             const toast = document.getElementById("custom-toast");
+            if (!toast) return;
             document.getElementById("toast-icon").innerHTML = `<i class="${iconClass}"></i>`;
             document.getElementById("toast-message").innerText = message;
             
@@ -3574,7 +3042,7 @@ ss_5: {
 
         function showCustomDialog(title, bodyHTML) {
             const overlay = document.createElement("div");
-            overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4";
+            overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4";
             overlay.onclick = () => overlay.remove();
 
             const card = document.createElement("div");
@@ -3598,7 +3066,7 @@ ss_5: {
 
         function showConfirmDialog(title, message, onConfirm) {
             const overlay = document.createElement("div");
-            overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4";
+            overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4";
             
             const card = document.createElement("div");
             card.className = "bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl relative animate-slide-up";
@@ -3643,6 +3111,7 @@ ss_5: {
 
         function copyEmbedCode() {
             const codeElement = document.getElementById("embed-code-text");
+            if (!codeElement) return;
             const tempInput = document.createElement("textarea");
             tempInput.value = codeElement.innerText;
             document.body.appendChild(tempInput);
@@ -3652,301 +3121,13 @@ ss_5: {
             showToast("Đã sao chép mã nhúng thành công!", "fa-solid fa-copy");
         }
     
-window.addEventListener('load', () => {
-    try {
-        loadSmartStartThemes('ss_1');
-    } catch(e) {
-        console.log(e);
-    }
-});
-
-</script>
-
-<script id="smartstart-autoload">
-window.addEventListener('load', () => {
-    try {
-        if (typeof loadSmartStartThemes === 'function') {
-            loadSmartStartThemes('ss_1');
-        }
-    } catch(e) {
-        console.log('Auto load skipped:', e);
-    }
-});
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script id="ilearn-smart-vocab-system">
-
-/* ===============================
-   I-LEARN SMART START AI VOCABULARY
-================================== */
-
-window.iLearnSmartStartVocabulary = {
-
-    family:{
-        title:"Family",
-        words:[
-            {word:"Mother", ipa:"/ˈmʌðə(r)/", vi:"Mẹ"},
-            {word:"Father", ipa:"/ˈfɑːðə(r)/", vi:"Cha"},
-            {word:"Brother", ipa:"/ˈbrʌðə(r)/", vi:"Anh/em trai"},
-            {word:"Sister", ipa:"/ˈsɪstə(r)/", vi:"Chị/em gái"}
-        ]
-    },
-
-    school:{
-        title:"School",
-        words:[
-            {word:"Book", ipa:"/bʊk/", vi:"Quyển sách"},
-            {word:"Pencil", ipa:"/ˈpensl/", vi:"Bút chì"},
-            {word:"Notebook", ipa:"/ˈnəʊtbʊk/", vi:"Tập vở"},
-            {word:"Backpack", ipa:"/ˈbækpæk/", vi:"Ba lô"}
-        ]
-    },
-
-    animals:{
-        title:"Animals",
-        words:[
-            {word:"Monkey", ipa:"/ˈmʌŋki/", vi:"Con khỉ"},
-            {word:"Tiger", ipa:"/ˈtaɪɡə(r)/", vi:"Con hổ"},
-            {word:"Elephant", ipa:"/ˈelɪfənt/", vi:"Con voi"},
-            {word:"Penguin", ipa:"/ˈpeŋɡwɪn/", vi:"Chim cánh cụt"}
-        ]
-    },
-
-    food:{
-        title:"Food",
-        words:[
-            {word:"Banana", ipa:"/bəˈnɑːnə/", vi:"Chuối"},
-            {word:"Pizza", ipa:"/ˈpiːtsə/", vi:"Pizza"},
-            {word:"Cake", ipa:"/keɪk/", vi:"Bánh"},
-            {word:"Milk", ipa:"/mɪlk/", vi:"Sữa"}
-        ]
-    },
-
-    weather:{
-        title:"Weather",
-        words:[
-            {word:"Sunny", ipa:"/ˈsʌni/", vi:"Nắng"},
-            {word:"Rainy", ipa:"/ˈreɪni/", vi:"Mưa"},
-            {word:"Cloudy", ipa:"/ˈklaʊdi/", vi:"Nhiều mây"},
-            {word:"Windy", ipa:"/ˈwɪndi/", vi:"Có gió"}
-        ]
-    },
-
-    sports:{
-        title:"Sports",
-        words:[
-            {word:"Soccer", ipa:"/ˈsɒkə(r)/", vi:"Bóng đá"},
-            {word:"Basketball", ipa:"/ˈbɑːskɪtbɔːl/", vi:"Bóng rổ"},
-            {word:"Tennis", ipa:"/ˈtenɪs/", vi:"Quần vợt"},
-            {word:"Swimming", ipa:"/ˈswɪmɪŋ/", vi:"Bơi lội"}
-        ]
-    }
-};
-
-/* AI SPEAK */
-function speakIlearnVocabulary(word){
-
-    speechSynthesis.cancel();
-
-    const speech = new SpeechSynthesisUtterance(word);
-
-    speech.lang = 'en-US';
-    speech.rate = 0.88;
-    speech.pitch = 1;
-
-    window.speechSynthesis.speak(speech);
-}
-
-/* DETECT CURRENT TOPIC */
-function detectCurrentIlearnTopic(text){
-
-    text = (text || "").toLowerCase();
-
-    if(text.includes("family")) return "family";
-    if(text.includes("animal")) return "animals";
-    if(text.includes("food")) return "food";
-    if(text.includes("weather")) return "weather";
-    if(text.includes("sport")) return "sports";
-    if(text.includes("school")) return "school";
-
-    return "greetings";
-}
-
-/* RENDER VOCABULARY */
-function renderIlearnFocusVocabulary(topic){
-
-    const target = document.getElementById('ilearnFocusVocabularyWords');
-
-    if(!target) return;
-
-    const data = window.iLearnSmartStartVocabulary[topic];
-
-    if(!data) return;
-
-    target.innerHTML = "";
-
-    data.words.forEach(item => {
-
-        target.innerHTML += `
-
-            <div class="ilearn-focus-word"
-            style="
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-            padding:12px 14px;
-            background:#f8fbff;
-            border:1px solid #dbeafe;
-            border-radius:16px;
-            margin-bottom:10px;
-            transition:.2s ease;
-            ">
-
-                <div>
-
-                    <div style="
-                    font-weight:900;
-                    color:#0f172a;
-                    font-size:14px;
-                    ">
-                        ${item.word}
-                    </div>
-
-                    <div style="
-                    font-size:11px;
-                    color:#64748b;
-                    margin-top:2px;
-                    ">
-                        ${item.ipa} • ${item.vi}
-                    </div>
-
-                </div>
-
-                <button onclick="speakIlearnVocabulary('${item.word}')"
-                style="
-                border:none;
-                background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-                color:white;
-                padding:9px 12px;
-                border-radius:12px;
-                font-size:12px;
-                font-weight:800;
-                cursor:pointer;
-                min-width:54px;
-                ">
-                    🔊
-                </button>
-
-            </div>
-        `;
-    });
-}
-
-/* AUTO SYNC */
-function syncIlearnVocabulary(){
-
-    let lessonText = "";
-
-    const active =
-        document.querySelector('.lesson-card.active') ||
-        document.querySelector('.topic-card.active') ||
-        document.querySelector('.unit-card.active');
-
-    if(active){
-        lessonText = active.innerText;
-    }else{
-        lessonText = document.body.innerText;
-    }
-
-    const topic = detectCurrentIlearnTopic(lessonText);
-
-    renderIlearnFocusVocabulary(topic);
-}
-
-/* CLICK LISTENER */
-document.addEventListener('click', function(e){
-
-    const item = e.target.closest(
-        '.lesson-card,.topic-card,.unit-card,button'
-    );
-
-    if(!item) return;
-
-    const topic = detectCurrentIlearnTopic(item.innerText);
-
-    renderIlearnFocusVocabulary(topic);
-});
-
-/* INIT */
-window.addEventListener('load', () => {
-
-    if(!document.getElementById('ilearnFocusVocabularyBox')){
-
-        const wrapper = document.createElement('div');
-
-        wrapper.id = 'ilearnFocusVocabularyBox';
-
-        wrapper.innerHTML = `
-
-        <div style="
-            margin:16px;
-            background:white;
-            border-radius:24px;
-            padding:18px;
-            border:1px solid #e2e8f0;
-            box-shadow:0 8px 24px rgba(15,23,42,.05);
-        ">
-
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:space-between;
-                margin-bottom:16px;
-                gap:10px;
-                flex-wrap:wrap;
-            ">
-
-                <div>
-
-                    <h3 style="
-                        margin:0;
-                        font-size:16px;
-                        font-weight:900;
-                        color:#0f172a;
-                    ">
-
-                </div>
-
-                
-
-            </div>
-
-            <div id="ilearnFocusVocabularyWords"></div>
-
-        </div>
-        `;
-
-        document.body.prepend(wrapper);
-    }
-
-    syncIlearnVocabulary();
-});
-
-</script>
-
+        window.addEventListener('load', () => {
+            try {
+                loadSmartStartThemes('ss_1');
+            } catch(e) {
+                console.log(e);
+            }
+        });
+    </script>
 </body>
 </html>
