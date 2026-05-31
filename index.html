@@ -72,6 +72,41 @@
             animation: bubble-float 6s linear infinite;
         }
     </style>
+
+<style id="smartstart-responsive-upgrade">
+@media (max-width: 768px){
+    .container, .main-container, .content-wrapper{
+        width:100% !important;
+        max-width:100% !important;
+        padding:12px !important;
+        margin:0 auto !important;
+        box-sizing:border-box !important;
+    }
+    .card, .lesson-card, .topic-card{
+        width:100% !important;
+        margin-bottom:12px !important;
+    }
+    iframe, video, canvas, img{
+        max-width:100% !important;
+        height:auto !important;
+    }
+    .grid{
+        grid-template-columns:1fr !important;
+    }
+    button{
+        min-height:44px;
+    }
+}
+@media (min-width: 769px){
+    .lesson-card, .topic-card{
+        transition:all .25s ease;
+    }
+    .lesson-card:hover, .topic-card:hover{
+        transform:translateY(-2px);
+    }
+}
+</style>
+
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
 
@@ -3626,5 +3661,18 @@ window.addEventListener('load', () => {
 });
 
 </script>
+
+<script id="smartstart-autoload">
+window.addEventListener('load', () => {
+    try {
+        if (typeof loadSmartStartThemes === 'function') {
+            loadSmartStartThemes('ss_1');
+        }
+    } catch(e) {
+        console.log('Auto load skipped:', e);
+    }
+});
+</script>
+
 </body>
 </html>
