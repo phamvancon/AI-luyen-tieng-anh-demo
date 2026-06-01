@@ -1,136 +1,241 @@
 <!-- =========================================================
-🚀 ECO ENGLISH AI — SMART START PRODUCTION VERSION
-📚 Ebook Smart Start + 🤖 AI Conversation + 🎙 Pronunciation
+🎙️ AI PRONUNCIATION PRO MAX
+✨ GỢI Ý PHÁT ÂM TIẾNG VIỆT THÔNG MINH
+📚 ECO ENGLISH AI
 ========================================================= -->
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="bg-white rounded-3xl shadow-xl p-5 border border-slate-100">
 
-<title>ECO English AI - Smart Start Production</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap"
-rel="stylesheet"/>
-
-<script>
-tailwind.config = {
-    theme:{
-        extend:{
-            colors:{
-                brand:{
-                    50:'#eff6ff',
-                    100:'#dbeafe',
-                    500:'#3b82f6',
-                    600:'#2563eb',
-                    700:'#1d4ed8',
-                    900:'#1e3a8a'
-                }
-            }
-        }
-    }
-}
-</script>
-
-<style>
-
-body{
-    font-family:'Inter',sans-serif;
-    background:
-    linear-gradient(
-        135deg,
-        #f8fbff 0%,
-        #eef6ff 50%,
-        #ffffff 100%
-    );
-}
-
-.custom-scrollbar::-webkit-scrollbar{
-    width:5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb{
-    background:#cbd5e1;
-    border-radius:999px;
-}
-
-.glass{
-    backdrop-filter:blur(12px);
-}
-
-.fade-in{
-    animation:fade .5s ease;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-</style>
-</head>
-
-<body class="min-h-screen p-3 md:p-5 text-slate-800">
-
-<!-- =========================================================
-APP WRAPPER
-========================================================= -->
-
-<div class="max-w-7xl mx-auto">
-
-<!-- =========================================================
-HEADER
-========================================================= -->
-
-<div class="bg-gradient-to-r from-brand-600 to-indigo-600
-rounded-3xl p-5 md:p-7 text-white shadow-2xl">
-
-    <div class="flex flex-col md:flex-row
-    md:items-center md:justify-between gap-5">
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-5">
 
         <div>
-            <h1 class="text-3xl md:text-5xl font-black">
-                📚 ECO English AI
-            </h1>
+            <h3 class="text-2xl font-black text-slate-800 flex items-center">
+                <span class="mr-3">🎙️</span>
+                AI Pronunciation Coach
+            </h3>
 
-            <p class="mt-2 text-sm md:text-base text-white/80">
-                Smart Start AI Learning Platform
+            <p class="text-sm text-slate-400 mt-1">
+                AI chấm phát âm + gợi ý đọc tiếng Việt thông minh
             </p>
         </div>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="w-14 h-14 rounded-2xl
+        bg-gradient-to-r from-emerald-500 to-green-600
+        text-white flex items-center justify-center text-2xl shadow-lg">
 
-            <div class="bg-white/15 rounded-2xl px-4 py-3 text-center">
-                <div class="text-2xl">⭐</div>
-                <div class="text-xs font-black mt-1">
-                    120 Stars
+            🔊
+
+        </div>
+
+    </div>
+
+    <!-- VOCAB CARD -->
+    <div class="bg-gradient-to-r
+    from-brand-50 to-emerald-50
+    rounded-3xl p-5 border border-brand-100">
+
+        <div class="flex flex-col md:flex-row
+        md:items-center md:justify-between gap-5">
+
+            <!-- WORD -->
+            <div>
+
+                <div class="text-xs font-black text-brand-600 uppercase">
+                    Vocabulary
                 </div>
+
+                <h2 id="practice-word"
+                class="text-5xl font-black text-slate-800 mt-1">
+
+                    Elephant
+
+                </h2>
+
+                <div class="flex items-center gap-2 mt-3 flex-wrap">
+
+                    <div class="bg-white rounded-full
+                    px-4 py-2 text-sm font-bold
+                    text-slate-700 border border-slate-200">
+
+                        🇺🇸 /ˈel.ə.fənt/
+
+                    </div>
+
+                    <div class="bg-emerald-100 rounded-full
+                    px-4 py-2 text-sm font-black
+                    text-emerald-700">
+
+                        👉 e-li-phần
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="bg-white/15 rounded-2xl px-4 py-3 text-center">
-                <div class="text-2xl">🔥</div>
-                <div class="text-xs font-black mt-1">
-                    8 Days
-                </div>
+            <!-- ACTION -->
+            <div class="flex flex-wrap gap-3">
+
+                <button
+                onclick="speakWord()"
+                class="px-5 py-4 rounded-2xl
+                bg-brand-600 text-white font-black
+                hover:bg-brand-700 transition shadow-lg">
+
+                    🔊 Nghe mẫu
+
+                </button>
+
+                <button
+                onclick="startPronunciationAI()"
+                class="px-5 py-4 rounded-2xl
+                bg-emerald-500 text-white font-black
+                hover:bg-emerald-600 transition shadow-lg">
+
+                    🎙️ Bắt đầu đọc
+
+                </button>
+
             </div>
 
-            <div class="bg-white/15 rounded-2xl px-4 py-3 text-center">
-                <div class="text-2xl">🎯</div>
-                <div class="text-xs font-black mt-1">
-                    AI PRO
+        </div>
+
+    </div>
+
+    <!-- FEEDBACK -->
+    <div id="pronunciation-feedback"
+    class="mt-5 hidden">
+
+        <div class="bg-slate-50 rounded-3xl p-5 border border-slate-200">
+
+            <!-- SCORE -->
+            <div class="flex items-center justify-between mb-4">
+
+                <div>
+                    <h4 class="font-black text-slate-800 text-lg">
+                        📊 Kết quả AI
+                    </h4>
+
+                    <p class="text-sm text-slate-400">
+                        AI phân tích phát âm realtime
+                    </p>
                 </div>
+
+                <div class="w-20 h-20 rounded-full
+                bg-gradient-to-r from-emerald-400 to-green-500
+                text-white flex items-center justify-center
+                text-2xl font-black shadow-xl">
+
+                    92%
+
+                </div>
+
+            </div>
+
+            <!-- RESULT -->
+            <div class="grid md:grid-cols-3 gap-4">
+
+                <div class="bg-white rounded-2xl p-4 border border-slate-100">
+
+                    <div class="text-xs font-black text-slate-400 uppercase">
+                        AI nghe được
+                    </div>
+
+                    <div class="font-black text-slate-800 text-lg mt-2">
+                        Eliphen
+                    </div>
+
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 border border-slate-100">
+
+                    <div class="text-xs font-black text-slate-400 uppercase">
+                        Phát âm chuẩn
+                    </div>
+
+                    <div class="font-black text-emerald-600 text-lg mt-2">
+                        Elephant
+                    </div>
+
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 border border-slate-100">
+
+                    <div class="text-xs font-black text-slate-400 uppercase">
+                        Gợi ý tiếng Việt
+                    </div>
+
+                    <div class="font-black text-brand-600 text-lg mt-2">
+                        e-li-phần
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- AI SUGGEST -->
+            <div class="mt-5 bg-amber-50 border border-amber-200
+            rounded-2xl p-4">
+
+                <div class="flex items-start gap-3">
+
+                    <div class="w-10 h-10 rounded-xl
+                    bg-amber-100 text-amber-600
+                    flex items-center justify-center
+                    text-xl flex-shrink-0">
+
+                        🤖
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="font-black text-amber-700">
+                            AI Teacher Suggestion
+                        </h4>
+
+                        <p class="text-sm text-amber-800 mt-1 leading-relaxed">
+
+                            Con đọc rất tốt 👍<br><br>
+
+                            Tuy nhiên chữ:
+                            <strong>“phant”</strong>
+                            cần đọc nhẹ hơn.<br><br>
+
+                            Hãy đọc chậm theo kiểu:
+                            <strong>“e-li-phần”</strong>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PROGRESS -->
+            <div class="mt-5">
+
+                <div class="flex items-center justify-between mb-2">
+
+                    <span class="text-sm font-black text-slate-700">
+                        Accuracy
+                    </span>
+
+                    <span class="text-sm font-black text-emerald-600">
+                        92%
+                    </span>
+
+                </div>
+
+                <div class="w-full h-4 rounded-full bg-slate-200 overflow-hidden">
+
+                    <div class="h-full rounded-full
+                    bg-gradient-to-r from-emerald-400 to-green-500"
+                    style="width:92%"></div>
+
+                </div>
+
             </div>
 
         </div>
@@ -139,505 +244,106 @@ rounded-3xl p-5 md:p-7 text-white shadow-2xl">
 
 </div>
 
-<!-- =========================================================
-MENU
-========================================================= -->
-
-<div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-5">
-
-<button onclick="switchTab('ebook')"
-class="menu-btn bg-brand-600 text-white rounded-2xl p-4 font-black shadow-lg">
-📚 Sách điện tử
-</button>
-
-<button onclick="switchTab('chat')"
-class="menu-btn bg-white rounded-2xl p-4 font-black shadow">
-🗣️ Đàm thoại AI
-</button>
-
-<button onclick="switchTab('pronunciation')"
-class="menu-btn bg-white rounded-2xl p-4 font-black shadow">
-🎙️ Pronunciation
-</button>
-
-<button onclick="switchTab('game')"
-class="menu-btn bg-white rounded-2xl p-4 font-black shadow">
-🎮 Mini Game
-</button>
-
-<button onclick="switchTab('admin')"
-class="menu-btn bg-white rounded-2xl p-4 font-black shadow">
-⚙️ Admin
-</button>
-
-</div>
-
-<!-- =========================================================
-CONTENT
-========================================================= -->
-
-<div class="mt-5">
-
-<!-- =========================================================
-📚 EBOOK SECTION
-========================================================= -->
-
-<section id="tab-ebook" class="fade-in">
-
-<div class="grid md:grid-cols-3 gap-5">
-
-<!-- LEFT -->
-<div class="space-y-4">
-
-<div class="bg-white rounded-3xl shadow-lg p-4">
-
-<h3 class="font-black text-lg flex items-center">
-<i class="fa-solid fa-book-open text-brand-600 mr-2"></i>
-Smart Start Curriculum
-</h3>
-
-<div class="space-y-3 mt-4">
-
-<select id="class-selector"
-onchange="loadBook(this.value)"
-class="w-full border border-slate-200 rounded-2xl p-3 font-bold">
-
-<option value="ss1">📘 Smart Start 1</option>
-<option value="ss2">📗 Smart Start 2</option>
-<option value="ss3">📙 Smart Start 3</option>
-<option value="ss4">📕 Smart Start 4</option>
-<option value="ss5">📓 Smart Start 5</option>
-
-</select>
-
-<button onclick="openFullscreen()"
-class="w-full bg-brand-600 text-white
-rounded-2xl p-3 font-black hover:bg-brand-700">
-
-⛶ Fullscreen Ebook
-
-</button>
-
-</div>
-
-</div>
-
-<div class="bg-white rounded-3xl shadow-lg p-4">
-
-<h3 class="font-black text-lg mb-4">
-🎯 AI Features
-</h3>
-
-<div class="space-y-3">
-
-<div class="bg-slate-50 rounded-2xl p-3">
-🤖 AI Conversation
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-3">
-🎙️ AI Pronunciation
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-3">
-📊 AI Scoring
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-3">
-💡 Vietnamese Hints
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-<div class="md:col-span-2">
-
-<div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-
-<div class="bg-slate-50 px-5 py-3
-border-b border-slate-100
-flex items-center justify-between">
-
-<h3 class="font-black">
-📖 Interactive Ebook
-</h3>
-
-<div class="text-xs text-slate-400">
-i-Learn Smart Start
-</div>
-
-</div>
-
-<iframe
-id="ebook-frame"
-src="https://online.flipbuilder.com/sdtta/skiv/"
-class="w-full h-[75vh]"
-allowfullscreen>
-</iframe>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================================================
-🗣️ CHAT AI
-========================================================= -->
-
-<section id="tab-chat" class="hidden">
-
-<div class="bg-white rounded-3xl shadow-lg p-5">
-
-<h3 class="font-black text-2xl">
-🗣️ AI Conversation
-</h3>
-
-<div id="chat-box"
-class="mt-5 h-[450px] overflow-y-auto
-space-y-3 custom-scrollbar">
-
-<div class="bg-slate-100 rounded-2xl p-4 max-w-xl">
-
-<p class="font-black text-brand-600 mb-1">
-Mr. Gemini
-</p>
-
-<p>
-Hello student! Today we will practice English together.
-</p>
-
-</div>
-
-</div>
-
-<div class="mt-5 flex gap-3">
-
-<input
-id="chat-input"
-type="text"
-placeholder="Type your message..."
-class="flex-1 border border-slate-200
-rounded-2xl px-4 py-3 font-medium"
-/>
-
-<button
-onclick="sendChat()"
-class="bg-brand-600 text-white
-rounded-2xl px-6 font-black">
-
-Send
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================================================
-🎙️ PRONUNCIATION
-========================================================= -->
-
-<section id="tab-pronunciation" class="hidden">
-
-<div class="bg-white rounded-3xl shadow-lg p-5">
-
-<h3 class="font-black text-2xl">
-🎙️ AI Pronunciation
-</h3>
-
-<div class="grid md:grid-cols-3 gap-4 mt-5">
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<h4 class="font-black">Accuracy</h4>
-<div class="text-4xl font-black text-emerald-600 mt-3">
-92%
-</div>
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<h4 class="font-black">Fluency</h4>
-<div class="text-4xl font-black text-blue-600 mt-3">
-88%
-</div>
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<h4 class="font-black">Vocabulary</h4>
-<div class="text-4xl font-black text-amber-500 mt-3">
-95%
-</div>
-</div>
-
-</div>
-
-<button
-onclick="startMic()"
-class="mt-5 bg-emerald-500 text-white
-rounded-2xl px-6 py-4 font-black">
-
-🎙️ Start Speaking
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =========================================================
-🎮 GAME
-========================================================= -->
-
-<section id="tab-game" class="hidden">
-
-<div class="bg-white rounded-3xl shadow-lg p-5">
-
-<h3 class="font-black text-2xl">
-🎮 Vocabulary Game
-</h3>
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
-
-<div class="bg-brand-50 rounded-2xl p-5 text-center">
-🍎 Apple
-</div>
-
-<div class="bg-brand-50 rounded-2xl p-5 text-center">
-🐶 Dog
-</div>
-
-<div class="bg-brand-50 rounded-2xl p-5 text-center">
-🚗 Car
-</div>
-
-<div class="bg-brand-50 rounded-2xl p-5 text-center">
-🏫 School
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================================================
-⚙️ ADMIN
-========================================================= -->
-
-<section id="tab-admin" class="hidden">
-
-<div class="bg-white rounded-3xl shadow-lg p-5">
-
-<h3 class="font-black text-2xl">
-⚙️ Admin Dashboard
-</h3>
-
-<div class="grid md:grid-cols-4 gap-4 mt-5">
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<div class="text-sm text-slate-500">
-Students
-</div>
-
-<div class="text-4xl font-black mt-2">
-128
-</div>
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<div class="text-sm text-slate-500">
-Lessons
-</div>
-
-<div class="text-4xl font-black mt-2">
-560
-</div>
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<div class="text-sm text-slate-500">
-AI Chats
-</div>
-
-<div class="text-4xl font-black mt-2">
-4.2K
-</div>
-</div>
-
-<div class="bg-slate-50 rounded-2xl p-5">
-<div class="text-sm text-slate-500">
-Pronunciation
-</div>
-
-<div class="text-4xl font-black mt-2">
-91%
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-</div>
-
-<!-- =========================================================
-SCRIPT
-========================================================= -->
-
 <script>
 
 /* =========================================================
-EBOOK LINKS
+📚 SMART PRONUNCIATION DATABASE
 ========================================================= */
 
-const books = {
+const pronunciationDatabase = {
 
-ss1:"https://online.flipbuilder.com/sdtta/skiv/",
-ss2:"https://online.flipbuilder.com/sdtta/skiv/",
-ss3:"https://online.flipbuilder.com/sdtta/skiv/",
-ss4:"https://online.flipbuilder.com/sdtta/skiv/",
-ss5:"https://online.flipbuilder.com/sdtta/skiv/"
+    elephant:{
+        ipa:"/ˈel.ə.fənt/",
+        vietnamese:"e-li-phần"
+    },
+
+    apple:{
+        ipa:"/ˈæp.əl/",
+        vietnamese:"ép-pồ"
+    },
+
+    teacher:{
+        ipa:"/ˈtiː.tʃər/",
+        vietnamese:"ti-chờ"
+    },
+
+    beautiful:{
+        ipa:"/ˈbjuː.tɪ.fəl/",
+        vietnamese:"biu-ti-phồ"
+    }
 
 };
 
 /* =========================================================
-TAB SWITCH
+🔊 SPEAK WORD
 ========================================================= */
 
-function switchTab(tab){
+function speakWord(){
 
-document.querySelectorAll('section').forEach(sec=>{
-sec.classList.add('hidden');
-});
+    const word =
+    document.getElementById('practice-word').innerText;
 
-document.querySelector('#tab-'+tab).classList.remove('hidden');
+    const utter =
+    new SpeechSynthesisUtterance(word);
 
-document.querySelectorAll('.menu-btn').forEach(btn=>{
-btn.classList.remove('bg-brand-600','text-white');
-btn.classList.add('bg-white');
-});
+    utter.lang = 'en-US';
 
-event.target.classList.add('bg-brand-600','text-white');
+    utter.rate = 0.85;
+
+    speechSynthesis.speak(utter);
 
 }
 
 /* =========================================================
-LOAD BOOK
+🎙️ START AI PRONUNCIATION
 ========================================================= */
 
-function loadBook(id){
+function startPronunciationAI(){
 
-document.getElementById('ebook-frame').src = books[id];
+    showToast(
+        '🎙️ AI đang nghe phát âm...'
+    );
 
-showToast('📚 Đã mở Smart Start');
+    setTimeout(()=>{
+
+        document
+        .getElementById('pronunciation-feedback')
+        .classList
+        .remove('hidden');
+
+        showToast(
+            '✅ AI đã chấm phát âm xong'
+        );
+
+    },2500);
 
 }
 
 /* =========================================================
-FULLSCREEN
-========================================================= */
-
-function openFullscreen(){
-
-const iframe = document.getElementById('ebook-frame');
-
-if(iframe.requestFullscreen){
-iframe.requestFullscreen();
-}
-
-}
-
-/* =========================================================
-CHAT
-========================================================= */
-
-function sendChat(){
-
-const input = document.getElementById('chat-input');
-
-const text = input.value.trim();
-
-if(!text) return;
-
-const box = document.getElementById('chat-box');
-
-box.innerHTML += `
-<div class="flex justify-end">
-<div class="bg-brand-600 text-white rounded-2xl p-4 max-w-xl">
-${text}
-</div>
-</div>
-`;
-
-setTimeout(()=>{
-
-box.innerHTML += `
-<div class="bg-slate-100 rounded-2xl p-4 max-w-xl">
-<p class="font-black text-brand-600 mb-1">
-Mr. Gemini
-</p>
-
-<p>
-Excellent! Let's continue practicing English together.
-</p>
-</div>
-`;
-
-box.scrollTop = box.scrollHeight;
-
-},800);
-
-input.value='';
-
-}
-
-/* =========================================================
-MIC
-========================================================= */
-
-function startMic(){
-
-showToast('🎙️ AI Pronunciation Started');
-
-}
-
-/* =========================================================
-TOAST
+✨ TOAST
 ========================================================= */
 
 function showToast(text){
 
-const toast = document.createElement('div');
+    const toast =
+    document.createElement('div');
 
-toast.className = `
-fixed bottom-5 right-5
-bg-slate-900 text-white
-px-5 py-3 rounded-2xl
-shadow-2xl z-50
-`;
+    toast.className = `
+        fixed bottom-5 right-5
+        bg-slate-900 text-white
+        px-5 py-3 rounded-2xl
+        shadow-2xl z-50
+        text-sm font-bold
+    `;
 
-toast.innerHTML = text;
+    toast.innerHTML = text;
 
-document.body.appendChild(toast);
+    document.body.appendChild(toast);
 
-setTimeout(()=>{
-toast.remove();
-},2500);
+    setTimeout(()=>{
+        toast.remove();
+    },2500);
 
 }
 
 </script>
-
-</body>
-</html>
