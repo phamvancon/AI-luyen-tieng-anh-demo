@@ -1,349 +1,1554 @@
-<!-- =========================================================
-🎙️ AI PRONUNCIATION PRO MAX
-✨ GỢI Ý PHÁT ÂM TIẾNG VIỆT THÔNG MINH
-📚 ECO ENGLISH AI
-========================================================= -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Daily - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        streak: '#ef4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 50%, #e0effe 100%);
+            user-select: none;
+        }
+        /* Custom scrollbar for chat and lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+        /* Bounce & Wave Animations for Audio Coach */
+        @keyframes pulse-wave {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+        .pulse-wave {
+            animation: pulse-wave 1.5s infinite ease-in-out;
+        }
+        @keyframes slide-up {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        /* Floating Bubbles Game Animation */
+        @keyframes bubble-float {
+            0% { transform: translateY(100%) scale(0.9); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120%) scale(1.1); opacity: 0; }
+        }
+        .bubble-item {
+            animation: bubble-float 6s linear infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
 
-<div class="bg-white rounded-3xl shadow-xl p-5 border border-slate-100">
-
-    <!-- HEADER -->
-    <div class="flex items-center justify-between mb-5">
-
-        <div>
-            <h3 class="text-2xl font-black text-slate-800 flex items-center">
-                <span class="mr-3">🎙️</span>
-                AI Pronunciation Coach
-            </h3>
-
-            <p class="text-sm text-slate-400 mt-1">
-                AI chấm phát âm + gợi ý đọc tiếng Việt thông minh
-            </p>
-        </div>
-
-        <div class="w-14 h-14 rounded-2xl
-        bg-gradient-to-r from-emerald-500 to-green-600
-        text-white flex items-center justify-center text-2xl shadow-lg">
-
-            🔊
-
-        </div>
-
-    </div>
-
-    <!-- VOCAB CARD -->
-    <div class="bg-gradient-to-r
-    from-brand-50 to-emerald-50
-    rounded-3xl p-5 border border-brand-100">
-
-        <div class="flex flex-col md:flex-row
-        md:items-center md:justify-between gap-5">
-
-            <!-- WORD -->
-            <div>
-
-                <div class="text-xs font-black text-brand-600 uppercase">
-                    Vocabulary
+    <div class="w-full max-w-md md:max-w-5xl mx-auto bg-white min-h-screen md:min-h-[90vh] flex flex-col shadow-2xl relative pb-20 md:rounded-3xl md:border md:border-slate-100 overflow-hidden">
+        
+        <div id="view-auth" class="flex-1 flex flex-col p-6 justify-between bg-gradient-to-b from-brand-50 to-white">
+            
+            <div class="text-center mt-6">
+                <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
+                    <i class="fa-solid fa-book-open-reader text-3xl"></i>
                 </div>
-
-                <h2 id="practice-word"
-                class="text-5xl font-black text-slate-800 mt-1">
-
-                    Elephant
-
-                </h2>
-
-                <div class="flex items-center gap-2 mt-3 flex-wrap">
-
-                    <div class="bg-white rounded-full
-                    px-4 py-2 text-sm font-bold
-                    text-slate-700 border border-slate-200">
-
-                        🇺🇸 /ˈel.ə.fənt/
-
-                    </div>
-
-                    <div class="bg-emerald-100 rounded-full
-                    px-4 py-2 text-sm font-black
-                    text-emerald-700">
-
-                        👉 e-li-phần
-                    </div>
-
-                </div>
-
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily ECO</h1>
+                <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
             </div>
 
-            <!-- ACTION -->
-            <div class="flex flex-wrap gap-3">
-
-                <button
-                onclick="speakWord()"
-                class="px-5 py-4 rounded-2xl
-                bg-brand-600 text-white font-black
-                hover:bg-brand-700 transition shadow-lg">
-
-                    🔊 Nghe mẫu
-
+            <div class="my-6 bg-slate-100 rounded-2xl p-1.5 flex shadow-inner max-w-sm mx-auto w-full">
+                <button onclick="switchAuthTab('login')" id="auth-tab-login" class="flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition bg-white text-brand-600 shadow-sm">
+                    <i class="fa-solid fa-key mr-1.5"></i> Đăng Nhập Con
                 </button>
-
-                <button
-                onclick="startPronunciationAI()"
-                class="px-5 py-4 rounded-2xl
-                bg-emerald-500 text-white font-black
-                hover:bg-emerald-600 transition shadow-lg">
-
-                    🎙️ Bắt đầu đọc
-
+                <button onclick="switchAuthTab('register')" id="auth-tab-register" class="flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-user-plus mr-1.5"></i> Đăng Ký Tài Khoản
                 </button>
-
             </div>
 
-        </div>
-
-    </div>
-
-    <!-- FEEDBACK -->
-    <div id="pronunciation-feedback"
-    class="mt-5 hidden">
-
-        <div class="bg-slate-50 rounded-3xl p-5 border border-slate-200">
-
-            <!-- SCORE -->
-            <div class="flex items-center justify-between mb-4">
-
-                <div>
-                    <h4 class="font-black text-slate-800 text-lg">
-                        📊 Kết quả AI
-                    </h4>
-
-                    <p class="text-sm text-slate-400">
-                        AI phân tích phát âm realtime
-                    </p>
+            <div id="form-auth-login" class="space-y-4 max-w-sm mx-auto w-full">
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-4 shadow-sm">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nhập Mã Học Sinh ECO của Con</label>
+                    <div class="relative">
+                        <input type="text" id="input-auth-student-code" placeholder="Ví dụ: ECO892" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
+                        <i class="fa-solid fa-id-card text-slate-300 absolute right-4 top-4 text-lg"></i>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-2 italic text-center">Mã học sinh do Admin cung cấp hoặc nhận được khi đăng ký.</p>
                 </div>
-
-                <div class="w-20 h-20 rounded-full
-                bg-gradient-to-r from-emerald-400 to-green-500
-                text-white flex items-center justify-center
-                text-2xl font-black shadow-xl">
-
-                    92%
-
-                </div>
-
+                <button onclick="handleStudentLogin()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm py-4 rounded-2xl shadow-lg shadow-brand-500/20 transition active:scale-95 flex items-center justify-center space-x-2">
+                    <span>Vào Học Ngay</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
             </div>
 
-            <!-- RESULT -->
-            <div class="grid md:grid-cols-3 gap-4">
-
-                <div class="bg-white rounded-2xl p-4 border border-slate-100">
-
-                    <div class="text-xs font-black text-slate-400 uppercase">
-                        AI nghe được
-                    </div>
-
-                    <div class="font-black text-slate-800 text-lg mt-2">
-                        Eliphen
-                    </div>
-
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 border border-slate-100">
-
-                    <div class="text-xs font-black text-slate-400 uppercase">
-                        Phát âm chuẩn
-                    </div>
-
-                    <div class="font-black text-emerald-600 text-lg mt-2">
-                        Elephant
-                    </div>
-
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 border border-slate-100">
-
-                    <div class="text-xs font-black text-slate-400 uppercase">
-                        Gợi ý tiếng Việt
-                    </div>
-
-                    <div class="font-black text-brand-600 text-lg mt-2">
-                        e-li-phần
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- AI SUGGEST -->
-            <div class="mt-5 bg-amber-50 border border-amber-200
-            rounded-2xl p-4">
-
-                <div class="flex items-start gap-3">
-
-                    <div class="w-10 h-10 rounded-xl
-                    bg-amber-100 text-amber-600
-                    flex items-center justify-center
-                    text-xl flex-shrink-0">
-
-                        🤖
-
-                    </div>
-
+            <div id="form-auth-register" class="space-y-4 hidden max-w-sm mx-auto w-full">
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-4 shadow-sm space-y-3.5">
                     <div>
-
-                        <h4 class="font-black text-amber-700">
-                            AI Teacher Suggestion
-                        </h4>
-
-                        <p class="text-sm text-amber-800 mt-1 leading-relaxed">
-
-                            Con đọc rất tốt 👍<br><br>
-
-                            Tuy nhiên chữ:
-                            <strong>“phant”</strong>
-                            cần đọc nhẹ hơn.<br><br>
-
-                            Hãy đọc chậm theo kiểu:
-                            <strong>“e-li-phần”</strong>
-
-                        </p>
-
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tên đầy đủ của con</label>
+                        <input type="text" id="input-register-name" placeholder="Ví dụ: Nguyễn Minh Thư" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
                     </div>
-
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Cấp lớp học tập</label>
+                        <select id="input-register-grade" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                            <option value="cap_1">Cấp 1 (Lớp 1 - Lớp 5)</option>
+                            <option value="cap_2">Cấp 2 (Lớp 6 - Lớp 9)</option>
+                            <option value="cap_3">Cấp 3 (Lớp 10 - Lớp 12)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Số điện thoại Phụ Huynh</label>
+                        <input type="tel" id="input-register-phone" placeholder="Nhập để xác minh và nhận mã khi cần" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                    </div>
                 </div>
-
+                <button onclick="handleParentRegister()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm py-4 rounded-2xl shadow-lg shadow-brand-500/20 transition active:scale-95 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-user-plus text-xs"></i>
+                    <span>Tạo Tài Khoản Con (Mã ECO)</span>
+                </button>
             </div>
 
-            <!-- PROGRESS -->
-            <div class="mt-5">
-
-                <div class="flex items-center justify-between mb-2">
-
-                    <span class="text-sm font-black text-slate-700">
-                        Accuracy
-                    </span>
-
-                    <span class="text-sm font-black text-emerald-600">
-                        92%
-                    </span>
-
+            <div class="mt-8 text-center flex flex-col space-y-2.5 border-t border-slate-100 pt-4 max-w-sm mx-auto w-full">
+                <div class="flex justify-between items-center px-2">
+                    <button onclick="openEmbedGuideModal()" class="text-xs text-brand-600 font-bold hover:text-brand-700 transition flex items-center space-x-1" title="Lấy mã nhúng an toàn cho Google Sites">
+                        <i class="fa-solid fa-code text-[11px]"></i>
+                        <span>Mã Nhúng Google Sites</span>
+                    </button>
+                    <button onclick="openAdminModal()" class="text-xs text-slate-400 font-bold hover:text-brand-600 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-sliders text-[10px]"></i>
+                        <span>Giáo viên / Admin</span>
+                    </button>
                 </div>
-
-                <div class="w-full h-4 rounded-full bg-slate-200 overflow-hidden">
-
-                    <div class="h-full rounded-full
-                    bg-gradient-to-r from-emerald-400 to-green-500"
-                    style="width:92%"></div>
-
-                </div>
-
+                <span class="text-[10px] text-slate-300">English Daily ECO v3.3</span>
             </div>
-
         </div>
 
+        <div id="view-main-app" class="flex-1 flex flex-col hidden">
+            
+            <header class="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-4 py-4 md:px-6 rounded-b-3xl shadow-lg sticky top-0 z-40 transition-all">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border-2 border-white/30 shadow-inner">
+                            <i class="fa-solid fa-user-graduate text-xl text-white"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5">
+                                <h2 id="display-student-name" class="font-bold text-sm md:text-base tracking-wide">Đang tải...</h2>
+                                <span id="sync-badge" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" title="Chờ kết nối"></span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <select id="grade-selector" onchange="changeGrade(this.value)" class="bg-transparent text-[10px] font-bold focus:outline-none cursor-pointer border border-white/20 rounded px-1 py-0.5">
+                                    <option value="cap_1" class="text-slate-800">Cấp 1 (Tiểu Học)</option>
+                                    <option value="cap_2" class="text-slate-800">Cấp 2 (THCS)</option>
+                                    <option value="cap_3" class="text-slate-800">Cấp 3 (THPT)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-amber-500 text-white px-2.5 py-1.5 rounded-full flex items-center space-x-1 text-xs font-extrabold shadow-md">
+                            <i class="fa-solid fa-gem text-yellow-200"></i>
+                            <span id="display-points-count">0</span>
+                        </div>
+                        
+                        <div class="bg-red-500/90 text-white px-2 py-1.5 rounded-full flex items-center space-x-1 text-xs font-extrabold shadow-md">
+                            <i class="fa-solid fa-fire text-amber-300"></i>
+                            <span id="display-streak-count">0</span>
+                        </div>
+
+                        <button onclick="handleLogOutStudent()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition active:scale-95" title="Đổi tài khoản khác">
+                            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 p-4 md:p-6 overflow-y-auto custom-scrollbar">
+                
+                <div class="grid grid-cols-3 bg-slate-100 rounded-xl p-1 mb-6 shadow-inner max-w-md mx-auto">
+                    <button onclick="switchTab('reading')" id="tab-btn-reading" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm">
+                        <i class="fa-solid fa-book-open mr-1"></i> Luyện Đọc
+                    </button>
+                    <button onclick="switchTab('chat')" id="tab-btn-chat" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-robot mr-1"></i> Đàm Thoại AI
+                    </button>
+                    <button onclick="switchTab('game')" id="tab-btn-game" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1">
+                        <i class="fa-solid fa-gamepad text-emerald-500 mr-1 animate-bounce"></i>
+                        <span>Vui Chơi</span>
+                    </button>
+                </div>
+
+                <section id="section-reading" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    
+                    <div class="md:col-span-7 space-y-4">
+                        <div class="bg-white border border-slate-100 rounded-2xl p-4 md:p-5 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl tracking-wider">
+                                Bài học
+                            </div>
+                            <span class="text-xs font-bold text-brand-500 uppercase tracking-wider block mb-1">Thực Hành Đọc To</span>
+                            <h3 id="reading-title" class="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">Đang tải bài học...</h3>
+                            
+                            <div class="w-full h-44 md:h-56 rounded-xl mt-3 overflow-hidden relative group bg-slate-100">
+                                <img id="reading-illustration" src="" alt="Minh họa bài đọc" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=60'">
+                                <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
+                                    <i class="fa-solid fa-image mr-1"></i>AI Illustration
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-slate-50/80 rounded-xl p-4 border border-slate-100 relative">
+                                <p class="text-[10px] text-slate-400 absolute top-2 right-3 italic">Nhấp đúp chuột để tra nhanh từ mới</p>
+                                <p id="reading-content" class="text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-3 select-text">
+                                    Đang tải văn bản tiếng Anh...
+                                </p>
+                            </div>
+
+                            <div class="mt-4 flex space-x-2">
+                                <button onclick="readAloudTaskText()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-semibold text-sm transition active:scale-95 flex items-center justify-center space-x-1">
+                                    <i class="fa-solid fa-volume-high text-brand-500"></i>
+                                    <span>Nghe máy mẫu</span>
+                                </button>
+                                <button onclick="startOralReadingChallenge()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-bold text-sm transition active:scale-95 shadow-md shadow-brand-500/20 flex items-center justify-center space-x-1">
+                                    <i class="fa-solid fa-microphone"></i>
+                                    <span>Bắt đầu đọc âm</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5 space-y-4">
+                        <div class="bg-brand-50 rounded-2xl p-3 border border-brand-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping"></span>
+                                <span class="text-xs font-black text-brand-900">GIÁO TRÌNH:</span>
+                            </div>
+                            <select id="curriculum-selector" onchange="switchCurriculum(this.value)" class="bg-white text-xs font-bold text-brand-700 px-2 py-1 rounded-lg border border-brand-200 focus:outline-none">
+                                <option value="daily">Luyện Đọc Hàng Ngày</option>
+                                <option value="smart_start">i-Learn Smart Start</option>
+                            </select>
+                        </div>
+
+                        <div id="daily-suggestions-box" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm space-y-2">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-slate-900 text-sm flex items-center">
+                                    <i class="fa-solid fa-calendar-day text-brand-600 mr-2"></i>Chủ đề gợi ý hôm nay
+                                </h4>
+                                <span id="daily-date-label" class="text-[10px] text-slate-400 font-bold bg-slate-100 px-2 py-0.5 rounded-md">--/--/----</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">Mỗi ngày tự động đổi chủ đề mới. Hãy chọn 1 chủ đề dưới đây để luyện tập:</p>
+                            <div id="daily-suggestions-container" class="grid grid-cols-3 gap-2 pt-1"></div>
+                        </div>
+
+                        <div id="smart-start-selector-box" class="bg-slate-50 border border-slate-200 rounded-2xl p-3 shadow-inner hidden space-y-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 tracking-wider uppercase mb-1">Chọn Lớp Smart Start</label>
+                                    <select id="smart-class-selector" onchange="loadSmartStartThemes(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
+                                        <option value="ss_1" selected>Smart Start Lớp 1</option>
+                                        <option value="ss_2">Smart Start Lớp 2</option>
+                                        <option value="ss_3">Smart Start Lớp 3</option>
+                                        <option value="ss_4">Smart Start Lớp 4</option>
+                                        <option value="ss_5">Smart Start Lớp 5</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 tracking-wider uppercase mb-1">Chọn Chủ Đề Học</label>
+                                    <select id="smart-theme-selector" onchange="loadSmartThemeContent(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <h4 class="font-bold text-slate-900 text-xs mb-2.5 flex items-center justify-between">
+                                <span class="flex items-center"><i class="fa-solid fa-cubes text-brand-600 mr-2"></i>Tủ Sách Điện Tử i-Learn Smart Start</span>
+                                <span class="text-[10px] text-brand-600 font-bold bg-brand-50 px-2 py-0.5 rounded-md">Lớp 1 - 5</span>
+                            </h4>
+                            <div class="grid grid-cols-5 gap-1.5">
+                                <button onclick="openCustomTextbook('ss_1')" class="bg-gradient-to-b from-blue-50 to-blue-100 border border-blue-200 text-blue-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                    <i class="fa-solid fa-book-open text-base text-blue-600 mb-1"></i>
+                                    <span class="text-[10px] font-extrabold">Lớp 1</span>
+                                </button>
+                                <button onclick="openCustomTextbook('ss_2')" class="bg-gradient-to-b from-emerald-50 to-emerald-100 border border-emerald-200 text-emerald-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                    <i class="fa-solid fa-book-open text-base text-emerald-600 mb-1"></i>
+                                    <span class="text-[10px] font-extrabold">Lớp 2</span>
+                                </button>
+                                <button onclick="openCustomTextbook('ss_3')" class="bg-gradient-to-b from-purple-50 to-purple-100 border border-purple-200 text-purple-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                    <i class="fa-solid fa-book-open text-base text-purple-600 mb-1"></i>
+                                    <span class="text-[10px] font-extrabold">Lớp 3</span>
+                                </button>
+                                <button onclick="openCustomTextbook('ss_4')" class="bg-gradient-to-b from-amber-50 to-amber-100 border border-amber-200 text-amber-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                    <i class="fa-solid fa-book-open text-base text-amber-600 mb-1"></i>
+                                    <span class="text-[10px] font-extrabold">Lớp 4</span>
+                                </button>
+                                <button onclick="openCustomTextbook('ss_5')" class="bg-gradient-to-b from-rose-50 to-rose-100 border border-rose-200 text-rose-800 p-2 rounded-xl text-center flex flex-col items-center justify-center hover:shadow-md transition active:scale-95">
+                                    <i class="fa-solid fa-book-open text-base text-rose-600 mb-1"></i>
+                                    <span class="text-[10px] font-extrabold">Lớp 5</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
+                                <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm (Luyện Phát Âm Từ)
+                            </h4>
+                            <div id="vocabulary-container" class="space-y-2.5 max-h-64 overflow-y-auto custom-scrollbar pr-1"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-chat" class="hidden flex flex-col h-[calc(100vh-210px)] max-h-[500px] md:max-h-[600px] md:max-w-2xl md:mx-auto w-full">
+                    <div id="chat-conversation-container" class="flex-1 overflow-y-auto custom-scrollbar p-1 space-y-3 mb-4 select-text">
+                        <div class="flex items-start space-x-2.5">
+                            <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center flex-shrink-0 font-bold text-xs shadow-inner">AI</div>
+                            <div class="bg-slate-100 rounded-2xl rounded-tl-none px-3.5 py-2.5 text-sm text-slate-800 max-w-[85%] shadow-sm">
+                                <p class="font-semibold text-brand-600 text-xs mb-0.5">Mr. Gemini (AI Teacher)</p>
+                                <p>Xin chào! Thầy là gia sư AI đàm thoại của em. Hãy bấm nút micro bên dưới để cùng nói chuyện tiếng Anh nhé!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="voice-wave-indicator" class="hidden flex justify-center items-center space-x-1.5 py-2 mb-2 bg-red-50 rounded-xl border border-red-100">
+                        <span class="w-1.5 h-6 bg-red-500 rounded-full pulse-wave"></span>
+                        <span class="w-1.5 h-8 bg-red-500 rounded-full pulse-wave" style="animation-delay: 0.2s"></span>
+                        <span class="w-1.5 h-4 bg-red-500 rounded-full pulse-wave" style="animation-delay: 0.4s"></span>
+                        <span class="text-xs font-bold text-red-600 tracking-wide animate-pulse ml-2">ĐANG GHI ÂM GIỌNG NÓI...</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-2xl p-2 shadow-inner">
+                        <input type="text" id="chat-text-input" placeholder="Gõ câu trả lời hoặc nói chuyện..." class="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none">
+                        <button onclick="handleSendTextChat()" class="w-9 h-9 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center transition active:scale-90">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                        <button id="btn-chat-mic" onclick="toggleChatVoiceInput()" class="w-12 h-12 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white flex items-center justify-center transition active:scale-90 shadow-md shadow-brand-500/30">
+                            <i class="fa-solid fa-microphone text-lg"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <section id="section-game" class="hidden grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-7 space-y-4">
+                        <div class="flex bg-slate-200 rounded-xl p-1 shadow-inner">
+                            <button onclick="switchGameSubTab('games')" id="game-subtab-games" class="flex-1 py-1.5 text-center text-xs font-black rounded-lg transition bg-white text-emerald-600 shadow-sm">
+                                <i class="fa-solid fa-gamepad mr-1"></i> Trò Chơi
+                            </button>
+                            <button onclick="switchGameSubTab('leaderboard')" id="game-subtab-leaderboard" class="flex-1 py-1.5 text-center text-xs font-black rounded-lg transition text-slate-500">
+                                <i class="fa-solid fa-crown mr-1 text-yellow-500"></i> Bảng Vàng
+                            </button>
+                        </div>
+
+                        <div id="game-subview-games" class="space-y-4">
+                            <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm flex space-x-2">
+                                <button onclick="switchActiveGame('bubble')" id="game-select-bubble" class="flex-1 py-2 text-center text-[10px] font-black rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-700">
+                                    <i class="fa-solid fa-circle-dot mr-1"></i> Bóng Bay Từ Vựng
+                                </button>
+                                <button onclick="switchActiveGame('scramble')" id="game-select-scramble" class="flex-1 py-2 text-center text-[10px] font-black rounded-xl border border-slate-200 text-slate-600">
+                                    <i class="fa-solid fa-align-left mr-1"></i> Ghép Câu Thần Tốc
+                                </button>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4 rounded-2xl shadow-md">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 id="active-game-title" class="font-extrabold text-base">Bóng Bay Từ Vựng</h3>
+                                        <p id="active-game-desc" class="text-[10px] text-emerald-100">Càng chơi lâu càng tăng điểm phản xạ từ vựng!</p>
+                                    </div>
+                                    <div class="bg-white/20 px-2.5 py-1 rounded-full text-xs font-black">
+                                        <i class="fa-solid fa-stopwatch mr-1 text-yellow-300"></i>
+                                        <span id="game-time-left">0</span> giây chơi
+                                    </div>
+                                </div>
+                                <div class="mt-3 bg-black/25 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                                    <span class="font-medium text-emerald-100">Đổi 30 Điểm 💎 lấy 60 giây chơi</span>
+                                    <button onclick="exchangePointsForTime()" class="bg-yellow-400 text-slate-900 font-extrabold px-3 py-1.5 rounded-lg active:scale-95 transition hover:bg-yellow-300 shadow-sm">
+                                        Đổi Ngay
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="game-play-area-bubble" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between">
+                                <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-start-cover">
+                                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3 shadow-lg shadow-emerald-500/10">
+                                        <i class="fa-solid fa-play text-2xl ml-1"></i>
+                                    </div>
+                                    <h4 class="text-white font-black text-base">Bóng Bay Từ Vựng</h4>
+                                    <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Luyện trí nhớ nghĩa của từ vựng. Cần tối thiểu 10 giây chơi để bắt đầu.</p>
+                                    <button onclick="startGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
+                                        Bắt đầu chơi
+                                    </button>
+                                </div>
+
+                                <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800 z-0">
+                                    <div>
+                                        <span class="text-slate-400 text-[10px] uppercase block">Tìm từ tiếng Anh của:</span>
+                                        <span id="game-target-meaning" class="font-black text-yellow-400 text-sm">--</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
+                                        <span id="game-score" class="font-black text-emerald-400 text-sm">0</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-1 w-full relative" id="game-bubbles-container"></div>
+                                <div class="w-full bg-slate-950/20 text-[10px] text-slate-500 p-1 text-center font-bold">
+                                    Đập đúng quả bóng chứa từ vựng tương ứng nghĩa tiếng Việt
+                                </div>
+                            </div>
+
+                            <div id="game-play-area-scramble" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between hidden">
+                                <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-scramble-start-cover">
+                                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+                                        <i class="fa-solid fa-align-left text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-white font-black text-base">Ghép Câu Thần Tốc</h4>
+                                    <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Sắp xếp các từ bị xáo trộn thành câu tiếng Anh có nghĩa của bài đọc.</p>
+                                    <button onclick="startScrambleGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
+                                        Bắt đầu ghép câu
+                                    </button>
+                                </div>
+
+                                <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800">
+                                    <div>
+                                        <span class="text-slate-400 text-[10px] uppercase block">Dịch Nghĩa:</span>
+                                        <span id="game-scramble-hint" class="font-black text-yellow-400 text-xs">--</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
+                                        <span id="game-scramble-score" class="font-black text-emerald-400 text-sm">0</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-1 w-full p-3 flex flex-col justify-between space-y-2">
+                                    <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-3 flex-1 flex flex-wrap gap-1.5 content-start items-center">
+                                        <div id="game-scramble-answer-container" class="w-full flex flex-wrap gap-1.5 min-h-[40px]">
+                                            <p class="text-[10px] text-slate-600 italic font-bold">Nhấn vào các từ bên dưới để ghép câu...</p>
+                                        </div>
+                                    </div>
+                                    <div id="game-scramble-chips-container" class="flex flex-wrap justify-center gap-2 py-2 border-t border-slate-800"></div>
+                                </div>
+
+                                <div class="w-full bg-slate-950/30 p-2 flex justify-between items-center text-[10px] border-t border-slate-800">
+                                    <button onclick="resetCurrentScramble()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold transition">Xóa hết</button>
+                                    <button onclick="submitScrambleSolution()" class="px-3.5 py-1 rounded bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition">Kiểm tra câu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5 space-y-4">
+                        <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
+                                <i class="fa-solid fa-gift text-rose-500 mr-2"></i>Phần Thưởng Đạt Được
+                            </h4>
+                            <div id="rewards-container" class="grid grid-cols-3 gap-2.5"></div>
+                        </div>
+
+                        <div id="game-subview-leaderboard" class="space-y-4">
+                            <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm flex items-center justify-between">
+                                <span class="text-xs font-black text-brand-900 uppercase tracking-wide">Bảng Xếp Hạng:</span>
+                                <div class="flex space-x-1.5">
+                                    <button onclick="loadLeaderboardData('points')" id="leaderboard-filter-points" class="px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition">Điểm 💎</button>
+                                    <button onclick="loadLeaderboardData('streak')" id="leaderboard-filter-streak" class="px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition">Chuỗi 🔥</button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 bg-gradient-to-b from-brand-50 to-white p-3 rounded-2xl border border-brand-100/50">
+                                <div class="flex flex-col items-center justify-end text-center pb-2 pt-4">
+                                    <div class="relative mb-1">
+                                        <div class="w-10 h-10 rounded-full bg-slate-200 border-2 border-slate-300 flex items-center justify-center font-bold text-slate-600 text-sm shadow">🥈</div>
+                                        <span class="absolute -bottom-1 -right-1 bg-slate-400 text-white text-[8px] font-black px-1.5 rounded-full">2</span>
+                                    </div>
+                                    <span id="podium-2-name" class="text-[9px] font-bold text-slate-700 block max-w-full truncate">Chưa có</span>
+                                    <span id="podium-2-score" class="text-[9px] font-semibold text-slate-500 block">--</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-end text-center pb-2">
+                                    <div class="relative mb-1">
+                                        <div class="w-12 h-12 rounded-full bg-yellow-100 border-2 border-yellow-400 flex items-center justify-center text-lg shadow-md animate-bounce">🥇</div>
+                                        <span class="absolute -bottom-1 -right-1 bg-yellow-500 text-white text-[9px] font-black px-1.5 rounded-full">1</span>
+                                    </div>
+                                    <span id="podium-1-name" class="text-[10px] font-black text-slate-900 block max-w-full truncate">Chưa có</span>
+                                    <span id="podium-1-score" class="text-[10px] font-bold text-brand-600 block">--</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-end text-center pb-2 pt-4">
+                                    <div class="relative mb-1">
+                                        <div class="w-10 h-10 rounded-full bg-amber-50 border-2 border-amber-600/30 flex items-center justify-center font-bold text-amber-700 text-sm shadow">🥉</div>
+                                        <span class="absolute -bottom-1 -right-1 bg-amber-600 text-white text-[8px] font-black px-1.5 rounded-full">3</span>
+                                    </div>
+                                    <span id="podium-3-name" class="text-[9px] font-bold text-slate-700 block max-w-full truncate">Chưa có</span>
+                                    <span id="podium-3-score" class="text-[9px] font-semibold text-slate-500 block">--</span>
+                                </div>
+                            </div>
+
+                            <div id="leaderboard-list-container" class="space-y-2 max-h-56 overflow-y-auto custom-scrollbar pr-1"></div>
+
+                            <div id="leaderboard-my-rank" class="bg-brand-600 text-white rounded-2xl p-3 shadow-md flex justify-between items-center">
+                                <div class="flex items-center space-x-2.5">
+                                    <span id="my-rank-pos" class="bg-white/20 px-2 py-0.5 rounded-md font-black text-xs">--</span>
+                                    <div>
+                                        <p class="text-[10px] opacity-80 uppercase font-bold">Thứ hạng của bạn</p>
+                                        <p id="my-rank-name" class="text-xs font-black">---</p>
+                                    </div>
+                                </div>
+                                <span id="my-rank-score" class="font-extrabold text-sm">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-4 py-3 shadow-2xl z-40">
+                <div class="flex items-center space-x-2 max-w-md mx-auto">
+                    <div class="relative flex-1">
+                        <input type="text" id="dict-quick-input" placeholder="Tra nhanh Anh - Việt (nhấn enter)..." onkeydown="if(event.key === 'Enter') lookupWordDirectly()" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3 top-3.5 text-xs"></i>
+                    </div>
+                    <button onclick="lookupWordDirectly()" class="bg-slate-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-800 transition active:scale-95 flex items-center space-x-1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span>Tra Cứu</span>
+                    </button>
+                </div>
+            </footer>
+        </div>
+
+        <div id="dict-sheet" class="fixed inset-0 bg-black/50 z-50 flex items-end justify-center hidden" onclick="closeDictSheet()">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 shadow-2xl animate-slide-up" onclick="event.stopPropagation()">
+                <div class="w-12 h-1 bg-slate-300 rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 id="dict-result-word" class="text-2xl font-black text-slate-900 capitalize">Word</h3>
+                        <p id="dict-result-phonetic" class="text-sm font-semibold text-brand-600">/phonetic/</p>
+                    </div>
+                    <button onclick="playDictAudio()" class="w-11 h-11 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center hover:bg-brand-100 transition active:scale-95 shadow-sm">
+                        <i class="fa-solid fa-volume-high text-base"></i>
+                    </button>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl p-4 shadow-md mb-4 hidden" id="vocab-speech-feedback-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-extrabold uppercase bg-white/20 px-2 py-0.5 rounded-md"><i class="fa-solid fa-gauge-high mr-1"></i>AI Kiểm tra phát âm</span>
+                        <span class="text-xs font-black text-yellow-300" id="vocab-score-text">Độ khớp: 0%</span>
+                    </div>
+                    <div class="space-y-1.5">
+                        <p class="text-xs">Con vừa đọc: <strong id="vocab-spoken-result" class="italic bg-black/20 px-1.5 py-0.5 rounded">...</strong></p>
+                        <p class="text-xs font-medium bg-black/10 p-2 rounded-lg border border-white/10" id="vocab-suggested-tip">Hãy ấn nút nói rồi phát âm rõ từ này nhé!</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 border border-blue-100/50">
+                        <span class="text-[10px] font-extrabold uppercase bg-brand-500 text-white px-2 py-0.5 rounded-md tracking-wider">Nghĩa Tiếng Việt</span>
+                        <p id="dict-result-vi" class="text-base font-bold text-slate-800 mt-2">Dịch đang được tạo...</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                        <span class="text-[10px] font-extrabold uppercase bg-slate-500 text-white px-2 py-0.5 rounded-md tracking-wider">Định Nghĩa Tiếng Anh</span>
+                        <p id="dict-result-en" class="text-sm text-slate-600 italic mt-2">Loading English definition...</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 space-y-2">
+                    <button id="btn-vocab-speech-mic" onclick="startVocabularyOralChallenge()" class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black rounded-xl transition active:scale-95 shadow-md shadow-rose-500/20 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-microphone text-sm"></i>
+                        <span id="vocab-mic-btn-text">Bắt đầu luyện phát âm 🎙️</span>
+                    </button>
+                    <div class="flex space-x-2">
+                        <button onclick="copyDictionaryWord()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition active:scale-95">
+                            <i class="fa-solid fa-copy mr-1"></i> Sao chép từ vựng
+                        </button>
+                        <button onclick="closeDictSheet()" class="flex-1 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition active:scale-95">Đóng tra cứu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="embed-guide-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-slide-up">
+                <button onclick="closeEmbedGuideModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="text-center mb-4">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-code text-xl"></i>
+                    </div>
+                    <h3 class="text-base font-black text-slate-900">Mã Nhúng Google Sites</h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Sử dụng mã nhúng đặc biệt này để kích hoạt đầy đủ quyền sử dụng Micro trên điện thoại của con.</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-slate-900 text-slate-100 p-3.5 rounded-2xl text-[10px] font-mono break-all relative select-all leading-relaxed" id="embed-code-text"></div>
+                    <button onclick="copyEmbedCode()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs py-3 rounded-xl shadow-md transition active:scale-95 flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Sao chép mã nhúng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div id="admin-login-card" class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative">
+                <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-lock text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Xác thực Quản trị viên</h3>
+                    <p class="text-xs text-slate-500 mt-1">Cung cấp mật khẩu hệ thống để tiếp tục</p>
+                </div>
+                <div class="space-y-4">
+                    <input type="password" id="admin-password-input" placeholder="Nhập mật khẩu..." class="w-full text-center tracking-widest bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 font-semibold text-lg focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                    <button onclick="verifyAdminPassword()" class="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-2xl font-bold text-sm transition active:scale-95">Đăng nhập Admin</button>
+                </div>
+            </div>
+
+            <div id="admin-panel-card" class="bg-white w-full max-w-md rounded-3xl p-5 shadow-2xl relative hidden">
+                <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-sliders text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900">Admin Control Panel</h3>
+                        <p class="text-[9px] text-emerald-600 font-bold tracking-wide uppercase"><i class="fa-solid fa-check-double mr-1"></i>Đã Đăng Nhập</p>
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-100 rounded-xl p-1 mb-4 shadow-inner">
+                    <button onclick="switchAdminSubTab('students')" id="admin-tab-students" class="flex-1 py-1.5 text-center text-[10px] font-bold rounded-lg bg-white text-brand-600 shadow-sm">Quản lý Học Sinh</button>
+                    <button onclick="switchAdminSubTab('add')" id="admin-tab-add" class="flex-1 py-1.5 text-center text-[10px] font-bold rounded-lg text-slate-500">Tạo Tài Khoản Mới</button>
+                </div>
+
+                <div id="admin-sub-students" class="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-1">
+                    <div id="admin-students-list-container" class="space-y-2"></div>
+                </div>
+
+                <div id="admin-sub-add" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tên Con Học Sinh</label>
+                        <input type="text" id="admin-new-name" placeholder="Tên con" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold focus:outline-none focus:border-brand-500 focus:bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Cấp Lớp</label>
+                        <select id="admin-new-grade" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold focus:outline-none focus:border-brand-500 focus:bg-white">
+                            <option value="cap_1">Cấp 1</option>
+                            <option value="cap_2">Cấp 2</option>
+                            <option value="cap_3">Cấp 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Số ĐT Phụ Huynh</label>
+                        <input type="tel" id="admin-new-phone" placeholder="SĐT phụ huynh" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold focus:outline-none focus:border-brand-500 focus:bg-white">
+                    </div>
+                    <button onclick="adminCreateNewStudentAccount()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl text-xs transition">Tạo Tài Khoản & Cấp Mã ECO</button>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
+                    <button onclick="closeAdminModal()" class="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">Đóng</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none translate-y-2">
+            <span id="toast-icon" class="text-amber-400"><i class="fa-solid fa-circle-info"></i></span>
+            <span id="toast-message">Nội dung thông báo</span>
+        </div>
     </div>
 
-</div>
+    <div id="admin-edit-student-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-slide-up">
+            <button onclick="closeAdminEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-2">
+                    <i class="fa-solid fa-user-pen text-xl"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-900">Sửa đổi thông tin con</h3>
+            </div>
+            <div class="space-y-3.5">
+                <input type="hidden" id="edit-student-old-code">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Mã Học Sinh ECO</label>
+                    <input type="text" id="edit-student-new-code" placeholder="Ví dụ: ECO889" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-black text-brand-700 uppercase focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Tên đầy đủ của con</label>
+                    <input type="text" id="edit-student-name" placeholder="Ví dụ: Nguyễn Minh Thư" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Cấp Lớp Học Tập</label>
+                    <select id="edit-student-grade" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                        <option value="cap_1">Cấp 1 (Lớp 1 - Lớp 5)</option>
+                        <option value="cap_2">Cấp 2 (Lớp 6 - Lớp 9)</option>
+                        <option value="cap_3">Cấp 3 (Lớp 10 - Lớp 12)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Số Điện Thoại Phụ Huynh</label>
+                    <input type="tel" id="edit-student-phone" placeholder="Nhập số điện thoại" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <button onclick="adminSaveEditedStudent()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-3.5 rounded-2xl shadow-lg transition active:scale-95 flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Lưu thông tin cập nhật</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-<script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-/* =========================================================
-📚 SMART PRONUNCIATION DATABASE
-========================================================= */
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzJnDO3_rHxye6ft2PeClK-y4XdWJH57w",
+            authDomain: "english-reading-mobi.firebaseapp.com",
+            projectId: "english-reading-mobi",
+            storageBucket: "english-reading-mobi.firebasestorage.app",
+            messagingSenderId: "651412302789",
+            appId: "1:651412302789:web:380973879830d38f9bb9ac",
+            measurementId: "G-2S7XL4SF9P"
+        };
 
-const pronunciationDatabase = {
+        // --- DATABASES ---
+        const readingDatabase = {
+            cap_1: [
+                {
+                    id: "c1_picnic",
+                    title: "A Picnic in the Park",
+                    tag: "Dã Ngoại 🌿",
+                    image: "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=600&auto=format&fit=crop&q=80",
+                    content: "Today, the weather is very beautiful. My family goes to the park for a picnic. We bring apples, bread, and milk. My dog Max is running happily on the green grass.",
+                    vocab: [
+                        { word: "Beautiful", type: "adj", ipa: "/ˈbjuːtɪfl/", vi: "Đẹp, rực rỡ", desc: "Very pleasing to see or hear." },
+                        { word: "Picnic", type: "noun", ipa: "/ˈpɪknɪk/", vi: "Dã ngoại", desc: "A meal eaten outdoors." },
+                        { word: "Happily", type: "adv", ipa: "/ˈhæpɪli/", vi: "Một cách vui vẻ", desc: "In a happy and joyful way." },
+                        { word: "Grass", type: "noun", ipa: "/ɡrɑːs/", vi: "Bãi cỏ", desc: "Green plants with narrow leaves." }
+                    ]
+                },
+                {
+                    id: "c1_family",
+                    title: "My Happy Family",
+                    tag: "Gia Đình 🏠",
+                    image: "https://images.unsplash.com/photo-1609234656388-0ff363383899?w=600&auto=format&fit=crop&q=80",
+                    content: "I have a wonderful family. There are four people in my family: my father, my mother, my big sister, and me. We love talking and laughing together every evening.",
+                    vocab: [
+                        { word: "Wonderful", type: "adj", ipa: "/ˈwʌndəfl/", vi: "Tuyệt vời", desc: "Extremely good or pleasing." },
+                        { word: "Four", type: "number", ipa: "/fɔːr/", vi: "Bốn", desc: "The number 4." },
+                        { word: "Together", type: "adv", ipa: "/təˈɡeðər/", vi: "Cùng nhau", desc: "With each other." },
+                        { word: "Evening", type: "noun", ipa: "/ˈiːvnɪŋ/", vi: "Buổi tối", desc: "The period of time at the end of the day." }
+                    ]
+                }
+            ],
+            cap_2: [
+                {
+                    id: "c2_reading",
+                    title: "The Magic of Reading Books",
+                    tag: "Đọc Sách 📚",
+                    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
+                    content: "Reading books is an excellent way to gain knowledge and improve your English vocabulary. When you open a book daily, your imagination grows and you discover incredible things about science and human history.",
+                    vocab: [
+                        { word: "Excellent", type: "adj", ipa: "/ˈeksələnt/", vi: "Xuất sắc, tuyệt vời", desc: "Extremely good or outstanding." },
+                        { word: "Vocabulary", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person." },
+                        { word: "Imagination", type: "noun", ipa: "/xlˌmædʒɪˈneɪʃn/", vi: "Trí tưởng tượng", desc: "The ability to form mental pictures." },
+                        { word: "Discover", type: "verb", ipa: "/dɪˈskʌvə(r)/", vi: "Khám phá, phát hiện", desc: "To find something for the first time." }
+                    ]
+                }
+            ],
+            cap_3: [
+                {
+                    id: "c3_ai",
+                    title: "Artificial Intelligence in Modern Society",
+                    tag: "CÔNG NGHỆ 🤖",
+                    image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600&auto=format&fit=crop&q=80",
+                    content: "Artificial Intelligence is transforming our modern society in profound ways. From healthcare diagnostics to autonomous vehicles, complex algorithms analyze vast amounts of data to assist human activities, raising ethical questions about future employment.",
+                    vocab: [
+                        { word: "Transforming", type: "verb/adj", ipa: "/trænsˈfɔːmɪŋ/", vi: "Biến đổi sâu sắc", desc: "Changing completely in form or look." },
+                        { word: "Diagnostics", type: "noun", ipa: "/ˌdaɪəɡˈnɒstɪks/", vi: "Chẩn đoán bệnh học", desc: "Methods used to identify diseases." },
+                        { word: "Autonomous", type: "adj", ipa: "/ɔːˈtɒnəməs/", vi: "Tự chủ, tự động lái", desc: "Independent and having self-government." },
+                        { word: "Algorithms", type: "noun", ipa: "/ˈælɡərɪðəmz/", vi: "Thuật toán", desc: "Step-by-step rules for calculations." }
+                    ]
+                }
+            ]
+        };
 
-    elephant:{
-        ipa:"/ˈel.ə.fənt/",
-        vietnamese:"e-li-phần"
-    },
+        const smartStartCurriculum = {
+            ss_1: {
+                title: "Smart Start 1",
+                units: [
+                    { id:"ss1_u1", title:"Unit 1: My Family", vocabulary:["brother","sister","mother","father"], speaking:["This is my brother.","Nice to meet you."]},
+                    { id:"ss1_u2", title:"Unit 2: Colors", vocabulary:["red","yellow","blue","pink","white"], speaking:["It is red.","Thank you."]}
+                ]
+            },
+            ss_2: {
+                title: "Smart Start 2",
+                units: [
+                    { id:"ss2_u1", title:"Unit 1: Feelings", vocabulary:["happy","sad","hungry","thirsty"], speaking:["How are you?"]},
+                    { id:"ss2_u2", title:"Unit 2: Shapes", vocabulary:["circle","square","triangle"], speaking:["What shape is it?"]}
+                ]
+            },
+            ss_3: {
+                title: "Smart Start 3",
+                units: [
+                    { id:"ss3_u1", title:"Unit 1: My Friends", vocabulary:["dancing","singing","drawing"], speaking:["Where are you from?"]},
+                    { id:"ss3_u2", title:"Unit 2: School", vocabulary:["math","English","music"], speaking:["Do you like math?"]}
+                ]
+            },
+            ss_4: {
+                title: "Smart Start 4",
+                units: [
+                    { id:"ss4_u1", title:"Unit 1: Animals", vocabulary:["snake","monkey","horse"], speaking:["What's this?","I like monkeys."]},
+                    { id:"ss4_u2", title:"Unit 2: Weather", vocabulary:["sunny","rainy","windy"], speaking:["What's the weather like today?"]}
+                ]
+            },
+            ss_5: {
+                title: "Smart Start 5",
+                units: [
+                    { id:"ss5_u1", title:"Unit 1: School Subjects", vocabulary:["science","history","I.T."], speaking:["Which subject do you like?"]},
+                    { id:"ss5_u2", title:"Unit 2: Travel", vocabulary:["mountain","beach","forest"], speaking:["How did you get there?"]}
+                ]
+            }
+        };
 
-    apple:{
-        ipa:"/ˈæp.əl/",
-        vietnamese:"ép-pồ"
-    },
+        const textbookLinks = {
+            ss_1: "https://online.flipbuilder.com/sdtta/vugc/",
+            ss_2: "https://online.flipbuilder.com/sdtta/mcbr/",
+            ss_3: "https://online.flipbuilder.com/sdtta/skiv/",
+            ss_4: "https://online.flipbuilder.com/sdtta/nhks/",
+            ss_5: "https://online.flipbuilder.com/sdtta/uehz/"
+        };
 
-    teacher:{
-        ipa:"/ˈtiː.tʃər/",
-        vietnamese:"ti-chờ"
-    },
+        const DEFAULT_ADMIN_PASS = "215151365";
+        const APP_ID = 'english-reading-mobi';
+        
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let cloudConnected = false;
 
-    beautiful:{
-        ipa:"/ˈbjuː.tɪ.fəl/",
-        vietnamese:"biu-ti-phồ"
-    }
+        let activeStudentId = null;
+        let activeStudentData = null;
+        let activeAuthTab = "login";
+        let audioCtx = null;
 
-};
+        let activeDailySuggestionId = null;
+        let currentActiveTask = null;
+        let currentCurriculumMode = "daily";
 
-/* =========================================================
-🔊 SPEAK WORD
-========================================================= */
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', async () => {
+            initSystem();
+            initAudioContext();
+        });
 
-function speakWord(){
+        async function initSystem() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    firebase.initializeApp(firebaseConfig);
+                    auth = firebase.auth();
+                    db = firebase.firestore();
+                    
+                    await auth.signInAnonymously();
+                    
+                    auth.onAuthStateChanged((user) => {
+                        if (user) {
+                            currentUser = user;
+                            cloudConnected = true;
+                            updateSyncBadge(true);
+                            checkAutoLoginSession();
+                        } else {
+                            useOfflineFallback();
+                        }
+                    });
+                } else {
+                    useOfflineFallback();
+                }
+            } catch (e) {
+                console.warn("Firebase running in Offline Mode.", e);
+                useOfflineFallback();
+            }
+        }
 
-    const word =
-    document.getElementById('practice-word').innerText;
+        function initAudioContext() {
+            try {
+                window.addEventListener('click', () => {
+                    if (!audioCtx) {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                }, { once: true });
+            } catch (e) {
+                console.warn("Audio Context init error:", e);
+            }
+        }
 
-    const utter =
-    new SpeechSynthesisUtterance(word);
+        function playSoundEffect(type) {
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
 
-    utter.lang = 'en-US';
+                if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime); 
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); 
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'fail') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); 
+                    osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.25); 
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'bubble') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+                }
+            } catch (err) { console.warn(err); }
+        }
 
-    utter.rate = 0.85;
+        function useOfflineFallback() {
+            cloudConnected = false;
+            updateSyncBadge(false);
+            checkAutoLoginSession();
+        }
 
-    speechSynthesis.speak(utter);
+        function updateSyncBadge(online) {
+            const badge = document.getElementById("sync-badge");
+            if (badge) {
+                badge.className = online ? "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" : "w-2.5 h-2.5 rounded-full bg-amber-400";
+                badge.title = online ? "Đã đồng bộ Đám mây Realtime" : "Lưu trữ nội bộ (Offline)";
+            }
+        }
 
-}
+        function switchAuthTab(tab) {
+            activeAuthTab = tab;
+            const btnLogin = document.getElementById("auth-tab-login");
+            const btnRegister = document.getElementById("auth-tab-register");
+            const formLogin = document.getElementById("form-auth-login");
+            const formRegister = document.getElementById("form-auth-register");
 
-/* =========================================================
-🎙️ START AI PRONUNCIATION
-========================================================= */
+            if (tab === "login") {
+                btnLogin.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition bg-white text-brand-600 shadow-sm";
+                btnRegister.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800";
+                formLogin.classList.remove("hidden"); formRegister.classList.add("hidden");
+            } else {
+                btnRegister.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition bg-white text-brand-600 shadow-sm";
+                btnLogin.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800";
+                formRegister.classList.remove("hidden"); formLogin.classList.add("hidden");
+            }
+        }
 
-function startPronunciationAI(){
+        function generateUniqueStudentCode() {
+            return "ECO" + Math.floor(100 + Math.random() * 900);
+        }
 
-    showToast(
-        '🎙️ AI đang nghe phát âm...'
-    );
+        // --- STUDENT SERVICE ---
+        async function handleParentRegister() {
+            const name = document.getElementById("input-register-name").value.trim();
+            const grade = document.getElementById("input-register-grade").value;
+            const phone = document.getElementById("input-register-phone").value.trim();
 
-    setTimeout(()=>{
+            if (!name || !phone) {
+                showToast("Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
 
-        document
-        .getElementById('pronunciation-feedback')
-        .classList
-        .remove('hidden');
+            const code = generateUniqueStudentCode();
+            const studentObject = { code, name, grade, phone, streak: 0, points: 50, playTime: 30, rewards: ["NewBie_ECO"], lastActive: "" };
 
-        showToast(
-            '✅ AI đã chấm phát âm xong'
-        );
+            localStorage.setItem(`offline_student_${code}`, JSON.stringify(studentObject));
 
-    },2500);
+            if (cloudConnected && db) {
+                try {
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).set(studentObject);
+                } catch (e) { console.error("Cloud registry error:", e); }
+            }
 
-}
+            navigator.clipboard.writeText(code).catch(() => {});
+            showCustomDialog("Đăng Ký Tài Khoản Thành Công!", `
+                <div class="text-center space-y-3">
+                    <p class="text-xs text-slate-500">Mã học sinh của con là:</p>
+                    <div class="bg-brand-50 text-brand-700 font-black text-2xl tracking-widest p-3 rounded-2xl border border-brand-100">${code}</div>
+                    <p class="text-[10px] text-brand-600 font-semibold">Đã tự động sao chép mã!</p>
+                </div>
+            `);
 
-/* =========================================================
-✨ TOAST
-========================================================= */
+            document.getElementById("input-auth-student-code").value = code;
+            switchAuthTab("login");
+        }
 
-function showToast(text){
+        async function handleStudentLogin() {
+            const rawCode = document.getElementById("input-auth-student-code").value.trim().toUpperCase();
+            if (!rawCode) {
+                showToast("Vui lòng nhập Mã học sinh!");
+                return;
+            }
 
-    const toast =
-    document.createElement('div');
+            showToast("Đang xác thực...", "fa-solid fa-spinner animate-spin text-brand-500");
+            let studentProfile = null;
 
-    toast.className = `
-        fixed bottom-5 right-5
-        bg-slate-900 text-white
-        px-5 py-3 rounded-2xl
-        shadow-2xl z-50
-        text-sm font-bold
-    `;
+            if (cloudConnected && db) {
+                try {
+                    const doc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(rawCode).get();
+                    if (doc.exists) studentProfile = doc.data();
+                } catch (err) { console.warn(err); }
+            }
 
-    toast.innerHTML = text;
+            if (!studentProfile) {
+                const offlineRecord = localStorage.getItem(`offline_student_${rawCode}`);
+                if (offlineRecord) studentProfile = JSON.parse(offlineRecord);
+            }
 
-    document.body.appendChild(toast);
+            if (studentProfile) {
+                activeStudentId = rawCode;
+                activeStudentData = studentProfile;
 
-    setTimeout(()=>{
-        toast.remove();
-    },2500);
+                localStorage.setItem("active_student_id", rawCode);
+                document.getElementById("view-auth").classList.add("hidden");
+                document.getElementById("view-main-app").classList.remove("hidden");
 
-}
+                renderStudentInfo(activeStudentData);
+                checkDailyStreakValidation();
+                switchCurriculum(currentCurriculumMode);
+                renderRewardsBadges();
+            } else {
+                showToast("Mã học sinh không tồn tại!", "fa-solid fa-circle-exclamation text-rose-500");
+            }
+        }
 
-</script>
+        function checkAutoLoginSession() {
+            const savedSessionId = localStorage.getItem("active_student_id");
+            if (savedSessionId) {
+                document.getElementById("input-auth-student-code").value = savedSessionId;
+                handleStudentLogin();
+            } else {
+                document.getElementById("view-auth").classList.remove("hidden");
+                document.getElementById("view-main-app").classList.add("hidden");
+            }
+        }
+
+        function handleLogOutStudent() {
+            showConfirmDialog("Đăng xuất", "Bạn muốn đăng xuất tài khoản này?", () => {
+                localStorage.removeItem("active_student_id");
+                activeStudentId = null; activeStudentData = null;
+                document.getElementById("view-main-app").classList.add("hidden");
+                document.getElementById("view-auth").classList.remove("hidden");
+            });
+        }
+
+        function renderStudentInfo(state) {
+            document.getElementById("display-student-name").innerText = state.name;
+            document.getElementById("display-streak-count").innerText = state.streak;
+            document.getElementById("display-points-count").innerText = state.points || 0;
+            document.getElementById("grade-selector").value = state.grade;
+            document.getElementById("game-time-left").innerText = state.playTime || 0;
+        }
+
+        async function changeGrade(newGrade) {
+            if (!activeStudentData) return;
+            activeStudentData.grade = newGrade;
+            await syncStudentProfileToStorage();
+            renderStudentInfo(activeStudentData);
+            if (currentCurriculumMode === "daily") loadDailyTaskBasedOnGrade(newGrade);
+        }
+
+        async function checkDailyStreakValidation() {
+            if (!activeStudentData || !activeStudentData.lastActive) return;
+            const differenceInDays = Math.floor((new Date(new Date().toDateString()) - new Date(activeStudentData.lastActive)) / (1000 * 3600 * 24));
+            if (differenceInDays > 1) {
+                activeStudentData.streak = 0;
+                await syncStudentProfileToStorage();
+                renderStudentInfo(activeStudentData);
+            }
+        }
+
+        async function triggerStreakSuccess() {
+            const today = new Date().toDateString();
+            if (activeStudentData.lastActive === today) {
+                activeStudentData.points = (activeStudentData.points || 0) + 10;
+                await syncStudentProfileToStorage();
+                renderStudentInfo(activeStudentData);
+                showToast("+10 Điểm 💎 kiên trì học tập!");
+                return;
+            }
+            activeStudentData.streak = (activeStudentData.streak || 0) + 1;
+            activeStudentData.points = (activeStudentData.points || 0) + 40;
+            activeStudentData.lastActive = today;
+            await syncStudentProfileToStorage();
+            renderStudentInfo(activeStudentData);
+            showToast(`🔥 Chuỗi ${activeStudentData.streak} ngày! +40 Điểm 💎!`);
+        }
+
+        async function syncStudentProfileToStorage() {
+            if (!activeStudentId) return;
+            localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
+            if (cloudConnected && db) {
+                try {
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(activeStudentId).set(activeStudentData);
+                } catch (e) { console.error(e); }
+            }
+        }
+
+        // --- CURRICULUM CORE ENGINE ---
+        function switchCurriculum(mode) {
+            currentCurriculumMode = mode;
+            const smartBox = document.getElementById("smart-start-selector-box");
+            const dailyBox = document.getElementById("daily-suggestions-box");
+            
+            if (mode === "smart_start") {
+                smartBox.classList.remove("hidden");
+                dailyBox.classList.add("hidden");
+                loadSmartStartThemes(document.getElementById("smart-class-selector").value);
+            } else {
+                smartBox.classList.add("hidden");
+                dailyBox.classList.remove("hidden");
+                loadDailyTaskBasedOnGrade(activeStudentData ? activeStudentData.grade : "cap_1");
+            }
+        }
+
+        function loadDailyTaskBasedOnGrade(grade) {
+            activeDailySuggestionId = null;
+            const pool = readingDatabase[grade] || readingDatabase.cap_1;
+            const container = document.getElementById("daily-suggestions-container");
+            document.getElementById("daily-date-label").innerText = new Date().toLocaleDateString('vi-VN');
+            
+            container.innerHTML = "";
+            pool.forEach((item, idx) => {
+                if (idx === 0 && !activeDailySuggestionId) {
+                    activeDailySuggestionId = item.id;
+                    currentActiveTask = item;
+                    renderReadingTaskUI();
+                }
+                const chip = document.createElement("button");
+                chip.className = "flex flex-col items-center justify-center p-2 rounded-xl text-center border border-slate-200 bg-slate-50 text-slate-600 text-xs";
+                chip.innerHTML = `<span class='font-bold text-brand-600 block'>${item.tag}</span><span class='text-[10px] truncate w-full block'>${item.title}</span>`;
+                chip.onclick = () => {
+                    currentActiveTask = item;
+                    renderReadingTaskUI();
+                };
+                container.appendChild(chip);
+            });
+        }
+
+        function loadSmartStartThemes(classId) {
+            const selector = document.getElementById('smart-theme-selector');
+            if (!selector || !smartStartCurriculum[classId]) return;
+            selector.innerHTML = '';
+            smartStartCurriculum[classId].units.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = classId + "_" + unit.id;
+                option.textContent = unit.title;
+                selector.appendChild(option);
+            });
+            loadSmartThemeContent(selector.value);
+        }
+
+        function loadSmartThemeContent(combinedKey) {
+            if (!combinedKey) return;
+            const parts = combinedKey.split("_");
+            const classId = parts[0] + "_" + parts[1];
+            const unitId = parts[2];
+            const unit = smartStartCurriculum[classId]?.units.find(u => u.id === unitId);
+            
+            if (!unit) return;
+
+            currentActiveTask = {
+                title: unit.title,
+                content: unit.speaking.join(" "),
+                image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600",
+                vocab: unit.vocabulary.map(v => ({ word: v, type: "word", ipa: "/.../", vi: "Từ vựng bài học", desc: "Vocabulary word" }))
+            };
+
+            renderReadingTaskUI();
+            renderEnhancedVocabulary(unit.vocabulary);
+        }
+
+        function renderReadingTaskUI() {
+            if (!currentActiveTask) return;
+            document.getElementById("reading-title").innerText = currentActiveTask.title;
+            document.getElementById("reading-content").innerText = currentActiveTask.content;
+            document.getElementById("reading-illustration").src = currentActiveTask.image;
+
+            if (currentCurriculumMode === "daily") {
+                const container = document.getElementById("vocabulary-container");
+                container.innerHTML = "";
+                currentActiveTask.vocab.forEach(item => {
+                    const card = document.createElement("div");
+                    card.className = "bg-slate-50 p-3 rounded-xl border flex justify-between items-center cursor-pointer";
+                    card.onclick = () => showVocabularyDetail(item);
+                    card.innerHTML = `<div><span class='font-bold'>${item.word}</span><p class='text-xs text-slate-400'>${item.ipa}</p></div><span class='text-brand-600 text-sm font-bold'>${item.vi}</span>`;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        function renderEnhancedVocabulary(words) {
+            const container = document.getElementById('vocabulary-container');
+            if (!container) return;
+            container.innerHTML = '';
+            words.forEach(word => {
+                const item = document.createElement('div');
+                item.className = "bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex items-center justify-between";
+                item.innerHTML = `<div><h4 class='font-black text-slate-800 text-sm'>${word}</h4></div><div class='flex gap-1'><button onclick="speakVocabularyWord('${word}')" class='p-2 bg-brand-50 rounded-xl'>🔊</button><button onclick="startVocabularyPractice('${word}')" class='px-3 py-1 bg-emerald-500 text-white rounded-xl text-xs font-bold'>🎙️ Luyện đọc</button></div>`;
+                container.appendChild(item);
+            });
+        }
+
+        // --- PRONUNCIATION REALTIME AI ---
+        function speakTextUS(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'en-US';
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        function speakVocabularyWord(word) { speakTextUS(word); }
+        function readAloudTaskText() { speakTextUS(currentActiveTask.content); }
+
+        function startOralReadingChallenge() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) { showToast("Trình duyệt không hỗ trợ nhận dạng giọng nói!"); return; }
+            
+            const rec = new SpeechRecognition();
+            rec.lang = "en-US";
+            rec.onstart = () => showToast("🎙️ Đang nghe... Hãy đọc to đoạn văn!", "fa-solid fa-microphone text-red-500 animate-pulse");
+            rec.onresult = (e) => {
+                const spokenText = e.results[0][0].transcript;
+                const originalWords = currentActiveTask.content.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
+                const spokenWords = spokenText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
+                
+                let matches = originalWords.filter(w => spokenWords.includes(w)).length;
+                const accuracy = Math.round((matches / originalWords.length) * 100);
+
+                if (accuracy >= 50) {
+                    triggerStreakSuccess();
+                    playSoundEffect('success');
+                    showCustomDialog("Kết Quả Đọc Tuyệt Vời!", `<p class='text-center text-3xl font-black text-emerald-600'>${accuracy}%</p><p class='text-xs mt-2 text-slate-500'>Con vừa đọc: "${spokenText}"</p>`);
+                } else {
+                    playSoundEffect('fail');
+                    showCustomDialog("Thử lại con nhé!", `<p class='text-center text-2xl font-bold text-amber-500'>Độ chính xác: ${accuracy}%</p>`);
+                }
+            };
+            rec.start();
+        }
+
+        function startVocabularyPractice(word) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
+            const rec = new SpeechRecognition();
+            rec.lang = 'en-US';
+            showToast('🎙️ Hãy đọc từ: ' + word);
+            rec.onresult = (e) => {
+                const trans = e.results[0][0].transcript.toLowerCase().trim();
+                const target = word.toLowerCase().trim();
+                const score = (trans === target) ? 100 : (trans.includes(target) ? 80 : 40);
+                
+                if(score >= 80) playSoundEffect('success'); else playSoundEffect('fail');
+                showToast(`AI Đánh giá: ${score}% - Bạn đọc: ${trans}`);
+            };
+            rec.start();
+        }
+
+        function startVocabularyOralChallenge() { startVocabularyPractice(activeVocabTargetWord); }
+        function showVocabularyDetail(item) {
+            activeVocabTargetWord = item.word;
+            document.getElementById("dict-result-word").innerText = item.word;
+            document.getElementById("dict-result-phonetic").innerText = item.ipa;
+            document.getElementById("dict-result-vi").innerText = item.vi;
+            document.getElementById("dict-result-en").innerText = item.desc;
+            openDictSheet();
+        }
+
+        async function lookupWordDirectly() {
+            const word = document.getElementById("dict-quick-input").value.trim();
+            if(!word) return;
+            activeVocabTargetWord = word;
+            openDictSheet();
+            document.getElementById("dict-result-word").innerText = word;
+            document.getElementById("dict-result-phonetic").innerText = "/.../";
+            document.getElementById("dict-result-vi").innerText = "Đang tra cứu nghĩa...";
+            document.getElementById("dict-result-en").innerText = "Loading English info...";
+
+            try {
+                const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+                if(res.ok) {
+                    const data = await res.json();
+                    document.getElementById("dict-result-phonetic").innerText = data[0].phonetic || "/.../";
+                    document.getElementById("dict-result-en").innerText = data[0].meanings[0].definitions[0].definition;
+                }
+                const trans = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|vi`);
+                if(trans.ok) {
+                    const tData = await trans.json();
+                    document.getElementById("dict-result-vi").innerText = tData.responseData.translatedText;
+                }
+            } catch(e) { document.getElementById("dict-result-vi").innerText = "Không tìm thấy nghĩa."; }
+        }
+
+        // --- DIALOGUE AI ---
+        function toggleChatVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
+            const rec = new SpeechRecognition();
+            rec.lang = "en-US";
+            rec.onstart = () => document.getElementById("voice-wave-indicator").classList.remove("hidden");
+            rec.onend = () => document.getElementById("voice-wave-indicator").classList.add("hidden");
+            rec.onresult = (e) => {
+                const txt = e.results[0][0].transcript;
+                addChatMessage("user", txt);
+                generateAIResponse(txt);
+            };
+            rec.start();
+        }
+
+        function handleSendTextChat() {
+            const el = document.getElementById("chat-text-input");
+            const txt = el.value.trim(); if(!txt) return;
+            addChatMessage("user", txt); el.value = "";
+            generateAIResponse(txt);
+        }
+
+        function addChatMessage(sender, text, translation = "") {
+            const container = document.getElementById("chat-conversation-container");
+            const bubble = document.createElement("div");
+            bubble.className = `flex items-start space-x-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
+            bubble.innerHTML = sender === "user" ? 
+                `<div class='bg-brand-600 text-white rounded-2xl p-2.5 text-sm shadow-sm'><p>${text}</p></div>` :
+                `<div class='w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center font-bold text-xs'>AI</div><div class='bg-slate-100 rounded-2xl p-2.5 text-sm shadow-sm'><p class='font-bold text-brand-600 text-xs'>Mr. Gemini</p><p>${text}</p>${translation ? `<p class='text-xs text-blue-600 italic mt-1'>(${translation})</p>`:''}</div>`;
+            container.appendChild(bubble);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateAIResponse(query) {
+            setTimeout(() => {
+                let ans = "I hear you! Let's continue speaking English.";
+                let vi = "Thầy nghe con rồi! Chúng ta tiếp tục nói chuyện nhé.";
+                if(query.toLowerCase().includes("hello")) { ans = "Hello! How are you today?"; vi = "Chào con, hôm nay con có khỏe không?"; }
+                addChatMessage("ai", ans, vi); speakTextUS(ans);
+            }, 1000);
+        }
+
+        // --- GAME ENGINE SYSTEM ---
+        function exchangePointsForTime() {
+            if(!activeStudentData || activeStudentData.points < 30) { showToast("Không đủ điểm!"); return; }
+            activeStudentData.points -= 30;
+            activeStudentData.playTime += 60;
+            syncStudentProfileToStorage(); renderStudentInfo(activeStudentData);
+        }
+
+        function startGameSession() {
+            if(!activeStudentData || activeStudentData.playTime < 10) { showToast("Không đủ thời gian chơi!"); return; }
+            document.getElementById("game-start-cover").classList.add("hidden");
+            isGameRunning = true; gameScore = 0; setNextGameTarget();
+            bubbleSpawnInterval = setInterval(spawnBubble, 1500);
+            gameTimerInterval = setInterval(() => {
+                if(activeStudentData.playTime > 0) {
+                    activeStudentData.playTime--;
+                    document.getElementById("game-time-left").innerText = activeStudentData.playTime;
+                } else { stopGameSession(); }
+            }, 1000);
+        }
+
+        function setNextGameTarget() {
+            const pool = currentActiveTask?.vocab || readingDatabase.cap_1[0].vocab;
+            activeGameTarget = pool[Math.floor(Math.random() * pool.length)];
+            document.getElementById("game-target-meaning").innerText = activeGameTarget.vi;
+        }
+
+        function spawnBubble() {
+            if(!isGameRunning) return;
+            const container = document.getElementById("game-bubbles-container");
+            const bubble = document.createElement("div");
+            const pool = currentActiveTask?.vocab || readingDatabase.cap_1[0].vocab;
+            const isCorrect = Math.random() > 0.5;
+            let word = isCorrect ? activeGameTarget.word : pool[Math.floor(Math.random() * pool.length)].word;
+
+            bubble.className = "absolute w-14 h-14 rounded-full bg-brand-500 text-white flex items-center justify-center text-[10px] font-black bubble-item cursor-pointer";
+            bubble.style.left = Math.floor(Math.random() * 75) + 5 + "%";
+            bubble.style.bottom = "0px"; bubble.innerText = word;
+            bubble.onclick = () => {
+                bubble.remove();
+                if(word === activeGameTarget.word) {
+                    gameScore += 10; playSoundEffect('bubble'); showToast("Đúng! +10đ"); setNextGameTarget();
+                } else { gameScore = Math.max(0, gameScore - 5); playSoundEffect('fail'); }
+                document.getElementById("game-score").innerText = gameScore;
+            };
+            container.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 6000);
+        }
+
+        function stopGameSession() {
+            isGameRunning = false; clearInterval(gameTimerInterval); clearInterval(bubbleSpawnInterval);
+            document.getElementById("game-start-cover").classList.remove("hidden");
+            syncStudentProfileToStorage();
+        }
+
+        // --- GAME 2: SCRAMBLE ENGINE ---
+        function startScrambleGameSession() {
+            document.getElementById("game-scramble-start-cover").classList.add("hidden");
+            scrambleScore = 0; setNextScrambleTarget();
+        }
+
+        function setNextScrambleTarget() {
+            const sentences = currentActiveTask.content.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 5);
+            const sentence = sentences[Math.floor(Math.random() * sentences.length)] || "I love learning English";
+            scrambleOriginalWords = sentence.replace(/[.,]/g, "").split(" ");
+            scrambleCurrentAnswer = [];
+            document.getElementById("game-scramble-hint").innerText = sentence;
+            renderScrambleInterface();
+        }
+
+        function renderScrambleInterface() {
+            const chips = document.getElementById("game-scramble-chips-container");
+            const ans = document.getElementById("game-scramble-answer-container");
+            chips.innerHTML = ""; ans.innerHTML = "";
+            
+            let shuffled = [...scrambleOriginalWords].sort(() => Math.random() - 0.5);
+            shuffled.forEach(w => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 text-white text-xs px-2.5 py-1 rounded-lg m-1";
+                btn.innerText = w;
+                btn.onclick = () => {
+                    scrambleCurrentAnswer.push(w);
+                    const span = document.createElement("span");
+                    span.className = "bg-brand-500 text-white text-xs px-2 py-1 rounded-lg m-1";
+                    span.innerText = w; ans.appendChild(span); btn.remove();
+                };
+                chips.appendChild(btn);
+            });
+        }
+
+        function resetCurrentScramble() { setNextScrambleTarget(); }
+        async function submitScrambleSolution() {
+            if(scrambleCurrentAnswer.join(" ") === scrambleOriginalWords.join(" ")) {
+                playSoundEffect('success'); showToast("Chính xác!"); scrambleScore += 20;
+                document.getElementById("game-scramble-score").innerText = scrambleScore;
+                if(activeStudentData) { activeStudentData.points += 15; syncStudentProfileToStorage(); renderStudentInfo(activeStudentData); }
+                setNextScrambleTarget();
+            } else { playSoundEffect('fail'); showToast("Sai rồi, hãy xếp lại!"); resetCurrentScramble(); }
+        }
+
+        // --- LEADERBOARD & REWARDS ---
+        function renderRewardsBadges() {
+            const container = document.getElementById("rewards-container");
+            container.innerHTML = "<div class='text-xs p-2 bg-slate-50 rounded-xl text-center col-span-3 font-bold'>🏅 Con ngoan trò giỏi ECO</div>";
+        }
+
+        async function loadLeaderboardData(field = 'points') {
+            const container = document.getElementById("leaderboard-list-container");
+            container.innerHTML = "";
+            let mockData = [
+                { name: "Phạm Minh Hoàng", points: 340, streak: 12, code: "ECO102" },
+                { name: "Trần Bảo Ngọc", points: 280, streak: 7, code: "ECO204" },
+                { name: activeStudentData ? activeStudentData.name : "Bạn", points: activeStudentData ? activeStudentData.points : 50, streak: activeStudentData ? activeStudentData.streak : 0, code: activeStudentData ? activeStudentData.code : "ECO---" }
+            ];
+            mockData.sort((a,b) => b[field] - a[field]);
+            mockData.forEach((s, i) => {
+                const row = document.createElement("div");
+                row.className = "p-2.5 bg-slate-50 rounded-xl flex justify-between text-xs font-bold border";
+                row.innerHTML = `<span>#${i+1} - ${s.name}</span><span class='text-brand-600'>${field === 'points' ? s.points+' 💎' : s.streak+' ngày 🔥'}</span>`;
+                container.appendChild(row);
+            });
+        }
+
+        // --- ADMIN CONTROLLER ---
+        function verifyAdminPassword() {
+            const val = document.getElementById("admin-password-input").value;
+            if(val === DEFAULT_ADMIN_PASS) {
+                document.getElementById("admin-login-card").classList.add("hidden");
+                document.getElementById("admin-panel-card").classList.remove("hidden");
+                loadAdminStudentsList();
+            } else { showToast("Sai mật khẩu!"); }
+        }
+
+        function loadAdminStudentsList() {
+            const container = document.getElementById("admin-students-list-container");
+            container.innerHTML = "";
+            for(let i=0; i<localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if(key.startsWith("offline_student_")) {
+                    const s = JSON.parse(localStorage.getItem(key));
+                    const row = document.createElement("div");
+                    row.className = "p-2 bg-slate-100 rounded-xl text-xs flex justify-between items-center";
+                    row.innerHTML = `<div><b>${s.code}</b> - ${s.name}</div><div class='flex gap-1'><button onclick="adminIncrementPoints('${s.code}',50)" class='bg-amber-500 text-white px-1.5 rounded'>+50💎</button><button onclick="adminDeleteStudent('${s.code}')" class='bg-red-500 text-white px-1.5 rounded'>Xóa</button></div>`;
+                    container.appendChild(row);
+                }
+            }
+        }
+
+        function adminIncrementPoints(code, val) {
+            const key = `offline_student_${code}`;
+            const s = JSON.parse(localStorage.getItem(key));
+            if(s) { s.points += val; localStorage.setItem(key, JSON.stringify(s)); loadAdminStudentsList(); if(activeStudentId === code) { activeStudentData.points = s.points; renderStudentInfo(s); } }
+        }
+
+        function adminDeleteStudent(code) {
+            localStorage.removeItem(`offline_student_${code}`); loadAdminStudentsList();
+        }
+
+        // --- UI UTILS & TABS ---
+        function switchTab(id) {
+            ["reading", "chat", "game"].forEach(t => document.getElementById(`section-${t}`).classList.add("hidden"));
+            document.getElementById(`section-${id}`).classList.remove("hidden");
+            if(id === 'reading') renderReadingTaskUI();
+            if(id === 'game') loadLeaderboardData('points');
+        }
+
+        function openAdminModal() { document.getElementById("admin-modal").classList.remove("hidden"); }
+        function closeAdminModal() { document.getElementById("admin-modal").classList.add("hidden"); }
+        function openDictSheet() { document.getElementById("dict-sheet").classList.remove("hidden"); }
+        function closeDictSheet() { document.getElementById("dict-sheet").classList.add("hidden"); }
+        function openEmbedGuideModal() {
+            document.getElementById("embed-code-text").innerText = `<iframe src="${window.location.href}" allow="microphone; speech-recognition" style="width:100%; height:650px; border:none;"></iframe>`;
+            document.getElementById("embed-guide-modal").classList.remove("hidden");
+        }
+        function closeEmbedGuideModal() { document.getElementById("embed-guide-modal").classList.add("hidden"); }
+        function copyEmbedCode() { navigator.clipboard.writeText(document.getElementById("embed-code-text").innerText); showToast("Đã sao chép mã nhúng!"); }
+
+        function showToast(msg, icon) {
+            const el = document.getElementById("custom-toast");
+            document.getElementById("toast-message").innerText = msg;
+            el.classList.remove("opacity-0", "pointer-events-none");
+            setTimeout(() => el.classList.add("opacity-0", "pointer-events-none"), 2500);
+        }
+
+        function showCustomDialog(title, html) {
+            showToast(`${title}`);
+        }
+    </script>
+</body>
+</html>
