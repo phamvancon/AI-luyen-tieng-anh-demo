@@ -4074,5 +4074,438 @@ function startPronounce(word,index){
 }
 </script>
 
+
+<script>
+const smartStartVNGuide = {
+ science:{vn:'khoa học',guide:'sai-ầns',tip:'Đọc kéo dài âm sai và nhẹ âm cuối ns'},
+ history:{vn:'lịch sử',guide:'hít-sờ-ri',tip:'Nhấn âm đầu his'},
+ beautiful:{vn:'xinh đẹp',guide:'biu-ti-phồ',tip:'Đọc nhanh âm ti'},
+ playful:{vn:'tinh nghịch',guide:'plei-phồ',tip:'Đọc rõ âm plei'},
+ soft:{vn:'mềm mại',guide:'sóp-t',tip:'Bật nhẹ âm cuối t'},
+ lap:{vn:'lòng đùi',guide:'lạp',tip:'Mở rộng âm a'}
+};
+
+function proSpeak(word){
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(word);
+ u.lang='en-US';
+ u.rate=.72;
+ speechSynthesis.speak(u);
+}
+
+function renderVocabulary(vocab){
+
+ const container=document.getElementById('vocabulary-container');
+ if(!container) return;
+
+ container.innerHTML='';
+
+ vocab.forEach((item,index)=>{
+
+   const word=item.word||'';
+   const ipa=item.ipa||'';
+   const info=smartStartVNGuide[word.toLowerCase()] || {
+      vn:item.vi||'',
+      guide:'AI đọc mẫu',
+      tip:'Nghe AI đọc chậm hơn'
+   };
+
+   const card=document.createElement('div');
+
+   card.className='bg-white border border-slate-200 rounded-3xl p-5 mb-5 shadow-sm';
+
+   card.innerHTML=`
+      <div class="flex items-center justify-between gap-3">
+
+        <div class="flex-1">
+
+          <div class="flex items-center gap-3 flex-wrap">
+
+            <div>
+              <h2 class="text-3xl font-black text-slate-900">${word}</h2>
+
+              <div class="text-brand-600 font-black text-xl mt-1">
+                [${info.guide}]
+              </div>
+            </div>
+
+            <button onclick="proSpeak('${word}')"
+              class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 text-2xl">
+              🔊
+            </button>
+
+          </div>
+
+          <div class="mt-3 text-slate-500 text-sm">${ipa}</div>
+
+          <div class="font-black text-slate-700 mt-1">
+            🇻🇳 ${info.vn}
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-5">
+
+            <button onclick="proSpeak('${word}')"
+              class="py-4 rounded-2xl bg-brand-50 border border-brand-100 text-brand-700 font-black">
+              🔊 Nghe mẫu
+            </button>
+
+            <button id="btn-pro-${index}"
+              onmousedown="startProfessional('${word}',${index})"
+              ontouchstart="startProfessional('${word}',${index})"
+              class="py-4 rounded-2xl bg-green-600 text-white font-black shadow-lg">
+              🎙️ Giữ để đọc
+            </button>
+
+          </div>
+
+          <div class="mt-5">
+
+            <div class="flex justify-between text-xs font-black mb-1">
+              <span>📊 AI đánh giá</span>
+              <span id="score-pro-${index}" class="text-green-600">0%</span>
+            </div>
+
+            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div id="bar-pro-${index}"
+                class="h-full bg-green-500 rounded-full transition-all"
+                style="width:0%">
+              </div>
+            </div>
+
+            <div id="live-pro-${index}"
+              class="mt-3 bg-slate-50 rounded-2xl p-3 text-sm text-slate-700">
+              🎧 AI đang chờ con đọc...
+            </div>
+
+            <div id="fb-pro-${index}"
+              class="mt-3 bg-amber-50 border border-amber-100 rounded-2xl p-3">
+
+              <div class="text-xs font-black text-amber-700">
+                💡 Gợi ý tiếng Việt
+              </div>
+
+              <div class="text-sm font-bold text-slate-700 mt-1">
+                ${info.tip}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+   `;
+
+   container.appendChild(card);
+ });
+}
+
+let recognitionPro=null;
+
+function startProfessional(word,index){
+
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+ if(!SpeechRecognition){
+   alert('Thiết bị chưa hỗ trợ AI Speech');
+   return;
+ }
+
+ proSpeak(word);
+
+ const btn=document.getElementById('btn-pro-'+index);
+
+ recognitionPro=new SpeechRecognition();
+ recognitionPro.lang='en-US';
+ recognitionPro.continuous=true;
+ recognitionPro.interimResults=true;
+
+ btn.innerHTML='🔴 AI đang nghe...';
+
+ recognitionPro.start();
+
+ recognitionPro.onresult=(e)=>{
+
+   let text='';
+
+   for(let i=e.resultIndex;i<e.results.length;i++){
+      text += e.results[i][0].transcript + ' ';
+   }
+
+   text=text.trim().toLowerCase();
+
+   let score=50;
+
+   if(text===word.toLowerCase()){
+      score=100;
+   }else if(text.includes(word.toLowerCase())){
+      score=92;
+   }else{
+      score=70;
+   }
+
+   document.getElementById('score-pro-'+index).innerText=score+'%';
+   document.getElementById('bar-pro-'+index).style.width=score+'%';
+
+   document.getElementById('live-pro-'+index).innerHTML=
+      '<b>🗣️ Con đọc:</b> '+text;
+
+   const fb=document.getElementById('fb-pro-'+index);
+
+   if(score>=90){
+
+      fb.innerHTML='<div class="text-green-700 font-black">✅ Very Good</div><div class="mt-1 font-bold text-slate-700">Phát âm rất chuẩn!</div>';
+
+      fb.className='mt-3 bg-green-50 border border-green-100 rounded-2xl p-3';
+
+   }else{
+
+      fb.innerHTML=
+      '<div class="text-rose-700 font-black">⚠️ AI phát hiện chưa chuẩn</div>'+
+      '<div class="mt-2 font-bold text-slate-700">📖 ['+
+      (smartStartVNGuide[word.toLowerCase()]?.guide || word)+
+      ']</div>'+
+      '<div class="mt-2 text-sm text-slate-600">💡 '+
+      (smartStartVNGuide[word.toLowerCase()]?.tip || 'Đọc chậm hơn')+
+      '</div>';
+
+      fb.className='mt-3 bg-rose-50 border border-rose-100 rounded-2xl p-3';
+   }
+ };
+
+ const stop=()=>{
+
+   if(recognitionPro){
+      recognitionPro.stop();
+   }
+
+   btn.innerHTML='🎙️ Giữ để đọc';
+ };
+
+ btn.onmouseup=stop;
+ btn.onmouseleave=stop;
+ btn.ontouchend=stop;
+}
+</script>
+
+
+<script>
+/* iLEARN SMART START SEPARATE FOLDER */
+
+window.addEventListener('load',()=>{
+
+    setTimeout(()=>{
+
+        const sidebar = document.querySelector('#sidebar-menu,.sidebar,.menu-container,.nav-menu');
+
+        const smartFolder = document.createElement('div');
+
+        smartFolder.className = `
+            bg-gradient-to-r from-emerald-500 to-green-600
+            rounded-3xl p-4 shadow-lg mt-4
+        `;
+
+        smartFolder.innerHTML = `
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-14 h-14 rounded-2xl bg-white/20
+                    flex items-center justify-center text-3xl">
+                    📚
+                </div>
+
+                <div>
+                    <h2 class="text-white font-black text-lg">
+                        i-Learn Smart Start
+                    </h2>
+
+                    <p class="text-emerald-100 text-xs">
+                        Thư mục giáo trình AI lớp 1 → lớp 5
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+
+                <button onclick="loadSmartStartThemes('ss_1')"
+                    class="bg-white/20 hover:bg-white/30
+                    text-white rounded-2xl py-3 font-black text-sm transition">
+                    📘 Lớp 1
+                </button>
+
+                <button onclick="loadSmartStartThemes('ss_2')"
+                    class="bg-white/20 hover:bg-white/30
+                    text-white rounded-2xl py-3 font-black text-sm transition">
+                    📗 Lớp 2
+                </button>
+
+                <button onclick="loadSmartStartThemes('ss_3')"
+                    class="bg-white/20 hover:bg-white/30
+                    text-white rounded-2xl py-3 font-black text-sm transition">
+                    📙 Lớp 3
+                </button>
+
+                <button onclick="loadSmartStartThemes('ss_4')"
+                    class="bg-white/20 hover:bg-white/30
+                    text-white rounded-2xl py-3 font-black text-sm transition">
+                    📕 Lớp 4
+                </button>
+
+                <button onclick="loadSmartStartThemes('ss_5')"
+                    class="col-span-2 bg-white text-emerald-700
+                    hover:bg-emerald-50 rounded-2xl py-3
+                    font-black text-sm transition shadow">
+                    🤖 Smart Start 5 AI PRO
+                </button>
+
+            </div>
+
+            <div class="mt-4 bg-white/10 rounded-2xl p-3">
+
+                <div class="text-white font-black text-sm mb-2">
+                    ✨ Tính năng AI tích hợp
+                </div>
+
+                <ul class="text-emerald-50 text-xs space-y-1">
+                    <li>🎙️ AI luyện phát âm</li>
+                    <li>📊 AI chấm speaking</li>
+                    <li>💡 Gợi ý tiếng Việt</li>
+                    <li>🔊 Nghe mẫu chuẩn Mỹ</li>
+                    <li>📚 Học theo từng Unit</li>
+                </ul>
+
+            </div>
+        `;
+
+        if(sidebar){
+            sidebar.prepend(smartFolder);
+        }else{
+            document.body.prepend(smartFolder);
+        }
+
+    },1200);
+
+});
+</script>
+
+
+<script>
+/* SMART START AI TOOLBAR */
+
+window.addEventListener('load',()=>{
+
+ setTimeout(()=>{
+
+   const topBar = document.querySelector('.top-bar,.header-actions,.chat-toolbar,.controls-bar');
+
+   const smartBar = document.createElement('div');
+
+   smartBar.className = `
+      w-full bg-gradient-to-r from-emerald-500 to-teal-600
+      rounded-3xl p-4 shadow-xl mb-4
+   `;
+
+   smartBar.innerHTML = `
+      <div class="flex flex-wrap items-center justify-between gap-3">
+
+         <div class="flex items-center gap-3">
+
+            <div class="w-16 h-16 rounded-2xl bg-white/20
+                flex items-center justify-center text-3xl shadow">
+                📚
+            </div>
+
+            <div>
+               <h2 class="text-white font-black text-xl">
+                  i-Learn Smart Start AI
+               </h2>
+
+               <p class="text-emerald-100 text-sm">
+                  Luyện đọc • Đàm thoại AI • Pronunciation
+               </p>
+            </div>
+
+         </div>
+
+         <div class="flex flex-wrap gap-2">
+
+            <button onclick="loadSmartStartThemes('ss_1')"
+               class="px-4 py-3 rounded-2xl bg-white text-emerald-700 font-black text-sm shadow">
+               📘 Lớp 1
+            </button>
+
+            <button onclick="loadSmartStartThemes('ss_2')"
+               class="px-4 py-3 rounded-2xl bg-white/20 text-white font-black text-sm">
+               📗 Lớp 2
+            </button>
+
+            <button onclick="loadSmartStartThemes('ss_3')"
+               class="px-4 py-3 rounded-2xl bg-white/20 text-white font-black text-sm">
+               📙 Lớp 3
+            </button>
+
+            <button onclick="loadSmartStartThemes('ss_4')"
+               class="px-4 py-3 rounded-2xl bg-white/20 text-white font-black text-sm">
+               📕 Lớp 4
+            </button>
+
+            <button onclick="loadSmartStartThemes('ss_5')"
+               class="px-4 py-3 rounded-2xl bg-amber-300 text-slate-900 font-black text-sm shadow">
+               🤖 AI PRO
+            </button>
+
+         </div>
+
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+
+         <div class="bg-white/10 rounded-2xl p-3">
+            <div class="text-white text-lg">🎙️</div>
+            <div class="text-white font-black text-sm mt-1">
+               Luyện đọc AI
+            </div>
+         </div>
+
+         <div class="bg-white/10 rounded-2xl p-3">
+            <div class="text-white text-lg">🗣️</div>
+            <div class="text-white font-black text-sm mt-1">
+               Đàm thoại AI
+            </div>
+         </div>
+
+         <div class="bg-white/10 rounded-2xl p-3">
+            <div class="text-white text-lg">📊</div>
+            <div class="text-white font-black text-sm mt-1">
+               AI Chấm điểm
+            </div>
+         </div>
+
+         <div class="bg-white/10 rounded-2xl p-3">
+            <div class="text-white text-lg">💡</div>
+            <div class="text-white font-black text-sm mt-1">
+               Gợi ý tiếng Việt
+            </div>
+         </div>
+
+      </div>
+   `;
+
+   if(topBar){
+      topBar.prepend(smartBar);
+   }else{
+      const readingSection = document.querySelector('#section-reading');
+
+      if(readingSection){
+         readingSection.prepend(smartBar);
+      }else{
+         document.body.prepend(smartBar);
+      }
+   }
+
+ },1000);
+
+});
+</script>
+
 </body>
 </html>
