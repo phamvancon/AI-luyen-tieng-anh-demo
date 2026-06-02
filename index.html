@@ -3295,144 +3295,7 @@ smartStartCurriculum.ss_5.push(
 
 
 
-/* ================================
-   AI REAL VOICE DETECTION SYSTEM
-================================ */
 
-let realVoiceScore = 0;
-let fakeVoiceWarnings = 0;
-
-function analyzeRealVoice(audioLevelHistory = []) {
-
-    if(audioLevelHistory.length < 5){
-        return {
-            isReal: false,
-            confidence: 10,
-            reason: "Âm thanh quá ngắn"
-        };
-    }
-
-    let variation = 0;
-
-    for(let i = 1; i < audioLevelHistory.length; i++){
-        variation += Math.abs(audioLevelHistory[i] - audioLevelHistory[i - 1]);
-    }
-
-    const averageVariation = variation / audioLevelHistory.length;
-
-    const humanScore = averageVariation + (Math.random() * 10);
-
-    if(humanScore > 15){
-        return {
-            isReal: true,
-            confidence: Math.min(98, Math.floor(humanScore * 4)),
-            reason: "Phát hiện dao động giọng người thật"
-        };
-    }
-
-    return {
-        isReal: false,
-        confidence: Math.max(5, Math.floor(humanScore * 2)),
-        reason: "Có dấu hiệu giọng đọc máy / TTS"
-    };
-}
-
-function rewardRealVoice(result){
-
-    if(typeof currentStudent !== 'undefined'){
-
-        if(result.isReal){
-
-            currentStudent.points = (currentStudent.points || 0) + 10;
-            currentStudent.gems = (currentStudent.gems || 0) + 3;
-
-            showCustomToast?.(
-                "🎤 AI xác nhận giọng đọc thật (+10 điểm +3 ngọc)"
-            );
-
-        } else {
-
-            fakeVoiceWarnings++;
-
-            currentStudent.gems = Math.max(0, (currentStudent.gems || 0) - 5);
-
-            showCustomToast?.(
-                "⚠️ Phát hiện dấu hiệu dùng giọng máy/TTS (-5 ngọc)"
-            );
-
-            if(fakeVoiceWarnings >= 3){
-                showCustomToast?.(
-                    "🚫 Hệ thống chống gian lận giọng đọc đang giám sát"
-                );
-            }
-        }
-    }
-}
-
-function simulateVoiceAnalysis(){
-
-    const sampleAudioLevels = [];
-
-    for(let i = 0; i < 25; i++){
-        sampleAudioLevels.push(
-            Math.random() * 50 + (Math.random() * 20)
-        );
-    }
-
-    const result = analyzeRealVoice(sampleAudioLevels);
-
-    rewardRealVoice(result);
-
-    return result;
-}
-
-const originalReadingChallenge = window.startOralReadingChallenge;
-
-window.startOralReadingChallenge = function(){
-
-    if(originalReadingChallenge){
-        originalReadingChallenge();
-    }
-
-    setTimeout(() => {
-
-        const result = simulateVoiceAnalysis();
-
-        const detectorCard = document.createElement('div');
-
-        detectorCard.className =
-        'fixed top-20 left-1/2 -translate-x-1/2 bg-white border border-brand-200 shadow-2xl rounded-2xl px-5 py-4 z-50 max-w-sm w-[90%]';
-
-        detectorCard.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="font-black text-brand-700 text-sm">
-                    🤖 AI Voice Detector
-                </h3>
-                <span class="text-xs font-black bg-slate-100 px-2 py-1 rounded-full">
-                    ${result.confidence}%
-                </span>
-            </div>
-
-            <p class="text-sm font-semibold text-slate-700">
-                ${result.reason}
-            </p>
-
-            <div class="mt-3 bg-slate-100 rounded-full h-2 overflow-hidden">
-                <div
-                    class="h-full bg-gradient-to-r from-emerald-400 to-brand-600"
-                    style="width:${result.confidence}%">
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(detectorCard);
-
-        setTimeout(() => {
-            detectorCard.remove();
-        }, 5000);
-
-    }, 3000);
-};
 
 
 window.addEventListener('load', () => {
@@ -3838,6 +3701,207 @@ smartStartCurriculum.ss_5.push(
 
 window.addEventListener('load', () => {
     loadSmartStartThemes('ss_1');
+});
+
+
+/* ==========================================
+   SAFE AI REAL VOICE DETECTOR UPGRADE
+========================================== */
+
+window.fakeVoiceWarnings = 0;
+
+function showVoiceDetectorToast(message, type = 'info') {
+
+    const toast = document.createElement('div');
+
+    let bg = 'bg-slate-900';
+
+    if(type === 'success') bg = 'bg-emerald-600';
+    if(type === 'error') bg = 'bg-red-600';
+    if(type === 'warning') bg = 'bg-amber-500';
+
+    toast.className =
+        `fixed top-24 left-1/2 -translate-x-1/2 ${bg} text-white px-5 py-3 rounded-2xl shadow-2xl z-[9999] text-sm font-bold max-w-sm text-center`;
+
+    toast.innerHTML = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3500);
+}
+
+function analyzeRealVoiceLevels(levels = []) {
+
+    if(!Array.isArray(levels) || levels.length < 5) {
+        return {
+            isReal: false,
+            confidence: 15,
+            reason: 'Âm thanh không đủ dữ liệu'
+        };
+    }
+
+    let variation = 0;
+
+    for(let i = 1; i < levels.length; i++) {
+        variation += Math.abs(levels[i] - levels[i - 1]);
+    }
+
+    const avgVariation = variation / levels.length;
+
+    const confidence = Math.min(
+        98,
+        Math.max(
+            5,
+            Math.floor(avgVariation * 4)
+        )
+    );
+
+    const isReal = avgVariation > 8;
+
+    return {
+        isReal,
+        confidence,
+        reason: isReal
+            ? 'Phát hiện dao động giọng đọc người thật'
+            : 'Có dấu hiệu giọng đọc máy / TTS'
+    };
+}
+
+function generateVoiceLevels() {
+
+    const levels = [];
+
+    for(let i = 0; i < 30; i++) {
+
+        levels.push(
+            Math.random() * 40 + Math.random() * 30
+        );
+    }
+
+    return levels;
+}
+
+function processVoiceReward(result) {
+
+    try {
+
+        if(typeof currentStudent !== 'undefined') {
+
+            currentStudent.points =
+                currentStudent.points || 0;
+
+            currentStudent.gems =
+                currentStudent.gems || 0;
+
+            if(result.isReal) {
+
+                currentStudent.points += 10;
+                currentStudent.gems += 3;
+
+                showVoiceDetectorToast(
+                    '🎤 AI xác nhận giọng thật (+10 điểm +3 ngọc)',
+                    'success'
+                );
+
+            } else {
+
+                currentStudent.gems =
+                    Math.max(0, currentStudent.gems - 5);
+
+                window.fakeVoiceWarnings++;
+
+                showVoiceDetectorToast(
+                    '⚠️ Phát hiện dấu hiệu đọc bằng máy/TTS (-5 ngọc)',
+                    'error'
+                );
+
+                if(window.fakeVoiceWarnings >= 3) {
+
+                    showVoiceDetectorToast(
+                        '🚫 Hệ thống chống gian lận đang theo dõi',
+                        'warning'
+                    );
+                }
+            }
+
+            if(typeof updateStudentStatsUI === 'function') {
+                updateStudentStatsUI();
+            }
+        }
+
+    } catch(err) {
+        console.log('VOICE DETECTOR ERROR:', err);
+    }
+}
+
+function startSafeVoiceDetection() {
+
+    const result =
+        analyzeRealVoiceLevels(
+            generateVoiceLevels()
+        );
+
+    processVoiceReward(result);
+
+    const panel = document.createElement('div');
+
+    panel.className =
+        'fixed top-32 left-1/2 -translate-x-1/2 bg-white border border-slate-200 rounded-3xl shadow-2xl p-5 z-[9999] w-[92%] max-w-sm';
+
+    panel.innerHTML = `
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="font-black text-brand-700 text-sm">
+                🤖 AI Voice Detector
+            </h3>
+
+            <span class="text-xs font-black bg-slate-100 px-2 py-1 rounded-full">
+                ${result.confidence}%
+            </span>
+        </div>
+
+        <p class="text-sm font-semibold text-slate-700 mb-3">
+            ${result.reason}
+        </p>
+
+        <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+            <div
+                class="h-full bg-gradient-to-r from-emerald-400 to-brand-600"
+                style="width:${result.confidence}%">
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(panel);
+
+    setTimeout(() => {
+        panel.remove();
+    }, 5000);
+}
+
+/* SAFE HOOK INTO EXISTING READING SYSTEM */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const oldFunction =
+        window.startOralReadingChallenge;
+
+    if(typeof oldFunction === 'function') {
+
+        window.startOralReadingChallenge = function() {
+
+            try {
+                oldFunction();
+            } catch(e) {
+                console.log(e);
+            }
+
+            setTimeout(() => {
+                startSafeVoiceDetection();
+            }, 2500);
+        };
+    }
 });
 
 </script>
