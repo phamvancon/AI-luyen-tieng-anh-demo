@@ -4068,6 +4068,184 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+/* =========================================
+   SIMPLE MALE & FEMALE VOICE SYSTEM
+========================================= */
+
+window.simpleVoiceMode = 'female';
+
+function createSimpleVoiceSelector() {
+
+    const oldPanel =
+        document.getElementById(
+            'simple-voice-panel'
+        );
+
+    if(oldPanel) oldPanel.remove();
+
+    const chatSection =
+        document.getElementById(
+            'section-chat'
+        );
+
+    if(!chatSection) return;
+
+    const panel =
+        document.createElement('div');
+
+    panel.id = 'simple-voice-panel';
+
+    panel.className =
+        'bg-white border border-slate-200 rounded-2xl p-3 mb-4 shadow-sm';
+
+    panel.innerHTML = `
+        <div class="flex justify-between items-center mb-3">
+
+            <h3 class="font-black text-sm text-brand-700">
+                🎙️ Chọn Giọng AI
+            </h3>
+
+            <span class="text-[10px] text-slate-400 font-bold">
+                Nam / Nữ
+            </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+
+            <button
+                onclick="setSimpleVoice('female')"
+                class="bg-pink-50 hover:bg-pink-100 border border-pink-200 rounded-xl p-3 transition">
+
+                <div class="font-black text-sm text-pink-700">
+                    👩 Giọng Nữ
+                </div>
+
+                <div class="text-[10px] text-slate-500 mt-1">
+                    Nhẹ nhàng dễ nghe
+                </div>
+            </button>
+
+            <button
+                onclick="setSimpleVoice('male')"
+                class="bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl p-3 transition">
+
+                <div class="font-black text-sm text-blue-700">
+                    👨 Giọng Nam
+                </div>
+
+                <div class="text-[10px] text-slate-500 mt-1">
+                    Trầm rõ tự nhiên
+                </div>
+            </button>
+
+        </div>
+    `;
+
+    chatSection.prepend(panel);
+}
+
+function setSimpleVoice(type) {
+
+    window.simpleVoiceMode = type;
+
+    const msg =
+        type === 'female'
+        ? '👩 Đã chuyển sang giọng nữ'
+        : '👨 Đã chuyển sang giọng nam';
+
+    simpleVoiceToast(msg);
+
+    simpleAISpeak(
+        'Hello! Let us practice English together today.'
+    );
+}
+
+function simpleAISpeak(text) {
+
+    try {
+
+        speechSynthesis.cancel();
+
+        const utter =
+            new SpeechSynthesisUtterance(text);
+
+        const voices =
+            speechSynthesis.getVoices();
+
+        let selected = null;
+
+        if(window.simpleVoiceMode === 'female') {
+
+            utter.pitch = 1.15;
+            utter.rate = 0.96;
+
+            selected =
+                voices.find(v =>
+                    v.lang.toLowerCase().includes('en') &&
+                    (
+                        v.name.toLowerCase().includes('zira') ||
+                        v.name.toLowerCase().includes('samantha') ||
+                        v.name.toLowerCase().includes('female')
+                    )
+                );
+        }
+
+        if(window.simpleVoiceMode === 'male') {
+
+            utter.pitch = 0.82;
+            utter.rate = 0.9;
+
+            selected =
+                voices.find(v =>
+                    v.lang.toLowerCase().includes('en') &&
+                    (
+                        v.name.toLowerCase().includes('david') ||
+                        v.name.toLowerCase().includes('guy') ||
+                        v.name.toLowerCase().includes('male')
+                    )
+                );
+        }
+
+        if(selected) {
+            utter.voice = selected;
+        }
+
+        speechSynthesis.speak(utter);
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+function simpleVoiceToast(message) {
+
+    const toast =
+        document.createElement('div');
+
+    toast.className =
+        'fixed bottom-24 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-5 py-3 rounded-2xl shadow-2xl z-[99999] text-sm font-bold';
+
+    toast.innerHTML = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+/* AUTO LOAD SIMPLE VOICE UI */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    setTimeout(() => {
+
+        createSimpleVoiceSelector();
+
+    }, 1200);
+});
+
 </script>
 </body>
 </html>
