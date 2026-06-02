@@ -86,7 +86,7 @@
                 <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
                     <i class="fa-solid fa-book-open-reader text-3xl"></i>
                 </div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily Chú CÒN-ECO</h1>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily ECO</h1>
                 <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
             </div>
 
@@ -3502,6 +3502,285 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 startSafeVoiceDetection();
+            }, 2500);
+        };
+    }
+});
+
+
+/* ===================================================
+   ADVANCED HUMAN VOICE AI DETECTION + PRONUNCIATION
+=================================================== */
+
+window.voiceAI = {
+    warnings: 0,
+    totalChecks: 0,
+    humanPass: 0
+};
+
+async function startAdvancedVoiceAnalysis() {
+
+    try {
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+
+        const audioContext = new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+
+        const source =
+            audioContext.createMediaStreamSource(stream);
+
+        source.connect(analyser);
+
+        const dataArray =
+            new Uint8Array(analyser.frequencyBinCount);
+
+        const samples = [];
+
+        let captureCount = 0;
+
+        const interval = setInterval(() => {
+
+            analyser.getByteFrequencyData(dataArray);
+
+            let avg = 0;
+
+            for(let i = 0; i < dataArray.length; i++) {
+                avg += dataArray[i];
+            }
+
+            avg = avg / dataArray.length;
+
+            samples.push(avg);
+
+            captureCount++;
+
+            if(captureCount >= 20) {
+
+                clearInterval(interval);
+
+                stream.getTracks().forEach(track => track.stop());
+
+                analyzeHumanVoicePattern(samples);
+            }
+
+        }, 120);
+
+    } catch(err) {
+
+        console.log('VOICE ANALYSIS ERROR:', err);
+
+    }
+}
+
+function analyzeHumanVoicePattern(samples) {
+
+    window.voiceAI.totalChecks++;
+
+    let variations = [];
+    let microChanges = 0;
+
+    for(let i = 1; i < samples.length; i++) {
+
+        const diff =
+            Math.abs(samples[i] - samples[i - 1]);
+
+        variations.push(diff);
+
+        if(diff > 1.5 && diff < 25) {
+            microChanges++;
+        }
+    }
+
+    const avgVariation =
+        variations.reduce((a,b)=>a+b,0) / variations.length;
+
+    const humanBreathScore =
+        microChanges * 2;
+
+    const dynamicScore =
+        avgVariation * 4;
+
+    const finalScore =
+        Math.min(
+            100,
+            Math.floor(
+                humanBreathScore + dynamicScore
+            )
+        );
+
+    const isHuman =
+        finalScore >= 45;
+
+    showAdvancedVoiceResult({
+        isHuman,
+        score: finalScore,
+        variation: avgVariation
+    });
+
+    applyVoiceRewards(isHuman, finalScore);
+}
+
+function applyVoiceRewards(isHuman, score) {
+
+    if(typeof currentStudent === 'undefined') return;
+
+    currentStudent.points =
+        currentStudent.points || 0;
+
+    currentStudent.gems =
+        currentStudent.gems || 0;
+
+    if(isHuman) {
+
+        window.voiceAI.humanPass++;
+
+        currentStudent.points += 15;
+        currentStudent.gems += 5;
+
+        safeVoiceToast(
+            `🎤 Giọng người thật (${score}%) +15 điểm +5 ngọc`,
+            'success'
+        );
+
+    } else {
+
+        window.voiceAI.warnings++;
+
+        currentStudent.gems =
+            Math.max(0, currentStudent.gems - 8);
+
+        safeVoiceToast(
+            `⚠️ AI nghi ngờ sử dụng giọng máy / TTS (-8 ngọc)`,
+            'error'
+        );
+
+        if(window.voiceAI.warnings >= 2) {
+
+            safeVoiceToast(
+                '🚫 Cảnh báo: Hệ thống phát hiện dấu hiệu đọc bằng máy',
+                'warning'
+            );
+        }
+    }
+
+    if(typeof updateStudentStatsUI === 'function') {
+        updateStudentStatsUI();
+    }
+}
+
+function showAdvancedVoiceResult(data) {
+
+    const old =
+        document.getElementById('advanced-voice-ai-box');
+
+    if(old) old.remove();
+
+    const box = document.createElement('div');
+
+    box.id = 'advanced-voice-ai-box';
+
+    box.className =
+        'fixed top-24 left-1/2 -translate-x-1/2 bg-white shadow-2xl border border-slate-200 rounded-3xl p-5 z-[99999] w-[92%] max-w-md';
+
+    box.innerHTML = `
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="font-black text-brand-700 text-sm">
+                🤖 Advanced AI Voice Analysis
+            </h3>
+
+            <span class="bg-slate-100 px-2 py-1 rounded-full text-xs font-black">
+                ${data.score}%
+            </span>
+        </div>
+
+        <div class="space-y-2 text-sm">
+
+            <div class="flex justify-between">
+                <span>Dao động giọng nói:</span>
+                <strong>${data.variation.toFixed(1)}</strong>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Loại giọng:</span>
+                <strong class="${
+                    data.isHuman
+                    ? 'text-emerald-600'
+                    : 'text-red-600'
+                }">
+                    ${
+                        data.isHuman
+                        ? 'Người thật'
+                        : 'Giọng máy / TTS'
+                    }
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="mt-4 h-3 bg-slate-100 rounded-full overflow-hidden">
+            <div
+                class="h-full bg-gradient-to-r from-emerald-400 to-brand-600"
+                style="width:${data.score}%">
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(box);
+
+    setTimeout(() => {
+        box.remove();
+    }, 7000);
+}
+
+function safeVoiceToast(message, type='info') {
+
+    const toast = document.createElement('div');
+
+    let bg = 'bg-slate-900';
+
+    if(type === 'success') bg = 'bg-emerald-600';
+    if(type === 'error') bg = 'bg-red-600';
+    if(type === 'warning') bg = 'bg-amber-500';
+
+    toast.className =
+        `fixed bottom-28 left-1/2 -translate-x-1/2 ${bg} text-white px-5 py-3 rounded-2xl shadow-2xl z-[99999] text-sm font-bold`;
+
+    toast.innerHTML = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 4000);
+}
+
+/* AUTO HOOK INTO READING SYSTEM */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const oldReading =
+        window.startOralReadingChallenge;
+
+    if(typeof oldReading === 'function') {
+
+        window.startOralReadingChallenge = async function() {
+
+            try {
+                await oldReading();
+            } catch(e) {
+                console.log(e);
+            }
+
+            setTimeout(() => {
+                startAdvancedVoiceAnalysis();
             }, 2500);
         };
     }
