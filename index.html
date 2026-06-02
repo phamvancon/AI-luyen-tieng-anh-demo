@@ -6,11 +6,14 @@
 
 <title>English Daily ECO AI Ultimate</title>
 
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- Icons -->
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap"
 rel="stylesheet">
 
@@ -22,24 +25,23 @@ body{
     linear-gradient(
         135deg,
         #eff6ff 0%,
-        #f8fafc 50%,
+        #ffffff 50%,
         #dbeafe 100%
     );
 }
 
+.custom-scrollbar::-webkit-scrollbar{
+    width:5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:999px;
+}
+
 .glass{
-    background:rgba(255,255,255,.75);
-    backdrop-filter:blur(16px);
-}
-
-.pulse-wave{
-    animation:pulseWave 1.2s infinite;
-}
-
-@keyframes pulseWave{
-    0%{transform:scale(1)}
-    50%{transform:scale(1.2)}
-    100%{transform:scale(1)}
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(18px);
 }
 
 .ai-gradient{
@@ -52,128 +54,306 @@ body{
     );
 }
 
-.card-hover{
-    transition:.3s;
+.wave{
+    animation:wave .9s infinite;
 }
 
-.card-hover:hover{
-    transform:translateY(-4px);
-}
-
-.custom-scrollbar::-webkit-scrollbar{
-    width:5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb{
-    background:#cbd5e1;
-    border-radius:999px;
+@keyframes wave{
+    0%{transform:scaleY(.4)}
+    50%{transform:scaleY(1)}
+    100%{transform:scaleY(.4)}
 }
 
 </style>
 </head>
 
-<body class="min-h-screen text-slate-800">
+<body class="min-h-screen">
 
-<div class="max-w-7xl mx-auto p-3 md:p-6">
+<!-- =========================================================
+AUTH SCREEN
+========================================================= -->
 
-<!-- =====================================================
-HEADER
-===================================================== -->
+<section id="auth-screen"
+class="min-h-screen flex items-center justify-center p-4">
 
-<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+<div class="w-full max-w-md glass rounded-[32px] shadow-2xl overflow-hidden border border-white/50">
 
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<!-- HEADER -->
 
-<div>
-<h1 class="text-3xl font-black text-slate-900">
-🚀 English Daily ECO AI Ultimate
+<div class="relative overflow-hidden">
+
+<div class="absolute inset-0 bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500"></div>
+
+<div class="relative p-8 text-center text-white">
+
+<div class="w-24 h-24 mx-auto rounded-[28px] bg-white/20 flex items-center justify-center shadow-2xl">
+
+<i class="fa-solid fa-book-open-reader text-5xl"></i>
+
+</div>
+
+<h1 class="text-3xl font-black mt-5">
+English Daily ECO
 </h1>
 
-<p class="text-sm text-slate-500 mt-1">
-Luyện đọc • AI Voice • Smart Start • Đàm thoại • AI Detector
+<p class="text-sm text-blue-100 mt-2">
+AI luyện đọc & đàm thoại tiếng Anh
 </p>
+
 </div>
+
+</div>
+
+<!-- FORM -->
+
+<div class="p-6 space-y-5">
+
+<div>
+
+<label class="text-xs font-black text-slate-500 uppercase">
+Tên học sinh
+</label>
+
+<input
+id="student-name"
+type="text"
+placeholder="Ví dụ: Khánh Chi"
+class="mt-2 w-full h-14 rounded-2xl border border-slate-200 px-4 outline-none font-bold">
+
+</div>
+
+<div>
+
+<label class="text-xs font-black text-slate-500 uppercase">
+Lớp học
+</label>
+
+<select
+id="student-grade"
+class="mt-2 w-full h-14 rounded-2xl border border-slate-200 px-4 outline-none font-bold">
+
+<option value="1">Lớp 1</option>
+<option value="2">Lớp 2</option>
+<option value="3">Lớp 3</option>
+<option value="4">Lớp 4</option>
+<option value="5">Lớp 5</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label class="text-xs font-black text-slate-500 uppercase">
+Mật khẩu
+</label>
+
+<input
+id="student-password"
+type="password"
+placeholder="Nhập mật khẩu"
+class="mt-2 w-full h-14 rounded-2xl border border-slate-200 px-4 outline-none font-bold">
+
+</div>
+
+<div class="grid grid-cols-2 gap-3">
+
+<button
+onclick="registerStudent()"
+class="h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black shadow-xl">
+
+✨ Đăng ký
+
+</button>
+
+<button
+onclick="loginStudent()"
+class="h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black shadow-xl">
+
+🚀 Đăng nhập
+
+</button>
+
+</div>
+
+<!-- SAVED ACCOUNTS -->
+
+<div class="pt-4 border-t border-slate-100">
+
+<div class="flex justify-between items-center mb-3">
+
+<h3 class="font-black text-sm text-slate-700">
+👨‍🎓 Tài khoản đã lưu
+</h3>
+
+<button
+onclick="clearAccounts()"
+class="text-xs font-bold text-red-500">
+
+Xóa tất cả
+
+</button>
+
+</div>
+
+<div id="saved-accounts"
+class="space-y-2 max-h-52 overflow-y-auto custom-scrollbar">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================================================
+MAIN APP
+========================================================= -->
+
+<section id="main-app" class="hidden">
+
+<!-- HEADER -->
+
+<header class="glass sticky top-0 z-50 border-b border-white/50 shadow-lg">
+
+<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
 <div class="flex items-center gap-3">
 
-<div class="bg-yellow-50 border border-yellow-200 px-4 py-2 rounded-2xl">
-<div class="text-xs text-slate-500">Điểm</div>
-<div id="points-count"
-class="font-black text-xl text-yellow-600">0</div>
-</div>
+<div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg">
 
-<div class="bg-cyan-50 border border-cyan-200 px-4 py-2 rounded-2xl">
-<div class="text-xs text-slate-500">Ngọc</div>
-<div id="gems-count"
-class="font-black text-xl text-cyan-600">0 💎</div>
-</div>
+<i class="fa-solid fa-graduation-cap text-xl"></i>
 
 </div>
 
+<div>
+
+<div id="display-name"
+class="font-black text-slate-900">
+Học sinh
 </div>
+
+<div class="text-xs text-slate-500">
+AI English Learning
 </div>
 
-<!-- =====================================================
-MAIN GRID
-===================================================== -->
+</div>
 
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+</div>
 
-<!-- =====================================================
-LEFT SIDE
-===================================================== -->
+<div class="flex items-center gap-2">
+
+<div class="bg-yellow-50 border border-yellow-200 rounded-2xl px-4 py-2">
+
+<div class="text-[10px] text-slate-500">
+Điểm
+</div>
+
+<div id="display-points"
+class="font-black text-yellow-600">
+0
+</div>
+
+</div>
+
+<div class="bg-cyan-50 border border-cyan-200 rounded-2xl px-4 py-2">
+
+<div class="text-[10px] text-slate-500">
+Ngọc
+</div>
+
+<div id="display-gems"
+class="font-black text-cyan-600">
+0 💎
+</div>
+
+</div>
+
+<button
+onclick="logoutStudent()"
+class="w-12 h-12 rounded-2xl bg-red-500 text-white shadow-lg">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- CONTENT -->
+
+<div class="max-w-7xl mx-auto p-4 md:p-6">
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+<!-- =========================================================
+LEFT
+========================================================= -->
 
 <div class="lg:col-span-7 space-y-6">
 
-<!-- =====================================================
-READING PANEL
-===================================================== -->
+<!-- READING -->
 
-<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+<div class="glass rounded-[32px] p-5 shadow-2xl border border-white/50">
 
 <div class="flex justify-between items-center">
 
 <div>
+
 <div class="text-xs font-black text-indigo-500 uppercase">
 AI Reading Challenge
 </div>
 
 <h2 id="reading-title"
-class="text-2xl font-black text-slate-900 mt-1">
+class="text-3xl font-black text-slate-900 mt-1">
 My Family
 </h2>
+
 </div>
 
-<button onclick="readAloudTaskText()"
-class="w-12 h-12 rounded-2xl bg-indigo-600 text-white shadow-lg">
+<button
+onclick="readSample()"
+class="w-14 h-14 rounded-2xl bg-indigo-600 text-white shadow-xl">
+
 <i class="fa-solid fa-volume-high"></i>
+
 </button>
 
 </div>
 
-<div class="mt-4 rounded-3xl overflow-hidden h-64">
+<div class="mt-5 rounded-[28px] overflow-hidden h-72">
 
-<img id="reading-image"
+<img
+id="reading-image"
 src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop"
 class="w-full h-full object-cover">
 
 </div>
 
-<div class="mt-5 bg-slate-50 rounded-3xl p-5 border border-slate-100">
+<div class="mt-5 bg-slate-50 rounded-[28px] p-5 border border-slate-100">
 
 <p id="reading-content"
-class="leading-relaxed text-lg text-slate-700">
-Hello. My name is Anna. I live with my family in a small house.
-My father is a teacher. My mother is a nurse. We love eating dinner together.
+class="text-lg leading-relaxed text-slate-700">
+
+Hello. My name is Anna.
+I live with my family in a small house.
+My father is a teacher.
+My mother is a nurse.
+We love eating dinner together.
+
 </p>
 
 </div>
 
-<!-- =====================================================
-AI VOICE DETECTOR
-===================================================== -->
+<!-- AI DETECTOR -->
 
-<div class="mt-5 ai-gradient rounded-3xl p-5 text-white shadow-xl">
+<div class="mt-5 ai-gradient rounded-[28px] p-5 text-white shadow-2xl">
 
 <div class="flex justify-between items-center">
 
@@ -182,13 +362,15 @@ AI VOICE DETECTOR
 </div>
 
 <div id="voice-status"
-class="bg-white/20 px-3 py-1 rounded-xl text-xs font-bold">
+class="bg-white/20 px-3 py-1 rounded-xl text-xs font-black">
+
 Đang chờ
-</div>
 
 </div>
 
-<div class="grid grid-cols-3 gap-3 mt-4">
+</div>
+
+<div class="grid grid-cols-3 gap-3 mt-5">
 
 <div class="bg-white/10 rounded-2xl p-3 text-center">
 
@@ -197,7 +379,7 @@ class="bg-white/20 px-3 py-1 rounded-xl text-xs font-bold">
 </div>
 
 <div id="human-score"
-class="text-2xl font-black mt-1">
+class="text-3xl font-black mt-1">
 0%
 </div>
 
@@ -210,7 +392,7 @@ class="text-2xl font-black mt-1">
 </div>
 
 <div id="voice-energy"
-class="text-2xl font-black mt-1">
+class="text-3xl font-black mt-1">
 0
 </div>
 
@@ -219,11 +401,11 @@ class="text-2xl font-black mt-1">
 <div class="bg-white/10 rounded-2xl p-3 text-center">
 
 <div class="text-xs opacity-70">
-Nhịp giọng
+Wave
 </div>
 
 <div id="voice-wave"
-class="text-2xl font-black mt-1">
+class="text-3xl font-black mt-1">
 0
 </div>
 
@@ -237,21 +419,19 @@ class="hidden mt-4 bg-red-500/20 border border-red-300 rounded-2xl p-4 text-sm f
 
 </div>
 
-<!-- =====================================================
-BUTTONS
-===================================================== -->
-
 <div class="grid grid-cols-2 gap-3 mt-5">
 
-<button onclick="startReadingChallenge()"
-class="h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black shadow-xl">
+<button
+onclick="startReading()"
+class="h-16 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black shadow-xl">
 
 🎙️ Bắt đầu đọc
 
 </button>
 
-<button onclick="readAloudTaskText()"
-class="h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black shadow-xl">
+<button
+onclick="readSample()"
+class="h-16 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black shadow-xl">
 
 🔊 AI đọc mẫu
 
@@ -261,16 +441,14 @@ class="h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black 
 
 </div>
 
-<!-- =====================================================
-VOCABULARY
-===================================================== -->
+<!-- VOCAB -->
 
-<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+<div class="glass rounded-[32px] p-5 shadow-2xl border border-white/50">
 
-<div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-5">
 
-<h3 class="font-black text-xl">
-📚 Từ vựng trọng tâm
+<h3 class="font-black text-2xl">
+📚 Từ vựng
 </h3>
 
 <div class="text-xs text-slate-500">
@@ -288,40 +466,40 @@ class="space-y-3">
 
 </div>
 
-<!-- =====================================================
-RIGHT SIDE
-===================================================== -->
+<!-- =========================================================
+RIGHT
+========================================================= -->
 
 <div class="lg:col-span-5 space-y-6">
 
-<!-- =====================================================
-AI CHAT
-===================================================== -->
+<!-- CHAT -->
 
-<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+<div class="glass rounded-[32px] p-5 shadow-2xl border border-white/50">
 
-<div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-5">
 
 <div>
 
-<h3 class="font-black text-xl">
+<h3 class="font-black text-2xl">
 🤖 AI Teacher
 </h3>
 
 <p class="text-xs text-slate-500">
-Đàm thoại tiếng Anh realtime
+Realtime English Chat
 </p>
 
 </div>
 
-<div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
+<div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
+
 <i class="fa-solid fa-robot text-xl"></i>
+
 </div>
 
 </div>
 
 <div id="chat-box"
-class="space-y-3 h-[420px] overflow-y-auto custom-scrollbar">
+class="space-y-3 h-[450px] overflow-y-auto custom-scrollbar">
 
 <div class="bg-slate-100 rounded-2xl p-4">
 
@@ -338,20 +516,22 @@ Let's practice English together today!
 
 <div class="mt-4 flex gap-2">
 
-<input id="chat-input"
+<input
+id="chat-input"
 type="text"
 placeholder="Nhập nội dung..."
 class="flex-1 h-14 rounded-2xl border border-slate-200 px-4 outline-none">
 
-<button onclick="sendChat()"
+<button
+onclick="sendChat()"
 class="w-14 rounded-2xl bg-indigo-600 text-white">
 
 <i class="fa-solid fa-paper-plane"></i>
 
 </button>
 
-<button id="mic-btn"
-onclick="startChatVoice()"
+<button
+onclick="voiceChat()"
 class="w-14 rounded-2xl bg-rose-600 text-white">
 
 <i class="fa-solid fa-microphone"></i>
@@ -362,67 +542,23 @@ class="w-14 rounded-2xl bg-rose-600 text-white">
 
 </div>
 
-<!-- =====================================================
-SMART START
-===================================================== -->
-
-<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
-
-<div class="flex justify-between items-center mb-4">
-
-<h3 class="font-black text-xl">
-🎓 Smart Start
-</h3>
-
-<select id="lesson-selector"
-class="border border-slate-200 rounded-xl px-3 py-2 text-sm">
-
-<option value="family">Family</option>
-<option value="school">School</option>
-<option value="food">Food</option>
-<option value="animals">Animals</option>
-
-</select>
-
-</div>
-
-<div class="grid grid-cols-2 gap-3">
-
-<button class="h-14 rounded-2xl bg-blue-600 text-white font-black">
-Lớp 1
-</button>
-
-<button class="h-14 rounded-2xl bg-emerald-600 text-white font-black">
-Lớp 2
-</button>
-
-<button class="h-14 rounded-2xl bg-orange-600 text-white font-black">
-Lớp 3
-</button>
-
-<button class="h-14 rounded-2xl bg-purple-600 text-white font-black">
-Lớp 4
-</button>
-
 </div>
 
 </div>
 
 </div>
 
-</div>
+</section>
 
-</div>
-
-<!-- =====================================================
+<!-- =========================================================
 SCRIPT
-===================================================== -->
+========================================================= -->
 
 <script>
 
-/* =====================================================
+/* =========================================================
 DATABASE
-===================================================== */
+========================================================= */
 
 const vocabData = [
 
@@ -452,14 +588,260 @@ vi:'ngôi nhà'
 
 ];
 
-let points = 0;
-let gems = 0;
+let activeStudent = null;
+
+/* =========================================================
+LOCAL STORAGE
+========================================================= */
+
+function getAccounts(){
+
+return JSON.parse(
+localStorage.getItem('eco_accounts') || '[]'
+);
+
+}
+
+function saveAccounts(data){
+
+localStorage.setItem(
+'eco_accounts',
+JSON.stringify(data)
+);
+
+}
+
+/* =========================================================
+REGISTER
+========================================================= */
+
+function registerStudent(){
+
+const name =
+document.getElementById('student-name').value.trim();
+
+const grade =
+document.getElementById('student-grade').value;
+
+const password =
+document.getElementById('student-password').value.trim();
+
+if(!name || !password){
+
+alert('Vui lòng nhập đầy đủ');
+
+return;
+}
+
+let accounts = getAccounts();
+
+const existed =
+accounts.find(
+x => x.name.toLowerCase() === name.toLowerCase()
+);
+
+if(existed){
+
+alert('Tài khoản đã tồn tại');
+
+return;
+}
+
+const student = {
+
+id:Date.now(),
+
+name,
+
+grade,
+
+password,
+
+points:0,
+
+gems:0
+
+};
+
+accounts.push(student);
+
+saveAccounts(accounts);
+
+renderAccounts();
+
+showToast('🎉 Đăng ký thành công');
+
+}
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+function loginStudent(){
+
+const name =
+document.getElementById('student-name').value.trim();
+
+const password =
+document.getElementById('student-password').value.trim();
+
+const accounts = getAccounts();
+
+const found =
+accounts.find(
+x =>
+x.name.toLowerCase() === name.toLowerCase()
+&&
+x.password === password
+);
+
+if(!found){
+
+alert('Sai tài khoản');
+
+return;
+}
+
+activeStudent = found;
+
+localStorage.setItem(
+'eco_active_student',
+JSON.stringify(found)
+);
+
+enterApp();
+
+}
+
+/* =========================================================
+ENTER APP
+========================================================= */
+
+function enterApp(){
+
+document.getElementById('auth-screen')
+.classList.add('hidden');
+
+document.getElementById('main-app')
+.classList.remove('hidden');
+
+document.getElementById('display-name')
+.innerText = activeStudent.name;
+
+updateScores();
 
 renderVocabulary();
 
-/* =====================================================
-RENDER VOCAB
-===================================================== */
+}
+
+/* =========================================================
+UPDATE SCORE
+========================================================= */
+
+function updateScores(){
+
+document.getElementById('display-points')
+.innerText = activeStudent.points;
+
+document.getElementById('display-gems')
+.innerText = activeStudent.gems + ' 💎';
+
+}
+
+/* =========================================================
+LOGOUT
+========================================================= */
+
+function logoutStudent(){
+
+localStorage.removeItem(
+'eco_active_student'
+);
+
+location.reload();
+
+}
+
+/* =========================================================
+RENDER ACCOUNTS
+========================================================= */
+
+function renderAccounts(){
+
+const container =
+document.getElementById('saved-accounts');
+
+container.innerHTML = '';
+
+const accounts = getAccounts();
+
+accounts.forEach(acc=>{
+
+container.innerHTML += `
+
+<div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 flex justify-between items-center">
+
+<div>
+
+<div class="font-black text-slate-800">
+${acc.name}
+</div>
+
+<div class="text-xs text-slate-500">
+Lớp ${acc.grade}
+</div>
+
+</div>
+
+<button
+onclick="quickLogin('${acc.name}','${acc.password}')"
+class="px-4 h-10 rounded-xl bg-indigo-600 text-white text-xs font-black">
+
+Vào học
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* =========================================================
+QUICK LOGIN
+========================================================= */
+
+function quickLogin(name,password){
+
+document.getElementById('student-name').value = name;
+
+document.getElementById('student-password').value = password;
+
+loginStudent();
+
+}
+
+/* =========================================================
+CLEAR
+========================================================= */
+
+function clearAccounts(){
+
+if(confirm('Xóa tất cả tài khoản?')){
+
+localStorage.removeItem('eco_accounts');
+
+renderAccounts();
+
+}
+
+}
+
+/* =========================================================
+VOCAB
+========================================================= */
 
 function renderVocabulary(){
 
@@ -472,7 +854,7 @@ vocabData.forEach(item=>{
 
 container.innerHTML += `
 
-<div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex justify-between items-center card-hover">
+<div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex justify-between items-center">
 
 <div>
 
@@ -490,8 +872,9 @@ ${item.vi}
 
 </div>
 
-<button onclick="speakWord('${item.word}')"
-class="w-12 h-12 rounded-2xl bg-emerald-600 text-white shadow-lg">
+<button
+onclick="speak('${item.word}')"
+class="w-12 h-12 rounded-2xl bg-emerald-600 text-white">
 
 <i class="fa-solid fa-volume-high"></i>
 
@@ -505,11 +888,11 @@ class="w-12 h-12 rounded-2xl bg-emerald-600 text-white shadow-lg">
 
 }
 
-/* =====================================================
+/* =========================================================
 SPEAK
-===================================================== */
+========================================================= */
 
-function speakWord(text){
+function speak(text){
 
 const utter =
 new SpeechSynthesisUtterance(text);
@@ -520,42 +903,40 @@ speechSynthesis.speak(utter);
 
 }
 
-function readAloudTaskText(){
+function readSample(){
 
 const text =
-document.getElementById('reading-content').innerText;
+document.getElementById('reading-content')
+.innerText;
 
-speakWord(text);
+speak(text);
 
 }
 
-/* =====================================================
-VOICE AI DETECTOR
-===================================================== */
+/* =========================================================
+VOICE DETECTOR
+========================================================= */
 
-let audioContext;
-let analyser;
-let microphone;
 let humanScore = 0;
-let fakeVoiceDetected = false;
+let fakeVoice = false;
 
-async function startHumanDetection(){
+async function startDetector(){
 
 const stream =
 await navigator.mediaDevices.getUserMedia({
 audio:true
 });
 
-audioContext =
+const audioContext =
 new AudioContext();
 
-analyser =
+const analyser =
 audioContext.createAnalyser();
 
-microphone =
+const mic =
 audioContext.createMediaStreamSource(stream);
 
-microphone.connect(analyser);
+mic.connect(analyser);
 
 analyser.fftSize = 512;
 
@@ -566,14 +947,16 @@ let history = [];
 
 function loop(){
 
-if(!window.isReading) return;
+if(!window.isListening) return;
 
 analyser.getByteFrequencyData(dataArray);
 
 let total = 0;
 
 for(let i=0;i<dataArray.length;i++){
+
 total += dataArray[i];
+
 }
 
 const avg =
@@ -582,7 +965,9 @@ Math.round(total / dataArray.length);
 history.push(avg);
 
 if(history.length > 20){
+
 history.shift();
+
 }
 
 let variation = 0;
@@ -600,13 +985,14 @@ document.getElementById('voice-energy')
 document.getElementById('voice-wave')
 .innerText = variation;
 
-if(variation > 35 && avg > 15){
+if(avg > 15 && variation > 35){
 
 humanScore += 2;
 
 }else{
 
 humanScore -= 3;
+
 }
 
 humanScore =
@@ -617,31 +1003,33 @@ document.getElementById('human-score')
 
 if(humanScore >= 60){
 
-fakeVoiceDetected = false;
+fakeVoice = false;
 
 document.getElementById('voice-status')
 .innerText = '✅ Giọng thật';
 
 }else{
 
-fakeVoiceDetected = true;
+fakeVoice = true;
 
 document.getElementById('voice-status')
 .innerText = '⚠️ Nghi giọng máy';
+
 }
 
 requestAnimationFrame(loop);
+
 }
 
 loop();
 
 }
 
-/* =====================================================
-READING CHALLENGE
-===================================================== */
+/* =========================================================
+READING
+========================================================= */
 
-function startReadingChallenge(){
+function startReading(){
 
 const SpeechRecognition =
 window.SpeechRecognition ||
@@ -649,7 +1037,8 @@ window.webkitSpeechRecognition;
 
 if(!SpeechRecognition){
 
-alert('Trình duyệt chưa hỗ trợ');
+alert('Không hỗ trợ micro');
+
 return;
 }
 
@@ -662,41 +1051,32 @@ recognition.interimResults = false;
 
 recognition.maxAlternatives = 1;
 
-window.isReading = true;
+window.isListening = true;
 
 humanScore = 50;
 
-startHumanDetection();
+startDetector();
 
-showToast(
-'🎙️ AI đang nghe...'
-);
+showToast('🎙️ AI đang nghe...');
 
 recognition.start();
 
 recognition.onresult = function(e){
 
-window.isReading = false;
+window.isListening = false;
 
-const transcript =
+const text =
 e.results[0][0].transcript;
 
-evaluateReading(transcript);
+evaluateReading(text);
 
-};
-
-recognition.onerror = function(){
-
-window.isReading = false;
-
-showToast('Không nghe rõ');
 };
 
 }
 
-/* =====================================================
+/* =========================================================
 EVALUATE
-===================================================== */
+========================================================= */
 
 function evaluateReading(spoken){
 
@@ -707,30 +1087,31 @@ document.getElementById('reading-content')
 .split(' ');
 
 const user =
-spoken
-.toLowerCase()
-.split(' ');
+spoken.toLowerCase().split(' ');
 
-let matches = 0;
+let match = 0;
 
 original.forEach(word=>{
 
 if(user.includes(word)){
 
-matches++;
+match++;
+
 }
 
 });
 
 const accuracy =
 Math.round(
-(matches / original.length) * 100
+(match / original.length) * 100
 );
 
-if(fakeVoiceDetected){
+if(fakeVoice){
 
-gems =
-Math.max(0,gems - 10);
+activeStudent.gems =
+Math.max(0,activeStudent.gems - 10);
+
+saveCurrentStudent();
 
 updateScores();
 
@@ -739,32 +1120,31 @@ document.getElementById('voice-warning')
 
 document.getElementById('voice-warning')
 .innerHTML = `
-🚫 AI phát hiện giọng máy.
+🚫 AI phát hiện giọng máy
 <br><br>
 ❌ Trừ 10 ngọc
 `;
 
-showToast(
-'⚠️ Phát hiện giọng máy'
-);
+showToast('⚠️ Phát hiện TTS');
 
 return;
+
 }
 
 if(accuracy >= 55){
 
-points += 25;
+activeStudent.points += 25;
 
-gems += 5;
+activeStudent.gems += 5;
+
+saveCurrentStudent();
 
 updateScores();
 
-showToast(
-'🏆 Chính xác +5 ngọc'
-);
+showToast('🏆 Chính xác +5 💎');
 
 alert(
-`🎉 Đọc thành công!
+`🎉 Thành công
 \nĐộ chính xác: ${accuracy}%
 \n+25 điểm
 \n+5 ngọc`
@@ -781,23 +1161,39 @@ alert(
 
 }
 
-/* =====================================================
-UPDATE SCORE
-===================================================== */
+/* =========================================================
+SAVE CURRENT STUDENT
+========================================================= */
 
-function updateScores(){
+function saveCurrentStudent(){
 
-document.getElementById('points-count')
-.innerText = points;
+let accounts = getAccounts();
 
-document.getElementById('gems-count')
-.innerText = gems + ' 💎';
+accounts =
+accounts.map(acc=>{
+
+if(acc.id === activeStudent.id){
+
+return activeStudent;
 
 }
 
-/* =====================================================
+return acc;
+
+});
+
+saveAccounts(accounts);
+
+localStorage.setItem(
+'eco_active_student',
+JSON.stringify(activeStudent)
+);
+
+}
+
+/* =========================================================
 CHAT
-===================================================== */
+========================================================= */
 
 function sendChat(){
 
@@ -815,7 +1211,7 @@ input.value = '';
 setTimeout(()=>{
 
 addChat(
-'Great job! Keep practicing English every day 🌟',
+'Excellent! Keep practicing every day 🌟',
 'ai'
 );
 
@@ -831,17 +1227,12 @@ document.getElementById('chat-box');
 const div =
 document.createElement('div');
 
-if(type === 'user'){
-
 div.className =
-'bg-indigo-600 text-white rounded-2xl p-4 ml-10';
-
-}else{
-
-div.className =
+type === 'user'
+?
+'bg-indigo-600 text-white rounded-2xl p-4 ml-10'
+:
 'bg-slate-100 rounded-2xl p-4 mr-10';
-
-}
 
 div.innerHTML = text;
 
@@ -851,11 +1242,11 @@ box.scrollTop = box.scrollHeight;
 
 }
 
-/* =====================================================
+/* =========================================================
 VOICE CHAT
-===================================================== */
+========================================================= */
 
-function startChatVoice(){
+function voiceChat(){
 
 const SpeechRecognition =
 window.SpeechRecognition ||
@@ -863,7 +1254,8 @@ window.webkitSpeechRecognition;
 
 if(!SpeechRecognition){
 
-alert('Không hỗ trợ voice');
+alert('Không hỗ trợ');
+
 return;
 }
 
@@ -886,7 +1278,7 @@ addChat(text,'user');
 setTimeout(()=>{
 
 addChat(
-'Excellent pronunciation 👏',
+'Great pronunciation 👏',
 'ai'
 );
 
@@ -896,9 +1288,9 @@ addChat(
 
 }
 
-/* =====================================================
+/* =========================================================
 TOAST
-===================================================== */
+========================================================= */
 
 function showToast(text){
 
@@ -913,10 +1305,35 @@ toast.innerHTML = text;
 document.body.appendChild(toast);
 
 setTimeout(()=>{
+
 toast.remove();
+
 },2500);
 
 }
+
+/* =========================================================
+AUTO LOGIN
+========================================================= */
+
+window.addEventListener('load',()=>{
+
+renderAccounts();
+
+const saved =
+JSON.parse(
+localStorage.getItem('eco_active_student')
+);
+
+if(saved){
+
+activeStudent = saved;
+
+enterApp();
+
+}
+
+});
 
 </script>
 
