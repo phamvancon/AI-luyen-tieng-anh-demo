@@ -1,65 +1,41 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>English Daily ECO AI</title>
+<title>SMART START AI LEARNING</title>
 
+<!-- TAILWIND -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- ICON -->
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
-rel="stylesheet">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
 body{
-    font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,#f0f7ff,#ffffff,#e0effe);
+    background:#f1f5f9;
+    font-family:Arial;
 }
 
-.custom-scrollbar::-webkit-scrollbar{
-    width:5px;
+.glass{
+    background:rgba(255,255,255,0.7);
+    backdrop-filter:blur(15px);
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb{
-    background:#cbd5e1;
-    border-radius:999px;
+.card-hover{
+    transition:0.3s;
 }
 
-@keyframes pulse-wave{
-    0%,100%{
-        transform:scale(1);
-        opacity:.6;
-    }
-    50%{
-        transform:scale(1.15);
-        opacity:1;
-    }
+.card-hover:hover{
+    transform:translateY(-5px);
 }
 
-.pulse-wave{
-    animation:pulse-wave 1.5s infinite;
-}
-
-@keyframes bubble-float{
-    0%{
-        transform:translateY(100%);
-        opacity:0;
-    }
-    100%{
-        transform:translateY(-120%);
-        opacity:1;
-    }
-}
-
-.bubble-item{
-    animation:bubble-float 6s linear infinite;
+.scroll-hidden::-webkit-scrollbar{
+    display:none;
 }
 
 </style>
@@ -68,622 +44,582 @@ body{
 
 <body class="min-h-screen">
 
-<div class="max-w-6xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden">
+<!-- ===================================================== -->
+<!-- FIREBASE -->
+<!-- GIỮ NGUYÊN LOGIN -->
+<!-- ===================================================== -->
 
-<!-- HEADER -->
+<script type="module">
 
-<div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-5">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    <div class="flex justify-between items-center">
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        <div>
 
-            <h1 class="text-2xl font-black">
-                English Daily ECO
-            </h1>
+// =====================================================
+// GIỮ NGUYÊN FIREBASE CONFIG CŨ
+// =====================================================
 
-            <p class="text-xs opacity-80">
-                AI Learning Platform
-            </p>
+const firebaseConfig = {
 
-        </div>
+    apiKey: "YOUR_API_KEY",
 
-        <div class="bg-white/20 px-4 py-2 rounded-2xl">
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
 
-            <div class="text-[10px]">
-                💎 Điểm
-            </div>
+    projectId: "YOUR_PROJECT",
 
-            <div id="point-box"
-            class="font-black text-xl">
-                0
-            </div>
+    storageBucket: "YOUR_PROJECT.appspot.com",
 
-        </div>
+    messagingSenderId: "XXXX",
+
+    appId: "XXXX"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+// =====================================================
+// LOGIN
+// =====================================================
+
+window.login = async function(){
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        alert("Đăng nhập thành công");
+
+    }catch(err){
+
+        alert(err.message);
+
+    }
+
+}
+
+
+// =====================================================
+// REGISTER
+// =====================================================
+
+window.register = async function(){
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    try{
+
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        alert("Đăng ký thành công");
+
+    }catch(err){
+
+        alert(err.message);
+
+    }
+
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+window.logout = async function(){
+
+    await signOut(auth);
+
+}
+
+
+// =====================================================
+// AUTO LOGIN
+// =====================================================
+
+onAuthStateChanged(auth,(user)=>{
+
+    if(user){
+
+        document.getElementById("authBox")
+        .classList.add("hidden");
+
+        document.getElementById("mainApp")
+        .classList.remove("hidden");
+
+        document.getElementById("userInfo")
+        .innerHTML =
+        `
+        👋 ${user.email}
+        `;
+
+    }else{
+
+        document.getElementById("authBox")
+        .classList.remove("hidden");
+
+        document.getElementById("mainApp")
+        .classList.add("hidden");
+
+    }
+
+});
+
+</script>
+
+<!-- ===================================================== -->
+<!-- LOGIN -->
+<!-- ===================================================== -->
+
+<div id="authBox"
+class="min-h-screen flex items-center justify-center p-6">
+
+    <div class="glass rounded-3xl shadow-2xl p-8 w-full max-w-md">
+
+        <h1 class="text-4xl font-black text-center mb-6">
+
+            🎓 SMART START AI
+
+        </h1>
+
+        <input
+        id="email"
+        type="email"
+        placeholder="Email"
+        class="w-full p-4 rounded-2xl border mb-4">
+
+        <input
+        id="password"
+        type="password"
+        placeholder="Password"
+        class="w-full p-4 rounded-2xl border mb-6">
+
+        <button
+        onclick="login()"
+        class="w-full bg-indigo-600 text-white p-4 rounded-2xl font-bold mb-3">
+
+            Đăng nhập
+
+        </button>
+
+        <button
+        onclick="register()"
+        class="w-full bg-emerald-500 text-white p-4 rounded-2xl font-bold">
+
+            Đăng ký
+
+        </button>
 
     </div>
 
 </div>
 
+
+<!-- ===================================================== -->
+<!-- MAIN APP -->
+<!-- ===================================================== -->
+
+<div id="mainApp" class="hidden">
+
+<!-- ===================================================== -->
+<!-- HEADER -->
+<!-- ===================================================== -->
+
+<header
+class="bg-white shadow-lg sticky top-0 z-50">
+
+    <div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
+
+        <div>
+
+            <h1 class="text-3xl font-black text-indigo-700">
+
+                📚 SMART START AI
+
+            </h1>
+
+            <p class="text-slate-500">
+                AI English Learning System
+            </p>
+
+        </div>
+
+        <div class="flex items-center gap-4">
+
+            <div id="userInfo"
+            class="font-bold text-slate-600"></div>
+
+            <button
+            onclick="logout()"
+            class="bg-red-500 text-white px-5 py-3 rounded-2xl font-bold">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ===================================================== -->
 <!-- MAIN -->
+<!-- ===================================================== -->
 
-<div class="grid md:grid-cols-3 gap-4 p-4">
+<main class="max-w-7xl mx-auto p-5">
 
-<!-- LEFT -->
+<!-- ===================================================== -->
+<!-- MENU -->
+<!-- ===================================================== -->
 
-<div class="space-y-4">
+<div class="grid md:grid-cols-4 gap-5 mb-8">
 
-<!-- SMART START -->
+    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
 
-<div class="bg-white border rounded-2xl p-4 shadow-sm">
+        <div class="text-5xl mb-3">🎤</div>
 
-<h3 class="font-black text-sm mb-3">
-📚 Smart Start
-</h3>
+        <h3 class="font-black text-xl mb-2">
+            AI Speaking
+        </h3>
 
-<select id="smart-class-selector"
-class="w-full border rounded-xl p-2 text-sm mb-2">
+        <p class="text-slate-500">
+            Luyện giao tiếp AI
+        </p>
 
-<option value="1">Lớp 1</option>
-<option value="2">Lớp 2</option>
-<option value="3">Lớp 3</option>
-<option value="4">Lớp 4</option>
-<option value="5">Lớp 5</option>
+    </div>
 
-</select>
+    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
 
-<select id="smart-theme-selector"
-class="w-full border rounded-xl p-2 text-sm">
+        <div class="text-5xl mb-3">📖</div>
 
-<option>Family</option>
-<option>Animals</option>
-<option>School</option>
-<option>Food</option>
+        <h3 class="font-black text-xl mb-2">
+            Reading
+        </h3>
 
-</select>
+        <p class="text-slate-500">
+            Luyện đọc chuẩn
+        </p>
 
-</div>
+    </div>
 
-<!-- VOCAB -->
+    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
 
-<div class="bg-white border rounded-2xl p-4 shadow-sm">
+        <div class="text-5xl mb-3">🎮</div>
 
-<h3 class="font-black text-sm mb-3">
-⭐ Vocabulary
-</h3>
+        <h3 class="font-black text-xl mb-2">
+            Mini Game
+        </h3>
 
-<div class="space-y-2">
+        <p class="text-slate-500">
+            Học qua trò chơi
+        </p>
 
-<button onclick="speakTextUS('apple')"
-class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
+    </div>
 
-<span>🍎 apple</span>
+    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
 
-<i class="fa-solid fa-volume-high"></i>
+        <div class="text-5xl mb-3">⭐</div>
 
-</button>
+        <h3 class="font-black text-xl mb-2">
+            Sao vàng
+        </h3>
 
-<button onclick="speakTextUS('banana')"
-class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
+        <p class="text-slate-500">
+            Theo dõi tiến độ
+        </p>
 
-<span>🍌 banana</span>
-
-<i class="fa-solid fa-volume-high"></i>
-
-</button>
-
-<button onclick="speakTextUS('teacher')"
-class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
-
-<span>👩‍🏫 teacher</span>
-
-<i class="fa-solid fa-volume-high"></i>
-
-</button>
+    </div>
 
 </div>
 
-</div>
+
+<!-- ===================================================== -->
+<!-- SMART START CURRICULUM -->
+<!-- ===================================================== -->
+
+<section
+class="bg-white rounded-3xl p-6 shadow-xl mb-10">
+
+<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+
+    <div>
+
+        <h2 class="text-3xl font-black text-slate-800">
+
+            📚 Smart Start Curriculum
+
+        </h2>
+
+        <p class="text-slate-500">
+
+            Giáo trình lớp 1 → lớp 5
+
+        </p>
+
+    </div>
+
+    <select
+    id="gradeSelector"
+    onchange="loadGrade(this.value)"
+    class="border rounded-2xl p-4 font-bold">
+
+        <option value="grade1">Lớp 1</option>
+        <option value="grade2">Lớp 2</option>
+        <option value="grade3">Lớp 3</option>
+        <option value="grade4">Lớp 4</option>
+        <option value="grade5">Lớp 5</option>
+
+    </select>
 
 </div>
 
-<!-- CENTER -->
-
-<div class="space-y-4">
-
-<!-- AI CHAT -->
-
-<div class="bg-white border rounded-2xl shadow-sm flex flex-col h-[650px]">
-
-<div class="p-4 border-b">
-
-<h3 class="font-black text-sm">
-🤖 AI Conversation
-</h3>
+<div
+id="lessonContainer"
+class="grid lg:grid-cols-2 gap-5">
 
 </div>
 
-<div id="chat-box"
-class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+</section>
 
-<div class="bg-slate-100 p-3 rounded-2xl max-w-[85%]">
-Hello student 👋
-</div>
+</main>
 
 </div>
 
-<div class="p-3 border-t">
 
-<div id="voice-wave-indicator"
-class="hidden justify-center mb-2">
-
-<div class="w-2 h-8 bg-red-500 rounded-full pulse-wave"></div>
-
-</div>
-
-<div class="flex gap-2">
-
-<input id="chat-input"
-class="flex-1 border rounded-2xl px-4 py-3"
-placeholder="Nhập hoặc nói tiếng Anh...">
-
-<button onclick="sendChat()"
-class="w-12 h-12 rounded-2xl bg-blue-600 text-white">
-
-<i class="fa-solid fa-paper-plane"></i>
-
-</button>
-
-<button onclick="toggleVoice()"
-class="w-12 h-12 rounded-2xl bg-emerald-600 text-white">
-
-<i class="fa-solid fa-microphone"></i>
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="space-y-4">
-
-<!-- GAME -->
-
-<div class="bg-white border rounded-2xl p-4 shadow-sm">
-
-<div class="flex gap-2 mb-3">
-
-<button onclick="switchGame('bubble')"
-class="flex-1 bg-emerald-500 text-white rounded-xl py-2 text-xs font-black">
-
-Bubble
-
-</button>
-
-<button onclick="switchGame('memory')"
-class="flex-1 bg-violet-500 text-white rounded-xl py-2 text-xs font-black">
-
-Memory
-
-</button>
-
-<button onclick="switchGame('typing')"
-class="flex-1 bg-orange-500 text-white rounded-xl py-2 text-xs font-black">
-
-Typing
-
-</button>
-
-</div>
-
-<!-- BUBBLE -->
-
-<div id="bubble-game"
-class="bg-slate-900 rounded-2xl h-80 relative overflow-hidden">
-
-<button class="bubble-item absolute bottom-0 left-10 bg-pink-500 text-white rounded-full w-16 h-16">
-apple
-</button>
-
-</div>
-
-<!-- MEMORY -->
-
-<div id="memory-game"
-class="hidden grid grid-cols-4 gap-2">
-
-</div>
-
-<!-- TYPING -->
-
-<div id="typing-game"
-class="hidden text-center">
-
-<div id="typing-word"
-class="text-3xl font-black text-orange-500 mb-4">
-
-apple
-
-</div>
-
-<input id="typing-input"
-class="w-full border rounded-xl p-3 text-center"
-placeholder="Nhập từ">
-
-<button onclick="checkTyping()"
-class="mt-3 bg-orange-500 text-white rounded-xl px-5 py-3 font-black">
-
-KIỂM TRA
-
-</button>
-
-</div>
-
-</div>
-
-<!-- SHOP -->
-
-<div class="bg-white border rounded-2xl p-4 shadow-sm">
-
-<h3 class="font-black text-sm mb-3">
-🛍️ Pet Shop
-</h3>
-
-<div class="grid grid-cols-2 gap-3">
-
-<div class="bg-pink-50 rounded-2xl p-3 text-center">
-
-<div class="text-5xl">
-👾
-</div>
-
-<div class="font-black text-xs mt-2">
-Labubu
-</div>
-
-<button onclick="buyPet('Labubu',100)"
-class="mt-2 bg-pink-500 text-white rounded-xl px-3 py-2 text-xs">
-
-100 💎
-
-</button>
-
-</div>
-
-<div class="bg-yellow-50 rounded-2xl p-3 text-center">
-
-<div class="text-5xl">
-🐹
-</div>
-
-<div class="font-black text-xs mt-2">
-Capybara
-</div>
-
-<button onclick="buyPet('Capybara',120)"
-class="mt-2 bg-yellow-500 text-white rounded-xl px-3 py-2 text-xs">
-
-120 💎
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+<!-- ===================================================== -->
+<!-- SMART START DATABASE -->
+<!-- ===================================================== -->
 
 <script>
 
-let studentPoints = 0;
+const smartStartCurriculum = {
 
-let currentTypingWord = "apple";
+    grade1:{
+        units:[
+            {
+                unit:"Unit 1",
+                theme:"Hello",
+                image:"👋",
+                vocabulary:["hello","teacher","friend"],
+                reading:"Hello. My name is Tom."
+            },
+            {
+                unit:"Unit 2",
+                theme:"School",
+                image:"🎒",
+                vocabulary:["book","pen","bag"],
+                reading:"This is my school bag."
+            }
+        ]
+    },
 
-const typingWords = [
-"apple",
-"banana",
-"teacher",
-"computer",
-"beautiful"
-];
+    grade2:{
+        units:[
+            {
+                unit:"Unit 1",
+                theme:"Animals",
+                image:"🐶",
+                vocabulary:["dog","cat","bird"],
+                reading:"The dog is cute."
+            }
+        ]
+    },
 
-function updatePointBox(){
+    grade3:{
+        units:[
+            {
+                unit:"Unit 1",
+                theme:"House",
+                image:"🏠",
+                vocabulary:["bedroom","kitchen"],
+                reading:"My house is big."
+            }
+        ]
+    },
 
-    document.getElementById("point-box")
-    .innerText = studentPoints;
+    grade4:{
+        units:[
+            {
+                unit:"Unit 1",
+                theme:"Jobs",
+                image:"👩‍⚕️",
+                vocabulary:["doctor","teacher"],
+                reading:"My father is a doctor."
+            }
+        ]
+    },
 
-}
-
-function speakTextUS(text){
-
-    const utter =
-    new SpeechSynthesisUtterance(text);
-
-    utter.lang = "en-US";
-
-    speechSynthesis.speak(utter);
-
-}
-
-function sendChat(){
-
-    const input =
-    document.getElementById("chat-input");
-
-    const text = input.value.trim();
-
-    if(text === "") return;
-
-    addMessage(text,"user");
-
-    input.value = "";
-
-    setTimeout(()=>{
-
-        addMessage(
-        "Great job! Keep speaking English 😊",
-        "ai"
-        );
-
-        speakTextUS(
-        "Great job! Keep speaking English"
-        );
-
-    },800);
-
-}
-
-function addMessage(text,type){
-
-    const box =
-    document.getElementById("chat-box");
-
-    const div =
-    document.createElement("div");
-
-    div.className =
-    type === "user"
-    ?
-    "bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%]"
-    :
-    "bg-slate-100 p-3 rounded-2xl max-w-[85%]";
-
-    div.innerText = text;
-
-    box.appendChild(div);
-
-    box.scrollTop = box.scrollHeight;
-
-}
-
-function toggleVoice(){
-
-    const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-    if(!SpeechRecognition){
-
-        alert("Không hỗ trợ micro");
-
-        return;
+    grade5:{
+        units:[
+            {
+                unit:"Unit 1",
+                theme:"Technology",
+                image:"💻",
+                vocabulary:["computer","robot"],
+                reading:"Technology helps students."
+            }
+        ]
     }
 
-    const recog =
-    new SpeechRecognition();
+};
 
-    recog.lang = "en-US";
 
-    recog.start();
+// =====================================================
+// LOAD LESSON
+// =====================================================
 
-    document
-    .getElementById("voice-wave-indicator")
-    .classList.remove("hidden");
+function loadGrade(grade){
 
-    recog.onresult = (e)=>{
+    const container =
+    document.getElementById("lessonContainer");
 
-        const text =
-        e.results[0][0].transcript;
+    container.innerHTML = "";
 
-        document
-        .getElementById("chat-input")
-        .value = text;
-
-    };
-
-    recog.onend = ()=>{
-
-        document
-        .getElementById("voice-wave-indicator")
-        .classList.add("hidden");
-
-    };
-
-}
-
-function switchGame(mode){
-
-    document.getElementById("bubble-game")
-    .classList.add("hidden");
-
-    document.getElementById("memory-game")
-    .classList.add("hidden");
-
-    document.getElementById("typing-game")
-    .classList.add("hidden");
-
-    if(mode === "bubble"){
-
-        document
-        .getElementById("bubble-game")
-        .classList.remove("hidden");
-
-    }
-
-    if(mode === "memory"){
-
-        document
-        .getElementById("memory-game")
-        .classList.remove("hidden");
-
-        startMemory();
-
-    }
-
-    if(mode === "typing"){
-
-        document
-        .getElementById("typing-game")
-        .classList.remove("hidden");
-
-        startTyping();
-
-    }
-
-}
-
-function startTyping(){
-
-    currentTypingWord =
-    typingWords[
-        Math.floor(
-            Math.random()*typingWords.length
-        )
-    ];
-
-    document
-    .getElementById("typing-word")
-    .innerText =
-    currentTypingWord;
-
-}
-
-function checkTyping(){
-
-    const val =
-    document.getElementById("typing-input")
-    .value
-    .trim()
-    .toLowerCase();
-
-    if(val === currentTypingWord){
-
-        studentPoints += 10;
-
-        updatePointBox();
-
-        alert("Chính xác +10 💎");
-
-        startTyping();
-
-    }else{
-
-        alert("Sai rồi");
-
-    }
-
-}
-
-function buyPet(name,price){
-
-    if(studentPoints < price){
-
-        alert("Không đủ điểm");
-
-        return;
-
-    }
-
-    studentPoints -= price;
-
-    updatePointBox();
-
-    alert("Đã mua " + name);
-
-}
-
-function startMemory(){
-
-    const icons = [
-    "🐶","🐱","🐰","🐹",
-    "🐶","🐱","🐰","🐹"
-    ];
-
-    icons.sort(()=>Math.random()-0.5);
-
-    const grid =
-    document.getElementById("memory-game");
-
-    grid.innerHTML = "";
-
-    let first = null;
-
-    icons.forEach(icon=>{
+    smartStartCurriculum[grade]
+    .units
+    .forEach(unit=>{
 
         const card =
-        document.createElement("button");
+        document.createElement("div");
 
         card.className =
-        "aspect-square rounded-xl bg-slate-100 text-2xl";
+        "bg-slate-50 rounded-3xl p-5 border";
 
-        card.innerText = "❓";
+        card.innerHTML = `
 
-        card.onclick = ()=>{
+        <div class="flex items-center gap-4 mb-4">
 
-            card.innerText = icon;
+            <div class="text-6xl">
+                ${unit.image}
+            </div>
 
-            if(!first){
+            <div>
 
-                first = {
-                    icon,
-                    card
-                };
+                <h3 class="font-black text-2xl">
+                    ${unit.unit}
+                </h3>
 
-            }else{
+                <p class="text-slate-500">
+                    ${unit.theme}
+                </p>
 
-                if(first.icon === icon){
+            </div>
 
-                    studentPoints += 5;
+        </div>
 
-                    updatePointBox();
+        <div class="mb-4">
 
-                }else{
+            <h4 class="font-black mb-2">
 
-                    setTimeout(()=>{
+                ⭐ Vocabulary
 
-                        first.card.innerText = "❓";
+            </h4>
 
-                        card.innerText = "❓";
+            <div class="flex flex-wrap gap-2">
 
-                    },500);
+                ${unit.vocabulary.map(word=>`
 
-                }
+                    <button
+                    onclick="speak('${word}')"
+                    class="bg-indigo-100 px-3 py-2 rounded-xl font-bold">
 
-                first = null;
+                        ${word}
 
-            }
+                    </button>
 
-        };
+                `).join("")}
 
-        grid.appendChild(card);
+            </div>
+
+        </div>
+
+        <div>
+
+            <h4 class="font-black mb-2">
+
+                📖 Reading
+
+            </h4>
+
+            <div
+            onclick="speak('${unit.reading}')"
+            class="bg-white p-4 rounded-2xl cursor-pointer">
+
+                ${unit.reading}
+
+            </div>
+
+        </div>
+
+        `;
+
+        container.appendChild(card);
 
     });
 
 }
 
-updatePointBox();
+
+// =====================================================
+// SPEAK
+// =====================================================
+
+function speak(text){
+
+    const speech =
+    new SpeechSynthesisUtterance(text);
+
+    speech.lang = "en-US";
+
+    speech.rate = 0.9;
+
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+
+}
+
+
+// =====================================================
+// AUTO LOAD
+// =====================================================
+
+window.onload = ()=>{
+
+    loadGrade("grade1");
+
+}
 
 </script>
 
