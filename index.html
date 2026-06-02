@@ -1,233 +1,691 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Daily - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 50: '#f0f7ff', 100: '#e0effe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' },
-                        streak: '#ef4444'
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 50%, #e0effe 100%); user-select: none; }
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
-        @keyframes pulse-wave { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 1; } }
-        .pulse-wave { animation: pulse-wave 1.5s infinite ease-in-out; }
-        @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .game-mode-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:14px; border-radius:18px; font-size:11px; font-weight:900; background:white; border:1px solid #e2e8f0; color:#475569; transition:0.25s; }
-        .game-mode-btn:hover { transform:translateY(-2px); background:#f8fafc; }
-        .game-mode-btn.active { border-color: #10b981; background: #ecfdf5; color: #065f46; }
-        .pronunciation-card { background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:28px; padding:24px; color:white; position:relative; overflow:hidden; }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>English Daily ECO AI</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(135deg,#f0f7ff,#ffffff,#e0effe);
+}
+
+.custom-scrollbar::-webkit-scrollbar{
+    width:5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:999px;
+}
+
+@keyframes pulse-wave{
+    0%,100%{
+        transform:scale(1);
+        opacity:.6;
+    }
+    50%{
+        transform:scale(1.15);
+        opacity:1;
+    }
+}
+
+.pulse-wave{
+    animation:pulse-wave 1.5s infinite;
+}
+
+@keyframes bubble-float{
+    0%{
+        transform:translateY(100%);
+        opacity:0;
+    }
+    100%{
+        transform:translateY(-120%);
+        opacity:1;
+    }
+}
+
+.bubble-item{
+    animation:bubble-float 6s linear infinite;
+}
+
+</style>
+
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center p-0 md:p-4">
-    <div class="w-full max-w-md md:max-w-5xl mx-auto bg-white min-h-screen md:min-h-[90vh] flex flex-col shadow-2xl relative pb-20 md:rounded-3xl md:border md:border-slate-100 overflow-hidden">
-        <div id="view-auth" class="flex-1 flex flex-col p-6 justify-between bg-gradient-to-b from-brand-50 to-white">
-            <div class="text-center mt-6">
-                <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
-                    <i class="fa-solid fa-book-open-reader text-3xl"></i>
-                </div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily ECO</h1>
-                <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
-            </div>
-            <div class="my-6 bg-slate-100 rounded-2xl p-1.5 flex shadow-inner max-w-sm mx-auto w-full">
-                <button class="flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition bg-white text-brand-600 shadow-sm">Đăng Nhập</button>
-                <button class="flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition text-slate-500">Đăng Ký</button>
-            </div>
-            <div id="form-auth-login" class="space-y-4 max-w-sm mx-auto w-full">
-                <div class="bg-white border border-slate-200/60 rounded-2xl p-4 shadow-sm">
-                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Mã Học Sinh ECO</label>
-                    <input type="text" id="input-auth-student-code" placeholder="ECO892" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none">
-                </div>
-                <button onclick="handleStudentLogin()" class="w-full bg-brand-600 text-white font-extrabold py-4 rounded-2xl shadow-lg transition active:scale-95">Vào Học Ngay</button>
-            </div>
+
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden">
+
+<!-- HEADER -->
+
+<div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-5">
+
+    <div class="flex justify-between items-center">
+
+        <div>
+
+            <h1 class="text-2xl font-black">
+                English Daily ECO
+            </h1>
+
+            <p class="text-xs opacity-80">
+                AI Learning Platform
+            </p>
+
         </div>
 
-        <div id="view-main-app" class="flex-1 flex flex-col hidden">
-            <header class="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-4 py-4 rounded-b-3xl shadow-lg sticky top-0 z-40">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border-2 border-white/30"><i class="fa-solid fa-user-graduate"></i></div>
-                        <div>
-                            <h2 class="font-bold text-sm">Học Sinh ECO</h2>
-                            <div class="text-[10px] opacity-80">Cấp 1 (Tiểu Học)</div>
-                        </div>
-                    </div>
-                    <div class="flex space-x-2">
-                        <div class="bg-amber-500 px-2.5 py-1 rounded-full text-xs font-extrabold"><i class="fa-solid fa-gem"></i> <span id="display-points-count">0</span></div>
-                        <button onclick="location.reload()" class="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center"><i class="fa-solid fa-rotate text-xs"></i></button>
-                    </div>
-                </div>
-            </header>
+        <div class="bg-white/20 px-4 py-2 rounded-2xl">
 
-            <main class="flex-1 p-4 overflow-y-auto custom-scrollbar">
-                <div class="grid grid-cols-3 bg-slate-100 rounded-xl p-1 mb-6 shadow-inner">
-                    <button onclick="switchTab('reading')" id="tab-btn-reading" class="py-2 text-[11px] font-extrabold rounded-lg transition-all text-slate-500">Luyện Đọc</button>
-                    <button onclick="switchTab('chat')" id="tab-btn-chat" class="py-2 text-[11px] font-extrabold rounded-lg transition-all text-slate-500">Đàm Thoại</button>
-                    <button onclick="switchTab('game')" id="tab-btn-game" class="py-2 text-[11px] font-extrabold rounded-lg transition-all bg-white text-brand-600 shadow-sm">Vui Chơi</button>
-                </div>
+            <div class="text-[10px]">
+                💎 Điểm
+            </div>
 
-                <section id="section-game" class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-12 space-y-4">
-                        <div class="bg-white border border-slate-100 rounded-3xl p-3 shadow-sm grid grid-cols-2 md:grid-cols-4 gap-2">
-                            <button onclick="switchActiveGame('bubble')" id="game-select-bubble" class="game-mode-btn"><i class="fa-solid fa-circle-dot text-lg mb-1 text-emerald-500"></i><span>Bóng Bay</span></button>
-                            <button onclick="switchActiveGame('scramble')" id="game-select-scramble" class="game-mode-btn"><i class="fa-solid fa-align-left text-lg mb-1"></i><span>Ghép Câu</span></button>
-                            <button onclick="switchActiveGame('pronunciation')" id="game-select-pronunciation" class="game-mode-btn"><i class="fa-solid fa-microphone-lines text-lg mb-1"></i><span>Phát Âm AI</span></button>
-                            <button onclick="switchActiveGame('memory')" id="game-select-memory" class="game-mode-btn"><i class="fa-solid fa-brain text-lg mb-1"></i><span>Trí Nhớ</span></button>
-                        </div>
+            <div id="point-box"
+            class="font-black text-xl">
+                0
+            </div>
 
-                        <div id="game-play-area-bubble" class="hidden w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden"></div>
-                        <div id="game-play-area-scramble" class="hidden w-full h-80 bg-slate-100 rounded-2xl flex items-center justify-center">Trò chơi đang được cập nhật...</div>
-                        
-                        <div id="game-play-area-pronunciation" class="hidden pronunciation-card animate-slide-up">
-                             <div class="flex items-center justify-between mb-6">
-                                <div>
-                                    <h2 class="text-2xl font-black">🎙️ AI Pronunciation</h2>
-                                    <p class="text-slate-300 text-sm mt-1">Luyện nói theo Unit thông minh</p>
-                                </div>
-                                <button onclick="speakTextUS()" class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40 transition"><i class="fa-solid fa-volume-high"></i></button>
-                            </div>
-                            <div class="bg-white/10 rounded-3xl p-8 text-center">
-                                <div id="ai-speaking-word" class="text-5xl font-black mt-2 tracking-wide">Apple</div>
-                                <div id="ai-speaking-vietnamese" class="mt-4 bg-emerald-500/20 px-6 py-2 rounded-full inline-block font-bold text-emerald-400 text-sm">Quả táo</div>
-                                <div id="ai-pronunciation-result" class="mt-6 hidden animate-bounce text-emerald-400 font-black text-xl"><i class="fa-solid fa-circle-check mr-2"></i> Excellent! +10 Points</div>
-                            </div>
-                            <div class="mt-8 flex justify-center">
-                                <button onclick="startAISpeakingPractice()" class="w-20 h-20 bg-brand-600 rounded-full border-4 border-white/20 flex items-center justify-center pulse-wave">
-                                    <i class="fa-solid fa-microphone text-2xl"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="game-play-area-memory" class="hidden bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-3xl min-h-[400px]">
-                             <h3 class="text-white font-black mb-4 flex items-center gap-2"><i class="fa-solid fa-brain"></i> Flashcard Memory</h3>
-                             <div id="memory-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-                        </div>
-                    </div>
-                </section>
-            </main>
         </div>
+
     </div>
 
-    <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 opacity-0 transition-all pointer-events-none">
-        <span id="toast-message"></span>
-    </div>
+</div>
 
-    <script>
-        let activeStudentData = { points: 0 };
-        let currentActiveGameMode = 'bubble';
-        let currentActiveTask = {
-            vocab: [
-                { word: 'Apple', vi: 'Quả táo' },
-                { word: 'Banana', vi: 'Quả chuối' },
-                { word: 'Orange', vi: 'Quả cam' },
-                { word: 'Grapes', vi: 'Quả nho' },
-                { word: 'Watermelon', vi: 'Dưa hấu' },
-                { word: 'Pineapple', vi: 'Quả dứa' }
-            ]
+<!-- MAIN -->
+
+<div class="grid md:grid-cols-3 gap-4 p-4">
+
+<!-- LEFT -->
+
+<div class="space-y-4">
+
+<!-- SMART START -->
+
+<div class="bg-white border rounded-2xl p-4 shadow-sm">
+
+<h3 class="font-black text-sm mb-3">
+📚 Smart Start
+</h3>
+
+<select id="smart-class-selector"
+class="w-full border rounded-xl p-2 text-sm mb-2">
+
+<option value="1">Lớp 1</option>
+<option value="2">Lớp 2</option>
+<option value="3">Lớp 3</option>
+<option value="4">Lớp 4</option>
+<option value="5">Lớp 5</option>
+
+</select>
+
+<select id="smart-theme-selector"
+class="w-full border rounded-xl p-2 text-sm">
+
+<option>Family</option>
+<option>Animals</option>
+<option>School</option>
+<option>Food</option>
+
+</select>
+
+</div>
+
+<!-- VOCAB -->
+
+<div class="bg-white border rounded-2xl p-4 shadow-sm">
+
+<h3 class="font-black text-sm mb-3">
+⭐ Vocabulary
+</h3>
+
+<div class="space-y-2">
+
+<button onclick="speakTextUS('apple')"
+class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
+
+<span>🍎 apple</span>
+
+<i class="fa-solid fa-volume-high"></i>
+
+</button>
+
+<button onclick="speakTextUS('banana')"
+class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
+
+<span>🍌 banana</span>
+
+<i class="fa-solid fa-volume-high"></i>
+
+</button>
+
+<button onclick="speakTextUS('teacher')"
+class="w-full bg-slate-50 border rounded-xl p-3 flex justify-between items-center">
+
+<span>👩‍🏫 teacher</span>
+
+<i class="fa-solid fa-volume-high"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="space-y-4">
+
+<!-- AI CHAT -->
+
+<div class="bg-white border rounded-2xl shadow-sm flex flex-col h-[650px]">
+
+<div class="p-4 border-b">
+
+<h3 class="font-black text-sm">
+🤖 AI Conversation
+</h3>
+
+</div>
+
+<div id="chat-box"
+class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+
+<div class="bg-slate-100 p-3 rounded-2xl max-w-[85%]">
+Hello student 👋
+</div>
+
+</div>
+
+<div class="p-3 border-t">
+
+<div id="voice-wave-indicator"
+class="hidden justify-center mb-2">
+
+<div class="w-2 h-8 bg-red-500 rounded-full pulse-wave"></div>
+
+</div>
+
+<div class="flex gap-2">
+
+<input id="chat-input"
+class="flex-1 border rounded-2xl px-4 py-3"
+placeholder="Nhập hoặc nói tiếng Anh...">
+
+<button onclick="sendChat()"
+class="w-12 h-12 rounded-2xl bg-blue-600 text-white">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+<button onclick="toggleVoice()"
+class="w-12 h-12 rounded-2xl bg-emerald-600 text-white">
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="space-y-4">
+
+<!-- GAME -->
+
+<div class="bg-white border rounded-2xl p-4 shadow-sm">
+
+<div class="flex gap-2 mb-3">
+
+<button onclick="switchGame('bubble')"
+class="flex-1 bg-emerald-500 text-white rounded-xl py-2 text-xs font-black">
+
+Bubble
+
+</button>
+
+<button onclick="switchGame('memory')"
+class="flex-1 bg-violet-500 text-white rounded-xl py-2 text-xs font-black">
+
+Memory
+
+</button>
+
+<button onclick="switchGame('typing')"
+class="flex-1 bg-orange-500 text-white rounded-xl py-2 text-xs font-black">
+
+Typing
+
+</button>
+
+</div>
+
+<!-- BUBBLE -->
+
+<div id="bubble-game"
+class="bg-slate-900 rounded-2xl h-80 relative overflow-hidden">
+
+<button class="bubble-item absolute bottom-0 left-10 bg-pink-500 text-white rounded-full w-16 h-16">
+apple
+</button>
+
+</div>
+
+<!-- MEMORY -->
+
+<div id="memory-game"
+class="hidden grid grid-cols-4 gap-2">
+
+</div>
+
+<!-- TYPING -->
+
+<div id="typing-game"
+class="hidden text-center">
+
+<div id="typing-word"
+class="text-3xl font-black text-orange-500 mb-4">
+
+apple
+
+</div>
+
+<input id="typing-input"
+class="w-full border rounded-xl p-3 text-center"
+placeholder="Nhập từ">
+
+<button onclick="checkTyping()"
+class="mt-3 bg-orange-500 text-white rounded-xl px-5 py-3 font-black">
+
+KIỂM TRA
+
+</button>
+
+</div>
+
+</div>
+
+<!-- SHOP -->
+
+<div class="bg-white border rounded-2xl p-4 shadow-sm">
+
+<h3 class="font-black text-sm mb-3">
+🛍️ Pet Shop
+</h3>
+
+<div class="grid grid-cols-2 gap-3">
+
+<div class="bg-pink-50 rounded-2xl p-3 text-center">
+
+<div class="text-5xl">
+👾
+</div>
+
+<div class="font-black text-xs mt-2">
+Labubu
+</div>
+
+<button onclick="buyPet('Labubu',100)"
+class="mt-2 bg-pink-500 text-white rounded-xl px-3 py-2 text-xs">
+
+100 💎
+
+</button>
+
+</div>
+
+<div class="bg-yellow-50 rounded-2xl p-3 text-center">
+
+<div class="text-5xl">
+🐹
+</div>
+
+<div class="font-black text-xs mt-2">
+Capybara
+</div>
+
+<button onclick="buyPet('Capybara',120)"
+class="mt-2 bg-yellow-500 text-white rounded-xl px-3 py-2 text-xs">
+
+120 💎
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let studentPoints = 0;
+
+let currentTypingWord = "apple";
+
+const typingWords = [
+"apple",
+"banana",
+"teacher",
+"computer",
+"beautiful"
+];
+
+function updatePointBox(){
+
+    document.getElementById("point-box")
+    .innerText = studentPoints;
+
+}
+
+function speakTextUS(text){
+
+    const utter =
+    new SpeechSynthesisUtterance(text);
+
+    utter.lang = "en-US";
+
+    speechSynthesis.speak(utter);
+
+}
+
+function sendChat(){
+
+    const input =
+    document.getElementById("chat-input");
+
+    const text = input.value.trim();
+
+    if(text === "") return;
+
+    addMessage(text,"user");
+
+    input.value = "";
+
+    setTimeout(()=>{
+
+        addMessage(
+        "Great job! Keep speaking English 😊",
+        "ai"
+        );
+
+        speakTextUS(
+        "Great job! Keep speaking English"
+        );
+
+    },800);
+
+}
+
+function addMessage(text,type){
+
+    const box =
+    document.getElementById("chat-box");
+
+    const div =
+    document.createElement("div");
+
+    div.className =
+    type === "user"
+    ?
+    "bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%]"
+    :
+    "bg-slate-100 p-3 rounded-2xl max-w-[85%]";
+
+    div.innerText = text;
+
+    box.appendChild(div);
+
+    box.scrollTop = box.scrollHeight;
+
+}
+
+function toggleVoice(){
+
+    const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        alert("Không hỗ trợ micro");
+
+        return;
+    }
+
+    const recog =
+    new SpeechRecognition();
+
+    recog.lang = "en-US";
+
+    recog.start();
+
+    document
+    .getElementById("voice-wave-indicator")
+    .classList.remove("hidden");
+
+    recog.onresult = (e)=>{
+
+        const text =
+        e.results[0][0].transcript;
+
+        document
+        .getElementById("chat-input")
+        .value = text;
+
+    };
+
+    recog.onend = ()=>{
+
+        document
+        .getElementById("voice-wave-indicator")
+        .classList.add("hidden");
+
+    };
+
+}
+
+function switchGame(mode){
+
+    document.getElementById("bubble-game")
+    .classList.add("hidden");
+
+    document.getElementById("memory-game")
+    .classList.add("hidden");
+
+    document.getElementById("typing-game")
+    .classList.add("hidden");
+
+    if(mode === "bubble"){
+
+        document
+        .getElementById("bubble-game")
+        .classList.remove("hidden");
+
+    }
+
+    if(mode === "memory"){
+
+        document
+        .getElementById("memory-game")
+        .classList.remove("hidden");
+
+        startMemory();
+
+    }
+
+    if(mode === "typing"){
+
+        document
+        .getElementById("typing-game")
+        .classList.remove("hidden");
+
+        startTyping();
+
+    }
+
+}
+
+function startTyping(){
+
+    currentTypingWord =
+    typingWords[
+        Math.floor(
+            Math.random()*typingWords.length
+        )
+    ];
+
+    document
+    .getElementById("typing-word")
+    .innerText =
+    currentTypingWord;
+
+}
+
+function checkTyping(){
+
+    const val =
+    document.getElementById("typing-input")
+    .value
+    .trim()
+    .toLowerCase();
+
+    if(val === currentTypingWord){
+
+        studentPoints += 10;
+
+        updatePointBox();
+
+        alert("Chính xác +10 💎");
+
+        startTyping();
+
+    }else{
+
+        alert("Sai rồi");
+
+    }
+
+}
+
+function buyPet(name,price){
+
+    if(studentPoints < price){
+
+        alert("Không đủ điểm");
+
+        return;
+
+    }
+
+    studentPoints -= price;
+
+    updatePointBox();
+
+    alert("Đã mua " + name);
+
+}
+
+function startMemory(){
+
+    const icons = [
+    "🐶","🐱","🐰","🐹",
+    "🐶","🐱","🐰","🐹"
+    ];
+
+    icons.sort(()=>Math.random()-0.5);
+
+    const grid =
+    document.getElementById("memory-game");
+
+    grid.innerHTML = "";
+
+    let first = null;
+
+    icons.forEach(icon=>{
+
+        const card =
+        document.createElement("button");
+
+        card.className =
+        "aspect-square rounded-xl bg-slate-100 text-2xl";
+
+        card.innerText = "❓";
+
+        card.onclick = ()=>{
+
+            card.innerText = icon;
+
+            if(!first){
+
+                first = {
+                    icon,
+                    card
+                };
+
+            }else{
+
+                if(first.icon === icon){
+
+                    studentPoints += 5;
+
+                    updatePointBox();
+
+                }else{
+
+                    setTimeout(()=>{
+
+                        first.card.innerText = "❓";
+
+                        card.innerText = "❓";
+
+                    },500);
+
+                }
+
+                first = null;
+
+            }
+
         };
 
-        function handleStudentLogin() {
-            document.getElementById('view-auth').classList.add('hidden');
-            document.getElementById('view-main-app').classList.remove('hidden');
-            switchActiveGame('bubble');
-        }
+        grid.appendChild(card);
 
-        function switchTab(tab) {
-            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-            const target = document.getElementById('section-' + tab);
-            if (target) target.classList.remove('hidden');
-        }
+    });
 
-        function switchActiveGame(mode) {
-            currentActiveGameMode = mode;
-            const areas = ["bubble", "scramble", "pronunciation", "memory"];
-            areas.forEach(a => {
-                document.getElementById(`game-play-area-${a}`)?.classList.add("hidden");
-                document.getElementById(`game-select-${a}`)?.classList.remove("active", "border-emerald-500", "bg-emerald-50");
-            });
-            document.getElementById(`game-play-area-${mode}`)?.classList.remove("hidden");
-            document.getElementById(`game-select-${mode}`)?.classList.add("active", "border-emerald-500", "bg-emerald-50");
+}
 
-            if (mode === "memory") generateMemoryGame();
-            if (mode === "pronunciation") {
-                 document.getElementById('ai-pronunciation-result').classList.add('hidden');
-            }
-        }
+updatePointBox();
 
-        function renderStudentInfo(data) {
-            document.getElementById('display-points-count').innerText = data.points;
-        }
+</script>
 
-        function playSoundEffect(type) {
-            console.log("Playing effect:", type);
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('custom-toast');
-            document.getElementById('toast-message').innerText = msg;
-            t.classList.remove('opacity-0');
-            setTimeout(() => t.classList.add('opacity-0'), 3000);
-        }
-
-        /* =========================================
-           AI SPEAKING & MEMORY GAME ENGINE
-        ========================================= */
-
-        function speakTextUS(customWord) {
-            const word = customWord || document.getElementById('ai-speaking-word').innerText;
-            const utter = new SpeechSynthesisUtterance(word);
-            utter.lang = 'en-US';
-            utter.rate = 0.85;
-            speechSynthesis.speak(utter);
-        }
-
-        function startAISpeakingPractice() {
-            showToast("🎙️ AI đang nghe phát âm...");
-            setTimeout(() => {
-                document.getElementById('ai-pronunciation-result').classList.remove('hidden');
-                playSoundEffect('success');
-                showToast("⭐ AI chấm phát âm hoàn tất");
-                activeStudentData.points += 10;
-                renderStudentInfo(activeStudentData);
-            }, 2500);
-        }
-
-        function generateMemoryGame() {
-            const grid = document.getElementById('memory-grid');
-            if (!grid) return;
-            grid.innerHTML = "";
-            const pool = currentActiveTask.vocab || [];
-            pool.slice(0, 8).forEach(item => {
-                const card = document.createElement('button');
-                card.className = `bg-white/10 hover:bg-white/20 rounded-2xl p-4 text-center border border-white/10 transition active:scale-95 backdrop-blur text-white shadow-lg`;
-                card.innerHTML = `
-                    <div class="text-lg font-black">${item.word}</div>
-                    <div class="text-xs text-indigo-200 mt-2">${item.vi}</div>
-                `;
-                card.onclick = () => {
-                    speakTextUS(item.word);
-                    activeStudentData.points += 2;
-                    renderStudentInfo(activeStudentData);
-                    showToast('✨ +2 điểm trí nhớ');
-                };
-                grid.appendChild(card);
-            });
-        }
-    </script>
 </body>
 </html>
