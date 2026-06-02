@@ -1,623 +1,920 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SMART START AI LEARNING</title>
+<title>English Daily ECO AI Ultimate</title>
 
-<!-- TAILWIND -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- ICON -->
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap"
+rel="stylesheet">
 
 <style>
 
 body{
-    background:#f1f5f9;
-    font-family:Arial;
+    font-family:'Inter',sans-serif;
+    background:
+    linear-gradient(
+        135deg,
+        #eff6ff 0%,
+        #f8fafc 50%,
+        #dbeafe 100%
+    );
 }
 
 .glass{
-    background:rgba(255,255,255,0.7);
-    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(16px);
+}
+
+.pulse-wave{
+    animation:pulseWave 1.2s infinite;
+}
+
+@keyframes pulseWave{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.2)}
+    100%{transform:scale(1)}
+}
+
+.ai-gradient{
+    background:
+    linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed,
+        #06b6d4
+    );
 }
 
 .card-hover{
-    transition:0.3s;
+    transition:.3s;
 }
 
 .card-hover:hover{
-    transform:translateY(-5px);
+    transform:translateY(-4px);
 }
 
-.scroll-hidden::-webkit-scrollbar{
-    display:none;
+.custom-scrollbar::-webkit-scrollbar{
+    width:5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:999px;
 }
 
 </style>
-
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen text-slate-800">
 
-<!-- ===================================================== -->
-<!-- FIREBASE -->
-<!-- GIỮ NGUYÊN LOGIN -->
-<!-- ===================================================== -->
+<div class="max-w-7xl mx-auto p-3 md:p-6">
 
-<script type="module">
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
 
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
+<div>
+<h1 class="text-3xl font-black text-slate-900">
+🚀 English Daily ECO AI Ultimate
+</h1>
 
-// =====================================================
-// GIỮ NGUYÊN FIREBASE CONFIG CŨ
-// =====================================================
+<p class="text-sm text-slate-500 mt-1">
+Luyện đọc • AI Voice • Smart Start • Đàm thoại • AI Detector
+</p>
+</div>
 
-const firebaseConfig = {
+<div class="flex items-center gap-3">
 
-    apiKey: "YOUR_API_KEY",
+<div class="bg-yellow-50 border border-yellow-200 px-4 py-2 rounded-2xl">
+<div class="text-xs text-slate-500">Điểm</div>
+<div id="points-count"
+class="font-black text-xl text-yellow-600">0</div>
+</div>
 
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-    projectId: "YOUR_PROJECT",
-
-    storageBucket: "YOUR_PROJECT.appspot.com",
-
-    messagingSenderId: "XXXX",
-
-    appId: "XXXX"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-
-// =====================================================
-// LOGIN
-// =====================================================
-
-window.login = async function(){
-
-    const email =
-    document.getElementById("email").value;
-
-    const password =
-    document.getElementById("password").value;
-
-    try{
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-        alert("Đăng nhập thành công");
-
-    }catch(err){
-
-        alert(err.message);
-
-    }
-
-}
-
-
-// =====================================================
-// REGISTER
-// =====================================================
-
-window.register = async function(){
-
-    const email =
-    document.getElementById("email").value;
-
-    const password =
-    document.getElementById("password").value;
-
-    try{
-
-        await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-        alert("Đăng ký thành công");
-
-    }catch(err){
-
-        alert(err.message);
-
-    }
-
-}
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-window.logout = async function(){
-
-    await signOut(auth);
-
-}
-
-
-// =====================================================
-// AUTO LOGIN
-// =====================================================
-
-onAuthStateChanged(auth,(user)=>{
-
-    if(user){
-
-        document.getElementById("authBox")
-        .classList.add("hidden");
-
-        document.getElementById("mainApp")
-        .classList.remove("hidden");
-
-        document.getElementById("userInfo")
-        .innerHTML =
-        `
-        👋 ${user.email}
-        `;
-
-    }else{
-
-        document.getElementById("authBox")
-        .classList.remove("hidden");
-
-        document.getElementById("mainApp")
-        .classList.add("hidden");
-
-    }
-
-});
-
-</script>
-
-<!-- ===================================================== -->
-<!-- LOGIN -->
-<!-- ===================================================== -->
-
-<div id="authBox"
-class="min-h-screen flex items-center justify-center p-6">
-
-    <div class="glass rounded-3xl shadow-2xl p-8 w-full max-w-md">
-
-        <h1 class="text-4xl font-black text-center mb-6">
-
-            🎓 SMART START AI
-
-        </h1>
-
-        <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        class="w-full p-4 rounded-2xl border mb-4">
-
-        <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        class="w-full p-4 rounded-2xl border mb-6">
-
-        <button
-        onclick="login()"
-        class="w-full bg-indigo-600 text-white p-4 rounded-2xl font-bold mb-3">
-
-            Đăng nhập
-
-        </button>
-
-        <button
-        onclick="register()"
-        class="w-full bg-emerald-500 text-white p-4 rounded-2xl font-bold">
-
-            Đăng ký
-
-        </button>
-
-    </div>
+<div class="bg-cyan-50 border border-cyan-200 px-4 py-2 rounded-2xl">
+<div class="text-xs text-slate-500">Ngọc</div>
+<div id="gems-count"
+class="font-black text-xl text-cyan-600">0 💎</div>
+</div>
 
 </div>
 
+</div>
+</div>
 
-<!-- ===================================================== -->
-<!-- MAIN APP -->
-<!-- ===================================================== -->
+<!-- =====================================================
+MAIN GRID
+===================================================== -->
 
-<div id="mainApp" class="hidden">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
 
-<!-- ===================================================== -->
-<!-- HEADER -->
-<!-- ===================================================== -->
+<!-- =====================================================
+LEFT SIDE
+===================================================== -->
 
-<header
-class="bg-white shadow-lg sticky top-0 z-50">
+<div class="lg:col-span-7 space-y-6">
 
-    <div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
+<!-- =====================================================
+READING PANEL
+===================================================== -->
 
-        <div>
+<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
 
-            <h1 class="text-3xl font-black text-indigo-700">
+<div class="flex justify-between items-center">
 
-                📚 SMART START AI
+<div>
+<div class="text-xs font-black text-indigo-500 uppercase">
+AI Reading Challenge
+</div>
 
-            </h1>
+<h2 id="reading-title"
+class="text-2xl font-black text-slate-900 mt-1">
+My Family
+</h2>
+</div>
 
-            <p class="text-slate-500">
-                AI English Learning System
-            </p>
-
-        </div>
-
-        <div class="flex items-center gap-4">
-
-            <div id="userInfo"
-            class="font-bold text-slate-600"></div>
-
-            <button
-            onclick="logout()"
-            class="bg-red-500 text-white px-5 py-3 rounded-2xl font-bold">
-
-                Logout
-
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ===================================================== -->
-<!-- MAIN -->
-<!-- ===================================================== -->
-
-<main class="max-w-7xl mx-auto p-5">
-
-<!-- ===================================================== -->
-<!-- MENU -->
-<!-- ===================================================== -->
-
-<div class="grid md:grid-cols-4 gap-5 mb-8">
-
-    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
-
-        <div class="text-5xl mb-3">🎤</div>
-
-        <h3 class="font-black text-xl mb-2">
-            AI Speaking
-        </h3>
-
-        <p class="text-slate-500">
-            Luyện giao tiếp AI
-        </p>
-
-    </div>
-
-    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
-
-        <div class="text-5xl mb-3">📖</div>
-
-        <h3 class="font-black text-xl mb-2">
-            Reading
-        </h3>
-
-        <p class="text-slate-500">
-            Luyện đọc chuẩn
-        </p>
-
-    </div>
-
-    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
-
-        <div class="text-5xl mb-3">🎮</div>
-
-        <h3 class="font-black text-xl mb-2">
-            Mini Game
-        </h3>
-
-        <p class="text-slate-500">
-            Học qua trò chơi
-        </p>
-
-    </div>
-
-    <div class="bg-white rounded-3xl p-6 shadow-xl card-hover">
-
-        <div class="text-5xl mb-3">⭐</div>
-
-        <h3 class="font-black text-xl mb-2">
-            Sao vàng
-        </h3>
-
-        <p class="text-slate-500">
-            Theo dõi tiến độ
-        </p>
-
-    </div>
+<button onclick="readAloudTaskText()"
+class="w-12 h-12 rounded-2xl bg-indigo-600 text-white shadow-lg">
+<i class="fa-solid fa-volume-high"></i>
+</button>
 
 </div>
 
+<div class="mt-4 rounded-3xl overflow-hidden h-64">
 
-<!-- ===================================================== -->
-<!-- SMART START CURRICULUM -->
-<!-- ===================================================== -->
-
-<section
-class="bg-white rounded-3xl p-6 shadow-xl mb-10">
-
-<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-
-    <div>
-
-        <h2 class="text-3xl font-black text-slate-800">
-
-            📚 Smart Start Curriculum
-
-        </h2>
-
-        <p class="text-slate-500">
-
-            Giáo trình lớp 1 → lớp 5
-
-        </p>
-
-    </div>
-
-    <select
-    id="gradeSelector"
-    onchange="loadGrade(this.value)"
-    class="border rounded-2xl p-4 font-bold">
-
-        <option value="grade1">Lớp 1</option>
-        <option value="grade2">Lớp 2</option>
-        <option value="grade3">Lớp 3</option>
-        <option value="grade4">Lớp 4</option>
-        <option value="grade5">Lớp 5</option>
-
-    </select>
+<img id="reading-image"
+src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop"
+class="w-full h-full object-cover">
 
 </div>
 
-<div
-id="lessonContainer"
-class="grid lg:grid-cols-2 gap-5">
+<div class="mt-5 bg-slate-50 rounded-3xl p-5 border border-slate-100">
+
+<p id="reading-content"
+class="leading-relaxed text-lg text-slate-700">
+Hello. My name is Anna. I live with my family in a small house.
+My father is a teacher. My mother is a nurse. We love eating dinner together.
+</p>
 
 </div>
 
-</section>
+<!-- =====================================================
+AI VOICE DETECTOR
+===================================================== -->
 
-</main>
+<div class="mt-5 ai-gradient rounded-3xl p-5 text-white shadow-xl">
+
+<div class="flex justify-between items-center">
+
+<div class="font-black">
+🧠 AI Voice Detector
+</div>
+
+<div id="voice-status"
+class="bg-white/20 px-3 py-1 rounded-xl text-xs font-bold">
+Đang chờ
+</div>
 
 </div>
 
+<div class="grid grid-cols-3 gap-3 mt-4">
 
-<!-- ===================================================== -->
-<!-- SMART START DATABASE -->
-<!-- ===================================================== -->
+<div class="bg-white/10 rounded-2xl p-3 text-center">
+
+<div class="text-xs opacity-70">
+Độ thật
+</div>
+
+<div id="human-score"
+class="text-2xl font-black mt-1">
+0%
+</div>
+
+</div>
+
+<div class="bg-white/10 rounded-2xl p-3 text-center">
+
+<div class="text-xs opacity-70">
+Âm lượng
+</div>
+
+<div id="voice-energy"
+class="text-2xl font-black mt-1">
+0
+</div>
+
+</div>
+
+<div class="bg-white/10 rounded-2xl p-3 text-center">
+
+<div class="text-xs opacity-70">
+Nhịp giọng
+</div>
+
+<div id="voice-wave"
+class="text-2xl font-black mt-1">
+0
+</div>
+
+</div>
+
+</div>
+
+<div id="voice-warning"
+class="hidden mt-4 bg-red-500/20 border border-red-300 rounded-2xl p-4 text-sm font-bold">
+</div>
+
+</div>
+
+<!-- =====================================================
+BUTTONS
+===================================================== -->
+
+<div class="grid grid-cols-2 gap-3 mt-5">
+
+<button onclick="startReadingChallenge()"
+class="h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black shadow-xl">
+
+🎙️ Bắt đầu đọc
+
+</button>
+
+<button onclick="readAloudTaskText()"
+class="h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black shadow-xl">
+
+🔊 AI đọc mẫu
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+VOCABULARY
+===================================================== -->
+
+<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+
+<div class="flex justify-between items-center mb-4">
+
+<h3 class="font-black text-xl">
+📚 Từ vựng trọng tâm
+</h3>
+
+<div class="text-xs text-slate-500">
+AI Pronunciation
+</div>
+
+</div>
+
+<div id="vocab-container"
+class="space-y-3">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+RIGHT SIDE
+===================================================== -->
+
+<div class="lg:col-span-5 space-y-6">
+
+<!-- =====================================================
+AI CHAT
+===================================================== -->
+
+<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+
+<div class="flex justify-between items-center mb-4">
+
+<div>
+
+<h3 class="font-black text-xl">
+🤖 AI Teacher
+</h3>
+
+<p class="text-xs text-slate-500">
+Đàm thoại tiếng Anh realtime
+</p>
+
+</div>
+
+<div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
+<i class="fa-solid fa-robot text-xl"></i>
+</div>
+
+</div>
+
+<div id="chat-box"
+class="space-y-3 h-[420px] overflow-y-auto custom-scrollbar">
+
+<div class="bg-slate-100 rounded-2xl p-4">
+
+<div class="font-black text-indigo-600 text-sm mb-1">
+AI Teacher
+</div>
+
+Hello 👋
+Let's practice English together today!
+
+</div>
+
+</div>
+
+<div class="mt-4 flex gap-2">
+
+<input id="chat-input"
+type="text"
+placeholder="Nhập nội dung..."
+class="flex-1 h-14 rounded-2xl border border-slate-200 px-4 outline-none">
+
+<button onclick="sendChat()"
+class="w-14 rounded-2xl bg-indigo-600 text-white">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+<button id="mic-btn"
+onclick="startChatVoice()"
+class="w-14 rounded-2xl bg-rose-600 text-white">
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SMART START
+===================================================== -->
+
+<div class="glass rounded-3xl p-5 shadow-xl border border-white/60">
+
+<div class="flex justify-between items-center mb-4">
+
+<h3 class="font-black text-xl">
+🎓 Smart Start
+</h3>
+
+<select id="lesson-selector"
+class="border border-slate-200 rounded-xl px-3 py-2 text-sm">
+
+<option value="family">Family</option>
+<option value="school">School</option>
+<option value="food">Food</option>
+<option value="animals">Animals</option>
+
+</select>
+
+</div>
+
+<div class="grid grid-cols-2 gap-3">
+
+<button class="h-14 rounded-2xl bg-blue-600 text-white font-black">
+Lớp 1
+</button>
+
+<button class="h-14 rounded-2xl bg-emerald-600 text-white font-black">
+Lớp 2
+</button>
+
+<button class="h-14 rounded-2xl bg-orange-600 text-white font-black">
+Lớp 3
+</button>
+
+<button class="h-14 rounded-2xl bg-purple-600 text-white font-black">
+Lớp 4
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SCRIPT
+===================================================== -->
 
 <script>
 
-const smartStartCurriculum = {
+/* =====================================================
+DATABASE
+===================================================== */
 
-    grade1:{
-        units:[
-            {
-                unit:"Unit 1",
-                theme:"Hello",
-                image:"👋",
-                vocabulary:["hello","teacher","friend"],
-                reading:"Hello. My name is Tom."
-            },
-            {
-                unit:"Unit 2",
-                theme:"School",
-                image:"🎒",
-                vocabulary:["book","pen","bag"],
-                reading:"This is my school bag."
-            }
-        ]
-    },
+const vocabData = [
 
-    grade2:{
-        units:[
-            {
-                unit:"Unit 1",
-                theme:"Animals",
-                image:"🐶",
-                vocabulary:["dog","cat","bird"],
-                reading:"The dog is cute."
-            }
-        ]
-    },
+{
+word:'family',
+ipa:'/ˈfæməli/',
+vi:'gia đình'
+},
 
-    grade3:{
-        units:[
-            {
-                unit:"Unit 1",
-                theme:"House",
-                image:"🏠",
-                vocabulary:["bedroom","kitchen"],
-                reading:"My house is big."
-            }
-        ]
-    },
+{
+word:'teacher',
+ipa:'/ˈtiːtʃər/',
+vi:'giáo viên'
+},
 
-    grade4:{
-        units:[
-            {
-                unit:"Unit 1",
-                theme:"Jobs",
-                image:"👩‍⚕️",
-                vocabulary:["doctor","teacher"],
-                reading:"My father is a doctor."
-            }
-        ]
-    },
+{
+word:'nurse',
+ipa:'/nɜːrs/',
+vi:'y tá'
+},
 
-    grade5:{
-        units:[
-            {
-                unit:"Unit 1",
-                theme:"Technology",
-                image:"💻",
-                vocabulary:["computer","robot"],
-                reading:"Technology helps students."
-            }
-        ]
-    }
+{
+word:'house',
+ipa:'/haʊs/',
+vi:'ngôi nhà'
+}
+
+];
+
+let points = 0;
+let gems = 0;
+
+renderVocabulary();
+
+/* =====================================================
+RENDER VOCAB
+===================================================== */
+
+function renderVocabulary(){
+
+const container =
+document.getElementById('vocab-container');
+
+container.innerHTML = '';
+
+vocabData.forEach(item=>{
+
+container.innerHTML += `
+
+<div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex justify-between items-center card-hover">
+
+<div>
+
+<div class="font-black text-slate-900">
+${item.word}
+</div>
+
+<div class="text-xs text-slate-500">
+${item.ipa}
+</div>
+
+<div class="text-sm text-indigo-600 font-bold mt-1">
+${item.vi}
+</div>
+
+</div>
+
+<button onclick="speakWord('${item.word}')"
+class="w-12 h-12 rounded-2xl bg-emerald-600 text-white shadow-lg">
+
+<i class="fa-solid fa-volume-high"></i>
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* =====================================================
+SPEAK
+===================================================== */
+
+function speakWord(text){
+
+const utter =
+new SpeechSynthesisUtterance(text);
+
+utter.lang = 'en-US';
+
+speechSynthesis.speak(utter);
+
+}
+
+function readAloudTaskText(){
+
+const text =
+document.getElementById('reading-content').innerText;
+
+speakWord(text);
+
+}
+
+/* =====================================================
+VOICE AI DETECTOR
+===================================================== */
+
+let audioContext;
+let analyser;
+let microphone;
+let humanScore = 0;
+let fakeVoiceDetected = false;
+
+async function startHumanDetection(){
+
+const stream =
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+audioContext =
+new AudioContext();
+
+analyser =
+audioContext.createAnalyser();
+
+microphone =
+audioContext.createMediaStreamSource(stream);
+
+microphone.connect(analyser);
+
+analyser.fftSize = 512;
+
+const dataArray =
+new Uint8Array(analyser.frequencyBinCount);
+
+let history = [];
+
+function loop(){
+
+if(!window.isReading) return;
+
+analyser.getByteFrequencyData(dataArray);
+
+let total = 0;
+
+for(let i=0;i<dataArray.length;i++){
+total += dataArray[i];
+}
+
+const avg =
+Math.round(total / dataArray.length);
+
+history.push(avg);
+
+if(history.length > 20){
+history.shift();
+}
+
+let variation = 0;
+
+for(let i=1;i<history.length;i++){
+
+variation +=
+Math.abs(history[i]-history[i-1]);
+
+}
+
+document.getElementById('voice-energy')
+.innerText = avg;
+
+document.getElementById('voice-wave')
+.innerText = variation;
+
+if(variation > 35 && avg > 15){
+
+humanScore += 2;
+
+}else{
+
+humanScore -= 3;
+}
+
+humanScore =
+Math.max(0,Math.min(100,humanScore));
+
+document.getElementById('human-score')
+.innerText = humanScore + '%';
+
+if(humanScore >= 60){
+
+fakeVoiceDetected = false;
+
+document.getElementById('voice-status')
+.innerText = '✅ Giọng thật';
+
+}else{
+
+fakeVoiceDetected = true;
+
+document.getElementById('voice-status')
+.innerText = '⚠️ Nghi giọng máy';
+}
+
+requestAnimationFrame(loop);
+}
+
+loop();
+
+}
+
+/* =====================================================
+READING CHALLENGE
+===================================================== */
+
+function startReadingChallenge(){
+
+const SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+
+alert('Trình duyệt chưa hỗ trợ');
+return;
+}
+
+const recognition =
+new SpeechRecognition();
+
+recognition.lang = 'en-US';
+
+recognition.interimResults = false;
+
+recognition.maxAlternatives = 1;
+
+window.isReading = true;
+
+humanScore = 50;
+
+startHumanDetection();
+
+showToast(
+'🎙️ AI đang nghe...'
+);
+
+recognition.start();
+
+recognition.onresult = function(e){
+
+window.isReading = false;
+
+const transcript =
+e.results[0][0].transcript;
+
+evaluateReading(transcript);
 
 };
 
+recognition.onerror = function(){
 
-// =====================================================
-// LOAD LESSON
-// =====================================================
+window.isReading = false;
 
-function loadGrade(grade){
-
-    const container =
-    document.getElementById("lessonContainer");
-
-    container.innerHTML = "";
-
-    smartStartCurriculum[grade]
-    .units
-    .forEach(unit=>{
-
-        const card =
-        document.createElement("div");
-
-        card.className =
-        "bg-slate-50 rounded-3xl p-5 border";
-
-        card.innerHTML = `
-
-        <div class="flex items-center gap-4 mb-4">
-
-            <div class="text-6xl">
-                ${unit.image}
-            </div>
-
-            <div>
-
-                <h3 class="font-black text-2xl">
-                    ${unit.unit}
-                </h3>
-
-                <p class="text-slate-500">
-                    ${unit.theme}
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="mb-4">
-
-            <h4 class="font-black mb-2">
-
-                ⭐ Vocabulary
-
-            </h4>
-
-            <div class="flex flex-wrap gap-2">
-
-                ${unit.vocabulary.map(word=>`
-
-                    <button
-                    onclick="speak('${word}')"
-                    class="bg-indigo-100 px-3 py-2 rounded-xl font-bold">
-
-                        ${word}
-
-                    </button>
-
-                `).join("")}
-
-            </div>
-
-        </div>
-
-        <div>
-
-            <h4 class="font-black mb-2">
-
-                📖 Reading
-
-            </h4>
-
-            <div
-            onclick="speak('${unit.reading}')"
-            class="bg-white p-4 rounded-2xl cursor-pointer">
-
-                ${unit.reading}
-
-            </div>
-
-        </div>
-
-        `;
-
-        container.appendChild(card);
-
-    });
+showToast('Không nghe rõ');
+};
 
 }
 
+/* =====================================================
+EVALUATE
+===================================================== */
 
-// =====================================================
-// SPEAK
-// =====================================================
+function evaluateReading(spoken){
 
-function speak(text){
+const original =
+document.getElementById('reading-content')
+.innerText
+.toLowerCase()
+.split(' ');
 
-    const speech =
-    new SpeechSynthesisUtterance(text);
+const user =
+spoken
+.toLowerCase()
+.split(' ');
 
-    speech.lang = "en-US";
+let matches = 0;
 
-    speech.rate = 0.9;
+original.forEach(word=>{
 
-    speech.pitch = 1;
+if(user.includes(word)){
 
-    window.speechSynthesis.speak(speech);
+matches++;
+}
+
+});
+
+const accuracy =
+Math.round(
+(matches / original.length) * 100
+);
+
+if(fakeVoiceDetected){
+
+gems =
+Math.max(0,gems - 10);
+
+updateScores();
+
+document.getElementById('voice-warning')
+.classList.remove('hidden');
+
+document.getElementById('voice-warning')
+.innerHTML = `
+🚫 AI phát hiện giọng máy.
+<br><br>
+❌ Trừ 10 ngọc
+`;
+
+showToast(
+'⚠️ Phát hiện giọng máy'
+);
+
+return;
+}
+
+if(accuracy >= 55){
+
+points += 25;
+
+gems += 5;
+
+updateScores();
+
+showToast(
+'🏆 Chính xác +5 ngọc'
+);
+
+alert(
+`🎉 Đọc thành công!
+\nĐộ chính xác: ${accuracy}%
+\n+25 điểm
+\n+5 ngọc`
+);
+
+}else{
+
+alert(
+`😊 Hãy thử lại
+\nĐộ chính xác: ${accuracy}%`
+);
 
 }
 
+}
 
-// =====================================================
-// AUTO LOAD
-// =====================================================
+/* =====================================================
+UPDATE SCORE
+===================================================== */
 
-window.onload = ()=>{
+function updateScores(){
 
-    loadGrade("grade1");
+document.getElementById('points-count')
+.innerText = points;
+
+document.getElementById('gems-count')
+.innerText = gems + ' 💎';
+
+}
+
+/* =====================================================
+CHAT
+===================================================== */
+
+function sendChat(){
+
+const input =
+document.getElementById('chat-input');
+
+const text = input.value.trim();
+
+if(!text) return;
+
+addChat(text,'user');
+
+input.value = '';
+
+setTimeout(()=>{
+
+addChat(
+'Great job! Keep practicing English every day 🌟',
+'ai'
+);
+
+},800);
+
+}
+
+function addChat(text,type){
+
+const box =
+document.getElementById('chat-box');
+
+const div =
+document.createElement('div');
+
+if(type === 'user'){
+
+div.className =
+'bg-indigo-600 text-white rounded-2xl p-4 ml-10';
+
+}else{
+
+div.className =
+'bg-slate-100 rounded-2xl p-4 mr-10';
+
+}
+
+div.innerHTML = text;
+
+box.appendChild(div);
+
+box.scrollTop = box.scrollHeight;
+
+}
+
+/* =====================================================
+VOICE CHAT
+===================================================== */
+
+function startChatVoice(){
+
+const SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+
+alert('Không hỗ trợ voice');
+return;
+}
+
+const recognition =
+new SpeechRecognition();
+
+recognition.lang = 'en-US';
+
+recognition.start();
+
+showToast('🎤 Đang nghe...');
+
+recognition.onresult = function(e){
+
+const text =
+e.results[0][0].transcript;
+
+addChat(text,'user');
+
+setTimeout(()=>{
+
+addChat(
+'Excellent pronunciation 👏',
+'ai'
+);
+
+},1000);
+
+};
+
+}
+
+/* =====================================================
+TOAST
+===================================================== */
+
+function showToast(text){
+
+const toast =
+document.createElement('div');
+
+toast.className =
+'fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 font-bold';
+
+toast.innerHTML = text;
+
+document.body.appendChild(toast);
+
+setTimeout(()=>{
+toast.remove();
+},2500);
 
 }
 
