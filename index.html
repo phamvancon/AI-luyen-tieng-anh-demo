@@ -3786,6 +3786,288 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+/* =====================================
+   MASSIVE SMART START EXTRA UNITS
+===================================== */
+
+smartStartCurriculum.ss_1.push(
+{ id:"ss1_u6", title:"My Body", lesson:"Unit 6", image:"https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800", content:"I have two eyes, two ears, and one nose.", vocab:[{word:"Eye",vi:"Mắt"},{word:"Ear",vi:"Tai"},{word:"Nose",vi:"Mũi"}]},
+{ id:"ss1_u7", title:"Numbers", lesson:"Unit 7", image:"https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=800", content:"I can count from one to ten easily.", vocab:[{word:"One",vi:"Một"},{word:"Ten",vi:"Mười"},{word:"Count",vi:"Đếm"}]},
+{ id:"ss1_u8", title:"My Clothes", lesson:"Unit 8", image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800", content:"I wear a blue shirt and black shoes.", vocab:[{word:"Shirt",vi:"Áo"},{word:"Shoes",vi:"Giày"},{word:"Clothes",vi:"Quần áo"}]}
+);
+
+smartStartCurriculum.ss_2.push(
+{ id:"ss2_u6", title:"My Bedroom", lesson:"Unit 6", image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800", content:"My bedroom is clean and comfortable.", vocab:[{word:"Bedroom",vi:"Phòng ngủ"},{word:"Clean",vi:"Sạch sẽ"},{word:"Comfortable",vi:"Thoải mái"}]},
+{ id:"ss2_u7", title:"Transportation", lesson:"Unit 7", image:"https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800", content:"I go to school by bus every day.", vocab:[{word:"Bus",vi:"Xe buýt"},{word:"Bike",vi:"Xe đạp"},{word:"Car",vi:"Xe hơi"}]},
+{ id:"ss2_u8", title:"Farm Animals", lesson:"Unit 8", image:"https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800", content:"Cows and chickens live on the farm.", vocab:[{word:"Cow",vi:"Con bò"},{word:"Chicken",vi:"Con gà"},{word:"Farm",vi:"Nông trại"}]}
+);
+
+smartStartCurriculum.ss_3.push(
+{ id:"ss3_u6", title:"Jobs", lesson:"Unit 6", image:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800", content:"Doctors and teachers help many people.", vocab:[{word:"Doctor",vi:"Bác sĩ"},{word:"Teacher",vi:"Giáo viên"},{word:"Job",vi:"Nghề nghiệp"}]},
+{ id:"ss3_u7", title:"Holiday Time", lesson:"Unit 7", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800", content:"We go to the beach during summer holiday.", vocab:[{word:"Beach",vi:"Bãi biển"},{word:"Holiday",vi:"Kỳ nghỉ"},{word:"Summer",vi:"Mùa hè"}]},
+{ id:"ss3_u8", title:"Healthy Habits", lesson:"Unit 8", image:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800", content:"Eating vegetables and exercising are healthy habits.", vocab:[{word:"Vegetable",vi:"Rau củ"},{word:"Exercise",vi:"Tập thể dục"},{word:"Healthy",vi:"Khỏe mạnh"}]}
+);
+
+smartStartCurriculum.ss_4.push(
+{ id:"ss4_u6", title:"World Animals", lesson:"Unit 6", image:"https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800", content:"Tigers are strong and dolphins are intelligent.", vocab:[{word:"Tiger",vi:"Con hổ"},{word:"Dolphin",vi:"Cá heo"},{word:"Strong",vi:"Mạnh"}]},
+{ id:"ss4_u7", title:"Future Technology", lesson:"Unit 7", image:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", content:"Robots may help people in the future.", vocab:[{word:"Robot",vi:"Robot"},{word:"Technology",vi:"Công nghệ"},{word:"Future",vi:"Tương lai"}]},
+{ id:"ss4_u8", title:"Outdoor Activities", lesson:"Unit 8", image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800", content:"Camping and hiking are exciting outdoor activities.", vocab:[{word:"Camping",vi:"Cắm trại"},{word:"Hiking",vi:"Leo núi"},{word:"Outdoor",vi:"Ngoài trời"}]}
+);
+
+smartStartCurriculum.ss_5.push(
+{ id:"ss5_u6", title:"Saving the Earth", lesson:"Unit 6", image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800", content:"We should recycle paper and save water.", vocab:[{word:"Recycle",vi:"Tái chế"},{word:"Save",vi:"Tiết kiệm"},{word:"Earth",vi:"Trái đất"}]},
+{ id:"ss5_u7", title:"Internet Safety", lesson:"Unit 7", image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800", content:"Students should use the internet safely.", vocab:[{word:"Internet",vi:"Internet"},{word:"Safety",vi:"An toàn"},{word:"Student",vi:"Học sinh"}]},
+{ id:"ss5_u8", title:"Amazing Science", lesson:"Unit 8", image:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800", content:"Science helps people discover new things.", vocab:[{word:"Science",vi:"Khoa học"},{word:"Discover",vi:"Khám phá"},{word:"Experiment",vi:"Thí nghiệm"}]}
+);
+
+
+/* =================================================
+   PROFESSIONAL AI CHAT + FULL 8 UNITS CURRICULUM
+================================================= */
+
+function ensureFullUnits() {
+
+    Object.keys(smartStartCurriculum).forEach(key => {
+
+        const units = smartStartCurriculum[key];
+
+        for(let i = units.length + 1; i <= 8; i++) {
+
+            units.push({
+                id: `${key}_unit_${i}`,
+                title: `Smart Topic ${i}`,
+                lesson: `Unit ${i}`,
+                image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800',
+                content: 'Students practice English communication with AI teachers.',
+                vocab: [
+                    { word:'Practice', vi:'Luyện tập' },
+                    { word:'English', vi:'Tiếng Anh' },
+                    { word:'Teacher', vi:'Giáo viên' }
+                ]
+            });
+        }
+    });
+}
+
+ensureFullUnits();
+
+window.aiProfiles = [
+    {
+        id:'anna',
+        name:'Ms. Anna',
+        role:'Giáo viên Mỹ',
+        gender:'female',
+        intro:'Hello sweetheart! Let us practice English together today.'
+    },
+    {
+        id:'david',
+        name:'Mr. David',
+        role:'Thầy giáo Anh',
+        gender:'male',
+        intro:'Hi buddy! Ready for today speaking lesson?'
+    },
+    {
+        id:'lily',
+        name:'Lily',
+        role:'Bạn học AI',
+        gender:'female',
+        intro:'Hey friend! I am excited to chat with you.'
+    },
+    {
+        id:'tom',
+        name:'Tom',
+        role:'Bạn học AI',
+        gender:'male',
+        intro:'Yo! Let us improve English together!'
+    }
+];
+
+window.currentAIProfile = window.aiProfiles[0];
+
+function buildAISelector() {
+
+    const container =
+        document.getElementById(
+            'chat-conversation-container'
+        );
+
+    if(!container) return;
+
+    const selector =
+        document.createElement('div');
+
+    selector.className =
+        'bg-white sticky top-0 z-10 p-3 rounded-2xl border border-slate-200 mb-4 shadow-sm';
+
+    selector.innerHTML = `
+        <div class="font-black text-sm text-brand-700 mb-2">
+            🎙️ AI Voice Characters
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+            ${window.aiProfiles.map(p => `
+                <button
+                    onclick="switchAIProfile('${p.id}')"
+                    class="bg-slate-50 border border-slate-200 rounded-xl p-2 text-left hover:bg-brand-50">
+
+                    <div class="font-black text-xs">
+                        ${p.name}
+                    </div>
+
+                    <div class="text-[10px] text-slate-500">
+                        ${p.role}
+                    </div>
+                </button>
+            `).join('')}
+        </div>
+    `;
+
+    container.prepend(selector);
+}
+
+function switchAIProfile(id) {
+
+    const profile =
+        window.aiProfiles.find(
+            p => p.id === id
+        );
+
+    if(!profile) return;
+
+    window.currentAIProfile = profile;
+
+    addAIChatMessage(profile.intro);
+
+    speakAI(profile.intro);
+}
+
+function addAIChatMessage(message) {
+
+    const container =
+        document.getElementById(
+            'chat-conversation-container'
+        );
+
+    if(!container) return;
+
+    const profile =
+        window.currentAIProfile;
+
+    const bubble =
+        document.createElement('div');
+
+    bubble.className =
+        'flex items-start space-x-2.5';
+
+    bubble.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-xs">
+            AI
+        </div>
+
+        <div class="bg-slate-100 rounded-2xl rounded-tl-none px-3.5 py-2.5 text-sm text-slate-800 max-w-[85%] shadow-sm">
+
+            <p class="font-semibold text-brand-600 text-xs mb-0.5">
+                ${profile.name} • ${profile.role}
+            </p>
+
+            <p>${message}</p>
+        </div>
+    `;
+
+    container.appendChild(bubble);
+
+    container.scrollTop =
+        container.scrollHeight;
+}
+
+function speakAI(text) {
+
+    try {
+
+        const utter =
+            new SpeechSynthesisUtterance(text);
+
+        utter.rate = 0.95;
+        utter.pitch = 1.05;
+
+        const voices =
+            speechSynthesis.getVoices();
+
+        const female =
+            voices.find(v =>
+                v.lang.includes('en')
+            );
+
+        if(female) {
+            utter.voice = female;
+        }
+
+        speechSynthesis.speak(utter);
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+window.aiReplies = [
+    'Excellent pronunciation!',
+    'Wonderful speaking today!',
+    'You sound very natural.',
+    'Can you answer one more question?',
+    'Great job! Keep practicing every day.',
+    'I am proud of your English speaking.'
+];
+
+function randomAIReply() {
+
+    return window.aiReplies[
+        Math.floor(
+            Math.random() *
+            window.aiReplies.length
+        )
+    ];
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    setTimeout(() => {
+
+        buildAISelector();
+
+        addAIChatMessage(
+            window.currentAIProfile.intro
+        );
+
+    }, 1000);
+
+    const oldSend =
+        window.handleSendTextChat;
+
+    if(typeof oldSend === 'function') {
+
+        window.handleSendTextChat = function() {
+
+            try {
+                oldSend();
+            } catch(e) {
+                console.log(e);
+            }
+
+            setTimeout(() => {
+
+                const reply =
+                    randomAIReply();
+
+                addAIChatMessage(reply);
+
+                speakAI(reply);
+
+            }, 1200);
+        };
+    }
+});
+
 </script>
 </body>
 </html>
