@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Daily - Luyện Đọc & Phát Âm Đám Mây</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS for high quality design utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,10 +28,10 @@
             }
         }
     </script>
-    <!-- Google Fonts & FontAwesome Icons -->
+    <!-- Google Fonts & FontAwesome Icons for visual enhancement -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Canvas Confetti for celebrations -->
+    <!-- Canvas Confetti for high-motivation reward celebrations -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -216,6 +216,7 @@
             </div>
         </div>
 
+        <!-- School Curriculum & Course selection -->
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 mb-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4 mb-4">
                 <div class="flex items-center space-x-2">
@@ -224,7 +225,7 @@
                 </div>
                 <!-- Curriculums selection tabs -->
                 <div class="flex flex-wrap gap-2" id="curriculum-tabs-container">
-                    <!-- Dynamic tabs will be loaded here -->
+                    <!-- Dynamic tabs loaded here -->
                 </div>
             </div>
 
@@ -247,12 +248,13 @@
                         </a>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4" id="units-cards-grid">
-                        <!-- Dynamic rich Cards loaded with Unsplash background and unit title -->
+                        <!-- Dynamic rich Cards loaded with backgrounds and unit title -->
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Interactive Practice Studio -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- Left & Center: Active Practice Studio -->
@@ -282,7 +284,7 @@
                     <!-- Paragraph Reading Task Area -->
                     <div class="text-center py-4">
                         <p class="text-xs text-brand-500 font-bold uppercase tracking-widest mb-1.5">NHIỆM VỤ: ĐỌC TRÔI CHẢY CÂU SAU</p>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2 leading-snug" id="target-sentence">
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2 leading-snug font-sans" id="target-sentence">
                             Loading sentence...
                         </h1>
                         <p class="text-slate-500 dark:text-slate-300 max-w-xl mx-auto mb-6 text-sm font-semibold italic" id="target-sentence-translation">
@@ -328,7 +330,7 @@
                                         </div>
                                     </div>
                                     <div class="text-xs bg-slate-50 dark:bg-slate-950 p-2 rounded-lg border border-slate-100 dark:border-slate-800 text-left mt-2">
-                                        <div id="diff-output" class="font-mono text-xs leading-relaxed tracking-wider font-semibold text-slate-700 dark:text-slate-300"></div>
+                                        <div id="diff-output" class="font-mono text-xs leading-relaxed tracking-wider font-semibold text-slate-700 dark:text-slate-300 flex flex-wrap"></div>
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +364,7 @@
             </div>
 
             <div class="space-y-6">
-                <!-- 30-Day Streak -->
+                <!-- 30-Day Streak Challenge -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-base font-bold flex items-center gap-2">
@@ -791,7 +793,7 @@
             </div>
         </div>
 
-        <!-- CUSTOM CONFIRMATION MODAL -->
+        <!-- CUSTOM CONFIRMATION MODAL (No window.confirm allowed) -->
         <div id="confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
             <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-sm w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-center">
                 <div class="w-12 h-12 bg-amber-100 dark:bg-amber-950/40 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -823,6 +825,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, updateDoc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Firebase credential settings - Configured for school online running environment
         const firebaseConfig = {
             apiKey: "AIzaSyBWCNOQaX3lSs1xAPrINk48lmJKFR5rYXg",
             authDomain: "tieng-anh-cap2.firebaseapp.com",
@@ -839,396 +842,47 @@
         
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'tieng-anh-cap2';
 
+        // Comprehensive 20 Units of Grade 3 and 12 Units of Grade 6
         const ORIGINAL_CURRICULUM_DATABASE = {
             "global_success": {
                 name: "Global Success",
                 icon: "fa-book-open",
                 grades: {
                     3: [
-                        {
-                            id: "gs3_u1",
-                            title: "Hello",
-                            lesson: "Unit 1",
-                            content: "Hello, I'm Ben. Nice to meet you.",
-                            image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800",
-                            vocab: [
-                                { en: "hello", ipa: "/həˈləʊ/", vi: "xin chào (trang trọng)", tip: "Kéo dài nguyên âm đôi /əʊ/ ở cuối." },
-                                { en: "fine", ipa: "/faɪn/", vi: "khỏe, tốt", tip: "Bật hơi gió âm /n/ ngân nhẹ ở mũi." },
-                                { en: "goodbye", ipa: "/ˌɡʊdˈbaɪ/", vi: "tạm biệt", tip: "Nhấn trọng âm vào âm tiết thứ hai /baɪ/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u2",
-                            title: "Our Names",
-                            lesson: "Unit 2",
-                            content: "What is your name? My name is Mary.",
-                            image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800",
-                            vocab: [
-                                { en: "name", ipa: "/neɪm/", vi: "tên gọi", tip: "Khép môi nhẹ để tạo âm /m/ ở đuôi từ." },
-                                { en: "spell", ipa: "/spel/", vi: "đánh vần", tip: "Cong đầu lưỡi lên vòm họng khi phát âm âm /l/ cuối." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u3",
-                            title: "Our Friends",
-                            lesson: "Unit 3",
-                            content: "Is that Tony? Yes, it is.",
-                            image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800",
-                            vocab: [
-                                { en: "friend", ipa: "/frend/", vi: "người bạn", tip: "Bật nhẹ phụ âm /d/ cuối cùng." },
-                                { en: "classmate", ipa: "/ˈklɑːs.meɪt/", vi: "bạn cùng lớp", tip: "Có âm gió /s/ ở giữa class và mate." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u4",
-                            title: "Our Bodies",
-                            lesson: "Unit 4",
-                            content: "Touch your face! This is my nose.",
-                            image: "https://images.unsplash.com/photo-1504484483720-346146985b37?w=800",
-                            vocab: [
-                                { en: "face", ipa: "/feɪs/", vi: "khuôn mặt", tip: "Kết thúc bằng hơi gió âm /s/ rõ nét." },
-                                { en: "nose", ipa: "/nəʊz/", vi: "cái mũi", tip: "Âm s ở đây được phát âm là /z/ rung nhẹ." },
-                                { en: "touch", ipa: "/tʌtʃ/", vi: "chạm, sờ", tip: "Bật âm /tʃ/ mạnh ở cuối từ." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u5",
-                            title: "My Hobbies",
-                            lesson: "Unit 5",
-                            content: "I like dancing. What is your hobby?",
-                            image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800",
-                            vocab: [
-                                { en: "hobby", ipa: "/ˈhɒb.i/", vi: "sở thích", tip: "Nhấn mạnh âm đầu tiên /ˈhɒb/." },
-                                { en: "dancing", ipa: "/ˈdɑːn.sɪŋ/", vi: "nhảy múa", tip: "Phát âm mũi âm /ŋ/ tròn trịa." },
-                                { en: "singing", ipa: "/ˈsɪŋ.ɪŋ/", vi: "ca hát", tip: "Ngân nhẹ âm /ŋ/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u6",
-                            title: "Our School",
-                            lesson: "Unit 6",
-                            content: "This is my classroom. It is very big.",
-                            image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800",
-                            vocab: [
-                                { en: "school", ipa: "/skuːl/", vi: "trường học", tip: "Kéo dài âm /uː/ rồi đưa đầu lưỡi lên chạm vòm miệng cho âm /l/." },
-                                { en: "classroom", ipa: "/ˈklɑːs.ruːm/", vi: "phòng học", tip: "Nhấn âm /ˈklɑːs/." },
-                                { en: "library", ipa: "/ˈlaɪ.brər.i/", vi: "thư viện", tip: "Nhấn rõ âm tiết đầu tiên." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u7",
-                            title: "Classroom Instructions",
-                            lesson: "Unit 7",
-                            content: "Open your book, please. Stand up!",
-                            image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800",
-                            vocab: [
-                                { en: "stand up", ipa: "/stænd ʌp/", vi: "đứng lên", tip: "Nối âm /d/ của stand sang /ʌ/ của up thành /stændʌp/." },
-                                { en: "sit down", ipa: "/sɪt daʊn/", vi: "ngồi xuống", tip: "Bật hơi gió âm /t/ nhẹ nhàng." },
-                                { en: "quiet", ipa: "/ˈkwaɪ.ət/", vi: "yên lặng", tip: "Bắt đầu với môi chúm tròn lại /kw/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u8",
-                            title: "My School Things",
-                            lesson: "Unit 8",
-                            content: "I have a pen and a pencil. These are my books.",
-                            image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800",
-                            vocab: [
-                                { en: "pencil", ipa: "/ˈpen.səl/", vi: "bút chì", tip: "Bật hơi mạnh âm /p/ ở đầu." },
-                                { en: "eraser", ipa: "/ɪˈreɪ.zər/", vi: "cục tẩy", tip: "Nhấn mạnh âm thứ hai /reɪ/." },
-                                { en: "ruler", ipa: "/ˈruː.lər/", vi: "thước kẻ", tip: "Chúm môi âm /r/ đầu tiên." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u9",
-                            title: "Our Colours",
-                            lesson: "Unit 9",
-                            content: "What colour is it? It is yellow.",
-                            image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800",
-                            vocab: [
-                                { en: "colour", ipa: "/ˈkʌl.ər/", vi: "màu sắc", tip: "Nhấn âm /ˈkʌl/ phát âm dứt khoát." },
-                                { en: "orange", ipa: "/ˈɒr.ɪndʒ/", vi: "màu cam / quả cam", tip: "Phát âm rõ âm cuối /ndʒ/." },
-                                { en: "yellow", ipa: "/ˈjel.əʊ/", vi: "màu vàng", tip: "Kéo dài nguyên âm đôi /əʊ/ ở cuối." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u10",
-                            title: "Break Time",
-                            lesson: "Unit 10",
-                            content: "What do you do at break time? I play football.",
-                            image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800",
-                            vocab: [
-                                { en: "football", ipa: "/ˈfʊt.bɔːl/", vi: "bóng đá", tip: "Cong lưỡi ở âm /l/ cuối." },
-                                { en: "chess", ipa: "/tʃes/", vi: "cờ vua", tip: "Bật âm gió /tʃ/ mạnh ở đầu, kết thúc với gió xì hơi /s/." },
-                                { en: "badminton", ipa: "/ˈbæd.mɪn.tən/", vi: "cầu lông", tip: "Nhấn âm tiết đầu tiên." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u11",
-                            title: "My Family",
-                            lesson: "Unit 11",
-                            content: "This is my mother. She is very beautiful.",
-                            image: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=800",
-                            vocab: [
-                                { en: "mother", ipa: "/ˈmʌð.ər/", vi: "mẹ", tip: "Đặt đầu lưỡi giữa hai hàm răng cho âm /ð/." },
-                                { en: "father", ipa: "/ˈfɑː.ðər/", vi: "bố", tip: "Âm /ɑː/ sâu ở họng, lưỡi kẹp răng âm /ð/." },
-                                { en: "brother", ipa: "/ˈbrʌð.ər/", vi: "anh/em trai", tip: "Nhấn mạnh âm đầu tiên /ˈbrʌð/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u12",
-                            title: "My House",
-                            lesson: "Unit 12",
-                            content: "There is a garden in front of my house.",
-                            image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
-                            vocab: [
-                                { en: "house", ipa: "/haʊs/", vi: "ngôi nhà", tip: "Phát âm rõ hơi gió âm cuối /s/." },
-                                { en: "garden", ipa: "/ˈɡɑː.dən/", vi: "khu vườn", tip: "Nhấn âm /ˈɡɑː/ sâu ở trong cổ họng." },
-                                { en: "gate", ipa: "/ɡeɪt/", vi: "cổng", tip: "Bật nhẹ hơi âm cuối /t/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u13",
-                            title: "My Rooms",
-                            lesson: "Unit 13",
-                            content: "This is the living room. It is clean and neat.",
-                            image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800",
-                            vocab: [
-                                { en: "living room", ipa: "/ˈlɪv.ɪŋ ruːm/", vi: "phòng khách", tip: "Ngân nhẹ đuôi âm /ŋ/." },
-                                { en: "kitchen", ipa: "/ˈkɪtʃ.ən/", vi: "phòng bếp", tip: "Bật âm /tʃ/ mạnh ở giữa từ." },
-                                { en: "bathroom", ipa: "/ˈbɑːθ.ruːm/", vi: "phòng tắm", tip: "Đặt đầu lưỡi giữa hai hàm răng thổi hơi cho âm /θ/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u14",
-                            title: "My Bedroom",
-                            lesson: "Unit 14",
-                            content: "There is a bed and a big desk in my bedroom.",
-                            image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
-                            vocab: [
-                                { en: "bedroom", ipa: "/ˈbed.ruːm/", vi: "phòng ngủ", tip: "Nhấn dứt khoát âm /ˈbed/." },
-                                { en: "desk", ipa: "/desk/", vi: "bàn học/làm việc", tip: "Phát âm rõ cụm phụ âm đuôi /sk/." },
-                                { en: "chair", ipa: "/tʃeər/", vi: "cái ghế", tip: "Bật chu môi âm đầu /tʃ/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u15",
-                            title: "My Clothes",
-                            lesson: "Unit 15",
-                            content: "I am wearing a T-shirt and shorts today.",
-                            image: "https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?w=800",
-                            vocab: [
-                                { en: "wearing", ipa: "/ˈweə.rɪŋ/", vi: "đang mặc", tip: "Tròn môi âm /w/ đầu tiên." },
-                                { en: "T-shirt", ipa: "/ˈtiː.ʃɜːt/", vi: "áo phông", tip: "Nhấn âm /ˈtiː/ và kết thúc âm /t/ sắc bén." },
-                                { en: "shorts", ipa: "/ʃɔːts/", vi: "quần soóc", tip: "Bật âm tròn chu môi /ʃ/ và âm đuôi /ts/." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u16",
-                            title: "My Pets",
-                            lesson: "Unit 16",
-                            content: "Do you have any cats? I have a cute rabbit.",
-                            image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800",
-                            vocab: [
-                                { en: "pet", ipa: "/pet/", vi: "thú cưng", tip: "Bật hơi /p/ mạnh và âm cuối /t/ dứt khoát." },
-                                { en: "rabbit", ipa: "/ˈræb.ɪt/", vi: "con thỏ", tip: "Nhấn trọng âm ở âm tiết thứ nhất." },
-                                { en: "parrot", ipa: "/ˈpær.ət/", vi: "con vẹt", tip: "Bật âm /p/ ở đầu, kết thúc dứt khoát." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u17",
-                            title: "Our Toys",
-                            lesson: "Unit 17",
-                            content: "What toys do you like? I like planes and cars.",
-                            image: "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?w=800",
-                            vocab: [
-                                { en: "toy", ipa: "/tɔɪ/", vi: "đồ chơi", tip: "Kéo dài nguyên âm đôi /ɔɪ/." },
-                                { en: "plane", ipa: "/pleɪn/", vi: "máy bay đồ chơi", tip: "Bật ngậm môi âm /p/ rồi nhả ra nhanh." },
-                                { en: "doll", ipa: "/dɒl/", vi: "búp bê", tip: "Cong đầu lưỡi lên chạm vòm họng âm /l/ cuối." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u18",
-                            title: "My Playing Toys",
-                            lesson: "Unit 18",
-                            content: "He has a big ship. She has a colorful kite.",
-                            image: "https://images.unsplash.com/photo-1508898578281-774ac4893c0c?w=800",
-                            vocab: [
-                                { en: "ship", ipa: "/ʃɪp/", vi: "tàu thủy đồ chơi", tip: "Chu môi bật âm /ʃ/ và mím môi bật hơi âm cuối /p/." },
-                                { en: "kite", ipa: "/kaɪt/", vi: "cái diều", tip: "Kéo dài âm đôi /aɪ/ rồi bật /t/." },
-                                { en: "truck", ipa: "/trʌk/", vi: "xe tải đồ chơi", tip: "Bật hơi gió âm cuối /k/ sắc sảo." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u19",
-                            title: "Outdoor Activities",
-                            lesson: "Unit 19",
-                            content: "I am skating in the park with my friends.",
-                            image: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=800",
-                            vocab: [
-                                { en: "skating", ipa: "/ˈskeɪ.tɪŋ/", vi: "trượt patin", tip: "Nhấn âm /ˈskeɪ/ rõ nét." },
-                                { en: "cycling", ipa: "/ˈsaɪ.klɪŋ/", vi: "đạp xe", tip: "Nhấn mạnh âm đầu tiên /ˈsaɪ/." },
-                                { en: "skipping", ipa: "/ˈskɪp.ɪŋ/", vi: "nhảy dây", tip: "Bật hơi gió âm /p/ nhẹ nhàng ở giữa." }
-                            ]
-                        },
-                        {
-                            id: "gs3_u20",
-                            title: "At the Zoo",
-                            lesson: "Unit 20",
-                            content: "What can you see? I can see a giant elephant.",
-                            image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800",
-                            vocab: [
-                                { en: "zoo", ipa: "/zuː/", vi: "vườn bách thú", tip: "Phát âm rung nhẹ âm /z/ và kéo dài âm /uː/." },
-                                { en: "elephant", ipa: "/ˈel.ɪ.fənt/", vi: "con voi", tip: "Nhấn âm /ˈel/, âm cuối kết thúc nhẹ /nt/." },
-                                { en: "monkey", ipa: "/ˈmʌŋ.ki/", vi: "con khỉ", tip: "Ngân nhẹ âm mũi /ŋ/ trước khi phát âm /ki/." }
-                            ]
-                        }
+                        { id: "gs3_u1", title: "Hello", lesson: "Unit 1", content: "Hello, I'm Ben. Nice to meet you.", image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800", vocab: [{ en: "hello", ipa: "/həˈləʊ/", vi: "xin chào", tip: "Kéo dài nguyên âm đôi /əʊ/ ở cuối." }, { en: "fine", ipa: "/faɪn/", vi: "khỏe, tốt", tip: "Ngân nhẹ âm /n/ ở mũi." }, { en: "goodbye", ipa: "/ˌɡʊdˈbaɪ/", vi: "tạm biệt", tip: "Nhấn trọng âm thứ hai /baɪ/." }] },
+                        { id: "gs3_u2", title: "Our Names", lesson: "Unit 2", content: "What is your name? My name is Mary.", image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800", vocab: [{ en: "name", ipa: "/neɪm/", vi: "tên", tip: "Khép môi nhẹ để tạo âm /m/ ở cuối." }, { en: "spell", ipa: "/spel/", vi: "đánh vần", tip: "Cong lưỡi lên vòm họng cho âm /l/." }] },
+                        { id: "gs3_u3", title: "Our Friends", lesson: "Unit 3", content: "Is that Tony? Yes, it is.", image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800", vocab: [{ en: "friend", ipa: "/frend/", vi: "bạn bè", tip: "Bật nhẹ phụ âm /d/ ở cuối." }, { en: "classmate", ipa: "/ˈklɑːs.meɪt/", vi: "bạn cùng lớp", tip: "Chú ý hơi gió /s/ ở giữa." }] },
+                        { id: "gs3_u4", title: "Our Bodies", lesson: "Unit 4", content: "Touch your face! This is my nose.", image: "https://images.unsplash.com/photo-1504484483720-346146985b37?w=800", vocab: [{ en: "face", ipa: "/feɪs/", vi: "khuôn mặt", tip: "Kết thúc bằng âm gió /s/ rõ nét." }, { en: "nose", ipa: "/nəʊz/", vi: "mũi", tip: "Âm s phát âm thành /z/ rung nhẹ." }, { en: "touch", ipa: "/tʌtʃ/", vi: "chạm", tip: "Bật âm /tʃ/ mạnh ở cuối." }] },
+                        { id: "gs3_u5", title: "My Hobbies", lesson: "Unit 5", content: "I like dancing. What is your hobby?", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800", vocab: [{ en: "hobby", ipa: "/ˈhɒb.i/", vi: "sở thích", tip: "Nhấn âm tiết thứ nhất." }, { en: "dancing", ipa: "/ˈdɑːn.sɪŋ/", vi: "nhảy múa", tip: "Phát âm đuôi /ŋ/ tròn trịa." }] },
+                        { id: "gs3_u6", title: "Our School", lesson: "Unit 6", content: "This is my classroom. It is very big.", image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800", vocab: [{ en: "school", ipa: "/skuːl/", vi: "trường học", tip: "Kéo dài âm /uː/ rồi đưa đầu lưỡi lên." }, { en: "classroom", ipa: "/ˈklɑːs.ruːm/", vi: "phòng học", tip: "Nhấn âm /ˈklɑːs/." }] },
+                        { id: "gs3_u7", title: "Classroom Instructions", lesson: "Unit 7", content: "Open your book, please. Stand up!", image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800", vocab: [{ en: "stand up", ipa: "/stænd ʌp/", vi: "đứng lên", tip: "Nối âm /d/ sang /ʌ/ thành /stændʌp/." }, { en: "quiet", ipa: "/ˈkwaɪ.ət/", vi: "yên tĩnh", tip: "Tròn môi âm /kw/ ở đầu." }] },
+                        { id: "gs3_u8", title: "My School Things", lesson: "Unit 8", content: "I have a pen and a pencil. These are my books.", image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800", vocab: [{ en: "pencil", ipa: "/ˈpen.səl/", vi: "bút chì", tip: "Bật hơi mạnh âm /p/ ở đầu." }, { en: "eraser", ipa: "/ɪˈreɪ.zər/", vi: "cục tẩy", tip: "Nhấn mạnh âm thứ hai /reɪ/." }] },
+                        { id: "gs3_u9", title: "Our Colours", lesson: "Unit 9", content: "What colour is it? It is yellow.", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800", vocab: [{ en: "colour", ipa: "/ˈkʌl.ər/", vi: "màu sắc", tip: "Nhấn âm đầu tiên dứt khoát." }, { en: "yellow", ipa: "/ˈjel.əʊ/", vi: "màu vàng", tip: "Kéo dài âm đôi /əʊ/ ở cuối." }] },
+                        { id: "gs3_u10", title: "Break Time", lesson: "Unit 10", content: "What do you do at break time? I play football.", image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800", vocab: [{ en: "football", ipa: "/ˈfʊt.bɔːl/", vi: "bóng đá", tip: "Cong lưỡi ở âm /l/ cuối." }, { en: "badminton", ipa: "/ˈbæd.mɪn.tən/", vi: "cầu lông", tip: "Nhấn mạnh âm đầu tiên." }] },
+                        { id: "gs3_u11", title: "My Family", lesson: "Unit 11", content: "This is my mother. She is very beautiful.", image: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=800", vocab: [{ en: "mother", ipa: "/ˈmʌð.ər/", vi: "mẹ", tip: "Đặt đầu lưỡi giữa hai hàm răng thổi nhẹ." }, { en: "father", ipa: "/ˈfɑː.ðər/", vi: "bố", tip: "Đặt nhẹ răng cửa trên lên môi dưới cho âm /f/." }] },
+                        { id: "gs3_u12", title: "My House", lesson: "Unit 12", content: "There is a garden in front of my house.", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800", vocab: [{ en: "house", ipa: "/haʊs/", vi: "ngôi nhà", tip: "Phát âm rõ âm cuối /s/." }, { en: "garden", ipa: "/ˈɡɑː.dən/", vi: "khu vườn", tip: "Nhấn mạnh âm đầu tiên." }] },
+                        { id: "gs3_u13", title: "My Rooms", lesson: "Unit 13", content: "This is the living room. It is clean and neat.", image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800", vocab: [{ en: "kitchen", ipa: "/ˈkɪtʃ.ən/", vi: "nhà bếp", tip: "Bật âm /tʃ/ mạnh ở giữa." }, { en: "living room", ipa: "/ˈlɪv.ɪŋ ruːm/", vi: "phòng khách", tip: "Phát âm ngân đuôi /ŋ/." }] },
+                        { id: "gs3_u14", title: "My Bedroom", lesson: "Unit 14", content: "There is a bed and a big desk in my bedroom.", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800", vocab: [{ en: "bedroom", ipa: "/ˈbed.ruːm/", vi: "phòng ngủ", tip: "Nhấn dứt khoát âm đầu." }, { en: "desk", ipa: "/desk/", vi: "bàn làm việc", tip: "Bật rõ cụm phụ âm cuối /sk/." }] },
+                        { id: "gs3_u15", title: "My Clothes", lesson: "Unit 15", content: "I am wearing a T-shirt and shorts today.", image: "https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?w=800", vocab: [{ en: "T-shirt", ipa: "/ˈtiː.ʃɜːt/", vi: "áo phông", tip: "Nhấn mạnh âm /ˈtiː/." }, { en: "shorts", ipa: "/ʃɔːts/", vi: "quần ngắn", tip: "Chu môi âm /ʃ/ và bật /ts/ ở đuôi." }] },
+                        { id: "gs3_u16", title: "My Pets", lesson: "Unit 16", content: "Do you have any cats? I have a cute rabbit.", image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800", vocab: [{ en: "rabbit", ipa: "/ˈræb.ɪt/", vi: "con thỏ", tip: "Nhấn mạnh trọng âm đầu." }, { en: "parrot", ipa: "/ˈpær.ət/", vi: "con vẹt", tip: "Bật mạnh âm /p/ ở đầu." }] },
+                        { id: "gs3_u17", title: "Our Toys", lesson: "Unit 17", content: "What toys do you like? I like planes and cars.", image: "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?w=800", vocab: [{ en: "plane", ipa: "/pleɪn/", vi: "máy bay đồ chơi", tip: "Mím nhẹ môi rồi bật ra nhanh." }, { en: "doll", ipa: "/dɒl/", vi: "búp bê", tip: "Cong lưỡi chạm vòm miệng cho âm /l/." }] },
+                        { id: "gs3_u18", title: "My Playing Toys", lesson: "Unit 18", content: "He has a big ship. She has a colorful kite.", image: "https://images.unsplash.com/photo-1508898578281-774ac4893c0c?w=800", vocab: [{ en: "ship", ipa: "/ʃɪp/", vi: "tàu thủy đồ chơi", tip: "Chu môi xì hơi /ʃ/ rồi bật /p/." }, { en: "kite", ipa: "/kaɪt/", vi: "cái diều", tip: "Kéo dài âm đôi /aɪ/ rồi bật /t/." }] },
+                        { id: "gs3_u19", title: "Outdoor Activities", lesson: "Unit 19", content: "I am skating in the park with my friends.", image: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=800", vocab: [{ en: "skating", ipa: "/ˈskeɪ.tɪŋ/", vi: "trượt patin", tip: "Nhấn mạnh âm /ˈskeɪ/." }, { en: "cycling", ipa: "/ˈsaɪ.klɪŋ/", vi: "đạp xe", tip: "Nhấn mạnh âm đầu tiên /ˈsaɪ/." }] },
+                        { id: "gs3_u20", title: "At the Zoo", lesson: "Unit 20", content: "What can you see? I can see a giant elephant.", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800", vocab: [{ en: "elephant", ipa: "/ˈel.ɪ.fənt/", vi: "con voi", tip: "Nhấn âm đầu, đuôi kết thúc /nt/ nhẹ." }, { en: "monkey", ipa: "/ˈmʌŋ.ki/", vi: "con khỉ", tip: "Phát âm ngân âm mũi /ŋ/." }] }
                     ],
                     6: [
-                        {
-                            id: "gs6_u1",
-                            title: "My New School",
-                            lesson: "Unit 1",
-                            content: "Our school bag looks heavy but we are excited.",
-                            image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800",
-                            vocab: [
-                                { en: "school bag", ipa: "/skuːl bæɡ/", vi: "cặp đi học", tip: "Bật hơi nhẹ âm /ɡ/ ở đuôi từ bag." },
-                                { en: "calculator", ipa: "/ˈkæl.kjə.leɪ.tər/", vi: "máy tính bỏ túi", tip: "Nhấn âm tiết đầu /ˈkæl/ thật rõ ràng." },
-                                { en: "compass", ipa: "/ˈkʌm.pəs/", vi: "cái la bàn, com-pa", tip: "Bật gió nhẹ âm cuối /s/." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u2",
-                            title: "My House",
-                            lesson: "Unit 2",
-                            content: "My favorite room is my bedroom because it is comfortable.",
-                            image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800",
-                            vocab: [
-                                { en: "comfortable", ipa: "/ˈkʌm.fə.tə.bəl/", vi: "thoải mái, dễ chịu", tip: "Nhấn /ˈkʌm/ dứt khoát, các âm sau đọc lướt nhanh." },
-                                { en: "department store", ipa: "/dɪˈpɑːt.mənt stɔːr/", vi: "cửa hàng bách hóa", tip: "Nhấn âm thứ hai /pɑːt/ với âm r cong nhẹ." },
-                                { en: "villa", ipa: "/ˈvɪl.ə/", vi: "biệt thự", tip: "Bắt đầu bằng răng chạm môi cho âm /v/." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u3",
-                            title: "My Friends",
-                            lesson: "Unit 3",
-                            content: "She has long black hair and a very kind heart.",
-                            image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800",
-                            vocab: [
-                                { en: "personality", ipa: "/ˌpɜː.sənˈæl.ə.ti/", vi: "nhân cách, tính cách", tip: "Nhấn trọng âm phụ ở /pɜː/ và trọng âm chính ở /æl/." },
-                                { en: "creative", ipa: "/kriˈeɪ.tɪv/", vi: "sáng tạo", tip: "Nhấn mạnh âm tiết thứ hai /eɪ/." },
-                                { en: "confident", ipa: "/ˈkɒn.fɪ.dənt/", vi: "tự tin", tip: "Nhấn âm /ˈkɒn/ dứt khoát, kết thúc bằng /nt/ nhẹ." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u4",
-                            title: "My Neighbourhood",
-                            lesson: "Unit 4",
-                            content: "The neighborhood is clean but the streets are crowded.",
-                            image: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?w=800",
-                            vocab: [
-                                { en: "suburb", ipa: "/ˈsʌb.ɜːb/", vi: "ngoại ô", tip: "Nhấn âm /ˈsʌb/ dứt khoát và kết thúc âm /b/ nhẹ." },
-                                { en: "crowded", ipa: "/ˈkraʊ.dɪd/", vi: "đông đúc", tip: "Nhấn âm đầu tiên /ˈkraʊ/ rõ nét." },
-                                { en: "historic", ipa: "/hɪˈstɒr.ɪk/", vi: "mang tính lịch sử cổ kính", tip: "Nhấn âm tiết thứ hai /stɒr/." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u5",
-                            title: "Natural Wonders of the World",
-                            lesson: "Unit 5",
-                            content: "Ha Long Bay is one of the most famous natural wonders.",
-                            image: "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=800",
-                            vocab: [
-                                { en: "wonder", ipa: "/ˈwʌn.dər/", vi: "kỳ quan", tip: "Tròn môi âm /w/ đầu tiên, nhấn âm đầu." },
-                                { en: "waterfall", ipa: "/ˈwɔː.tə.fɔːl/", vi: "thác nước", tip: "Kéo dài âm /ɔː/ và cong nhẹ đầu lưỡi âm /l/." },
-                                { en: "island", ipa: "/ˈaɪ.lənd/", vi: "hòn đảo", tip: "Lưu ý âm /s/ hoàn toàn câm, không phát âm." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u6",
-                            title: "Our Tet Holiday",
-                            lesson: "Unit 6",
-                            content: "We should decorate our house and buy peach blossoms.",
-                            image: "https://images.unsplash.com/photo-1582230221711-37d363db8805?w=800",
-                            vocab: [
-                                { en: "decorate", ipa: "/ˈdek.ə.reɪt/", vi: "trang trí", tip: "Nhấn mạnh âm đầu tiên, bật hơi gió /t/ ở cuối." },
-                                { en: "blossom", ipa: "/ˈblɒs.əm/", vi: "hoa nở", tip: "Nhấn âm /ˈblɒs/ dứt khoát." },
-                                { en: "firework", ipa: "/ˈfaɪə.wɜːk/", vi: "pháo hoa", tip: "Bật hơi gió âm /k/ nhẹ ở cuối." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u7",
-                            title: "Television",
-                            lesson: "Unit 7",
-                            content: "I like watching educational programmes on television.",
-                            image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800",
-                            vocab: [
-                                { en: "educational", ipa: "/ˌedʒ.ʊˈkeɪ.ʃən.əl/", vi: "mang tính giáo dục", tip: "Trọng âm chính rơi vào âm /keɪ/." },
-                                { en: "programme", ipa: "/ˈprəʊ.ɡræm/", vi: "chương trình truyền hình", tip: "Tròn môi âm /pr/ đầu tiên." },
-                                { en: "channel", ipa: "/ˈtʃæn.əl/", vi: "kênh truyền hình", tip: "Bật chu môi âm đầu /tʃ/, cong lưỡi âm /l/ ở cuối." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u8",
-                            title: "Sports and Games",
-                            lesson: "Unit 8",
-                            content: "Doing sports helps us stay healthy and fit.",
-                            image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800",
-                            vocab: [
-                                { en: "marathon", ipa: "/ˈmær.ə.θən/", vi: "cuộc đua ma-ra-tông", tip: "Đặt đầu lưỡi giữa hai hàm răng cho âm /θ/." },
-                                { en: "goggles", ipa: "/ˈɡɒɡ.əlz/", vi: "kính bơi/bảo hộ", tip: "Phát âm rung nhẹ âm /z/ ở cuối." },
-                                { en: "champion", ipa: "/ˈtʃæm.pi.ən/", vi: "nhà vô địch", tip: "Bật chu môi mạnh mẽ âm /tʃ/ đầu từ." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u9",
-                            title: "Cities of the World",
-                            lesson: "Unit 9",
-                            content: "London is a historical city with magnificent buildings.",
-                            image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800",
-                            vocab: [
-                                { en: "magnificent", ipa: "/mæɡˈnɪf.ɪ.sənt/", vi: "tráng lệ, lộng lẫy", tip: "Nhấn mạnh vào âm tiết thứ hai /nɪf/." },
-                                { en: "continent", ipa: "/ˈkɒn.tɪ.nənt/", vi: "lục địa", tip: "Nhấn dứt khoát âm đầu tiên, kết thúc bằng /nt/ nhẹ." },
-                                { en: "landmark", ipa: "/ˈlænd.mɑːk/", vi: "cột mốc danh lam", tip: "Bật hơi gió âm /k/ ở cuối từ." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u10",
-                            title: "Our Houses in the Future",
-                            lesson: "Unit 10",
-                            content: "Future houses might be high-tech and run on solar energy.",
-                            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
-                            vocab: [
-                                { en: "high-tech", ipa: "/ˈhaɪ.tek/", vi: "công nghệ cao", tip: "Bật âm /k/ dứt khoát ở cuối." },
-                                { en: "appliance", ipa: "/əˈplaɪ.əns/", vi: "thiết bị gia dụng", tip: "Bật hơi gió âm /s/ nhẹ ở cuối từ." },
-                                { en: "solar", ipa: "/ˈsəʊ.lər/", vi: "thuộc về mặt trời", tip: "Kéo dài nguyên âm đôi /əʊ/." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u11",
-                            title: "Our Greener World",
-                            lesson: "Unit 11",
-                            content: "We should recycle paper and plastic bottles to save environment.",
-                            image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800",
-                            vocab: [
-                                { en: "recycle", ipa: "/ˌriːˈsaɪ.kəl/", vi: "tái chế", tip: "Kéo dài âm /iː/, cong nhẹ lưỡi âm /l/ cuối." },
-                                { en: "plastic", ipa: "/ˈplæs.tɪk/", vi: "nhựa", tip: "Có hơi gió nhẹ âm /s/ ở giữa từ, bật /k/ ở đuôi." },
-                                { en: "environment", ipa: "/ɪnˈvaɪ.rən.mənt/", vi: "môi trường", tip: "Nhấn trọng âm rõ ràng ở âm thứ hai /vaɪ/." }
-                            ]
-                        },
-                        {
-                            id: "gs6_u12",
-                            title: "Robots",
-                            lesson: "Unit 12",
-                            content: "Robots can do heavy liftings and guard our properties.",
-                            image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800",
-                            vocab: [
-                                { en: "heavy lifting", ipa: "/ˈhev.i ˈlɪf.tɪŋ/", vi: "mang vác vật nặng", tip: "Ngân nhẹ âm mũi /ŋ/ ở cuối." },
-                                { en: "automatic", ipa: "/ˌɔː.təˈmæt.ɪk/", vi: "tự động", tip: "Kéo dài âm /ɔː/, nhấn vào âm tiết /mæt/." },
-                                { en: "domestic", ipa: "/dəˈmes.tɪk/", vi: "thuộc gia đình, trong nước", tip: "Có âm gió /s/ trước âm /tɪk/." }
-                            ]
-                        }
+                        { id: "gs6_u1", title: "My New School", lesson: "Unit 1", content: "Our school bag looks heavy but we are excited.", image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800", vocab: [{ en: "calculator", ipa: "/ˈkæl.kjə.leɪ.tər/", vi: "máy tính bỏ túi", tip: "Nhấn mạnh âm tiết thứ nhất." }, { en: "compass", ipa: "/ˈkʌm.pəs/", vi: "com-pa, la bàn", tip: "Bật gió xì âm /s/ cuối." }] },
+                        { id: "gs6_u2", title: "My House", lesson: "Unit 2", content: "My favorite room is my bedroom because it is comfortable.", image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800", vocab: [{ en: "comfortable", ipa: "/ˈkʌm.fə.tə.bəl/", vi: "thoải mái", tip: "Nhấn dứt khoát âm đầu, lướt các âm sau." }, { en: "department store", ipa: "/dɪˈpɑːt.mənt stɔːr/", vi: "cửa hàng bách hóa", tip: "Nhấn mạnh trọng âm thứ hai." }] },
+                        { id: "gs6_u3", title: "My Friends", lesson: "Unit 3", content: "She has long black hair and a very kind heart.", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800", vocab: [{ en: "personality", ipa: "/ˌpɜː.sənˈæl.ə.ti/", vi: "tính cách", tip: "Trọng âm phụ ở /pɜː/, chính ở /æl/." }, { en: "confident", ipa: "/ˈkɒn.fɪ.dənt/", vi: "tự tin", tip: "Nhấn âm /ˈkɒn/ dứt khoát." }] },
+                        { id: "gs6_u4", title: "My Neighbourhood", lesson: "Unit 4", content: "The neighborhood is clean but the streets are crowded.", image: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?w=800", vocab: [{ en: "suburb", ipa: "/ˈsʌb.ɜːb/", vi: "ngoại ô", tip: "Nhấn âm /ˈsʌb/ dứt khoát." }, { en: "historic", ipa: "/hɪˈstɒr.ɪk/", vi: "cổ kính, lịch sử", tip: "Nhấn mạnh âm thứ hai /stɒr/." }] },
+                        { id: "gs6_u5", title: "Natural Wonders", lesson: "Unit 5", content: "Ha Long Bay is one of the most famous natural wonders.", image: "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=800", vocab: [{ en: "wonder", ipa: "/ˈwʌn.dər/", vi: "kỳ quan", tip: "Tròn môi âm /w/ đầu tiên." }, { en: "island", ipa: "/ˈaɪ.lənd/", vi: "hòn đảo", tip: "Lưu ý âm /s/ hoàn toàn câm." }] },
+                        { id: "gs6_u6", title: "Our Tet Holiday", lesson: "Unit 6", content: "We should decorate our house and buy peach blossoms.", image: "https://images.unsplash.com/photo-1582230221711-37d363db8805?w=800", vocab: [{ en: "decorate", ipa: "/ˈdek.ə.reɪt/", vi: "trang trí", tip: "Bật hơi gió /t/ nhẹ ở đuôi." }, { en: "blossom", ipa: "/ˈblɒs.əm/", vi: "hoa nở", tip: "Nhấn âm /ˈblɒs/ dứt khoát." }] },
+                        { id: "gs6_u7", title: "Television", lesson: "Unit 7", content: "I like watching educational programmes on television.", image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800", vocab: [{ en: "educational", ipa: "/ˌedʒ.ʊˈkeɪ.ʃən.əl/", vi: "giáo dục", tip: "Trọng âm chính rơi vào /keɪ/." }, { en: "programme", ipa: "/ˈprəʊ.ɡræm/", vi: "chương trình", tip: "Tròn chu môi âm /pr/ lúc đầu." }] },
+                        { id: "gs6_u8", title: "Sports and Games", lesson: "Unit 8", content: "Doing sports helps us stay healthy and fit.", image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800", vocab: [{ en: "marathon", ipa: "/ˈmær.ə.θən/", vi: "đua ma-ra-tông", tip: "Đặt nhẹ đầu lưỡi giữa răng cho âm /θ/." }, { en: "champion", ipa: "/ˈtʃæm.pi.ən/", vi: "nhà vô địch", tip: "Bật mạnh chu môi âm /tʃ/ đầu." }] },
+                        { id: "gs6_u9", title: "Cities of the World", lesson: "Unit 9", content: "London is a historical city with magnificent buildings.", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800", vocab: [{ en: "magnificent", ipa: "/mæɡˈnɪf.ɪ.sənt/", vi: "tráng lệ, lộng lẫy", tip: "Nhấn mạnh trọng âm thứ hai /nɪf/." }, { en: "continent", ipa: "/ˈkɒn.tɪ.nənt/", vi: "lục địa", tip: "Kết thúc bằng cụm /nt/ dứt khoát." }] },
+                        { id: "gs6_u10", title: "Future Houses", lesson: "Unit 10", content: "Future houses might be high-tech and run on solar energy.", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800", vocab: [{ en: "high-tech", ipa: "/ˈhaɪ.tek/", vi: "công nghệ cao", tip: "Bật mạnh âm /k/ ở cuối." }, { en: "appliance", ipa: "/əˈplaɪ.əns/", vi: "thiết bị gia dụng", tip: "Xì gió /s/ nhẹ ở cuối từ." }] },
+                        { id: "gs6_u11", title: "Our Greener World", lesson: "Unit 11", content: "We should recycle paper and plastic bottles to save environment.", image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800", vocab: [{ en: "recycle", ipa: "/ˌriːˈsaɪ.kəl/", vi: "tái chế", tip: "Kéo dài âm /iː/, cong nhẹ lưỡi âm /l/." }, { en: "environment", ipa: "/ɪnˈvaɪ.rən.mənt/", vi: "môi trường", tip: "Nhấn mạnh trọng âm thứ hai /vaɪ/." }] },
+                        { id: "gs6_u12", title: "Robots", lesson: "Unit 12", content: "Robots can do heavy liftings and guard our properties.", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800", vocab: [{ en: "heavy lifting", ipa: "/ˈhev.i ˈlɪf.tɪŋ/", vi: "mang vác vật nặng", tip: "Phát âm ngân đuôi /ŋ/ ngân mũi." }, { en: "automatic", ipa: "/ˌɔː.təˈmæt.ɪk/", vi: "tự động", tip: "Kéo dài âm đầu /ɔː/, nhấn /mæt/." }] }
                     ]
                 }
             },
@@ -1237,70 +891,14 @@
                 icon: "fa-comments",
                 grades: {
                     "Đời Thường": [
-                        {
-                            id: "dl_habit",
-                            title: "Daily Habits",
-                            lesson: "Đời Thường 1",
-                            content: "I usually wake up early and do some stretching to start my day.",
-                            image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
-                            vocab: [
-                                { en: "usually", ipa: "/ˈjuː.ʒu.ə.li/", vi: "thường xuyên", tip: "Phát âm rung nhẹ âm /ʒ/ ở giữa." },
-                                { en: "stretching", ipa: "/ˈstretʃ.ɪŋ/", vi: "duỗi cơ, khởi động", tip: "Bật rõ âm /tʃ/ mạnh mẽ." },
-                                { en: "routine", ipa: "/ruːˈtiːn/", vi: "thói quen định kỳ", tip: "Kéo dài âm /tiːn/ và nhấn mạnh âm thứ hai." }
-                            ]
-                        },
-                        {
-                            id: "dl_shop",
-                            title: "Going Shopping",
-                            lesson: "Đời Thường 2",
-                            content: "How much does this blue jacket cost? Is there any discount today?",
-                            image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800",
-                            vocab: [
-                                { en: "jacket", ipa: "/ˈdʒæk.ɪt/", vi: "áo khoác", tip: "Phát âm rõ âm đầu /dʒ/." },
-                                { en: "discount", ipa: "/ˈdɪs.kaʊnt/", vi: "chiết khấu, giảm giá", tip: "Nhấn mạnh trọng âm ở âm tiết đầu tiên." },
-                                { en: "expensive", ipa: "/ɪkˈspen.sɪv/", vi: "đắt tiền", tip: "Bật âm gió nhẹ âm /s/ trước âm /p/." }
-                            ]
-                        }
+                        { id: "dl_habit", title: "Daily Habits", lesson: "Đời Thường 1", content: "I usually wake up early and do some stretching to start my day.", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800", vocab: [{ en: "usually", ipa: "/ˈjuː.ʒu.ə.li/", vi: "thường xuyên", tip: "Phát âm rung nhẹ âm /ʒ/ ở giữa." }, { en: "stretching", ipa: "/ˈstretʃ.ɪŋ/", vi: "giãn cơ, khởi động", tip: "Bật rõ âm /tʃ/ mạnh mẽ." }] },
+                        { id: "dl_shop", title: "Going Shopping", lesson: "Đời Thường 2", content: "How much does this blue jacket cost? Is there any discount today?", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800", vocab: [{ en: "jacket", ipa: "/ˈdʒæk.ɪt/", vi: "áo khoác", tip: "Phát âm rõ âm đầu /dʒ/." }, { en: "discount", ipa: "/ˈdɪs.kaʊnt/", vi: "giảm giá", tip: "Nhấn mạnh trọng âm thứ nhất." }] }
                     ],
                     "Du Lịch": [
-                        {
-                            id: "tr_direction",
-                            title: "Asking Directions",
-                            lesson: "Du Lịch 1",
-                            content: "Excuse me, could you tell me how to get to the nearest train station?",
-                            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
-                            vocab: [
-                                { en: "excuse me", ipa: "/ɪkˈskjuːz miː/", vi: "xin lỗi cho hỏi", tip: "Xì rõ âm /s/ và kéo dài âm /uː/." },
-                                { en: "nearest", ipa: "/ˈnɪə.rɪst/", vi: "gần nhất", tip: "Bật rõ âm đuôi /st/ sắc nét." },
-                                { en: "station", ipa: "/ˈsteɪ.ʃən/", vi: "nhà ga, trạm dừng", tip: "Phát âm rõ hơi gió âm chu môi /ʃ/." }
-                            ]
-                        },
-                        {
-                            id: "tr_hotel",
-                            title: "Hotel Check-in",
-                            lesson: "Du Lịch 2",
-                            content: "I have a reservation under the name of Smith for three nights.",
-                            image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800",
-                            vocab: [
-                                { en: "reservation", ipa: "/ˌrez.əˈveɪ.ʃən/", vi: "sự đặt chỗ trước", tip: "Nhấn âm ba /veɪ/ thật rõ." },
-                                { en: "nights", ipa: "/naɪts/", vi: "đêm", tip: "Bật phụ âm kép /ts/ ở đuôi." },
-                                { en: "receptionist", ipa: "/rɪˈsep.ʃən.ɪst/", vi: "nhân viên lễ tân", tip: "Nhấn mạnh vào âm tiết thứ hai /sep/." }
-                            ]
-                        }
+                        { id: "tr_direction", title: "Asking Directions", lesson: "Du Lịch 1", content: "Excuse me, could you tell me how to get to the nearest train station?", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800", vocab: [{ en: "excuse me", ipa: "/ɪkˈskjuːz miː/", vi: "xin lỗi cho hỏi", tip: "Xì rõ âm /s/ và kéo dài âm /uː/." }, { en: "station", ipa: "/ˈsteɪ.ʃən/", vi: "nhà ga, trạm dừng", tip: "Xì gió âm chu môi /ʃ/." }] }
                     ],
                     "Ăn Uống": [
-                        {
-                            id: "fd_cafe",
-                            title: "At the Coffee Shop",
-                            lesson: "Ăn Uống 1",
-                            content: "I would like to order a warm double espresso with extra chocolate syrup.",
-                            image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
-                            vocab: [
-                                { en: "espresso", ipa: "/esˈpres.əʊ/", vi: "cà phê espresso", tip: "Nhấn mạnh âm tiết thứ hai /pres/." },
-                                { en: "syrup", ipa: "/ˈsɪr.əp/", vi: "xi-rô", tip: "Phát âm rõ hơi gió âm cuối /p/." },
-                                { en: "chocolate", ipa: "/ˈtʃɒk.lət/", vi: "sô-cô-la", tip: "Bật hơi dứt khoát âm cuối /t/." }
-                            ]
-                        }
+                        { id: "fd_cafe", title: "At the Coffee Shop", lesson: "Ăn Uống 1", content: "I would like to order a warm double espresso with extra chocolate syrup.", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800", vocab: [{ en: "espresso", ipa: "/esˈpres.əʊ/", vi: "cà phê espresso", tip: "Nhấn mạnh âm thứ hai /pres/." }, { en: "chocolate", ipa: "/ˈtʃɒk.lət/", vi: "sô-cô-la", tip: "Bật hơi dứt khoát âm cuối /t/." }] }
                     ]
                 }
             }
