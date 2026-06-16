@@ -1307,12 +1307,12 @@
                 await syncVocabularyFromCloud();
                 listenToAccountsDirectory();
 
+                initStreakSystem();
+
                 const sessionUser = localStorage.getItem('fluency_active_user');
                 if (sessionUser) {
                     state.currentUser = JSON.parse(sessionUser);
                     setupStudentProgressSync(state.currentUser.username);
-                } else {
-                    initStreakSystem();
                 }
 
             } catch (err) {
@@ -1325,10 +1325,11 @@
         }
 
         async function syncVocabularyFromCloud() {
+            if (!auth.currentUser) return;
             const vocabRef = doc(db, 'artifacts', appId, 'public', 'data', 'vocab', 'curriculum_db');
             const vocabSnap = await getDoc(vocabRef);
 
-            if (vocabSnap.exists()) {
+            if (vocabSnap.exists() && vocabSnap.data() && vocabSnap.data().global_success) {
                 CURRICULUM_DATABASE = vocabSnap.data();
             } else {
                 CURRICULUM_DATABASE = JSON.parse(JSON.stringify(ORIGINAL_CURRICULUM_DATABASE));
@@ -1372,6 +1373,10 @@
                     state.calendarData = cloudData.calendarData || {};
                     state.historyArchives = cloudData.historyArchives || {};
                     
+                    if (!state.calendarData[state.monthYearKey]) {
+                        state.calendarData[state.monthYearKey] = [];
+                    }
+
                     updateStatsUI();
                     renderCalendarGrid();
                     renderActiveUserBanner();
@@ -1383,6 +1388,7 @@
         }
 
         async function initializeUserOnCloud(username) {
+            if (!auth.currentUser) return;
             const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'accounts', username);
             const defaultProgress = {
                 username: username,
@@ -1400,7 +1406,7 @@
         }
 
         async function saveUserProgressToCloud() {
-            if (!state.currentUser) return;
+            if (!state.currentUser || !auth.currentUser) return;
             const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'accounts', state.currentUser.username);
             try {
                 await setDoc(userDocRef, {
