@@ -2436,5 +2436,16 @@
         window.deleteLessonConfirm = deleteLessonConfirm;
         window.openAddLessonDialog = openAddLessonDialog;
     </script>
+
+<script>
+document.addEventListener('input', function(e){
+  if(e.target && e.target.id==='unit-search-input'){
+    const q=e.target.value.toLowerCase();
+    document.querySelectorAll('#units-cards-grid > div').forEach(card=>{
+      card.style.display=card.innerText.toLowerCase().includes(q)?'':'none';
+    });
+  }
+});
+</script>
 </body>
 </html>
