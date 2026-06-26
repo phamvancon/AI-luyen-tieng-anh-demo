@@ -375,6 +375,37 @@
                     </div>
                 </div>
 
+                <!-- THÊM MỚI: QUẢN LÝ PHÁT ÂM OFFLINE/THU ÂM TRỰC TIẾP -->
+                <div class="bg-purple-50/50 p-4 rounded-2xl border border-purple-100 space-y-3">
+                    <span class="block text-xs font-bold text-purple-700 uppercase tracking-wider">🎙️ Giao Diện Tải Lên / Ghi Âm Giọng Đọc Mẫu (Offline)</span>
+                    <p class="text-[10px] text-purple-600 leading-relaxed font-semibold">Admin có thể ghi âm trực tiếp hoặc tải tệp âm thanh (MP3, WAV) lên để bé nghe chuẩn giọng trị liệu mà không cần kết nối mạng TTS!</p>
+                    
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Tải tệp Audio -->
+                        <label class="flex-1 min-w-[140px] flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-purple-200 hover:border-purple-400 cursor-pointer bg-white text-xs text-purple-700 font-bold transition-all">
+                            <span>📁 Chọn file âm thanh</span>
+                            <input type="file" id="edit-card-audio-input" accept="audio/*" class="hidden" onchange="handleAdminAudioUpload(this)">
+                        </label>
+
+                        <!-- Ghi âm trực tiếp -->
+                        <button id="btn-record-audio-start" onclick="startRecordingCustomAudio()" class="flex-1 min-w-[140px] px-3 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all">
+                            <span>🎙️ Bắt đầu thu âm</span>
+                        </button>
+                        <button id="btn-record-audio-stop" onclick="stopRecordingCustomAudio()" class="hidden flex-1 min-w-[140px] px-3 py-2.5 bg-slate-700 hover:bg-slate-800 text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 animate-pulse transition-all">
+                            <span>⏹️ Dừng & Nhận</span>
+                        </button>
+                    </div>
+
+                    <!-- Trạng thái và điều khiển phát thử âm thanh offline -->
+                    <div class="flex items-center justify-between bg-white px-3 py-2.5 rounded-xl border border-purple-100 text-xs">
+                        <span id="audio-status-label" class="font-bold text-slate-500">Chưa có âm thanh tải lên</span>
+                        <div class="flex gap-1">
+                            <button id="btn-play-custom-audio" onclick="playCurrentCustomAudio()" class="hidden px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 font-extrabold transition-all">▶️ Nghe thử</button>
+                            <button id="btn-clear-custom-audio" onclick="clearCustomAudio()" class="hidden px-2 py-1 bg-slate-100 text-slate-500 rounded-lg hover:bg-rose-100 hover:text-rose-600 font-extrabold transition-all">✕ Xóa</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Khung xem trước ảnh trực tiếp -->
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Xem trước hình ảnh</label>
@@ -1268,7 +1299,7 @@
 
         const phoneticMap = {
             "A": "A", "Ă": "Á", "Â": "Ớ", "B": "Bờ", "C": "Cờ", "D": "Dờ", "Đ": "Đờ",
-            "E": "E", "Ê": "Ê", "G": "Gờ", "H": "Hờ", "I": "I", "K": "Ca", "L": "Lờ",
+            "E": "E", "Ê": "Ê", "G": "Gờ", "H": "Hờ", "I": "I", "K": "Kờ", "L": "Lờ",
             "M": "Mờ", "N": "Nờ", "O": "O", "Ô": "Ô", "Ơ": "Ơ", "P": "Pờ", "Q": "Quờ",
             "R": "Rờ", "S": "Sờ", "T": "Tờ", "U": "U", "Ư": "Ư", "V": "Vờ", "X": "Sờ", "Y": "I dài"
         };
@@ -1330,6 +1361,10 @@
         /* STATE GAME CHÍNH TẢ */
         let spellingScore = 0;
         let currentSpellingIndex = 0;
+
+        let tempUploadedAudioBase64 = "";
+        let audioRecorderInstance = null;
+        let audioRecordedChunks = [];
 
         /* STATE GAME TOÁN */
         let mathGameScore = 0;
@@ -2796,8 +2831,115 @@
             document.getElementById('btn-clear-upload').classList.add('hidden');
             tempUploadedImageBase64 = "";
 
+            /* Tải âm thanh offline mẫu nếu đã lưu */
+            tempUploadedAudioBase64 = word.audioBase64 || "";
+            updateAudioEditorUI();
+
             previewEditImage(word.imageUrl);
             document.getElementById('flashcard-edit-modal').classList.remove('hidden');
+        };
+
+        window.updateAudioEditorUI = function() {
+            const label = document.getElementById('audio-status-label');
+            const playBtn = document.getElementById('btn-play-custom-audio');
+            const clearBtn = document.getElementById('btn-clear-custom-audio');
+
+            if (tempUploadedAudioBase64) {
+                label.innerText = "Đã tích hợp âm thanh mẫu (Sẵn sàng) 🎶";
+                label.className = "font-black text-purple-700";
+                playBtn.classList.remove('hidden');
+                clearBtn.classList.remove('hidden');
+            } else {
+                label.innerText = "Sử dụng TTS mặc định (Không có âm thanh offline)";
+                label.className = "font-bold text-slate-400";
+                playBtn.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+            }
+        };
+
+        window.handleAdminAudioUpload = function(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                tempUploadedAudioBase64 = e.target.result;
+                updateAudioEditorUI();
+                showToast("Đã nạp tệp âm thanh offline!", "success");
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.startRecordingCustomAudio = async function() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                showToast("Trình duyệt không hỗ trợ micro thu âm trực tiếp!", "error");
+                return;
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioRecordedChunks = [];
+                audioRecorderInstance = new MediaRecorder(stream);
+                
+                audioRecorderInstance.ondataavailable = (e) => {
+                    if (e.data.size > 0) audioRecordedChunks.push(e.data);
+                };
+
+                audioRecorderInstance.onstop = () => {
+                    const blob = new Blob(audioRecordedChunks, { type: 'audio/mp3' });
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        tempUploadedAudioBase64 = reader.result;
+                        updateAudioEditorUI();
+                        showToast("Đã ghi nhận giọng ghi âm trực tiếp thành công! 🎙️", "success");
+                    };
+                    reader.readAsDataURL(blob);
+
+                    // Giải phóng thiết bị micro khi dừng
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                audioRecorderInstance.start();
+                document.getElementById('btn-record-audio-start').classList.add('hidden');
+                document.getElementById('btn-record-audio-stop').classList.remove('hidden');
+                showToast("Đang thu âm... Ba mẹ hãy nói rõ ràng sát mic nhé!", "info");
+            } catch(err) {
+                console.error(err);
+                showToast("Không được cấp quyền truy cập Micro!", "error");
+            }
+        };
+
+        window.stopRecordingCustomAudio = function() {
+            if (audioRecorderInstance && audioRecorderInstance.state !== 'inactive') {
+                audioRecorderInstance.stop();
+            }
+            document.getElementById('btn-record-audio-start').classList.remove('hidden');
+            document.getElementById('btn-record-audio-stop').classList.add('hidden');
+        };
+
+        window.playCurrentCustomAudio = function() {
+            if (tempUploadedAudioBase64) {
+                playOfflineAudio(tempUploadedAudioBase64);
+            }
+        };
+
+        window.clearCustomAudio = function() {
+            tempUploadedAudioBase64 = "";
+            document.getElementById('edit-card-audio-input').value = "";
+            updateAudioEditorUI();
+            showToast("Đã xóa âm thanh offline, chuyển về TTS mặc định.", "info");
+        };
+
+        window.playOfflineAudio = function(base64Data) {
+            try {
+                const audio = new Audio(base64Data);
+                audio.play().catch(err => {
+                    console.error("Lỗi phát âm thanh offline:", err);
+                    showToast("Không thể phát file âm thanh offline này!", "error");
+                });
+            } catch(e) {
+                console.error(e);
+            }
         };
 
         window.previewEditImage = function(url) {
@@ -2862,7 +3004,15 @@
             }
 
             const updated = currentWordDatabase.map(w => {
-                if (w.id === id) return { ...w, text, icon, category, description, imageUrl: finalImageUrl };
+                if (w.id === id) return { 
+                    ...w, 
+                    text, 
+                    icon, 
+                    category, 
+                    description, 
+                    imageUrl: finalImageUrl,
+                    audioBase64: tempUploadedAudioBase64 // THÊM MỚI: LƯU TRỮ CHUỖI GHI ÂM OFFLINE LÊN ĐÁM MÂY
+                };
                 return w;
             });
 
@@ -2994,6 +3144,13 @@
             if (element) {
                 element.classList.add('border-babyPink', 'ring-4', 'ring-babyPink/10');
                 setTimeout(() => { element.classList.remove('border-babyPink', 'ring-4', 'ring-babyPink/10'); }, 800);
+            }
+
+            // Tự động đối chiếu xem từ vựng này có tệp ghi âm offline trực tiếp được admin tải lên hay không
+            const matchingWord = currentWordDatabase.find(w => w.text.trim().toLowerCase() === text.trim().toLowerCase());
+            if (matchingWord && matchingWord.audioBase64) {
+                playOfflineAudio(matchingWord.audioBase64);
+                return;
             }
 
             if (voiceId && voiceId.startsWith('gemini-')) {
