@@ -1234,6 +1234,68 @@
         /* API Key rỗng bảo mật, runtime sẽ tiêm tự động */
         const apiKey = "";
 
+        const alphabetDatabase = [
+            { letter: "A", emoji: "🎈", word: "Cái ca" },
+            { letter: "Ă", emoji: "🧣", word: "Cái khăn" },
+            { letter: "Â", emoji: "🍄", word: "Cái nấm" },
+            { letter: "B", emoji: "🍼", word: "Em bé" },
+            { letter: "C", emoji: "🐟", word: "Con cá" },
+            { letter: "D", emoji: "🍉", word: "Quả dưa" },
+            { letter: "Đ", emoji: "🏮", word: "Đèn lồng" },
+            { letter: "E", emoji: "🍿", word: "Hạt dẻ" },
+            { letter: "Ê", emoji: "🪑", word: "Cái ghế" },
+            { letter: "G", emoji: "🐓", word: "Con gà" },
+            { letter: "H", emoji: "🌸", word: "Bông hoa" },
+            { letter: "I", emoji: "🧼", word: "Hòn bi" },
+            { letter: "K", emoji: "✏️", word: "Thước kẻ" },
+            { letter: "L", emoji: "🍐", word: "Quả lê" },
+            { letter: "M", emoji: "🐈", word: "Con mèo" },
+            { letter: "N", emoji: "🪵", word: "Quả na" },
+            { letter: "O", emoji: "🦩", word: "Con cò" },
+            { letter: "Ô", emoji: "☂️", word: "Cái ô" },
+            { letter: "Ơ", emoji: "🚩", word: "Lá cờ" },
+            { letter: "P", emoji: "🔋", word: "Đèn pin" },
+            { letter: "Q", emoji: "🍊", word: "Quả quýt" },
+            { letter: "R", emoji: "🐢", word: "Con rùa" },
+            { letter: "S", emoji: "🦁", word: "Sư tử" },
+            { letter: "T", emoji: "🐇", word: "Con thỏ" },
+            { letter: "U", emoji: "🎒", word: "Cái mũ" },
+            { letter: "Ư", emoji: "🪼", word: "Con sứa" },
+            { letter: "V", emoji: "🐘", word: "Con voi" },
+            { letter: "X", emoji: "🚲", word: "Xe đạp" },
+            { letter: "Y", emoji: "🩺", word: "Y tá" }
+        ];
+
+        const phoneticMap = {
+            "A": "A", "Ă": "Á", "Â": "Ớ", "B": "Bờ", "C": "Cờ", "D": "Dờ", "Đ": "Đờ",
+            "E": "E", "Ê": "Ê", "G": "Gờ", "H": "Hờ", "I": "I", "K": "Ca", "L": "Lờ",
+            "M": "Mờ", "N": "Nờ", "O": "O", "Ô": "Ô", "Ơ": "Ơ", "P": "Pờ", "Q": "Quờ",
+            "R": "Rờ", "S": "Sờ", "T": "Tờ", "U": "U", "Ư": "Ư", "V": "Vờ", "X": "Sờ", "Y": "I dài"
+        };
+
+        const childCompoundWords = [
+            { text: "ch", emoji: "🐶", desc: "Chó con bập bẹ gọi ba mẹ tập nói." },
+            { text: "gh", emoji: "🪑", desc: "Ghế gỗ xinh xắn kê trong góc phòng học." },
+            { text: "gi", emoji: "🍃", desc: "Gió mát thổi vi vu sảng khoái trưa hè." },
+            { text: "kh", emoji: "🧣", desc: "Khăn len ấm áp bé quàng giữ cổ ngày đông." },
+            { text: "ng", emoji: "⭐", desc: "Ngôi sao lung linh lấp lánh trên nền trời đêm." },
+            { text: "ngh", emoji: "🐃", desc: "Nghé con vui tươi thong thả chạy theo trâu mẹ." },
+            { text: "nh", emoji: "🏡", desc: "Nhà xinh của bé rực rỡ chào đón ban mai." },
+            { text: "ph", emoji: "🍜", desc: "Phở bò thơm phức bốc khói mẹ nấu bữa sáng." },
+            { text: "th", emoji: "🐰", desc: "Thỏ bông mềm mại bé ôm ấp khi đi ngủ." },
+            { text: "tr", emoji: "🎋", desc: "Tre xanh kiên cường tỏa bóng mát quê hương." },
+            { text: "qu", emoji: "🍊", desc: "Quả cam mọng nước chứa rất nhiều vitamin C." }
+        ];
+
+        const spellingQuestionsBank = [
+            { id: 1, text: "Bé hãy điền chữ cái còn thiếu: ...ế gỗ?", options: ["g", "gh"], answer: "gh", tip: "Quy tắc chính tả: Viết 'gh' đứng trước e, ê, i." },
+            { id: 2, text: "Bé hãy điền chữ cái còn thiếu: con ...à?", options: ["g", "gh"], answer: "g", tip: "Quy tắc chính tả: Viết 'g' đứng trước a, o, ô, ơ, u, ư." },
+            { id: 3, text: "Bé hãy điền chữ cái còn thiếu: ...e nhạc?", options: ["ng", "ngh"], answer: "ngh", tip: "Quy tắc chính tả: Viết 'ngh' đứng trước e, ê, i." },
+            { id: 4, text: "Bé hãy điền chữ cái còn thiếu: ...ủ ngon?", options: ["ng", "ngh"], answer: "ng", tip: "Quy tắc chính tả: Viết 'ng' đứng trước a, o, ô, ơ, u, ư." },
+            { id: 5, text: "Bé hãy điền chữ cái còn thiếu: thước ...ẻ?", options: ["c", "k"], answer: "k", tip: "Quy tắc chính tả: Viết 'k' đứng trước e, ê, i." },
+            { id: 6, text: "Bé hãy điền chữ cái còn thiếu: quả ...am?", options: ["c", "k"], answer: "c", tip: "Quy tắc chính tả: Viết 'c' đứng trước a, o, ô, ơ, u, ư." }
+        ];
+
         /* NẠP VĂN BẢN TRỢ LÝ MỚI (DEFAULT_TEXT_V3) CHO PHIÊN BẢN 3.0.4 - KIỂU DÁNG TRỢ LÝ/CHATBOT MỚI */
         const DEFAULT_TEXT_V3 = "Chào mừng ba mẹ và các bé yêu đến với EduKids Smart v3.0.4! Mình là Ngọc Linh, trợ lý học tập thông minh sử dụng công nghệ VieNeu-TTS v3 Turbo. Mình rất hào hứng được đồng hành cùng các con trên con đường khám phá ngôn ngữ kì diệu, rèn luyện tư duy toán học nhạy bén và phát triển toàn diện mỗi ngày. Chúng ta bắt đầu hành trình đầy thú vị này nhé!";
 
