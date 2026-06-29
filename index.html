@@ -1,1 +1,2360 @@
-BabyTalk & EduKids Smart 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán Lớp 3 - Tích Hợp Đám Mây & Giọng Nói AI</title>
+
+    <!-- HỘP BẢO VỆ CHỐNG LỖI GETBOUNDINGCLIENTRECT TRONG SANDBOX IFRAME NÂNG CAO -->
+    <script>
+        (function() {
+            const safeFn = function() {
+                return { top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0, x: 0, y: 0 };
+            };
+            try {
+                if (typeof Object !== 'undefined') {
+                    Object.defineProperty(Object.prototype, 'getBoundingClientRect', {
+                        get: function() {
+                            return safeFn;
+                        },
+                        set: function(val) {
+                            Object.defineProperty(this, 'getBoundingClientRect', {
+                                value: val,
+                                writable: true,
+                                configurable: true,
+                                enumerable: true
+                            });
+                        },
+                        configurable: true
+                    });
+                }
+                
+                const classes = [
+                    typeof Node !== 'undefined' ? Node : null,
+                    typeof Element !== 'undefined' ? Element : null,
+                    typeof HTMLElement !== 'undefined' ? HTMLElement : null,
+                    typeof SVGElement !== 'undefined' ? SVGElement : null,
+                    typeof Document !== 'undefined' ? Document : null,
+                    typeof Window !== 'undefined' ? Window : null
+                ];
+                
+                classes.forEach(cls => {
+                    if (cls && cls.prototype && !cls.prototype.getBoundingClientRect) {
+                        try {
+                            Object.defineProperty(cls.prototype, 'getBoundingClientRect', {
+                                value: safeFn,
+                                writable: true,
+                                configurable: true,
+                                enumerable: true
+                            });
+                        } catch (e) {}
+                    }
+                });
+            } catch (e) {
+                console.warn("Safety guard for getBoundingClientRect could not be applied:", e);
+            }
+        })();
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        accent: {
+                            yellow: '#fef08a',
+                            orange: '#f97316',
+                            green: '#22c55e',
+                            pink: '#ec4899',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for celebratory success -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .bouncy {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col selection:bg-brand-100 selection:text-brand-700">
+
+    <!-- TOP HEADER / PROGRESS BAR -->
+    <header class="bg-white border-b-4 border-brand-100 sticky top-0 z-30 shadow-sm transition-all">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- App Logo / Title -->
+            <button onclick="changeView('dashboard')" class="flex items-center space-x-3 text-left focus:outline-none">
+                <div class="bg-brand-500 text-white p-2 rounded-2xl shadow-md transform rotate-[-2deg] hover:rotate-0 transition-transform">
+                    <span class="text-2xl font-black">🎒 TOÁN 3</span>
+                </div>
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-black text-brand-600 leading-tight">Kết Nối Tri Thức</h1>
+                    <p class="text-xs text-slate-400 font-bold">Hành Trình Kỳ Thú (AI Voice & Cloud)</p>
+                </div>
+            </button>
+
+            <!-- User Stat Badges -->
+            <div id="header-stats" class="hidden flex items-center space-x-2 md:space-x-4">
+                <!-- Companion Avatar -->
+                <div class="flex items-center space-x-2 bg-brand-50 px-3 py-1.5 rounded-full border border-brand-200">
+                    <span id="header-user-avatar" class="text-xl">🐰</span>
+                    <span id="header-user-name" class="font-extrabold text-sm text-brand-700">Thỏ Ngọc</span>
+                </div>
+                <!-- Stars Stat -->
+                <div class="flex items-center space-x-1.5 bg-yellow-50 px-3 py-1.5 rounded-full border border-yellow-200">
+                    <span class="text-xl">⭐</span>
+                    <span id="stat-stars" class="font-extrabold text-sm text-yellow-700">0</span>
+                </div>
+                <!-- Trophy Stat -->
+                <div class="flex items-center space-x-1.5 bg-orange-50 px-3 py-1.5 rounded-full border border-orange-200">
+                    <span class="text-xl">🏆</span>
+                    <span id="stat-trophies" class="font-extrabold text-sm text-orange-700">0</span>
+                </div>
+                <!-- Leaderboard Link -->
+                <button onclick="changeView('leaderboard')" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 p-2 rounded-full border border-indigo-200 transition-colors flex items-center justify-center" title="Bảng vàng danh vọng">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/></svg>
+                </button>
+                <!-- Admin Lock Entry Link (Header) -->
+                <button onclick="openAdminLoginModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 p-2 rounded-full border border-slate-300 transition-colors flex items-center justify-center" title="Bảng quản trị Admin">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 flex flex-col justify-center">
+
+        <!-- 1. WELCOME SCREEN (Profile & Companion Selection) -->
+        <section id="view-welcome" class="w-full max-w-2xl mx-auto bg-white rounded-3xl border-4 border-brand-400 shadow-xl p-6 sm:p-8 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-100 rounded-full opacity-50 z-0"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-100 rounded-full opacity-50 z-0"></div>
+
+            <div class="relative z-10">
+                <span class="text-6xl bouncy inline-block mb-4">✨✏️📐</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brand-600 mb-2">Chào mừng bạn nhỏ đến với lớp học Toán 3!</h2>
+                <p class="text-slate-500 font-bold mb-6">Hãy chọn cho mình một người bạn đồng hành tinh nghịch và nhập tên hoặc mã học sinh (Ví dụ: <span class="text-brand-600 font-extrabold">ECO001</span>) của con nhé!</p>
+
+                <!-- Input Name -->
+                <div class="mb-8 max-w-xs mx-auto">
+                    <label for="input-nickname" class="block text-left text-sm font-extrabold text-slate-500 mb-2">Tên hoặc Mã Học Sinh là gì?</label>
+                    <input type="text" id="input-nickname" placeholder="Nhập tên hoặc Mã (Ví dụ: ECO001)..." 
+                           class="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-brand-400 focus:ring-0 text-center font-black text-lg text-slate-700 bg-slate-50 outline-none transition-all">
+                </div>
+
+                <!-- Companion Grid -->
+                <h3 class="font-black text-slate-600 mb-3">Chọn bạn đồng hành:</h3>
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto mb-8">
+                    <!-- Companion 1: Rabbit -->
+                    <button onclick="selectCompanion('rabbit')" id="comp-rabbit" 
+                            class="companion-card p-4 rounded-2xl border-2 border-slate-100 hover:border-brand-300 bg-slate-50 hover:bg-brand-50 flex flex-col items-center justify-center transition-all cursor-pointer">
+                        <span class="text-4xl sm:text-5xl mb-2">🐰</span>
+                        <span class="font-black text-xs sm:text-sm text-slate-700">Thỏ Thông Thái</span>
+                    </button>
+                    <!-- Companion 2: Monkey -->
+                    <button onclick="selectCompanion('monkey')" id="comp-monkey" 
+                            class="companion-card p-4 rounded-2xl border-2 border-slate-100 hover:border-brand-300 bg-slate-50 hover:bg-brand-50 flex flex-col items-center justify-center transition-all cursor-pointer">
+                        <span class="text-4xl sm:text-5xl mb-2">🐒</span>
+                        <span class="font-black text-xs sm:text-sm text-slate-700">Khỉ Nhanh Trí</span>
+                    </button>
+                    <!-- Companion 3: Turtle -->
+                    <button onclick="selectCompanion('turtle')" id="comp-turtle" 
+                            class="companion-card p-4 rounded-2xl border-2 border-slate-100 hover:border-brand-300 bg-slate-50 hover:bg-brand-50 flex flex-col items-center justify-center transition-all cursor-pointer">
+                        <span class="text-4xl sm:text-5xl mb-2">🐢</span>
+                        <span class="font-black text-xs sm:text-sm text-slate-700">Rùa Cần Cù</span>
+                    </button>
+                </div>
+
+                <div class="flex flex-col items-center space-y-4">
+                    <button onclick="startApp()" class="w-full max-w-xs py-4 px-8 bg-brand-500 hover:bg-brand-600 text-white font-black text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                        Vào Học Ngay Thôi! 🚀
+                    </button>
+                    <button onclick="openAdminLoginModal()" class="text-xs font-bold text-slate-400 hover:text-slate-600 underline flex items-center gap-1.5 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Đăng nhập Cổng Quản Trị Admin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DASHBOARD (Map of Weeks & Activities) -->
+        <section id="view-dashboard" class="hidden w-full space-y-6">
+            <!-- Hero Dashboard Banner -->
+            <div class="bg-gradient-to-r from-brand-400 to-sky-500 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left space-y-2">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center justify-center md:justify-start gap-2">
+                            Chào <span id="dash-user-name">Bạn nhỏ</span>! 👋
+                        </h2>
+                        <p class="text-brand-50 font-medium">Bố mẹ đã sẵn sàng cùng con chinh phục 35 tuần toán học lớp 3 Kết nối tri thức chưa nào?</p>
+                    </div>
+                    <!-- Quick action buttons -->
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button onclick="startAdvancedMode()" class="px-5 py-3 bg-yellow-300 hover:bg-yellow-400 text-slate-800 font-extrabold rounded-2xl flex items-center gap-2 shadow-md transform hover:scale-105 transition-all">
+                            🗻 Chinh Phục Đỉnh Núi (Toán Khó)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Columns Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Learning Map Column -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center justify-between bg-white px-5 py-3 rounded-2xl border-2 border-brand-100">
+                        <h3 class="font-black text-slate-700 text-lg flex items-center gap-2">
+                            🗺️ Bản Đồ Bài Học Kỳ Thú
+                        </h3>
+                        <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-full text-xs">Hành Trình Học Tập</span>
+                    </div>
+
+                    <!-- Grid of Weeks -->
+                    <div id="weeks-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Weeks will be dynamically injected here -->
+                    </div>
+                </div>
+
+                <!-- Stats and Quick Activity Widget Column -->
+                <div class="space-y-6">
+                    <!-- Helper Mascot Bubble -->
+                    <div class="bg-white rounded-3xl p-5 border-2 border-yellow-200 shadow-sm relative">
+                        <div class="flex items-start space-x-3">
+                            <span id="mascot-avatar" class="text-4xl bouncy">🐰</span>
+                            <div class="bg-yellow-50 rounded-2xl p-3 border border-yellow-100 flex-1 relative space-y-2">
+                                <p id="mascot-speech" class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
+                                    "Chào nhé! Tớ sẽ giúp bạn học tốt hơn. Chọn một tuần học bên cạnh để làm quen nhé!"
+                                </p>
+                                <button onclick="window.speakMascotSpeech()" class="px-3 py-1 bg-yellow-200 hover:bg-yellow-300 text-yellow-800 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all">
+                                    🔊 Nghe bạn nói
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievement Badges Card -->
+                    <div class="bg-white rounded-3xl p-5 border-2 border-brand-100 shadow-sm">
+                        <h4 class="font-black text-slate-700 mb-4 flex items-center gap-2">
+                            🏅 Huy Hiệu Danh Dự
+                        </h4>
+                        <div id="badges-container" class="grid grid-cols-3 gap-3">
+                            <!-- Badges will be updated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Helpful Parents Guide Box -->
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-200">
+                        <h4 class="font-black text-emerald-800 text-sm mb-2 flex items-center gap-2">
+                            💡 Góc Nhỏ Dành Cho Bố Mẹ
+                        </h4>
+                        <p class="text-xs text-emerald-700 font-bold leading-relaxed">
+                            Chương trình bám sát 100% SGK Kết nối tri thức. Bố mẹ nên khuyên các con học hết lý thuyết tuần rồi thử sức với phần bài tập tự luyện và bài kiểm tra lấy sao vàng nhé!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. STUDY MODE (Revision / Theory & Practice Quiz) -->
+        <section id="view-study" class="hidden w-full space-y-6">
+            <!-- Header for Lesson -->
+            <div class="bg-white rounded-2xl p-4 border-2 border-brand-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <button onclick="changeView('dashboard')" class="bg-slate-100 hover:bg-slate-200 p-2.5 rounded-xl transition-colors flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-slate-600"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <div>
+                        <h2 id="study-week-title" class="font-black text-slate-800 text-lg sm:text-xl">Tuần 1: Ôn Tập Các Số Đến 1000</h2>
+                        <span class="text-xs text-brand-500 font-bold">Chế độ ôn tập lý thuyết & tự luyện tập</span>
+                    </div>
+                </div>
+                <!-- Mini Score Tracker -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl px-3 py-1 text-center">
+                        <p class="text-[10px] text-yellow-600 font-bold">Tiến Độ</p>
+                        <p id="study-progress-text" class="text-xs font-black text-yellow-700">1 / 5</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Panel Split (Theory & Interactive Question) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Theory Sheet Left -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-yellow-50 to-orange-50 border-4 border-dashed border-yellow-400 rounded-3xl p-5 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-yellow-200 pb-2 mb-3">
+                        <h3 class="font-black text-amber-800 text-base sm:text-lg flex items-center gap-2">
+                            📖 Sổ Tay Kiến Thức
+                        </h3>
+                        <button onclick="window.speakText(document.getElementById('theory-content').innerText)" class="px-3 py-1 bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all shadow-sm">
+                            🔊 Giảng bài
+                        </button>
+                    </div>
+                    <div id="theory-content" class="text-sm font-bold text-slate-600 space-y-3 leading-relaxed">
+                        <!-- Injected theory content -->
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-yellow-200 flex items-center space-x-3">
+                        <span class="text-3xl">💡</span>
+                        <p class="text-xs text-amber-700 font-bold leading-relaxed">Con đọc kỹ sơ đồ sổ tay này trước rồi bắt đầu làm bài luyện tập ở bên phải nhé!</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Question Card Right -->
+                <div class="lg:col-span-7 bg-white rounded-3xl border-4 border-brand-300 shadow-md p-6 relative">
+                    <!-- Progress Bar Header -->
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-6">
+                        <div id="study-progress-bar" class="bg-brand-500 h-full transition-all" style="width: 20%"></div>
+                    </div>
+
+                    <!-- Active Question Box -->
+                    <div id="study-question-box" class="space-y-6">
+                        <!-- Dynamic Question Text & Options -->
+                    </div>
+
+                    <!-- Explanatory Box (Hidden initially) -->
+                    <div id="study-explanation-box" class="hidden mt-6 p-4 rounded-2xl bg-teal-50 border border-teal-200 text-slate-700 space-y-2">
+                        <div class="flex items-center justify-between text-teal-600 border-b border-teal-100 pb-1.5 mb-1">
+                            <div class="flex items-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                <span class="font-black text-sm">Lời Giải Chi Tiết:</span>
+                            </div>
+                            <button onclick="window.speakText(document.getElementById('study-explanation-text').innerText)" class="px-2.5 py-1 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-lg text-xs font-black flex items-center gap-1" title="Nghe giải thích">
+                                🔊 Đọc lời giải
+                            </button>
+                        </div>
+                        <p id="study-explanation-text" class="text-sm font-bold leading-relaxed"></p>
+                    </div>
+
+                    <!-- Action Navigation Footer -->
+                    <div class="mt-8 flex items-center justify-between pt-4 border-t border-slate-100">
+                        <button id="btn-prev-study" onclick="navigateStudyQuestion(-1)" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-xl transition-all">
+                            Quay lại
+                        </button>
+                        <button id="btn-check-study" onclick="checkStudyAnswer()" class="px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-black text-base rounded-2xl shadow-md transition-all">
+                            Kiểm Tra Kết Quả ✔️
+                        </button>
+                        <button id="btn-next-study" onclick="navigateStudyQuestion(1)" class="hidden px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-base rounded-2xl shadow-md transition-all">
+                            Tiếp Theo ➡️
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TEST MODE (Timed Weekly Assessment) -->
+        <section id="view-test" class="hidden w-full max-w-3xl mx-auto space-y-6">
+            <!-- Header with Timer -->
+            <div class="bg-white rounded-2xl p-4 border-2 border-pink-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-pink-100 text-pink-600 p-2 rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="15" y2="11"/><circle cx="12" cy="14" r="8"/></svg>
+                    </span>
+                    <div>
+                        <h2 id="test-week-title" class="font-black text-slate-800 text-base sm:text-lg">Kiểm tra: Tuần 1</h2>
+                        <span class="text-xs text-pink-500 font-bold">Hãy tập trung hoàn thành bài thi đúng thời gian!</span>
+                    </div>
+                </div>
+                <!-- Countdown clock -->
+                <div class="bg-pink-50 border-2 border-pink-200 rounded-2xl px-4 py-2 text-center flex items-center space-x-2">
+                    <span class="text-xl">⏱️</span>
+                    <span id="test-clock" class="font-black text-lg text-pink-700">09:59</span>
+                </div>
+            </div>
+
+            <!-- Quiz Panel -->
+            <div class="bg-white rounded-3xl border-4 border-pink-300 shadow-lg p-6 relative">
+                <!-- Question indicators at top -->
+                <div id="test-indicators" class="flex items-center justify-center space-x-2 mb-6">
+                    <!-- Interactive mini dots mapping directly to questions -->
+                </div>
+
+                <!-- Test Body -->
+                <div id="test-question-box" class="space-y-6 min-h-[220px]">
+                    <!-- Current Test Question content -->
+                </div>
+
+                <!-- Navigation Action bar -->
+                <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button id="btn-test-prev" onclick="navigateTestQuestion(-1)" class="px-4 py-2 bg-slate-100 text-slate-500 hover:bg-slate-200 font-bold rounded-xl text-sm transition-all">
+                        Câu Trước
+                    </button>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="confirmSubmitTest()" class="px-5 py-3 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-2xl shadow-md text-sm transition-all">
+                            Nộp Bài Sớm 🔔
+                        </button>
+                        <button id="btn-test-next" onclick="navigateTestQuestion(1)" class="px-5 py-3 bg-brand-500 hover:bg-brand-600 text-white font-black rounded-2xl shadow-md text-sm transition-all">
+                            Câu Tiếp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4.1 TEST RESULT / REPORT CARD -->
+        <section id="view-test-result" class="hidden w-full max-w-xl mx-auto bg-white rounded-3xl border-4 border-brand-400 shadow-2xl p-8 text-center relative overflow-hidden">
+            <div id="confetti-holder" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></div>
+
+            <div class="relative z-10 space-y-6">
+                <!-- Decorative Icon -->
+                <span id="result-medal-emoji" class="text-7xl bouncy inline-block">🎉</span>
+                
+                <h2 class="text-3xl font-black text-brand-600">PHIẾU ĐIỂM HOÀN THÀNH</h2>
+                <p id="result-message" class="text-slate-500 font-bold">Thật tuyệt vời! Con đã hoàn thành xuất sắc thử thách này.</p>
+
+                <!-- Visual Rating Score Stars -->
+                <div id="result-stars" class="flex justify-center space-x-2 text-4xl">
+                    <span>⭐</span>
+                    <span>⭐</span>
+                    <span>⭐</span>
+                    <span>⭐</span>
+                    <span>⭐</span>
+                </div>
+
+                <!-- Numerical Results Dashboard -->
+                <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <div class="text-center p-2 border-r border-slate-200">
+                        <p class="text-xs text-slate-400 font-bold">Số Câu Đúng</p>
+                        <p id="result-correct-ratio" class="text-2xl font-black text-emerald-500">5 / 5</p>
+                    </div>
+                    <div class="text-center p-2">
+                        <p class="text-xs text-slate-400 font-bold">Điểm số đạt được</p>
+                        <p id="result-stars-awarded" class="text-2xl font-black text-yellow-500">+10 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Back button to dashboard -->
+                <div class="pt-4 flex flex-col space-y-2">
+                    <button onclick="changeView('dashboard')" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-black text-lg rounded-2xl shadow-md hover:shadow-lg transition-all">
+                        Trở lại Bản đồ bài học 🗺️
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ADVANCED MATH MODE (Chinh phục Đỉnh núi) -->
+        <section id="view-advanced" class="hidden w-full space-y-6">
+            <!-- Mountain Map header -->
+            <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-3xl p-6 text-white shadow-lg flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <button onclick="changeView('dashboard')" class="bg-white/10 hover:bg-white/20 p-2.5 rounded-xl transition-colors flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <div>
+                        <h2 class="font-black text-white text-lg sm:text-xl">Chinh Phục Đỉnh Núi Toán Tư Duy 🗻</h2>
+                        <span class="text-xs text-indigo-200 font-bold">Cùng leo qua 5 nấc thang trí tuệ để lấy Cúp Vàng!</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="bg-yellow-300 text-slate-800 font-black px-4 py-2 rounded-2xl shadow text-sm">
+                        Cấp Độ Núi: <span id="adv-level-indicator">1 / 5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Double Column layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Climbing Visualizer Left Column -->
+                <div class="lg:col-span-5 bg-white border-2 border-indigo-100 rounded-3xl p-5 flex flex-col justify-between shadow-sm min-h-[300px]">
+                    <h3 class="font-black text-slate-700 text-sm mb-4 text-center">BẢN ĐỒ CHINH PHỤC ĐỈNH CAO</h3>
+                    
+                    <!-- Mountain climbing drawing -->
+                    <div class="relative flex-grow flex flex-col justify-between items-center px-4 py-8 bg-slate-50 rounded-2xl border border-slate-100">
+                        <!-- Summit / Target Trophy -->
+                        <div class="absolute top-4 text-center">
+                            <span class="text-3xl bouncy inline-block">🏆</span>
+                            <p class="text-[10px] font-black text-indigo-600 uppercase">Đỉnh núi vinh quang</p>
+                        </div>
+
+                        <!-- Mountain path points -->
+                        <div class="w-full relative h-48 mt-8 flex flex-col justify-between items-center">
+                            <!-- Track line SVG bg -->
+                            <svg class="absolute inset-0 w-full h-full text-indigo-100" fill="none" preserveAspectRatio="none">
+                                <path d="M 50 180 Q 150 140 100 100 T 200 20" stroke="currentColor" stroke-width="4" stroke-dasharray="6,6"/>
+                            </svg>
+
+                            <!-- Node Points representation -->
+                            <div id="climb-nodes" class="w-full h-full relative z-10">
+                                <!-- Interactive nodes injected via JS depending on stage -->
+                            </div>
+                        </div>
+
+                        <!-- Helper Mascot Cheer bubble -->
+                        <div class="w-full mt-4 bg-indigo-50 border border-indigo-100 rounded-xl p-2.5 text-center">
+                            <p id="climb-helper-speech" class="text-xs font-bold text-indigo-700">"Sẵn sàng chưa? Hãy vượt qua nấc thứ nhất nào!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Puzzle panel Right Column -->
+                <div class="lg:col-span-7 bg-white rounded-3xl border-4 border-indigo-400 shadow-md p-6 flex flex-col justify-between">
+                    <div id="adv-question-area" class="space-y-6">
+                        <!-- Dynamic Puzzle content -->
+                    </div>
+
+                    <!-- Puzzle Explanatory Guide -->
+                    <div id="adv-tip-box" class="hidden mt-6 p-4 rounded-xl bg-violet-50 border border-violet-100 text-slate-700">
+                        <p id="adv-tip-text" class="text-xs sm:text-sm font-bold leading-relaxed text-indigo-800"></p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex justify-end">
+                        <button id="btn-submit-adv" onclick="checkAdvancedAnswer()" class="px-8 py-3.5 bg-indigo-500 hover:bg-indigo-600 text-white font-black text-base rounded-2xl shadow-md transition-all">
+                            Xác Nhận Đáp Án 🌟
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. LEADERBOARD VIEW -->
+        <section id="view-leaderboard" class="hidden w-full max-w-xl mx-auto space-y-6">
+            <!-- Header -->
+            <div class="bg-white rounded-2xl p-4 border-2 border-indigo-100 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <button onclick="changeView('dashboard')" class="bg-slate-100 hover:bg-slate-200 p-2 rounded-xl transition-colors flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-slate-600"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <h2 class="font-black text-slate-800 text-lg">🏆 Bảng Vàng Thành Tích</h2>
+                </div>
+                <span class="text-xs text-indigo-600 font-extrabold bg-indigo-50 px-2.5 py-1 rounded-full">Trực tuyến (Cloud)</span>
+            </div>
+
+            <!-- Standings list -->
+            <div class="bg-white rounded-3xl border-4 border-indigo-400 p-5 shadow-lg space-y-4">
+                <p class="text-xs text-slate-400 font-extrabold text-center uppercase tracking-wider">Cập nhật thời gian thực</p>
+                <div id="leaderboard-list" class="space-y-2.5">
+                    <!-- Dynamic standing rows -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. ADMIN DASHBOARD VIEW -->
+        <section id="view-admin" class="hidden w-full space-y-6">
+            <!-- Secure Admin Header -->
+            <div class="bg-slate-800 text-white rounded-3xl p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-slate-700 p-3 rounded-2xl text-2xl">📊</span>
+                    <div>
+                        <h2 class="text-xl font-black">Cổng Quản Trị Viên (Admin)</h2>
+                        <p class="text-xs text-slate-300 font-bold">Hệ thống đồng bộ dữ liệu thi cử, theo dõi & phân loại học lực</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="changeView('dashboard')" class="px-4 py-2.5 bg-slate-700 hover:bg-slate-600 font-bold text-sm rounded-xl transition-all flex items-center gap-1.5 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg> Học Tập
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 font-bold text-sm rounded-xl transition-all">
+                        Đăng xuất Admin
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Analytics Scorecards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-400 font-extrabold uppercase tracking-wide">Tổng lượt làm bài (Cloud)</p>
+                        <p id="admin-stat-total" class="text-3xl font-black text-slate-800">0</p>
+                    </div>
+                    <div class="p-3 bg-brand-50 rounded-xl text-brand-500 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/><line x1="9" y1="8" x2="10" y2="8"/></svg>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-400 font-extrabold uppercase tracking-wide">Điểm trung bình (Hệ 10)</p>
+                        <p id="admin-stat-avg" class="text-3xl font-black text-yellow-600">0.0</p>
+                    </div>
+                    <div class="p-3 bg-yellow-50 rounded-xl text-yellow-500 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-400 font-extrabold uppercase tracking-wide">Tỷ lệ Học lực Giỏi / Xuất sắc</p>
+                        <p id="admin-stat-excellent" class="text-3xl font-black text-emerald-600">0%</p>
+                    </div>
+                    <div class="p-3 bg-emerald-50 rounded-xl text-emerald-500 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WEEK LOCK/UNLOCK CONTROL PANEL -->
+            <div class="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm space-y-4">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🔓</span>
+                    <div>
+                        <h3 class="font-black text-slate-800 text-lg leading-tight">Quản Lý Trạng Thế Khóa/Mở Khóa Bài Học (Cloud Sync)</h3>
+                        <p class="text-xs text-slate-400 font-bold">Lập tức thay đổi quyền truy cập của học sinh trong thời gian thực</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <div class="flex items-center space-x-2 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
+                        <span class="text-xs font-extrabold text-slate-500 uppercase">Mở khóa đến hết:</span>
+                        <select id="admin-max-week-select" onchange="updateMaxPlayableWeek(this.value)" class="bg-white border-2 border-slate-200 text-slate-700 font-black text-sm px-2.5 py-1 rounded-lg outline-none focus:border-brand-500">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <button onclick="unlockAllWeeks()" class="px-5 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs sm:text-sm rounded-xl transition-all shadow-sm hover:shadow flex items-center gap-1.5 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa Toàn bộ 35 Tuần
+                    </button>
+                    <button onclick="resetWeeksLock()" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-black text-xs sm:text-sm rounded-xl transition-all flex items-center gap-1.5 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg> Khóa Lại (Chỉ mở 4 Tuần đầu)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters, Searches, and Logs controls -->
+            <div class="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-center gap-3 flex-1">
+                        <!-- Dynamic Student Code / Name Search -->
+                        <div class="relative w-full md:max-w-xs flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 absolute left-3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="admin-search-student" oninput="filterAdminHistory()" placeholder="Tìm Mã HS (ECO001,...) / Tên..." 
+                                   class="w-full pl-9 pr-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-slate-400 font-bold text-sm outline-none transition-all">
+                        </div>
+                        <!-- Week filter dropdown -->
+                        <select id="admin-filter-week" onchange="filterAdminHistory()" class="px-3 py-2.5 rounded-xl border-2 border-slate-200 focus:border-slate-400 font-bold text-sm outline-none bg-white">
+                            <option value="all">Tất cả các tuần</option>
+                            <option value="1">Tuần 1</option>
+                            <option value="2">Tuần 2</option>
+                            <option value="3">Tuần 3</option>
+                            <option value="4">Tuần 4</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="injectDemoSubmissions()" class="px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-bold text-xs rounded-xl transition-all flex items-center gap-1.5 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg> Nạp dữ liệu mẫu ECO001
+                        </button>
+                        <button onclick="clearAllSubmissions()" class="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs rounded-xl transition-all flex items-center gap-1.5 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Xóa tất cả
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submissions Table -->
+                <div class="overflow-x-auto rounded-2xl border border-slate-100">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-slate-400 font-extrabold text-xs uppercase">
+                                <th class="p-4">Mã/Tên Học Sinh</th>
+                                <th class="p-4">Bài Kiểm Tra</th>
+                                <th class="p-4 text-center">Số Câu Đúng</th>
+                                <th class="p-4 text-center">Điểm Hệ 10</th>
+                                <th class="p-4 text-center">Thời Gian Làm</th>
+                                <th class="p-4">Ngày Nộp Bài</th>
+                                <th class="p-4">Phân Loại Học Lực</th>
+                                <th class="p-4 text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-rows" class="text-sm font-bold text-slate-600 divide-y divide-slate-100">
+                            <!-- Injected rows go here -->
+                        </tbody>
+                    </table>
+                    <div id="admin-empty-state" class="hidden text-center py-12 space-y-2">
+                        <span class="text-4xl">📭</span>
+                        <p class="text-slate-400 font-extrabold">Không tìm thấy bất kỳ dữ liệu nộp bài nào thỏa mãn!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-50 border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+            <p class="text-xs text-slate-400 font-extrabold">Cơ sở dữ liệu bám sát Bộ Sách "Kết Nối Tri Thức Với Cuộc Sống"</p>
+            <p class="text-[10px] text-slate-400 font-medium">Bản quyền phần mềm học tập tích hợp © 2026. Thiết kế sinh động cho trẻ em.</p>
+            <div>
+                <button onclick="openAdminLoginModal()" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-[11px] text-slate-500 font-bold rounded-lg border border-slate-200 transition-all flex items-center gap-1.5 mx-auto justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Quản Trị Hệ Thống (Admin)
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SECURE ADMIN PASSCODE LOGIN MODAL -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl border-4 border-slate-800 max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-28 h-28 bg-slate-50 rounded-full opacity-50 z-0"></div>
+            <div class="relative z-10 space-y-4">
+                <span class="text-5xl inline-block bouncy">🔐</span>
+                <h3 class="font-black text-xl text-slate-800">Cổng Quản Trị Viên</h3>
+                <p class="text-xs font-bold text-slate-400 leading-relaxed">Vui lòng nhập mật khẩu quản trị để xem danh sách nộp bài và quản lý học lực.</p>
+                
+                <input type="password" id="admin-password-input" placeholder="Nhập mật khẩu..." 
+                       class="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-slate-800 text-center font-black text-lg outline-none transition-all">
+                
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <button onclick="closeAdminLoginModal()" class="py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-black rounded-xl transition-colors">
+                        Hủy bỏ
+                    </button>
+                    <button onclick="submitAdminPassword()" class="py-3 bg-slate-800 hover:bg-slate-900 text-white font-black rounded-xl transition-colors shadow-md">
+                        Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DYNAMIC ALERTS MODAL LAYER -->
+    <div id="custom-alert-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl border-4 border-brand-400 max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
+            <span id="alert-emoji" class="text-5xl inline-block bouncy">💡</span>
+            <h3 id="alert-title" class="font-black text-xl text-slate-800">Thông Báo</h3>
+            <p id="alert-message" class="text-sm font-bold text-slate-500 leading-relaxed">Nội dung thông báo ở đây...</p>
+            <button id="alert-btn" onclick="closeCustomAlert()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-black rounded-2xl transition-colors shadow-md">
+                Đã hiểu!
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Modules Tích Hợp Đám Mây -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // CẤU HÌNH FIREBASE NGƯỜI DÙNG CUNG CẤP CHUẨN XÁC
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnQgNNqtlvDVZ3UGxnojU4kGjYSyMhdZ4",
+            authDomain: "toan-lop-3.firebaseapp.com",
+            projectId: "toan-lop-3",
+            storageBucket: "toan-lop-3.firebasestorage.app",
+            messagingSenderId: "520817149577",
+            appId: "1:520817149577:web:fb77e4fa6cf88091686858",
+            measurementId: "G-D9M3YJ9RH1"
+        };
+
+        // Biến môi trường
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'toan-lop-3';
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let user = null;
+
+        // GLOBAL APPLICATION STATE
+        const state = {
+            user: {
+                name: "Bạn nhỏ",
+                avatar: "🐰",
+                stars: 0,
+                trophies: 0,
+                companion: 'rabbit'
+            },
+            currentView: 'welcome',
+            currentWeekId: 1,
+            studyState: {
+                activeQuestionIndex: 0,
+                answersChecked: {},
+                userSelectedAnswers: {},
+            },
+            testState: {
+                activeQuestionIndex: 0,
+                userAnswers: {},
+                timeLeft: 600,
+                timerInterval: null
+            },
+            advancedState: {
+                currentStage: 1,
+                selectedAnswer: null,
+                completed: false
+            },
+            adminState: {
+                unlocked: false,
+                testHistory: []
+            },
+            maxPlayableWeek: 4
+        };
+
+        // Static Mock Data bám sát SGK Kết nối tri thức Lớp 3
+        const contentData = {
+            weeks: [
+                {
+                    id: 1,
+                    title: "Tuần 1: Ôn Tập Số Đến 1000 & Phép Cộng, Trừ Có Nhớ",
+                    theory: `
+                        <ul class="space-y-2">
+                            <li>📍 <strong>Cấu tạo số đến 1000:</strong> Trăm ➡️ Chục ➡️ Đơn vị. Ví dụ: Số 528 gồm 5 trăm, 2 chục, 8 đơn vị.</li>
+                            <li>📍 <strong>So sánh các số:</strong> So sánh chữ số từ hàng trăm, hàng chục rồi đến hàng đơn vị.</li>
+                            <li>📍 <strong>Cộng, trừ có nhớ:</strong> Thực hiện đặt tính thẳng cột từ phải sang trái. Đừng quên cộng thêm số nhớ khi thực hiện phép tính tiếp theo nhé!</li>
+                        </ul>
+                    `,
+                    revisionQuestions: [
+                        {
+                            id: "w1-r1",
+                            type: "mcq",
+                            question: "Số gồm 5 trăm, 2 chục và 8 đơn vị được viết là?",
+                            options: ["528", "582", "258", "852"],
+                            answer: "528",
+                            explanation: "Số gồm 5 trăm, 2 chục và 8 đơn vị có vị trí các hàng tương ứng từ trái sang phải là hàng trăm (5), hàng chục (2), hàng đơn vị (8) nên viết là 528."
+                        },
+                        {
+                            id: "w1-r2",
+                            type: "mcq",
+                            question: "Tìm số lớn nhất trong các số sau: 345, 435, 543, 534",
+                            options: ["345", "435", "543", "534"],
+                            answer: "543",
+                            explanation: "So sánh chữ số hàng trăm: 5 là lớn nhất. So sánh hai số có hàng trăm là 5: ta thấy 543 có hàng chục là 4, lớn hơn hàng chục của 534 (3). Vậy 543 là lớn nhất."
+                        },
+                        {
+                            id: "w1-r3",
+                            type: "fill",
+                            question: "Kết quả của phép tính: 245 + 138 là bao nhiêu?",
+                            answer: "383",
+                            explanation: "Thực hiện phép cộng thẳng hàng từ phải qua trái: 5 + 8 = 13 (viết 3 nhớ 1); 4 + 3 = 7 cộng 1 nhớ là 8; 2 + 1 = 3. Kết quả là 383."
+                        },
+                        {
+                            id: "w1-r4",
+                            type: "fill",
+                            question: "Điền số thích hợp: 5m 4cm = ... cm?",
+                            answer: "504",
+                            explanation: "Ta có: 1m = 100cm. Nên 5m = 500cm. Do đó, 5m 4cm = 500cm + 4cm = 504cm."
+                        },
+                        {
+                            id: "w1-r5",
+                            type: "mcq",
+                            question: "Mẹ mua 24 quả táo, mẹ biếu bà một nửa số táo đó. Hỏi mẹ còn lại bao nhiêu quả táo?",
+                            options: ["12 quả", "10 quả", "14 quả", "8 quả"],
+                            answer: "12 quả",
+                            explanation: "Một nửa tức là chia cho 2. Mẹ biếu bà số táo là: 24 : 2 = 12 quả. Vậy mẹ còn lại 12 quả táo."
+                        }
+                    ],
+                    testQuestions: [
+                        {
+                            question: "Số 'Chín trăm linh năm' được viết là:",
+                            options: ["950", "905", "509", "9005"],
+                            answer: "905"
+                        },
+                        {
+                            question: "Số liền trước của số bé nhất có ba chữ số là số nào?",
+                            options: ["99", "101", "100", "98"],
+                            answer: "99"
+                        },
+                        {
+                            question: "Tính nhẩm nhanh: 600 + 300 - 400",
+                            options: ["400", "500", "600", "700"],
+                            answer: "500"
+                        },
+                        {
+                            question: "Một cửa hàng buổi sáng bán được 120kg gạo. Buổi chiều bán được nhiều hơn buổi sáng 35kg. Hỏi buổi chiều bán được bao nhiêu kg?",
+                            options: ["155kg", "85kg", "275kg", "165kg"],
+                            answer: "155kg"
+                        },
+                        {
+                            question: "Điền số thích hợp vào chỗ trống: 236 + ... = 500",
+                            options: ["264", "274", "364", "374"],
+                            answer: "264"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Tuần 2: Bảng Nhân 3, 4 - Bảng Chia 3, 4",
+                    theory: `
+                        <ul class="space-y-2">
+                            <li>📍 <strong>Bảng nhân 3 & 4:</strong> Giúp tính nhẩm nhanh các đại lượng gấp lên 3 lần hoặc 4 lần.</li>
+                            <li>📍 <strong>Bảng chia 3 & 4:</strong> Phép chia là phép tính ngược lại của phép nhân.</li>
+                            <li>📍 <strong>Gấp một số lên nhiều lần:</strong> Ta lấy số đó nhân với số lần.</li>
+                            <li>📍 <strong>Giảm một số đi nhiều lần:</strong> Ta lấy số đó chia cho số lần.</li>
+                        </ul>
+                    `,
+                    revisionQuestions: [
+                        {
+                            id: "w2-r1",
+                            type: "mcq",
+                            question: "Mỗi chiếc xe đạp có 2 bánh xe. Hỏi 8 chiếc xe đạp như thế có bao nhiêu bánh xe?",
+                            options: ["10 bánh", "16 bánh", "14 bánh", "12 bánh"],
+                            answer: "16 bánh",
+                            explanation: "Số bánh xe của 8 chiếc xe đạp là: 2 x 8 = 16 bánh xe."
+                        },
+                        {
+                            id: "w2-r2",
+                            type: "mcq",
+                            question: "Có 24 quả táo chia đều vào 4 rổ. Hỏi mỗi rổ có bao nhiêu quả táo?",
+                            options: ["6 quả", "8 quả", "4 quả", "12 quả"],
+                            answer: "6 quả",
+                            explanation: "Số quả táo trong mỗi rổ là: 24 : 4 = 6 quả táo."
+                        },
+                        {
+                            id: "w2-r3",
+                            type: "fill",
+                            question: "Gấp số 6 lên 5 lần rồi bớt đi 10 đơn vị ta được kết quả là:",
+                            answer: "20",
+                            explanation: "Gấp 6 lên 5 lần ta có: 6 x 5 = 30. Bớt đi 10 đơn vị ta được: 30 - 10 = 20."
+                        },
+                        {
+                            id: "w2-r4",
+                            type: "mcq",
+                            question: "Điền dấu thích hợp: 3 x 8 ... 4 x 6",
+                            options: ["=", ">", "<"],
+                            answer: "=",
+                            explanation: "Ta có: 3 x 8 = 24 và 4 x 6 = 24. Do đó hai vế bằng nhau."
+                        },
+                        {
+                            id: "w2-r5",
+                            type: "fill",
+                            question: "Giảm 40 đi 4 lần ta được kết quả là:",
+                            answer: "10",
+                            explanation: "Giảm một số đi một số lần ta chia số đó cho số lần: 40 : 4 = 10."
+                        }
+                    ],
+                    testQuestions: [
+                        {
+                            question: "Kết quả của phép tính: 4 x 9 + 14 là:",
+                            options: ["50", "40", "45", "36"],
+                            answer: "50"
+                        },
+                        {
+                            question: "Có 32 học sinh chia đều thành 4 tổ. Hỏi mỗi tổ có bao nhiêu học sinh?",
+                            options: ["6 học sinh", "7 học sinh", "8 học sinh", "9 học sinh"],
+                            answer: "8"
+                        },
+                        {
+                            question: "Tìm X, biết: X x 3 = 27",
+                            options: ["7", "8", "9", "10"],
+                            answer: "9"
+                        },
+                        {
+                            question: "Một sợi dây dài 20dm, người ta cắt bớt đi một phần bằng 1/4 sợi dây đó. Hỏi phần cắt bớt dài bao nhiêu dm?",
+                            options: ["4dm", "5dm", "6dm", "10dm"],
+                            answer: "5dm"
+                        },
+                        {
+                            question: "Có 3 bàn học, mỗi bàn xếp 4 học sinh. Hỏi tất cả có bao nhiêu học sinh?",
+                            options: ["12 học sinh", "7 học sinh", "10 học sinh", "16 học sinh"],
+                            answer: "12"
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "Tuần 3: Hình Học & Góc Vuông, Góc Không Vuông",
+                    theory: `
+                        <ul class="space-y-2">
+                            <li>📍 <strong>Góc vuông:</strong> Đo bằng ê-ke để kiểm tra xem hai cạnh có vuông góc hay không.</li>
+                            <li>📍 <strong>Hình tròn:</strong> Có tâm, bán kính (đoạn từ tâm đến đường tròn), đường kính (đi qua tâm và dài gấp 2 lần bán kính).</li>
+                            <li>📍 <strong>Hình tam giác & Tứ giác:</strong> Xác định các đỉnh và các cạnh tương ứng.</li>
+                        </ul>
+                    `,
+                    revisionQuestions: [
+                        {
+                            id: "w3-r1",
+                            type: "mcq",
+                            question: "Dùng ê-ke ta có thể xác định được gì?",
+                            options: ["Góc vuông", "Độ dài đoạn thẳng", "Bán kính hình tròn", "Cân nặng"],
+                            answer: "Góc vuông",
+                            explanation: "Ê-ke là dụng cụ học tập chuyên biệt dùng để đo và xác định góc vuông."
+                        },
+                        {
+                            id: "w3-r2",
+                            type: "mcq",
+                            question: "Nếu bán kính hình tròn là 5cm thì đường kính của nó là bao nhiêu?",
+                            options: ["10cm", "5cm", "15cm", "2.5cm"],
+                            answer: "10cm",
+                            explanation: "Đường kính của hình tròn luôn dài gấp đôi bán kính của hình tròn đó: 5 x 2 = 10cm."
+                        },
+                        {
+                            id: "w3-r3",
+                            type: "fill",
+                            question: "Một hình vuông có cạnh dài 5cm. Chu vi của hình vuông đó là bao nhiêu cm?",
+                            answer: "20",
+                            explanation: "Chu vi hình vuông bằng độ dài một cạnh nhân với 4: 5 x 4 = 20cm."
+                        },
+                        {
+                            id: "w3-r4",
+                            type: "mcq",
+                            question: "Hình nào dưới đây có 4 góc vuông?",
+                            options: ["Hình chữ nhật", "Hình tam giác", "Hình tròn", "Hình lục giác đều"],
+                            answer: "Hình chữ nhật",
+                            explanation: "Hình chữ nhật và hình vuông đều có đặc điểm cơ bản là có 4 góc vuông ở 4 đỉnh."
+                        },
+                        {
+                            id: "w3-r5",
+                            type: "fill",
+                            question: "Điền số thích hợp: Một hình tam giác có độ dài các cạnh là 3cm, 4cm, 5cm. Chu vi hình tam giác đó là ... cm?",
+                            answer: "12",
+                            explanation: "Chu vi hình tam giác bằng tổng độ dài 3 cạnh: 3 + 4 + 5 = 12cm."
+                        }
+                    ],
+                    testQuestions: [
+                        {
+                            question: "Đường kính hình tròn dài gấp mấy lần bán kính của nó?",
+                            options: ["1 lần", "2 lần", "3 lần", "4 lần"],
+                            answer: "2 lần"
+                        },
+                        {
+                            question: "Một hình vuông có chu vi là 16cm. Độ dài cạnh hình vuông đó là:",
+                            options: ["4cm", "8cm", "6cm", "5cm"],
+                            answer: "4cm"
+                        },
+                        {
+                            question: "Hình tam giác có mấy cạnh?",
+                            options: ["3 cạnh", "4 cạnh", "5 cạnh", "6 cạnh"],
+                            answer: "3 cạnh"
+                        },
+                        {
+                            question: "Một đoạn thẳng AB dài 10cm. Gọi O là trung điểm của AB. Đoạn thẳng AO dài:",
+                            options: ["5cm", "10cm", "2.5cm", "20cm"],
+                            answer: "5cm"
+                        },
+                        {
+                            question: "Hình tròn tâm O có bán kính OA = 3cm. Đường kính CD dài bao nhiêu?",
+                            options: ["6cm", "3cm", "9cm", "12cm"],
+                            answer: "6cm"
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: "Tuần 4: Phép Nhân, Chia Trong Phạm Vi 1000",
+                    theory: `
+                        <ul class="space-y-2">
+                            <li>📍 <strong>Nhân số có 2, 3 chữ số:</strong> Nhân từ phải sang trái, nhớ cộng lượng dư có được từ hàng trước.</li>
+                            <li>📍 <strong>Chia số có 2, 3 chữ số:</strong> Chia từ trái sang phải. Chú ý số dư trong các bước phải luôn nhỏ hơn số chia.</li>
+                        </ul>
+                    `,
+                    revisionQuestions: [
+                        {
+                            id: "w4-r1",
+                            type: "mcq",
+                            question: "Kết quả của phép tính: 123 x 3 là bao nhiêu?",
+                            options: ["369", "366", "396", "363"],
+                            answer: "369",
+                            explanation: "Ta nhân lần lượt từ phải qua trái: 3 x 3 = 9; 3 x 2 = 6; 3 x 1 = 3. Ta được kết quả 369."
+                        },
+                        {
+                            id: "w4-r2",
+                            type: "mcq",
+                            question: "Thương của phép chia: 84 : 4 là bao nhiêu?",
+                            options: ["21", "22", "20", "24"],
+                            answer: "21",
+                            explanation: "Ta thực hiện phép chia từ trái sang phải: 8 chia 4 bằng 2; 4 chia 4 bằng 1. Kết quả là 21."
+                        },
+                        {
+                            id: "w4-r3",
+                            type: "fill",
+                            question: "Trong phép chia 25 : 4, số dư nhận được là bao nhiêu?",
+                            answer: "1",
+                            explanation: "Ta thấy: 25 = 4 x 6 + 1. Do đó phép chia có thương là 6 và số dư là 1."
+                        },
+                        {
+                            id: "w4-r4",
+                            type: "mcq",
+                            question: "Tìm X, biết: X : 5 = 15",
+                            options: ["75", "10", "20", "80"],
+                            answer: "75",
+                            explanation: "Để tìm số bị chia X, ta lấy thương nhân với số chia: X = 15 x 5 = 75."
+                        },
+                        {
+                            id: "w4-r5",
+                            type: "fill",
+                            question: "Có 3 thùng dầu, mỗi thùng chứa 150 lít. Hỏi cả 3 thùng chứa tất cả bao nhiêu lít dầu?",
+                            answer: "450",
+                            explanation: "Tổng số dầu cả 3 thùng chứa là: 150 x 3 = 450 lít."
+                        }
+                    ],
+                    testQuestions: [
+                        {
+                            question: "Tính nhẩm: 400 x 2",
+                            options: ["800", "600", "402", "8000"],
+                            answer: "800"
+                        },
+                        {
+                            question: "Tìm số dư của phép chia: 38 : 5",
+                            options: ["3", "2", "1", "0"],
+                            answer: "3"
+                        },
+                        {
+                            question: "Kết quả phép nhân: 105 x 4 là:",
+                            options: ["420", "405", "410", "450"],
+                            answer: "420"
+                        },
+                        {
+                            question: "Có 45 bông hoa, cắm đều vào 5 lọ hoa. Hỏi mỗi lọ có bao nhiêu bông hoa?",
+                            options: ["9 bông", "8 bông", "7 bông", "6 bông"],
+                            answer: "9 bông"
+                        },
+                        {
+                            question: "Tính giá trị biểu thức: 100 - 50 : 2",
+                            options: ["75", "25", "50", "80"],
+                            answer: "75"
+                        }
+                    ]
+                }
+            ],
+            advanced: [
+                {
+                    stage: 1,
+                    type: "mcq",
+                    question: "Thử thách 1: Quy luật dãy số 📈<br>Cho dãy số: 2, 5, 11, 23, ... Số tiếp theo điền vào dấu ba chấm là số nào?",
+                    options: ["47", "46", "45", "48"],
+                    answer: "47",
+                    hint: "Quy luật: Số đứng sau bằng số đứng trước nhân 2 rồi cộng thêm 1. Ví dụ: (2 x 2) + 1 = 5; (5 x 2) + 1 = 11;..."
+                },
+                {
+                    stage: 2,
+                    type: "mcq",
+                    question: "Thử thách 2: Bài toán cắm cọc 🪵<br>Bố cắm cọc rào quanh khu vườn hình vuông. Biết khoảng cách giữa 2 cọc cạnh nhau là 2m, và mỗi cạnh hình vuông có đúng 5 cọc (tính cả cọc ở góc). Hỏi bố cần bao nhiêu cái cọc?",
+                    options: ["16 cái", "20 cái", "18 cái", "15 cái"],
+                    answer: "16 cái",
+                    hint: "Hình vuông có 4 cạnh. Nếu lấy 5 cọc x 4 cạnh = 20 cọc thì các cọc ở 4 góc đã bị đếm lặp 2 lần. Do đó ta cần trừ đi 4 cọc ở góc: 20 - 4 = 16 cọc."
+                },
+                {
+                    stage: 3,
+                    type: "fill",
+                    question: "Thử thách 3: Tìm Số Dư Lớn Nhất 🔍<br>Trong một phép chia có số chia là 6, số dư lớn nhất có thể có của phép chia đó là bao nhiêu?",
+                    answer: "5",
+                    hint: "Số dư trong phép chia luôn luôn phải nhỏ hơn số chia. Số chia là 6, nên số dư lớn nhất có thể có chỉ có thể là 5."
+                },
+                {
+                    stage: 4,
+                    type: "mcq",
+                    question: "Thử thách 4: Bài toán rót nước 💧<br>Có hai thùng nước. Thùng thứ nhất có 35 lít nước. Nếu đổ thêm 5 lít nước từ thùng thứ nhất sang thùng thứ hai thì hai thùng có số nước bằng nhau. Hỏi lúc đầu thùng thứ hai có bao nhiêu lít nước?",
+                    options: ["25 lít", "30 lít", "15 lít", "20 lít"],
+                    answer: "25 lít",
+                    hint: "Khi đổ 5 lít từ thùng 1 sang thùng 2, thùng 1 còn lại: 35 - 5 = 30 lít. Khi đó thùng 2 cũng có 30 lít. Do đó, lúc đầu thùng 2 có: 30 - 5 = 25 lít."
+                },
+                {
+                    stage: 5,
+                    type: "fill",
+                    question: "Thử thách cực đại: Chữ Số La Mã 🏛️<br>Điền số thập phân tương ứng với số La Mã sau đây: XXIV ?",
+                    answer: "24",
+                    hint: "Ta phân tích: XX tương ứng với 20. IV tương ứng với 4. Ghép lại ta được số 24."
+                }
+            ],
+            leaderboard: [
+                { name: "Nguyễn Minh Khang", avatar: "🐒", stars: 120, trophies: 4 },
+                { name: "Trần Mai Chi", avatar: "🐰", stars: 105, trophies: 3 },
+                { name: "Lê Gia Bảo", avatar: "🐢", stars: 95, trophies: 3 },
+                { name: "Phạm Hải Đăng", avatar: "🐒", stars: 80, trophies: 2 },
+                { name: "Đỗ An Nhiên", avatar: "🐰", stars: 75, trophies: 1 }
+            ]
+        };
+
+        // FIRESTORE PATH REFERENCES (Tuân thủ luật thiết lập PATHS nghiêm ngặt)
+        const submissionsRef = collection(db, 'artifacts', appId, 'public', 'data', 'submissions');
+        const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'config', 'settings');
+        const globalScoresRef = collection(db, 'artifacts', appId, 'public', 'data', 'scores');
+
+        // HỆ THỐNG GIỌNG NÓI TRÍ TUỆ NHÂN TẠO AI SPEECH (Viettel AI TTS)
+        async function speakText(text) {
+            if (!text) return;
+
+            // Bộ lọc làm sạch văn bản thô để giọng đọc AI mượt mà và tự nhiên nhất
+            const cleanedText = text
+                .replace(/<[^>]*>/g, '') // Xóa thẻ HTML
+                .replace(/➡️/g, ' thì bằng ')
+                .replace(/📍/g, ' Điểm lưu ý là: ')
+                .replace(/:/g, ' là: ')
+                .replace(/\+/g, ' cộng ')
+                .replace(/-/g, ' trừ ')
+                .replace(/x/g, ' nhân ')
+                .replace(/:/g, ' chia ')
+                .replace(/\//g, ' phần ')
+                .trim();
+
+            try {
+                const response = await fetch("https://viettelai.vn/tts/speech_synthesis", {
+                    method: "POST",
+                    headers: {
+                        "accept": "*/*",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        text: cleanedText,
+                        voice: "hcm-diemmy",
+                        speed: 1,
+                        tts_return_option: 3,
+                        token: "395f6b744a34ff3eb6e042656cde6ffe",
+                        without_filter: false
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Lỗi API kết nối: " + response.status);
+                }
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                const audio = new Audio(audioUrl);
+                audio.play();
+
+            } catch (err) {
+                console.error(err);
+                // Hiển thị thông báo lỗi tùy biến (Không sử dụng alert trình duyệt)
+                showCustomAlert("⚠️ Giọng nói gặp lỗi!", "Hiện tại không thể phát âm thanh hướng dẫn: " + err.message);
+            }
+        }
+
+        // Đọc nội dung phát biểu của Mascot
+        function speakMascotSpeech() {
+            const speechText = document.getElementById('mascot-speech').innerText;
+            speakText(speechText);
+        }
+
+        // CHẠY HỆ THỐNG XÁC THỰC AN TOÀN TRƯỚC (RULE 3)
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (e) {
+                console.warn("Lỗi đăng nhập Firebase:", e);
+            }
+        };
+
+        // KHI ĐĂNG NHẬP THÀNH CÔNG -> THEO DÕI THỜI GIAN THỰC (REAL-TIME SNAPSHOT LISTENERS)
+        onAuthStateChanged(auth, async (u) => {
+            if (u) {
+                user = u;
+                console.log("Xác thực đám mây hoàn tất. User UID:", user.uid);
+                
+                // Đồng bộ Profile Học sinh
+                await syncUserProfile();
+
+                // 1. Thống kê bài tập / Lịch sử làm bài (Admin)
+                onSnapshot(submissionsRef, (snapshot) => {
+                    const history = [];
+                    snapshot.forEach(docSnap => {
+                        history.push({ id: docSnap.id, ...docSnap.data() });
+                    });
+                    // Tránh complex queries trên server -> Sắp xếp thủ công tại JS Client (RULE 2)
+                    history.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                    state.adminState.testHistory = history;
+                    if (state.currentView === 'admin') {
+                        renderAdminDashboard();
+                    }
+                }, (err) => console.warn("Lỗi Real-time Submissions:", err));
+
+                // 2. Đồng bộ trạng thái KHÓA/MỞ khóa tuần học (Admin & Student)
+                onSnapshot(configDocRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        state.maxPlayableWeek = docSnap.data().maxPlayableWeek || 4;
+                    } else {
+                        state.maxPlayableWeek = 4;
+                    }
+                    renderWeeksMap();
+                }, (err) => console.warn("Lỗi Real-time Config:", err));
+
+                // 3. Đồng bộ Bảng vàng danh dự trực tuyến (Leaderboard)
+                onSnapshot(globalScoresRef, (snapshot) => {
+                    const board = [];
+                    snapshot.forEach(docSnap => {
+                        board.push(docSnap.data());
+                    });
+                    
+                    // Ghép các bản ghi tĩnh của hệ thống và lọc trùng
+                    const combined = [...board];
+                    contentData.leaderboard.forEach(staticMember => {
+                        if (!combined.some(live => live.name === staticMember.name)) {
+                            combined.push(staticMember);
+                        }
+                    });
+
+                    // Sắp xếp theo số sao giảm dần
+                    combined.sort((a, b) => b.stars - a.stars);
+                    renderLeaderboardWithData(combined.slice(0, 10));
+                }, (err) => console.warn("Lỗi Real-time Leaderboard:", err));
+
+            }
+        });
+
+        // ĐỒNG BỘ PROFILE CÁ NHÂN HỌC SINH TỪ FIRESTORE
+        const syncUserProfile = async () => {
+            if (!user) return;
+            const profileRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'state');
+            try {
+                const docSnap = await getDoc(profileRef);
+                if (docSnap.exists()) {
+                    state.user = { ...state.user, ...docSnap.data() };
+                    updateStatsUI();
+                    if (state.user.stars > 0 && state.currentView === 'welcome') {
+                        changeView('dashboard');
+                    }
+                } else {
+                    await saveUserProfileToCloud();
+                }
+            } catch (e) {
+                console.warn("Lỗi đồng bộ hồ sơ:", e);
+            }
+        };
+
+        const saveUserProfileToCloud = async () => {
+            if (!user) return;
+            const profileRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'state');
+            const scorePublicRef = doc(db, 'artifacts', appId, 'public', 'data', 'scores', user.uid);
+            
+            const payload = {
+                name: state.user.name,
+                avatar: state.user.avatar,
+                stars: state.user.stars,
+                trophies: state.user.trophies,
+                companion: state.user.companion,
+                timestamp: Date.now()
+            };
+
+            try {
+                // Lưu hồ sơ cá nhân riêng tư
+                await setDoc(profileRef, payload, { merge: true });
+                // Lưu điểm số lên bảng công cộng để làm Leaderboard
+                await setDoc(scorePublicRef, payload, { merge: true });
+            } catch (e) {
+                console.warn("Lỗi lưu trữ dữ liệu đám mây:", e);
+            }
+        };
+
+        // VIEW ENGINE
+        function changeView(viewName) {
+            const views = ['welcome', 'dashboard', 'study', 'test', 'test-result', 'advanced', 'leaderboard', 'admin'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const targetEl = document.getElementById(`view-${viewName}`);
+            if (targetEl) targetEl.classList.remove('hidden');
+
+            const headerStats = document.getElementById('header-stats');
+            if (viewName === 'welcome') {
+                headerStats.classList.add('hidden');
+            } else {
+                headerStats.classList.remove('hidden');
+            }
+
+            state.currentView = viewName;
+            
+            if (viewName !== 'test') {
+                clearInterval(state.testState.timerInterval);
+            }
+
+            if (viewName === 'admin') {
+                renderAdminDashboard();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectCompanion(companionType) {
+            state.user.companion = companionType;
+            const cards = document.querySelectorAll('.companion-card');
+            cards.forEach(card => {
+                card.classList.remove('border-brand-500', 'bg-brand-50', 'ring-4', 'ring-brand-100');
+                card.classList.add('border-slate-100', 'bg-slate-50');
+            });
+
+            const selectedCard = document.getElementById(`comp-${companionType}`);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-slate-100', 'bg-slate-50');
+                selectedCard.classList.add('border-brand-500', 'bg-brand-50', 'ring-4', 'ring-brand-100');
+            }
+
+            if (companionType === 'rabbit') {
+                state.user.avatar = "🐰";
+                state.user.name = "Thỏ Thông Thái";
+            } else if (companionType === 'monkey') {
+                state.user.avatar = "🐒";
+                state.user.name = "Khỉ Nhanh Trí";
+            } else {
+                state.user.avatar = "🐢";
+                state.user.name = "Rùa Cần Cù";
+            }
+        }
+
+        async function startApp() {
+            const nicknameInput = document.getElementById('input-nickname').value.trim();
+            if (nicknameInput) {
+                state.user.name = nicknameInput;
+            }
+
+            document.getElementById('header-user-avatar').innerText = state.user.avatar;
+            document.getElementById('header-user-name').innerText = state.user.name;
+            document.getElementById('dash-user-name').innerText = state.user.name;
+            document.getElementById('mascot-avatar').innerText = state.user.avatar;
+            document.getElementById('mascot-speech').innerText = `"Chào ${state.user.name} nhé! Tớ sẽ đồng hành cùng cậu chinh phục mọi nẻo đường Toán học. Nhấp vào các tuần học để khởi động ngay nào!"`;
+
+            await saveUserProfileToCloud();
+            updateStatsUI();
+            changeView('dashboard');
+            triggerConfetti();
+        }
+
+        function updateStatsUI() {
+            document.getElementById('stat-stars').innerText = state.user.stars;
+            document.getElementById('stat-trophies').innerText = state.user.trophies;
+            document.getElementById('header-user-avatar').innerText = state.user.avatar;
+            document.getElementById('header-user-name').innerText = state.user.name;
+            document.getElementById('dash-user-name').innerText = state.user.name;
+            document.getElementById('mascot-avatar').innerText = state.user.avatar;
+        }
+
+        function renderWeeksMap() {
+            const weeksGrid = document.getElementById('weeks-grid');
+            if (!weeksGrid) return;
+            weeksGrid.innerHTML = '';
+
+            for (let w = 1; w <= 35; w++) {
+                const isPlayable = w <= state.maxPlayableWeek; 
+                const weekData = contentData.weeks.find(x => x.id === w);
+                
+                const weekCard = document.createElement('div');
+                weekCard.className = `p-5 rounded-2xl border-2 transition-all flex flex-col justify-between ${
+                    isPlayable 
+                        ? 'bg-white border-brand-200 hover:border-brand-400 hover:shadow-md cursor-pointer' 
+                        : 'bg-slate-100 border-slate-200 opacity-60 cursor-not-allowed'
+                }`;
+
+                let headerHtml = `
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-black text-brand-500 uppercase">Tuần ${w}</span>
+                        ${isPlayable ? '<span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">Mở khóa ✨</span>' : '<span class="text-xs text-slate-400">🔒 Chờ mở</span>'}
+                    </div>
+                `;
+
+                let titleHtml = `
+                    <h4 class="font-extrabold text-sm sm:text-base text-slate-700 mb-4">
+                        ${weekData ? weekData.title.split(': ')[1] : `Chương trình bài học tuần ${w}`}
+                    </h4>
+                `;
+
+                let footerHtml = '';
+                if (isPlayable) {
+                    if (weekData) {
+                        footerHtml = `
+                            <div class="grid grid-cols-2 gap-2 mt-auto text-center" onclick="event.stopPropagation();">
+                                <button onclick="window.startStudyMode(${w})" class="py-2 px-3 bg-brand-50 hover:bg-brand-100 text-brand-600 font-black text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors">
+                                    📖 Ôn Luyện
+                                </button>
+                                <button onclick="window.startTestMode(${w})" class="py-2 px-3 bg-pink-50 hover:bg-pink-100 text-pink-600 font-black text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors">
+                                    ⏱️ Kiểm Tra
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        footerHtml = `
+                            <div class="text-center text-slate-500 text-xs font-bold py-2 border border-dashed border-slate-300 rounded-xl">
+                                Đang soạn câu đố...
+                            </div>
+                        `;
+                    }
+                } else {
+                    footerHtml = `
+                        <div class="text-center text-slate-400 text-xs font-bold py-2 border border-dashed border-slate-300 rounded-xl">
+                            Hoàn thành tuần trước để mở
+                        </div>
+                    `;
+                }
+
+                weekCard.innerHTML = headerHtml + titleHtml + footerHtml;
+                if (isPlayable && weekData) {
+                    weekCard.addEventListener('click', () => {
+                        startStudyMode(w);
+                    });
+                }
+                weeksGrid.appendChild(weekCard);
+            }
+        }
+
+        function startStudyMode(weekId) {
+            state.currentWeekId = weekId;
+            const weekData = contentData.weeks.find(x => x.id === weekId);
+            if (!weekData) return;
+
+            document.getElementById('study-week-title').innerText = weekData.title;
+            document.getElementById('theory-content').innerHTML = weekData.theory;
+
+            state.studyState.activeQuestionIndex = 0;
+            state.studyState.answersChecked = {};
+            state.studyState.userSelectedAnswers = {};
+
+            loadStudyQuestion();
+            changeView('study');
+        }
+
+        function loadStudyQuestion() {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const qIndex = state.studyState.activeQuestionIndex;
+            const question = weekData.revisionQuestions[qIndex];
+
+            document.getElementById('study-progress-text').innerText = `${qIndex + 1} / ${weekData.revisionQuestions.length}`;
+            const percent = ((qIndex + 1) / weekData.revisionQuestions.length) * 100;
+            document.getElementById('study-progress-bar').style.width = `${percent}%`;
+
+            const box = document.getElementById('study-question-box');
+            box.innerHTML = '';
+
+            // Đề bài kèm nút Loa AI Voice sinh động
+            const qTitle = document.createElement('h4');
+            qTitle.className = "font-black text-slate-700 text-base sm:text-lg leading-relaxed flex items-start gap-2 justify-between";
+            qTitle.innerHTML = `
+                <span class="flex items-start gap-2 flex-1">
+                    <span class="bg-brand-500 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-xs flex-shrink-0 mt-0.5">${qIndex + 1}</span>
+                    <span id="study-q-text">${question.question}</span>
+                </span>
+                <button onclick="window.speakText(document.getElementById('study-q-text').innerText)" class="p-1.5 bg-brand-50 hover:bg-brand-100 text-brand-600 rounded-xl text-sm flex-shrink-0 transition-colors" title="Nghe đọc câu hỏi">
+                    🔊
+                </button>
+            `;
+            box.appendChild(qTitle);
+
+            if (question.type === 'mcq') {
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4";
+
+                question.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = `p-4 rounded-2xl border-2 text-left font-black text-sm sm:text-base transition-all flex items-center justify-between ${
+                        state.studyState.userSelectedAnswers[question.id] === opt
+                            ? 'border-brand-500 bg-brand-50 text-brand-700 ring-2 ring-brand-100'
+                            : 'border-slate-100 bg-slate-50 hover:bg-slate-100 text-slate-600'
+                    }`;
+                    btn.innerHTML = `<span>${opt}</span> <div class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center"><div class="w-2.5 h-2.5 rounded-full bg-brand-500 transform scale-0 transition-transform"></div></div>`;
+                    
+                    if (state.studyState.answersChecked[question.id]) {
+                        btn.disabled = true;
+                        if (opt === question.answer) {
+                            btn.className = "p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-700 font-black text-sm sm:text-base flex items-center justify-between";
+                            btn.innerHTML = `<span>${opt}</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+                        } else if (state.studyState.userSelectedAnswers[question.id] === opt) {
+                            btn.className = "p-4 rounded-2xl border-2 border-rose-500 bg-rose-50 text-rose-700 font-black text-sm sm:text-base flex items-center justify-between";
+                            btn.innerHTML = `<span>${opt}</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-rose-500"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+                        }
+                    } else {
+                        btn.addEventListener('click', () => {
+                            state.studyState.userSelectedAnswers[question.id] = opt;
+                            loadStudyQuestion();
+                        });
+                    }
+                    optionsGrid.appendChild(btn);
+                });
+                box.appendChild(optionsGrid);
+            } else if (question.type === 'fill') {
+                const fillContainer = document.createElement('div');
+                fillContainer.className = "mt-4 max-w-xs space-y-3";
+
+                const input = document.createElement('input');
+                input.type = "text";
+                input.placeholder = "Gõ đáp án vào đây...";
+                input.id = `input-fill-${question.id}`;
+                input.value = state.studyState.userSelectedAnswers[question.id] || '';
+                input.className = "w-full px-4 py-3 rounded-2xl border-2 border-slate-200 font-black text-slate-700 outline-none transition-all focus:border-brand-400";
+                
+                if (state.studyState.answersChecked[question.id]) {
+                    input.disabled = true;
+                    const isCorrect = String(state.studyState.userSelectedAnswers[question.id]).trim().toLowerCase() === String(question.answer).trim().toLowerCase();
+                    input.className = `w-full px-4 py-3 rounded-2xl border-2 font-black outline-none transition-all ${
+                        isCorrect ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-rose-500 bg-rose-50 text-rose-700'
+                    }`;
+                } else {
+                    input.addEventListener('input', (e) => {
+                        state.studyState.userSelectedAnswers[question.id] = e.target.value;
+                    });
+                }
+
+                fillContainer.appendChild(input);
+                box.appendChild(fillContainer);
+            }
+
+            const explBox = document.getElementById('study-explanation-box');
+            if (state.studyState.answersChecked[question.id]) {
+                explBox.classList.remove('hidden');
+                document.getElementById('study-explanation-text').innerText = question.explanation;
+                document.getElementById('btn-check-study').classList.add('hidden');
+                document.getElementById('btn-next-study').classList.remove('hidden');
+            } else {
+                explBox.classList.add('hidden');
+                document.getElementById('btn-check-study').classList.remove('hidden');
+                document.getElementById('btn-next-study').classList.add('hidden');
+            }
+        }
+
+        async function checkStudyAnswer() {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const qIndex = state.studyState.activeQuestionIndex;
+            const question = weekData.revisionQuestions[qIndex];
+            const userAns = state.studyState.userSelectedAnswers[question.id];
+
+            if (!userAns || String(userAns).trim() === "") {
+                showCustomAlert("⚠️ Úp sọt!", "Con chưa nhập hoặc chọn câu trả lời nào cả!");
+                return;
+            }
+
+            state.studyState.answersChecked[question.id] = true;
+
+            let correct = false;
+            if (question.type === 'mcq') {
+                correct = userAns === question.answer;
+            } else {
+                correct = String(userAns).trim().toLowerCase() === String(question.answer).trim().toLowerCase();
+            }
+
+            if (correct) {
+                state.user.stars += 2;
+                await saveUserProfileToCloud();
+                updateStatsUI();
+                triggerConfetti();
+                showCustomAlert("🎉 Tuyệt vời!", "Con đã trả lời chính xác và nhận được +2 ⭐!", "🎯 Chúc mừng");
+            } else {
+                showCustomAlert("😢 Tiếc quá!", "Đáp án chưa đúng rồi. Đọc kỹ lời giải chi tiết bên dưới nhé!", "💪 Cố lên");
+            }
+
+            loadStudyQuestion();
+        }
+
+        function navigateStudyQuestion(dir) {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const targetIndex = state.studyState.activeQuestionIndex + dir;
+
+            if (targetIndex >= 0 && targetIndex < weekData.revisionQuestions.length) {
+                state.studyState.activeQuestionIndex = targetIndex;
+                loadStudyQuestion();
+            } else if (targetIndex >= weekData.revisionQuestions.length) {
+                showCustomAlert("🏆 Hoàn Thành!", `Con đã xuất sắc hoàn thành buổi Ôn Luyện Tuần ${state.currentWeekId}! Trở về bản đồ để chinh phục bài thi tính giờ nhé.`, "🌟 Chúc mừng");
+                changeView('dashboard');
+            }
+        }
+
+        // TIMED TEST ENGINE
+        function startTestMode(weekId) {
+            state.currentWeekId = weekId;
+            const weekData = contentData.weeks.find(x => x.id === weekId);
+            if (!weekData) return;
+
+            document.getElementById('test-week-title').innerText = `Bài kiểm tra: Tuần ${weekId}`;
+            
+            state.testState.activeQuestionIndex = 0;
+            state.testState.userAnswers = {};
+            state.testState.timeLeft = 600;
+
+            renderTestIndicators();
+            loadTestQuestion();
+
+            clearInterval(state.testState.timerInterval);
+            state.testState.timerInterval = setInterval(() => {
+                state.testState.timeLeft--;
+                if (state.testState.timeLeft <= 0) {
+                    clearInterval(state.testState.timerInterval);
+                    submitTest(true);
+                } else {
+                    updateTestClock();
+                }
+            }, 1000);
+
+            updateTestClock();
+            changeView('test');
+        }
+
+        function updateTestClock() {
+            const minutes = Math.floor(state.testState.timeLeft / 60);
+            const seconds = state.testState.timeLeft % 60;
+            document.getElementById('test-clock').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function renderTestIndicators() {
+            const container = document.getElementById('test-indicators');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            weekData.testQuestions.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.onclick = () => {
+                    state.testState.activeQuestionIndex = index;
+                    loadTestQuestion();
+                };
+                dot.id = `test-dot-${index}`;
+                dot.className = `w-8 h-8 rounded-full font-black text-xs transition-all flex items-center justify-center ${
+                    state.testState.activeQuestionIndex === index 
+                        ? 'bg-pink-500 text-white ring-4 ring-pink-100'
+                        : state.testState.userAnswers[index] !== undefined
+                            ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
+                            : 'bg-slate-100 text-slate-500 border border-slate-200'
+                }`;
+                dot.innerText = index + 1;
+                container.appendChild(dot);
+            });
+        }
+
+        function loadTestQuestion() {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const qIndex = state.testState.activeQuestionIndex;
+            const question = weekData.testQuestions[qIndex];
+
+            renderTestIndicators();
+
+            const box = document.getElementById('test-question-box');
+            box.innerHTML = '';
+
+            const qText = document.createElement('h3');
+            qText.className = "font-black text-slate-700 text-base sm:text-lg leading-relaxed flex items-start justify-between gap-2";
+            qText.innerHTML = `
+                <span class="flex items-start gap-2 flex-1">
+                    <span class="bg-pink-500 text-white px-2 py-1 rounded-lg text-xs font-black mr-2">Câu ${qIndex + 1}</span>
+                    <span id="test-q-text">${question.question}</span>
+                </span>
+                <button onclick="window.speakText(document.getElementById('test-q-text').innerText)" class="p-1.5 bg-pink-50 hover:bg-pink-100 text-pink-600 rounded-xl text-sm flex-shrink-0 transition-colors" title="Nghe câu hỏi">
+                    🔊
+                </button>
+            `;
+            box.appendChild(qText);
+
+            const grid = document.createElement('div');
+            grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4";
+
+            question.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = `p-4 rounded-2xl border-2 text-left font-black text-sm sm:text-base transition-all flex items-center justify-between ${
+                    state.testState.userAnswers[qIndex] === opt
+                        ? 'border-pink-500 bg-pink-50 text-pink-700 ring-2 ring-pink-100'
+                        : 'border-slate-100 bg-slate-50 hover:bg-slate-100 text-slate-600'
+                }`;
+                btn.innerHTML = `<span>${opt}</span> <div class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center"><div class="w-2.5 h-2.5 rounded-full bg-pink-500 transform ${state.testState.userAnswers[qIndex] === opt ? 'scale-100' : 'scale-0'} transition-transform"></div></div>`;
+                
+                btn.addEventListener('click', () => {
+                    state.testState.userAnswers[qIndex] = opt;
+                    loadTestQuestion();
+                });
+                grid.appendChild(btn);
+            });
+            box.appendChild(grid);
+        }
+
+        function navigateTestQuestion(dir) {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const targetIndex = state.testState.activeQuestionIndex + dir;
+
+            if (targetIndex >= 0 && targetIndex < weekData.testQuestions.length) {
+                state.testState.activeQuestionIndex = targetIndex;
+                loadTestQuestion();
+            }
+        }
+
+        function confirmSubmitTest() {
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            const answeredCount = Object.keys(state.testState.userAnswers).length;
+            
+            if (answeredCount < weekData.testQuestions.length) {
+                showCustomAlert("⚠️ Còn bài trống!", `Con mới làm ${answeredCount} trên tổng số ${weekData.testQuestions.length} câu. Hãy rà soát làm nốt rồi nộp bài nhé!`);
+                return;
+            }
+
+            submitTest(false);
+        }
+
+        async function submitTest(isForceSubmitted = false) {
+            clearInterval(state.testState.timerInterval);
+            const weekData = contentData.weeks.find(x => x.id === state.currentWeekId);
+            
+            let score = 0;
+            weekData.testQuestions.forEach((q, index) => {
+                if (state.testState.userAnswers[index] === q.answer) {
+                    score++;
+                }
+            });
+
+            const total = weekData.testQuestions.length;
+            const accuracy = score / total;
+            let starsEarned = score * 2;
+            let medal = "🥇";
+            let msg = "Thật tuyệt vời! Con nắm kiến thức quá giỏi!";
+
+            let classification = "Yếu/Cần cố gắng 🥉";
+            if (accuracy >= 1.0) {
+                medal = "👑";
+                msg = "Điểm tuyệt đối! Con chính là thiên tài Toán Học tuần này!";
+                starsEarned += 5;
+                classification = "Xuất sắc 👑";
+            } else if (accuracy >= 0.8) {
+                medal = "🥇";
+                msg = "Xuất sắc! Con chỉ sai sót một chút xíu thôi!";
+                starsEarned += 2;
+                classification = "Giỏi 🥇";
+            } else if (accuracy >= 0.6) {
+                medal = "🥈";
+                msg = "Khá lắm! Con hãy cố gắng đạt điểm cao hơn ở tuần tới nhé!";
+                classification = "Khá 🥈";
+            } else if (accuracy >= 0.4) {
+                classification = "Trung bình 🥉";
+            }
+
+            state.user.stars += starsEarned;
+            updateStatsUI();
+
+            const timeElapsed = 600 - state.testState.timeLeft;
+            const minElapsed = Math.floor(timeElapsed / 60);
+            const secElapsed = timeElapsed % 60;
+            const durationStr = `${minElapsed.toString().padStart(2, '0')}:${secElapsed.toString().padStart(2, '0')}`;
+
+            // Tải dữ liệu nộp bài lên CLOUD FIRESTORE
+            const cloudRecord = {
+                studentName: state.user.name || "Học sinh ẩn danh",
+                weekId: state.currentWeekId,
+                score: score,
+                total: total,
+                timeSpent: durationStr,
+                date: new Date().toLocaleString('vi-VN', {hour12: false}),
+                classification: classification,
+                timestamp: Date.now()
+            };
+
+            try {
+                if (user) {
+                    await addDoc(submissionsRef, cloudRecord);
+                    await saveUserProfileToCloud();
+                }
+            } catch (e) {
+                console.warn("Lỗi đồng bộ nộp bài lên Cloud:", e);
+            }
+
+            document.getElementById('result-medal-emoji').innerText = medal;
+            document.getElementById('result-message').innerText = msg;
+            document.getElementById('result-correct-ratio').innerText = `${score} / ${total}`;
+            document.getElementById('result-stars-awarded').innerText = `+${starsEarned} ⭐`;
+
+            const ratingStarsBox = document.getElementById('result-stars');
+            ratingStarsBox.innerHTML = '';
+            for (let s = 1; s <= 5; s++) {
+                const starSpan = document.createElement('span');
+                const threshold = s / 5;
+                if (accuracy >= threshold) {
+                    starSpan.innerText = "⭐";
+                    starSpan.className = "text-yellow-400";
+                } else {
+                    starSpan.innerText = "☆";
+                    starSpan.className = "text-slate-300";
+                }
+                ratingStarsBox.appendChild(starSpan);
+            }
+
+            changeView('test-result');
+            triggerConfetti();
+        }
+
+        // ADVANCED MODE ENGINE
+        function startAdvancedMode() {
+            state.advancedState.currentStage = 1;
+            state.advancedState.selectedAnswer = null;
+            state.advancedState.completed = false;
+
+            loadAdvancedQuestion();
+            changeView('advanced');
+        }
+
+        function renderClimbNodes() {
+            const container = document.getElementById('climb-nodes');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const current = state.advancedState.currentStage;
+            const pathCoordinates = [
+                { bottom: '15%', left: '10%' },
+                { bottom: '32%', left: '35%' },
+                { bottom: '50%', left: '60%' },
+                { bottom: '68%', left: '40%' },
+                { bottom: '82%', left: '75%' }
+            ];
+
+            pathCoordinates.forEach((coord, index) => {
+                const step = index + 1;
+                const node = document.createElement('div');
+                node.className = "absolute transition-all transform -translate-x-1/2 -translate-y-1/2";
+                node.style.bottom = coord.bottom;
+                node.style.left = coord.left;
+
+                let iconHtml = '';
+                if (step < current) {
+                    iconHtml = `<div class="w-8 h-8 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-xs font-black shadow">✓</div>`;
+                } else if (step === current) {
+                    iconHtml = `
+                        <div class="relative">
+                            <span class="absolute -top-7 left-1/2 transform -translate-x-1/2 text-2xl bouncy">${state.user.avatar}</span>
+                            <div class="w-10 h-10 rounded-full bg-indigo-600 border-4 border-yellow-300 flex items-center justify-center text-white text-xs font-black shadow-lg">Lvl ${step}</div>
+                        </div>
+                    `;
+                } else {
+                    iconHtml = `<div class="w-8 h-8 rounded-full bg-slate-300 border-2 border-white flex items-center justify-center text-slate-500 text-xs font-black shadow">${step}</div>`;
+                }
+
+                node.innerHTML = iconHtml;
+                container.appendChild(node);
+            });
+        }
+
+        function loadAdvancedQuestion() {
+            renderClimbNodes();
+
+            const stage = state.advancedState.currentStage;
+            document.getElementById('adv-level-indicator').innerText = `${stage} / 5`;
+
+            const puzzle = contentData.advanced[stage - 1];
+            const area = document.getElementById('adv-question-area');
+            area.innerHTML = '';
+
+            const speechBubbles = [
+                "Cùng vượt qua thử thách đầu tiên để thăng cấp nhé!",
+                "Hãy nhắm thẳng tới nấc tiếp theo, nỗ lực xuất sắc!",
+                "Vượt qua một nửa chặng đường rồi! Sắp hái được quả ngọt rồi!",
+                "Chỉ một chút nữa thôi là chạm đỉnh vinh quang. Cố lên!",
+                "Thử thách cuối cùng cực khó! Hãy thể hiện tư duy thiên tài của con!"
+            ];
+            document.getElementById('climb-helper-speech').innerText = speechBubbles[stage - 1];
+
+            // Tiêu đề đề bài đỉnh núi kèm Loa AI
+            const title = document.createElement('h3');
+            title.className = "font-black text-slate-700 text-lg leading-relaxed p-4 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-start justify-between gap-2";
+            title.innerHTML = `
+                <span id="adv-q-text" class="flex-1">${puzzle.question}</span>
+                <button onclick="window.speakText(document.getElementById('adv-q-text').innerText)" class="p-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-xl text-sm flex-shrink-0 transition-colors" title="Nghe câu hỏi">
+                    🔊
+                </button>
+            `;
+            area.appendChild(title);
+
+            if (puzzle.type === 'mcq') {
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4";
+
+                puzzle.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = `p-4 rounded-2xl border-2 text-left font-black text-sm sm:text-base transition-all flex items-center justify-between ${
+                        state.advancedState.selectedAnswer === opt
+                            ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-2 ring-indigo-100'
+                            : 'border-slate-100 bg-slate-50 hover:bg-slate-100 text-slate-600'
+                    }`;
+                    btn.innerHTML = `<span>${opt}</span> <div class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center"><div class="w-2.5 h-2.5 rounded-full bg-indigo-500 transform ${state.advancedState.selectedAnswer === opt ? 'scale-100' : 'scale-0'} transition-transform"></div></div>`;
+                    
+                    btn.addEventListener('click', () => {
+                        state.advancedState.selectedAnswer = opt;
+                        loadAdvancedQuestion();
+                    });
+                    grid.appendChild(btn);
+                });
+                area.appendChild(grid);
+            } else if (puzzle.type === 'fill') {
+                const container = document.createElement('div');
+                container.className = "mt-4 max-w-xs space-y-2";
+
+                const label = document.createElement('label');
+                label.className = "block text-xs text-slate-400 font-extrabold";
+                label.innerText = "Điền số hoặc đáp án đúng:";
+                
+                const input = document.createElement('input');
+                input.type = "text";
+                input.placeholder = "Đáp án của con...";
+                input.value = state.advancedState.selectedAnswer || '';
+                input.className = "w-full px-4 py-3 rounded-2xl border-2 border-slate-200 font-black text-indigo-700 outline-none transition-all focus:border-indigo-400 text-center text-lg";
+
+                input.addEventListener('input', (e) => {
+                    state.advancedState.selectedAnswer = e.target.value;
+                });
+
+                container.appendChild(label);
+                container.appendChild(input);
+                area.appendChild(container);
+            }
+
+            const tipBox = document.getElementById('adv-tip-box');
+            tipBox.classList.remove('hidden');
+            document.getElementById('adv-tip-text').innerHTML = `💡 <strong>Mách nhỏ từ Thỏ:</strong> ${puzzle.hint}`;
+        }
+
+        async function checkAdvancedAnswer() {
+            const stage = state.advancedState.currentStage;
+            const puzzle = contentData.advanced[stage - 1];
+            const ans = state.advancedState.selectedAnswer;
+
+            if (!ans || String(ans).trim() === "") {
+                showCustomAlert("⚠️ Thẻ lỗi!", "Hãy chọn hoặc gõ một câu trả lời trước khi gửi nhé!");
+                return;
+            }
+
+            let correct = false;
+            if (puzzle.type === 'mcq') {
+                correct = ans === puzzle.answer;
+            } else {
+                correct = String(ans).trim().toLowerCase() === String(puzzle.answer).trim().toLowerCase();
+            }
+
+            if (correct) {
+                triggerConfetti();
+                state.user.stars += 5;
+
+                if (stage < 5) {
+                    showCustomAlert("🧗 Leo Lên Tiếp!", "Thật không tin nổi! Con siêu thật đó. Chinh phục nấc thang tiếp theo nào! (+5 ⭐)", "✨ Cực kỳ xuất sắc");
+                    state.advancedState.currentStage++;
+                    state.advancedState.selectedAnswer = null;
+                    loadAdvancedQuestion();
+                } else {
+                    state.user.trophies++;
+                    showCustomAlert("👑 CHẠM ĐỈNH VINH QUANG!", "Con đã trả lời chính xác tất cả các bài Toán Tư Duy hóc búa nhất và đạt được CÚP VÀNG danh giá! (+5 ⭐, +1 🏆)", "🏆 THẦN ĐỒNG TOÁN HỌC");
+                    changeView('dashboard');
+                }
+            } else {
+                showCustomAlert("❌ Chưa Đúng rồi!", "Ôi không, câu trả lời chưa đúng rồi. Hãy đọc kỹ gợi ý 'Mách nhỏ từ Thỏ' và thử suy luận lại xem sao nhé!", "💪 Hãy thử lại");
+            }
+
+            await saveUserProfileToCloud();
+            updateStatsUI();
+        }
+
+        // LEADERBOARD WITH INCOMING REAL-TIME DATA
+        function renderLeaderboardWithData(listData) {
+            const list = document.getElementById('leaderboard-list');
+            if (!list) return;
+            list.innerHTML = '';
+
+            listData.forEach((member, index) => {
+                const row = document.createElement('div');
+                const isMe = member.name === state.user.name;
+                row.className = `p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
+                    isMe 
+                        ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-100' 
+                        : 'bg-white border-slate-100'
+                }`;
+
+                let posColor = 'bg-slate-100 text-slate-500';
+                if (index === 0) posColor = 'bg-yellow-400 text-white font-extrabold';
+                else if (index === 1) posColor = 'bg-slate-300 text-white font-extrabold';
+                else if (index === 2) posColor = 'bg-orange-300 text-white font-extrabold';
+
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-6 h-6 rounded-full ${posColor} flex items-center justify-center text-xs font-black">${index + 1}</span>
+                        <span class="text-xl">${member.avatar || '🐰'}</span>
+                        <span class="font-black text-sm sm:text-base ${isMe ? 'text-amber-800' : 'text-slate-700'}">${member.name} ${isMe ? '(Con)' : ''}</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-xs sm:text-sm">
+                        <span class="font-extrabold text-slate-600">⭐ ${member.stars}</span>
+                        <span class="font-extrabold text-orange-500">🏆 ${member.trophies}</span>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        // ADMIN SECURE LOGIN SYSTEM
+        function openAdminLoginModal() {
+            document.getElementById('admin-password-input').value = '';
+            const modal = document.getElementById('admin-login-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('admin-password-input').focus();
+        }
+
+        function closeAdminLoginModal() {
+            const modal = document.getElementById('admin-login-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitAdminPassword() {
+            const val = document.getElementById('admin-password-input').value;
+            if (val === '215151365') {
+                closeAdminLoginModal();
+                state.adminState.unlocked = true;
+                changeView('admin');
+                triggerConfetti();
+            } else {
+                showCustomAlert("❌ Sai mật khẩu!", "Mật khẩu quản trị viên không chính xác. Hãy nhập lại!");
+            }
+        }
+
+        function logoutAdmin() {
+            state.adminState.unlocked = false;
+            changeView('dashboard');
+        }
+
+        // RENDER ADMIN DASHBOARD
+        function renderAdminDashboard() {
+            const history = state.adminState.testHistory;
+            const totalTests = history.length;
+            let avgScore = 0.0;
+            let excellentCount = 0;
+
+            if (totalTests > 0) {
+                let totalScoreScaled = 0;
+                history.forEach(item => {
+                    const scaled = (item.score / item.total) * 10;
+                    totalScoreScaled += scaled;
+                    if (item.classification.includes("Xuất sắc") || item.classification.includes("Giỏi")) {
+                        excellentCount++;
+                    }
+                });
+                avgScore = (totalScoreScaled / totalTests).toFixed(1);
+            }
+
+            const excellentPercentage = totalTests > 0 ? Math.round((excellentCount / totalTests) * 100) : 0;
+
+            document.getElementById('admin-stat-total').innerText = totalTests;
+            document.getElementById('admin-stat-avg').innerText = avgScore + " / 10";
+            document.getElementById('admin-stat-excellent').innerText = excellentPercentage + "%";
+
+            const select = document.getElementById('admin-max-week-select');
+            if (select) {
+                select.innerHTML = '';
+                for (let i = 1; i <= 35; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.innerText = `Tuần ${i}`;
+                    if (i === state.maxPlayableWeek) {
+                        opt.selected = true;
+                    }
+                    select.appendChild(opt);
+                }
+            }
+
+            filterAdminHistory();
+        }
+
+        // CLOUD CONTROL PANEL - WEEK LOCKS
+        async function updateMaxPlayableWeek(val) {
+            state.maxPlayableWeek = parseInt(val, 10);
+            try {
+                if (user) {
+                    await setDoc(configDocRef, { maxPlayableWeek: state.maxPlayableWeek }, { merge: true });
+                    showCustomAlert("🔓 Đã Cập Nhật!", `Đã đồng bộ mở khóa học đến Tuần ${state.maxPlayableWeek} cho toàn bộ hệ thống!`);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        async function unlockAllWeeks() {
+            state.maxPlayableWeek = 35;
+            try {
+                if (user) {
+                    await setDoc(configDocRef, { maxPlayableWeek: 35 }, { merge: true });
+                    triggerConfetti();
+                    showCustomAlert("🎉 Tuyệt Vời!", "Hệ thống đã cập nhật mở khóa toàn bộ 35 tuần học trực tuyến!");
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        async function resetWeeksLock() {
+            state.maxPlayableWeek = 4;
+            try {
+                if (user) {
+                    await setDoc(configDocRef, { maxPlayableWeek: 4 }, { merge: true });
+                    showCustomAlert("🔒 Khóa Lại!", "Hệ thống đã khôi phục chế độ giới hạn trải nghiệm học (Chỉ mở 4 tuần đầu).");
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        // FILTER ADMIN LOGS
+        function filterAdminHistory() {
+            const query = document.getElementById('admin-search-student').value.trim().toLowerCase();
+            const weekFilter = document.getElementById('admin-filter-week').value;
+            const tableRows = document.getElementById('admin-table-rows');
+            if (!tableRows) return;
+            tableRows.innerHTML = '';
+
+            const rawHistory = state.adminState.testHistory;
+            const filteredHistory = rawHistory.filter(item => {
+                const matchesSearch = item.studentName.toLowerCase().includes(query);
+                const matchesWeek = (weekFilter === 'all') || (String(item.weekId) === weekFilter);
+                return matchesSearch && matchesWeek;
+            });
+
+            if (filteredHistory.length === 0) {
+                document.getElementById('admin-empty-state').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-empty-state').classList.add('hidden');
+                
+                filteredHistory.forEach(record => {
+                    const scoreScaled = ((record.score / record.total) * 10).toFixed(1);
+                    let classBadgeClass = "bg-rose-50 text-rose-700";
+                    if (record.classification.includes("Xuất sắc")) classBadgeClass = "bg-yellow-50 text-yellow-700 border border-yellow-200";
+                    else if (record.classification.includes("Giỏi")) classBadgeClass = "bg-emerald-50 text-emerald-700 border border-emerald-200";
+                    else if (record.classification.includes("Khá")) classBadgeClass = "bg-blue-50 text-blue-700 border border-blue-200";
+                    else if (record.classification.includes("Trung bình")) classBadgeClass = "bg-orange-50 text-orange-700 border border-orange-200";
+
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-4 flex items-center space-x-2">
+                            <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-base">👤</span>
+                            <span class="text-slate-800 font-extrabold">${record.studentName}</span>
+                        </td>
+                        <td class="p-4 text-slate-500 font-bold">Tuần ${record.weekId}</td>
+                        <td class="p-4 text-center text-slate-800 font-black">${record.score} / ${record.total}</td>
+                        <td class="p-4 text-center text-indigo-600 font-black">${scoreScaled}</td>
+                        <td class="p-4 text-center text-slate-500"><span class="bg-slate-100 px-2 py-1 rounded text-xs font-mono">${record.timeSpent}</span></td>
+                        <td class="p-4 text-xs text-slate-400 font-bold">${record.date}</td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${classBadgeClass}">
+                                ${record.classification}
+                            </span>
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="window.deleteSubmission('${record.id}')" class="text-rose-500 hover:text-rose-700 p-1 rounded hover:bg-rose-50 transition-all flex items-center justify-center mx-auto" title="Xóa bản ghi này">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-rose-500"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </button>
+                        </td>
+                    `;
+                    tableRows.appendChild(tr);
+                });
+            }
+        }
+
+        // CLOUD ACTION: DELETE SUBMISSION
+        async function deleteSubmission(id) {
+            try {
+                if (user) {
+                    const targetDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'submissions', id);
+                    await deleteDoc(targetDocRef);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        // CLOUD ACTION: CLEAR ALL SUBMISSIONS
+        async function clearAllSubmissions() {
+            try {
+                if (user) {
+                    const snapshot = await getDocs(submissionsRef);
+                    snapshot.forEach(async (docSnap) => {
+                        await deleteDoc(docSnap.ref);
+                    });
+                    showCustomAlert("🧹 Đã Dọn Sạch!", "Đã xóa toàn bộ lịch sử nộp bài thành công trên Cloud Firestore.");
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        // CLOUD ACTION: INJECT DEMO RECORDS
+        async function injectDemoSubmissions() {
+            const demoRecords = [
+                { studentName: "ECO001", weekId: 1, score: 5, total: 5, timeSpent: "03:14", date: "2026-06-20 09:12", classification: "Xuất sắc 👑", timestamp: Date.now() - 50000 },
+                { studentName: "ECO001", weekId: 2, score: 4, total: 5, timeSpent: "05:42", date: "2026-06-20 09:30", classification: "Giỏi 🥇", timestamp: Date.now() - 40000 },
+                { studentName: "Nguyễn Minh Khang", weekId: 1, score: 3, total: 5, timeSpent: "06:12", date: "2026-06-19 14:15", classification: "Khá 🥈", timestamp: Date.now() - 30000 },
+                { studentName: "ECO002", weekId: 1, score: 4, total: 5, timeSpent: "04:55", date: "2026-06-19 16:42", classification: "Giỏi 🥇", timestamp: Date.now() - 20000 },
+                { studentName: "Trần Mai Chi", weekId: 3, score: 5, total: 5, timeSpent: "02:40", date: "2026-06-20 11:05", classification: "Xuất sắc 👑", timestamp: Date.now() - 10000 }
+            ];
+
+            try {
+                if (user) {
+                    for (let record of demoRecords) {
+                        await addDoc(submissionsRef, record);
+                    }
+                    triggerConfetti();
+                    showCustomAlert("📊 Đã Tạo Dữ Liệu!", "Hệ thống đã nạp thành công 5 bản ghi thử nghiệm lên Cloud Firestore.");
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        function triggerConfetti() {
+            try {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            } catch (e) {
+                console.log("Confetti omitted.");
+            }
+        }
+
+        function showCustomAlert(title, message, btnText = "Đã hiểu!") {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            document.getElementById('alert-btn').innerText = btnText;
+
+            const emojiEl = document.getElementById('alert-emoji');
+            if (title.includes("Tuyệt") || title.includes("chính xác") || title.includes("Hoàn") || title.includes("Leo") || title.includes("Tạo") || title.includes("Cập Nhật")) {
+                emojiEl.innerText = "🎉";
+            } else if (title.includes("Tiếc") || title.includes("Chưa") || title.includes("Sai") || title.includes("Khóa")) {
+                emojiEl.innerText = "💪";
+            } else if (title.includes("Còn") || title.includes("trống")) {
+                emojiEl.innerText = "📝";
+            } else if (title.includes("Dọn")) {
+                emojiEl.innerText = "🧹";
+            } else {
+                emojiEl.innerText = "💡";
+            }
+
+            const alertModal = document.getElementById('custom-alert-modal');
+            alertModal.classList.remove('hidden');
+            alertModal.classList.add('flex');
+        }
+
+        function closeCustomAlert() {
+            const alertModal = document.getElementById('custom-alert-modal');
+            alertModal.classList.add('hidden');
+            alertModal.classList.remove('flex');
+        }
+
+        // BẮT BUỘC BIND TẤT CẢ PHƯƠNG THỨC RA NGOÀI WINDOW ĐỂ LIÊN KẾT HTML INLINE CLICK ĐƯỢC CHUẨN XÁC
+        window.changeView = changeView;
+        window.selectCompanion = selectCompanion;
+        window.startApp = startApp;
+        window.startStudyMode = startStudyMode;
+        window.startTestMode = startTestMode;
+        window.navigateStudyQuestion = navigateStudyQuestion;
+        window.checkStudyAnswer = checkStudyAnswer;
+        window.navigateTestQuestion = navigateTestQuestion;
+        window.confirmSubmitTest = confirmSubmitTest;
+        window.startAdvancedMode = startAdvancedMode;
+        window.checkAdvancedAnswer = checkAdvancedAnswer;
+        window.openAdminLoginModal = openAdminLoginModal;
+        window.closeAdminLoginModal = closeAdminLoginModal;
+        window.submitAdminPassword = submitAdminPassword;
+        window.logoutAdmin = logoutAdmin;
+        window.updateMaxPlayableWeek = updateMaxPlayableWeek;
+        window.unlockAllWeeks = unlockAllWeeks;
+        window.resetWeeksLock = resetWeeksLock;
+        window.filterAdminHistory = filterAdminHistory;
+        window.injectDemoSubmissions = injectDemoSubmissions;
+        window.clearAllSubmissions = clearAllSubmissions;
+        window.deleteSubmission = deleteSubmission;
+        window.closeCustomAlert = closeCustomAlert;
+        window.speakText = speakText;
+        window.speakMascotSpeech = speakMascotSpeech;
+
+        // KHỞI ĐỘNG XÁC THỰC KHI LOAD TRANG
+        initAuth();
+    </script>
+</body>
+</html>
